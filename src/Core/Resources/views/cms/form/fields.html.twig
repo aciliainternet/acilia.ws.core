@@ -506,16 +506,39 @@
 {%- endblock ws_attributes -%}
 
 {%- block ws_asset_file_widget -%}
-    {# show file input field #}
-    {{ form_widget(form.children.asset) }}
-    {{ form_errors(form.children.asset) }}
-
-    {# input to indicate if we are gonna to delete the asset image #}
-    {{ form_widget(form.children.asset_remove) }}
-
-    {#
-    AssetFileData: {{ dump(form.children.asset_file.vars.data) }}
-    #}
+    <div class="c-asset-upload" data-id="{{ id }}">
+        {# input to indicate if we are gonna to delete the asset image #}
+        {{ form_widget(form.children.asset_remove) }}
+        <div class="c-asset-upload__wrapper">
+            {% if form.children.asset_file.vars.data != null %}
+                <a href="#" class="c-asset-upload__asset" data-id="{{ id }}_link">
+                    {{ form.children.asset_file.vars.data.filename }}
+                </a>
+            {% endif %}
+            <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}" data-id-asset-component="{{ id }}">
+                {# show file input field #}
+                {{ form_widget(form.children.asset) }}
+                {{ form_errors(form.children.asset) }}
+            </div>
+            {% if form.children.asset_file.vars.data != null %}
+                <div class="c-btn-upload-image-container">
+                    <button
+                        class="c-btn c-btn--secondary c-btn--upload-image js-delete-asset"
+                        type="button"
+                        data-id-asset-component="{{ id }}">
+                        {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
+                    </button>
+                    <button
+                        class="c-btn c-btn--secondary js-delete-asset"
+                        type="button"
+                        data-id-asset-component="{{ id }}">
+                        <i class="fal fa-trash-alt"></i>
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+   
 {%- endblock ws_asset_file_widget -%}
 
 {%- block ws_asset_image_widget -%}
