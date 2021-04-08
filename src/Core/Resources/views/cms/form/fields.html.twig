@@ -509,11 +509,12 @@
     <div class="c-asset-upload" data-id="{{ id }}">
         {# input to indicate if we are gonna to delete the asset image #}
         {{ form_widget(form.children.asset_remove) }}
+
         <div class="c-asset-upload__wrapper">
             {% if form.children.asset_file.vars.data != null %}
-                <a href="#" class="c-asset-upload__asset" data-id="{{ id }}_link">
+                <span class="c-asset-upload__asset" data-id="{{ id }}_link">
                     {{ form.children.asset_file.vars.data.filename }}
-                </a>
+                </span>
             {% endif %}
             <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}" data-id-asset-component="{{ id }}">
                 {# show file input field #}
