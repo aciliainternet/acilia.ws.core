@@ -12,7 +12,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use WS\Core\Entity\AssetFile;
-use WS\Core\Service\StorageService;
 
 class AssetFileType extends AbstractType
 {
@@ -24,6 +23,7 @@ class AssetFileType extends AbstractType
 
         $builder
             ->add('asset', FileType::class, [
+                'label' => false,
                 'constraints' => $options['ws']['constraints'] ?? null,
                 'mapped' => $options['mapped'] ?? false,
                 'required' => $options['required'] ?? false,
