@@ -37,7 +37,7 @@ class AssetImageService implements FactoryCollectorInterface
     }
 
     /**
-     * @param string|null $filter
+     * @param string|null $search
      * @param int $page
      * @param int $limit
      * @param string $sort
@@ -46,7 +46,7 @@ class AssetImageService implements FactoryCollectorInterface
      * @return array
      * @throws \Exception
      */
-    public function getAll(?string $filter, int $page, int $limit, string $sort = '', string $dir = ''): array
+    public function getAll(?string $search, int $page, int $limit, string $sort = '', string $dir = ''): array
     {
         $offset = ($page - 1) * $limit;
 
@@ -60,7 +60,7 @@ class AssetImageService implements FactoryCollectorInterface
         }
 
         try {
-            return $this->repository->getAll($this->contextService->getDomain(), $filter, $orderBy, $limit, $offset);
+            return $this->repository->getAll($this->contextService->getDomain(), $search, [], $orderBy, $limit, $offset);
         } catch (\Exception $e) {
             $this->logger->error(sprintf('Error fetching image assets. Error %s', $e->getMessage()));
         }
