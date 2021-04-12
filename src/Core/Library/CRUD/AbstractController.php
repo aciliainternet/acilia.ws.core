@@ -21,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseControll
 
 abstract class AbstractController extends BaseController
 {
+    const EVENT_INDEX_FETCH_DATA = 'index.fetch_data';
     const EVENT_INDEX_EXTRA_DATA = 'index.extra_data';
     const EVENT_CREATE_NEW_ENTITY = 'create.new_entity';
     const EVENT_CREATE_CREATE_FORM = 'create.create_form';
@@ -272,7 +273,11 @@ abstract class AbstractController extends BaseController
         }
 
         // Retrieve data
-        $data = $this->getService()->getAll($search, $filterExtendedData, $page, $limit, (string)$request->get('sort'), (string)$request->get('dir'));
+        if (isset($this->events[self::EVENT_INDEX_FETCH_DATA])) {
+            $data = $this->events[self::EVENT_INDEX_FETCH_DATA]();
+        } else {
+            $data = $this->getService()->getAll($search, $filterExtendedData, $page, $limit, (string)$request->get('sort'), (string)$request->get('dir'));
+        }
 
         // Calculate pagination
         $paginationData = [
