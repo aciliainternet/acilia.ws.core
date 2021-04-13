@@ -28,6 +28,7 @@ abstract class AbstractController extends BaseController
     const EVENT_CREATE_EXTRA_DATA = 'create.extra_data';
     const EVENT_EDIT_CREATE_FORM = 'edit.create_form';
     const EVENT_EDIT_EXTRA_DATA = 'edit.extra_data';
+    const EVENT_EXPORT_FETCH_DATA = 'export.fetch.data';
     const EVENT_IMAGE_HANDLE = 'image_handle';
     const EVENT_FILE_HANDLE = 'file_handle';
 
@@ -570,7 +571,7 @@ abstract class AbstractController extends BaseController
             throw new NotFoundHttpException();
         }
 
-        // Serach simple
+        // Search simple
         $search = (string) $request->get('f');
 
         // Filter extended
@@ -584,9 +585,14 @@ abstract class AbstractController extends BaseController
             }
         }
 
-        $format = (string) strtolower($request->get('format', CsvExportProvider::EXPORT_FORMAT));
+        // Retrieve data
+        if (isset($this->events[self::EVENT_EXPORT_FETCH_DATA])) {
+            $data = $this->events[self::EVENT_EXPORT_FETCH_DATA]();
+        } else {
+            $data = $this->getService()->getDataExport($search, $filterExtendedData, (string)$request->get('sort'), (string)$request->get('dir'));
+        }
 
-        $data = $this->getService()->getDataExport($search, $filterExtendedData, (string)$request->get('sort'), (string)$request->get('dir'));
+        $format = (string) strtolower($request->get('format', CsvExportProvider::EXPORT_FORMAT));
 
         $content = $this->dataExportService->export($data, $format);
         $headers = $this->dataExportService->headers($format);
