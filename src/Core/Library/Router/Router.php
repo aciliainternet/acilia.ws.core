@@ -2,6 +2,7 @@
 
 namespace WS\Core\Library\Router;
 
+use Symfony\Component\Routing\Generator\UrlGenerator;
 use WS\Core\Service\NavigationService;
 use WS\Core\Library\Router\Loader\Loader;
 use Symfony\Bundle\FrameworkBundle\Routing\Router as BaseRouter;
@@ -55,6 +56,15 @@ class Router extends BaseRouter
             // Try with the providers
             if ($this->navigationService) {
                 if ($this->navigationService->hasRoute($name)) {
+
+                    if (UrlGenerator::ABSOLUTE_URL === $referenceType || UrlGenerator::NETWORK_PATH === $referenceType) {
+                        return sprintf('%s://%s%s',
+                            $generator->getContext()->getScheme(),
+                            $generator->getContext()->getHost(),
+                            $this->navigationService->generateRoute($name, $parameters)
+                        );
+                    }
+
                     return $this->navigationService->generateRoute($name, $parameters);
                 }
             }
@@ -67,6 +77,13 @@ class Router extends BaseRouter
         } catch (RouteNotFoundException $e) {
             // Try with the providers
             if ($this->navigationService->hasRoute($wsName)) {
+                if (UrlGenerator::ABSOLUTE_URL === $referenceType || UrlGenerator::NETWORK_PATH === $referenceType) {
+                    return sprintf('%s://%s%s',
+                        $generator->getContext()->getScheme(),
+                        $generator->getContext()->getHost(),
+                        $this->navigationService->generateRoute($wsName, $parameters)
+                    );
+                }
                 return $this->navigationService->generateRoute($wsName, $parameters);
             }
         }
