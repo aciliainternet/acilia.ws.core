@@ -14,7 +14,7 @@
                         </span>
                         {{ source('@WSCore/cms/icons/arrow.svg') }}
                     </a>
-                    <ul class="c-sidebar__submenu collapse">
+                    <ul class="c-sidebar__submenu {{ ws_cms_in_route(menu.collapsedRoutes) == 'active' ? '' : 'collapse' }}">
                         {% for submenu in menu.children %}
                             {% if ws_cms_sidebar_is_granted(submenu.roles) %}
                                 <li>

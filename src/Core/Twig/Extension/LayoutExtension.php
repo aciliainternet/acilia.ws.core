@@ -14,16 +14,16 @@ use Twig\TwigFunction;
 
 class LayoutExtension extends AbstractExtension
 {
-    private $requestStack;
-    private $sidebarService;
-    private $navbarService;
-    private $securityChecker;
+    private RequestStack $requestStack;
+    private SidebarService $sidebarService;
+    private NavbarService $navbarService;
+    private ?AuthorizationCheckerInterface $securityChecker;
 
     public function __construct(
         RequestStack $requestStack,
         SidebarService $sidebarService,
         NavbarService $navbarService,
-        AuthorizationCheckerInterface $securityChecker = null
+        ?AuthorizationCheckerInterface $securityChecker = null
     ) {
         $this->requestStack = $requestStack;
         $this->sidebarService = $sidebarService;
@@ -31,7 +31,7 @@ class LayoutExtension extends AbstractExtension
         $this->securityChecker = $securityChecker;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('ws_cms_sidebar_get', [$this, 'getSidebar']),
@@ -65,12 +65,12 @@ class LayoutExtension extends AbstractExtension
         }
     }
 
-    public function sidebarHasAsset($key): bool
+    public function sidebarHasAsset(string $key): bool
     {
         return $this->sidebarService->assets->has($key);
     }
 
-    public function sidebarGetAsset($key)
+    public function sidebarGetAsset(string $key): ?string
     {
         return $this->sidebarService->assets->get($key);
     }
@@ -80,11 +80,12 @@ class LayoutExtension extends AbstractExtension
         return $this->navbarService->getNavbar();
     }
 
-    public function checkIfInRoute($routePrefix, $class = 'active', $condition = null, $routeParameters = [])
-    {
-        if (! is_array($routePrefix)) {
-            $routePrefix = [$routePrefix];
-        }
+    public function checkIfInRoute(
+        array $routePrefix,
+        string $class = 'active',
+        bool $condition = null,
+        array $routeParameters = []
+    ): string {
 
         if ($this->requestStack->getMasterRequest() instanceof Request) {
             foreach ($routePrefix as $route) {
