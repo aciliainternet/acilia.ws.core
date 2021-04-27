@@ -102,7 +102,12 @@ abstract class AbstractService implements DBLoggerInterface
         } else {
             $orderBy = ['id' => 'DESC'];
             if (!empty($this->getSortFields())) {
-                $orderBy = [$this->getSortFields()[0] => 'DESC'];
+                $sortFields = array_slice($this->getSortFields(), 0, 1);
+                if (key($sortFields) === 0) {
+                    $orderBy = [$this->getSortFields()[0] => 'DESC'];
+                } else {
+                    $orderBy = [key($sortFields) => $sortFields[key($sortFields)]];
+                }
             }
         }
 
