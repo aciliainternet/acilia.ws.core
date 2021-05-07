@@ -12,6 +12,7 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-zlib": "*",
+        "ext-exif": "*",
         "symfony/asset": "^5.2",
         "symfony/console": "^5.2",
         "symfony/expression-language": "^5.2",

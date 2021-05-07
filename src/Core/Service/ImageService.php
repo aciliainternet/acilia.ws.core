@@ -143,6 +143,8 @@ class ImageService
 
     public function handle($entity, $imageField, UploadedFile $imageFile, array $options = null, $entityClass = null) : AssetImage
     {
+        $this->processImageMetadata($imageFile);
+
         $assetImage = $this->assetImageService->createFromUploadedFile($imageFile, $entity, $imageField);
 
         $this->storageService->save(
@@ -165,6 +167,8 @@ class ImageService
 
     public function handleStandalone(UploadedFile $imageFile, array $options = null) : AssetImage
     {
+        $this->processImageMetadata($imageFile);
+
         $assetImage = $this->assetImageService->createFromUploadedFile($imageFile);
 
         $this->storageService->save(
@@ -344,5 +348,21 @@ class ImageService
         $image->interlace(false);
 
         return $image;
+    }
+
+    protected function processImageMetadata(UploadedFile $imageFile): void
+    {
+        $exifMetadata = exif_read_data($imageFile);
+        if (isset($exifMetadata['Orientation'])) {
+            switch($exifMetadata['Orientation']) {
+                case 8:
+                    $this->imageManager->make($imageFile->getPathname())
+                        ->rotate(90)
+                        ->save($imageFile->getPathname());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
