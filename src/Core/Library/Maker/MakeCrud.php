@@ -3,7 +3,7 @@
 namespace WS\Core\Library\Maker;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Validation;
 
 class MakeCrud extends AbstractMaker
 {
-    private $doctrineHelper;
+    private DoctrineHelper $doctrineHelper;
 
     public function __construct(DoctrineHelper $doctrineHelper)
     {
@@ -168,6 +168,7 @@ class MakeCrud extends AbstractMaker
         );
 
         $sortFields = [$listFields[0]];
+        $listFields = [$listFields[0]];
         $generator->generateClass(
             $serviceClassDetails->getFullName(),
             __DIR__.'/../../Resources/maker/crud/Service.tpl.php',
@@ -175,7 +176,10 @@ class MakeCrud extends AbstractMaker
                 'type_full_class_name' => $entityClassDetails->getFullName(),
                 'entity_class_name' => $entityClassDetails->getShortName(),
                 'entity_type_name' => $formClassDetails->getShortName(),
-                'sort_fields' => $sortFields
+                'entity_type_full_class_name' => $formClassDetails->getFullName(),
+                'sort_fields' => $sortFields,
+                'list_fields' => $sortFields,
+                'metadata_fields' => $metadataFields,
             ]
         );
 
@@ -186,9 +190,9 @@ class MakeCrud extends AbstractMaker
             'Controller'
         );
 
-        $entityVarSingular = lcfirst(Inflector::singularize($entityClassDetails->getShortName()));
+        $inflector = InflectorFactory::create()->build();
+        $entityVarSingular = lcfirst($inflector->singularize($entityClassDetails->getShortName()));
 
-        $listFields = [$listFields[0]];
         $generator->generateController(
             $controllerClassDetails->getFullName(),
             __DIR__.'/../../Resources/maker/crud/Controller.tpl.php',
@@ -196,8 +200,7 @@ class MakeCrud extends AbstractMaker
                 'service_class_path' => $serviceClassDetails->getFullName(),
                 'service_class_name' => $serviceClassDetails->getShortName(),
                 'route_path' => Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix()),
-                'route_prefix' => $entityVarSingular,
-                'list_fields' => $listFields
+                'route_prefix' => $entityVarSingular
             ]
         );
 

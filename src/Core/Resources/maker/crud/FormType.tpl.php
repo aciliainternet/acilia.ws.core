@@ -11,7 +11,7 @@ use <?= $className ?>;
 use WS\Site\Library\Metadata\MetadataFormTrait;
 <?php endif ?>
 <?php if ($publishing_fields): ?>
-    use WS\Core\Library\Publishing\PublishingFormTrait;;
+use WS\Core\Library\Publishing\PublishingFormTrait;
 <?php endif ?>
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
