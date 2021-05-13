@@ -178,7 +178,7 @@ class MakeCrud extends AbstractMaker
                 'entity_type_name' => $formClassDetails->getShortName(),
                 'entity_type_full_class_name' => $formClassDetails->getFullName(),
                 'sort_fields' => $sortFields,
-                'list_fields' => $sortFields,
+                'list_fields' => $listFields,
                 'metadata_fields' => $metadataFields,
             ]
         );
@@ -203,6 +203,8 @@ class MakeCrud extends AbstractMaker
                 'route_prefix' => $entityVarSingular
             ]
         );
+
+        dd( Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix()));
 
         $generator->writeChanges();
 
