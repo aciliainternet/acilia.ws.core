@@ -65,7 +65,7 @@ class ArchiveCommand extends Command
 
             // Archive logs
             $output->write('Archiving logs... ');
-            $stmt = $connection->prepare('INSERT INTO ws_log_archive SELECT * FROM log WHERE log_datetime < ?');
+            $stmt = $connection->prepare('INSERT INTO ws_log_archive SELECT * FROM ws_log WHERE log_datetime < ?');
             $stmt->bindValue(1, $now->format('Y-m-d'));
             $stmt->execute();
             $output->writeln('OK');
