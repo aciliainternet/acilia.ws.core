@@ -1,6 +1,6 @@
 <?php
 
-namespace WS\Core\Library\ ActivityLog;
+namespace WS\Core\Library\ActivityLog;
 
 use WS\Core\Service\ActivityLogService;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
