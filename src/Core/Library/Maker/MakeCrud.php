@@ -204,8 +204,6 @@ class MakeCrud extends AbstractMaker
             ]
         );
 
-        dd( Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix()));
-
         $generator->writeChanges();
 
         $this->writeSuccessMessage($io);
