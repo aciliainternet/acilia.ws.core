@@ -1,4 +1,4 @@
-<div class="c-dropdown dropdown" data-toggle="dropdown-profile" data-component="ws_dropdown">
+<div class="c-dropdown dropdown u-ml-30" data-toggle="dropdown-profile" data-component="ws_dropdown">
     <a
         class="c-avatar c-avatar--xsmall has-dropdown dropdown-toggle"
         href="#"
@@ -15,12 +15,10 @@
 
     <div class="c-dropdown__menu dropdown-menu dropdown-menu-right dropdown-profile" aria-labelledby="dropdwonMenuAvatar">
         <a class="c-dropdown__item dropdown-item" href="{{ path('ws_administrator_profile') }}">
-            {{ 'view_profile'|trans({}, 'ws_cms') }}
+            <i class="fal fa-id-card u-mr-10"></i>{{ 'view_profile'|trans({}, 'ws_cms') }}
         </a>
-        {% if ws_activity_log_enabled() and is_granted('ROLE_WS_CORE_ACTIVITY_LOG') %}
-            <a class="c-dropdown__item dropdown-item" href="{{ path('ws_activity_log_index') }}">
-                {{ 'title'|trans({}, 'ws_cms_activity_log') }}
-            </a>
-        {% endif %}
+        <a class="c-dropdown__item dropdown-item" href="{{ app.user ? logout_path() : '' }}">
+            <i class="fal fa-sign-out-alt u-mr-10"></i>{{ 'logout'|trans({}, 'ws_cms') }}
+        </a>
     </div>
 </div>

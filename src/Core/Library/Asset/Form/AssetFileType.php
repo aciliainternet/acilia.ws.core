@@ -66,6 +66,7 @@ class AssetFileType extends AbstractType
         $resolver->setDefaults([
             'compound' => true,
             'mapped' => false,
+            'error_bubbling' => false,
             'ws' => [
                 'entity' => null,
                 'constraints' => [],
