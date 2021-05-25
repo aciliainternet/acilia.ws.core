@@ -4,17 +4,30 @@
     'title': '404',
 } %}
 
-{% set bodyClass = 'gray-bg' %}
+{% set bodyClass = 'o-page--center' %}
 
 {% block body %}
-<div class="middle-box text-center animated fadeInDown">
-    <h1>404</h1>
-    <h3 class="font-bold">{{ 'error_page.404.title'|trans({}, 'ws_cms') }}</h3>
+    <div class="o-page__card">
+        <div class="c-card u-mb-small">
+            <header class="c-card__header u-text-center u-pt-large">
+                <span class="c-card__icon">
+                    <i class="fa fa-unlink"></i>
+                </span>
+                <h1 class="u-text-big u-mb-zero">
+                    404 <em class="u-block u-text-mute u-text-large">{{ 'error_page.404.title'|trans({}, 'ws_cms') }}</em>
+                </h1>
+            </header>
+            <div class="c-card__body">
+                <h2 class="u-h5 u-text-center u-mb-medium">
+                    {{ 'error_page.404.description'|trans({}, 'ws_cms') }}
+                </h2>
+            </div>
+        </div>
 
-    <div class="error-desc">
-        <p>{{ 'error_page.404.description'|trans({}, 'ws_cms') }}</p>
-        <p>&nbsp;</p>
-        <p><a href="{{ path('ws_dashboard') }}" role="button" class="btn btn-primary btn-lg">{{ 'error_page.go_back'|trans({}, 'ws_cms') }}</a></p>
+        <div class="o-line u-justify-center">
+            <a class="u-text-mute" href="{{ path('ws_dashboard') }}">
+                <i class="fa fa-long-arrow-left u-mr-xsmall"></i>{{ 'error_page.go_back'|trans({}, 'ws_cms') }}
+            </a>
+        </div>
     </div>
-</div>
 {% endblock %}
