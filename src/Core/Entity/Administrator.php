@@ -26,6 +26,7 @@ class Administrator implements UserInterface
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
+     *
      * @ORM\Column(name="administrator_id", type="integer", nullable=false)
      */
     private $id;
@@ -33,6 +34,7 @@ class Administrator implements UserInterface
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=128)
+     *
      * @ORM\Column(name="administrator_name", type="string", length=128, nullable=false)
      */
     private $name;
@@ -43,6 +45,8 @@ class Administrator implements UserInterface
     protected $salt;
 
     /**
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="administrator_password", type="string", length=128, nullable=false)
      */
     private $password;
@@ -51,14 +55,17 @@ class Administrator implements UserInterface
      * @Assert\NotBlank()
      * @Assert\Length(max=127)
      * @Assert\Email()
+     *
      * @ORM\Column(name="administrator_email", type="string", length=127, unique=true, nullable=false)
      */
     private $email;
 
     /**
-     * @ORM\Column(name="administrator_active", type="boolean")
+     * @Assert\NotBlank()
+     *
+     * @ORM\Column(name="administrator_active", type="boolean", nullable=false)
      */
-    private $active;
+    private $active = false;
 
     /**
     * @ORM\Column(name="administrator_profile", type="string", length=32, nullable=false)
@@ -68,6 +75,7 @@ class Administrator implements UserInterface
     /**
      * @Assert\Type(type="\DateTime")
      * @Gedmo\Timestampable(on="create")
+     *
      * @ORM\Column(name="administrator_created_at", type="datetime", nullable=false)
      */
     private $createdAt;
@@ -75,6 +83,7 @@ class Administrator implements UserInterface
     /**
      * @Assert\Type(type="\DateTime")
      * @Gedmo\Timestampable(on="update")
+     *
      * @ORM\Column(name="administrator_modified_at", type="datetime", nullable=false)
      */
     private $modifiedAt;
@@ -82,6 +91,7 @@ class Administrator implements UserInterface
     /**
      * @Assert\Length(max=128)
      * @Gedmo\Blameable(on="create")
+     * 
      * @ORM\Column(name="administrator_created_by", type="string", length=128, nullable=true)
      */
     private $createdBy;
