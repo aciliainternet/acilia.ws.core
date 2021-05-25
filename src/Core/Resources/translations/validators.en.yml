@@ -4,9 +4,6 @@ ws.cms.image.invalid_type: Only JPG, PNG and GIF images are allowed
 ws.cms.author.name.not_blank: The author "Name" cannot be empty
 
 ws.cms.profile.form.second.new_password.error: Passwords must match
-ws.cms.profile.form.password.missmatch.error: Current password invalid
-ws.cms.profile.form.password.lenght.error: New password must be at least 8 characters
-
 ws.administrator.email_already_exists: An administrator with the same email already exists
 
 form.repeat_password.invalid: Passwords don't match

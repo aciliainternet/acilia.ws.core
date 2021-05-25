@@ -12,19 +12,21 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Entity\Administrator;
 
 class AdministratorProfileType extends AbstractType
 {
     protected $encoder;
+    protected $translator;
 
     /**
      * AdministratorProfileType constructor.
-     *
      */
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordEncoderInterface $encoder, TranslatorInterface $translator)
     {
         $this->encoder = $encoder;
+        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -38,11 +40,12 @@ class AdministratorProfileType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'profile.form.password.label',
-                'required' => false,
+                'required' => true,
                 'mapped' => false,
                 'attr' => [
                     'placeholder' => 'profile.form.password.placeholder',
                 ],
+                'empty_data' => ''
             ])
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -75,12 +78,16 @@ class AdministratorProfileType extends AbstractType
                 $newPassword = $event->getForm()->get('newPassword')->getData();
                 if (!empty($newPassword)) {
                     if (!$this->encoder->isPasswordValid($administrator, $currentPassword)) {
-                        $event->getForm()->addError(new FormError('ws.cms.profile.form.password.missmatch.error'));
+                        $event->getForm()->addError(new FormError(
+                            $this->translator->trans('profile.form.password.missmatch.error', [], 'ws_cms_administrator')
+                        ));
                         return;
                     }
 
                     if (strlen($newPassword) < 8) {
-                        $event->getForm()->addError(new FormError('ws.cms.profile.form.password.length.error'));
+                        $event->getForm()->addError(new FormError(
+                            $this->translator->trans('profile.form.password.length.error', [], 'ws_cms_administrator')
+                        ));
                         return;
                     }
 

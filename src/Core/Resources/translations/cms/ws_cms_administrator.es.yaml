@@ -36,6 +36,8 @@ profile.form.first.new_password.placeholder: Ingrese la nueva contraseña
 profile.form.second.new_password.label: Repita la contraseña
 profile.form.second.new_password.placeholder: Repita la nueva contraseña
 profile.form.button.change_password: Cambiar contraseña
+profile.form.password.missmatch.error: La contraseña insertada no coincide con su contraseña actual
+profile.form.password.lenght.error: La contraseña debe ser mayor a 8 caracteres
 
 status.active: Activo
 status.inactive: Inactivo

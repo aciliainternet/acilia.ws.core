@@ -37,6 +37,8 @@ profile.form.first.new_password.placeholder: Enter the new password
 profile.form.second.new_password.label: Repeat password
 profile.form.second.new_password.placeholder: Repeat the new password
 profile.form.button.change_password: Change password
+profile.form.password.missmatch.error: Current password invalid
+profile.form.password.lenght.error: New password must be at least 8 characters
 
 status.active: Active
 status.inactive: Inactive
