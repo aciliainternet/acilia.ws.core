@@ -3,7 +3,6 @@
 namespace WS\Core\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -14,6 +13,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use WS\Core\Entity\Administrator;
 use WS\Core\Library\Form\ToggleChoiceType;
 use WS\Core\Service\Entity\AdministratorService;
@@ -57,6 +58,10 @@ class AdministratorType extends AbstractType
                 'first_options' => ['label' => 'form.password.label'],
                 'second_options' => ['label' => 'form.repeat_password.label'],
                 'mapped' => false,
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 8]),
+                ]
             ])
             ->add('profile', ChoiceType::class, [
                 'choice_translation_domain' => 'cms',

@@ -45,8 +45,6 @@ class Administrator implements UserInterface
     protected $salt;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @ORM\Column(name="administrator_password", type="string", length=128, nullable=false)
      */
     private $password;
@@ -61,8 +59,6 @@ class Administrator implements UserInterface
     private $email;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @ORM\Column(name="administrator_active", type="boolean", nullable=false)
      */
     private $active = false;
@@ -91,7 +87,7 @@ class Administrator implements UserInterface
     /**
      * @Assert\Length(max=128)
      * @Gedmo\Blameable(on="create")
-     * 
+     *
      * @ORM\Column(name="administrator_created_by", type="string", length=128, nullable=true)
      */
     private $createdBy;
