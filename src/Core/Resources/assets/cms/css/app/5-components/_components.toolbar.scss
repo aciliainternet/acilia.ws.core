@@ -13,4 +13,10 @@
         border: 1px solid $grey-300;
         border-bottom: 0;
     }
+
+    .choices__inner,
+    .c-input {
+        max-height: rem(39);
+        padding: $btn-padding;
+    }
 }

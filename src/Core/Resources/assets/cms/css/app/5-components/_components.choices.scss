@@ -46,8 +46,8 @@
     &[data-type="select-multiple"] {
         &.is-open {
             #{$self}__inner {
-                display: inline-block;
-                vertical-align: top;
+                // display: inline-block;
+                // vertical-align: top;
 
                 #{$self}__list--multiple {
                     display: inline;
@@ -144,4 +144,9 @@
         font-family: 'Font Awesome 5 Pro';
         content: "\f00c";
     }
+}
+
+.choices__input.choices__input--cloned {
+    margin: 0;
+    padding: 0;
 }
