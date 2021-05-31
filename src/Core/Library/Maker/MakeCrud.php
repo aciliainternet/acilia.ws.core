@@ -80,6 +80,7 @@ class MakeCrud extends AbstractMaker
         $fieldTypeUseStatements = [];
         $formFields = [];
         $listFields = [];
+        $entityListFields = [];
 
         $metadataFields = false;
         $publishingFields = false;
@@ -111,6 +112,7 @@ class MakeCrud extends AbstractMaker
             $formFields[$name] = $fieldTypeOptions;
             if (null === $fieldTypeOptions['type'] && !$fieldTypeOptions['options_code']) {
                 $listFields[] = $name;
+                $entityListFields[] = $name;
             }
         }
 
@@ -204,10 +206,53 @@ class MakeCrud extends AbstractMaker
             ]
         );
 
+        $entityListFields = array_map([$this, 'camelCaseToSnakeCase'], $entityListFields);
+
+        $generator->generateFile(
+            sprintf('%s/translations/cms/cms_%s.en.yaml', $generator->getRootDirectory(), $entityVarSingular),
+            __DIR__.'/../../Resources/maker/crud/translations.en.tpl.php',
+            [
+                'entityName' => $entityClassDetails->getShortName(),
+                'entityNamePlural' => $inflector->pluralize($entityClassDetails->getShortName()),
+                'entityFields' => $entityListFields
+            ]
+        );
+
+        $generator->generateFile(
+            sprintf('%s/translations/cms/cms_%s.es.yaml', $generator->getRootDirectory(), $entityVarSingular),
+            __DIR__.'/../../Resources/maker/crud/translations.es.tpl.php',
+            [
+                'entityName' => $entityClassDetails->getShortName(),
+                'entityNamePlural' => $inflector->pluralize($entityClassDetails->getShortName()),
+                'entityFields' => $entityListFields
+            ]
+        );
+
         $generator->writeChanges();
 
         $this->writeSuccessMessage($io);
 
-        $io->text(sprintf('Next: Check your new CRUD by going to <fg=yellow>%s/</>', Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())));
+        $entitySnakeCaseName = strtoupper($this->camelCaseToSnakeCase($entityClassDetails->getShortName()));
+
+        $io->text([
+            sprintf('Next: Check your new CRUD by going to <fg=yellow>%s/</>', Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())),
+            sprintf('Remember to add ROLE_%s_APP roles to %s/config/packages/security.yaml', $entitySnakeCaseName, $generator->getRootDirectory())
+        ]);
+    }
+
+    private function camelCaseToSnakeCase(string $camelCase): string
+    {
+        return strtolower(
+            preg_replace(
+                [
+                    '#([A-Z][a-z]*)(\d+[A-Z][a-z]*\d+)#',
+                    '#([A-Z]+\d*)([A-Z])#',
+                    '#([a-z]+\d*)([A-Z])#',
+                    '#([^_\d])([A-Z][a-z])#'
+                ],
+                '$1_$2',
+                $camelCase
+            )
+        );
     }
 }
