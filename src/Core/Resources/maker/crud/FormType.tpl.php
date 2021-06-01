@@ -40,12 +40,13 @@ class <?= $class_name ?> extends AbstractType
             ->add('<?= $form_field ?>', <?= $typeOptions['type'] ?>::class,[
                 'label' => '<?= "form.$form_field.label" ?>',
                 'attr' => [
+                    'id' => '<?= $form_field ?>',
                     'placeholder' => '<?= "form.$form_field.placeholder" ?>',
                 ],<?php if ($typeOptions['type'] === 'AssetImageType'): ?><?= "\n\t\t\t\t" ?>'ws' => [
                     'entity' => $builder->getData(),
                     'display-mode' => AssetImageType::ASSET_IMAGE_DISPLAY_MODE_LIST,
                 ],
-                <?php endif; ?><?= "\n\t\t\t" ?>])
+                <?php endif; ?><?= "\r\t\t\t" ?>])
 <?php else: ?>
             ->add('<?= $form_field ?>', <?= $typeOptions['type'] ? ($typeOptions['type'].'::class') : 'null' ?>, [
 <?= $typeOptions['options_code'].",\n" ?>

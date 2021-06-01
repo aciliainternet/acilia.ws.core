@@ -82,7 +82,7 @@ class MakeCrud extends AbstractMaker
         $fieldTypeUseStatements = [];
         $formFields = [];
         $listFields = [];
-        $entityListFields = [];
+        $entityFields = [];
         $associationFields = [];
 
         $metadataFields = false;
@@ -225,14 +225,14 @@ class MakeCrud extends AbstractMaker
             ]
         );
 
-        $entityListFields = $listFields;
+        $entityFields = array_keys($formFields);
         $generator->generateFile(
             sprintf('%s/translations/cms/cms_%s.en.yaml', $generator->getRootDirectory(), $entityVarSingular),
             __DIR__ . '/../../Resources/maker/crud/translations.en.tpl.php',
             [
                 'entity_name' => $entityClassDetails->getShortName(),
                 'entity_name_plural' => $inflector->pluralize($entityClassDetails->getShortName()),
-                'entity_fields' => $entityListFields
+                'entity_fields' => $entityFields
             ]
         );
 
@@ -242,7 +242,7 @@ class MakeCrud extends AbstractMaker
             [
                 'entity_name' => $entityClassDetails->getShortName(),
                 'entity_name_plural' => $inflector->pluralize($entityClassDetails->getShortName()),
-                'entity_fields' => $entityListFields
+                'entity_fields' => $entityFields
             ]
         );
 
