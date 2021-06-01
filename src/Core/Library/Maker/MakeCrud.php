@@ -122,7 +122,7 @@ class MakeCrud extends AbstractMaker
             'Repository'
         );
 
-        $filterFields = [$listFields[0]];
+        $filterFields = $listFields;
         $generator->generateClass(
             $repositoryClassDetails->getFullName(),
             __DIR__.'/../../Resources/maker/crud/Repository.tpl.php',
