@@ -2,7 +2,7 @@
 menu: <?= $entity_name_plural."\n" ?>
 title: <?= $entity_name_plural."\n" ?>
 <?php foreach ($entity_fields as $field) :?>
-fields.<?= $field ?>.label: <?= $field."\n" ?>
+fields.<?= $field ?>.label: <?= ucwords($field)."\n" ?>
 fields.<?= $field ?>.placeholder: <?= ucwords($field) ?> placeholder
 <?php endforeach; ?>
 <?php foreach ($entity_fields as $field) :?>
