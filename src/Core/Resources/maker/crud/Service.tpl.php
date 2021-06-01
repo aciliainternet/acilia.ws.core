@@ -34,7 +34,7 @@ class <?= $class_name ?> extends AbstractService<?php if ($metadata_fields): ?> 
     public function getListFields(): array
     {
         return [
-            ['name' => '<?php echo $list_fields[0] ?>'],
+            <?php array_walk($list_fields, function(&$x) {$x = "['name' => '$x'";}); echo implode("],\n\t\t\t", $list_fields) ?>],
         ];
     }
 }

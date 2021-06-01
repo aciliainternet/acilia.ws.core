@@ -112,7 +112,6 @@ class MakeCrud extends AbstractMaker
             $formFields[$name] = $fieldTypeOptions;
             if (null === $fieldTypeOptions['type'] && !$fieldTypeOptions['options_code']) {
                 $listFields[] = $name;
-                $entityListFields[] = $name;
             }
         }
 
@@ -169,8 +168,7 @@ class MakeCrud extends AbstractMaker
             'Service'
         );
 
-        $sortFields = [$listFields[0]];
-        $listFields = [$listFields[0]];
+        $sortFields = $listFields;
         $generator->generateClass(
             $serviceClassDetails->getFullName(),
             __DIR__.'/../../Resources/maker/crud/Service.tpl.php',
@@ -206,6 +204,7 @@ class MakeCrud extends AbstractMaker
             ]
         );
 
+        $entityListFields = $listFields;
         $generator->generateFile(
             sprintf('%s/translations/cms/cms_%s.en.yaml', $generator->getRootDirectory(), $entityVarSingular),
             __DIR__.'/../../Resources/maker/crud/translations.en.tpl.php',
@@ -234,7 +233,14 @@ class MakeCrud extends AbstractMaker
 
         $io->text([
             sprintf('Next: Check your new CRUD by going to <fg=yellow>%s/</>', Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())),
-            sprintf('Remember to add ROLE_%s_APP roles to %s/config/packages/security.yaml', $entitySnakeCaseName, $generator->getRootDirectory())
+            sprintf('Remember to add ROLE_%s_APP roles to <fg=yellow>%s/config/packages/security.yaml</>', $entitySnakeCaseName, $generator->getRootDirectory())
+        ]);
+
+        $io->listing([
+            sprintf('ROLE_APP_%s_VIEW', $entitySnakeCaseName),
+            sprintf('ROLE_APP_%s_CREATE', $entitySnakeCaseName),
+            sprintf('ROLE_APP_%s_EDIT', $entitySnakeCaseName),
+            sprintf('ROLE_APP_%s_DELETE', $entitySnakeCaseName),
         ]);
     }
 
