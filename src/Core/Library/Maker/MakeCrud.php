@@ -81,11 +81,19 @@ class MakeCrud extends AbstractMaker
         $formFields = [];
         $listFields = [];
         $entityListFields = [];
+        $associationFields = [];
 
         $metadataFields = false;
         $publishingFields = false;
 
         $entityFormFields = $entityDoctrineDetails->getFormFields();
+
+        $associationFieldNames = $this->doctrineHelper->getMetadata($entityClassDetails->getFullName())->getAssociationNames();
+
+        foreach ($associationFieldNames as $associationFieldName) {
+            $associationFields[$associationFieldName] = $this->doctrineHelper->getMetadata($entityClassDetails->getFullName())->getAssociationTargetClass($associationFieldName);
+        }
+
         foreach ($entityFormFields as $name => $fieldTypeOptions) {
 
             // remove internal fields
@@ -103,6 +111,17 @@ class MakeCrud extends AbstractMaker
             }
 
             $fieldTypeOptions = $fieldTypeOptions ?? ['type' => null, 'options_code' => null];
+
+            if (in_array($name, $associationFieldNames)) {
+                switch ($associationFields[$name]) {
+                    case 'WS\Core\Entity\AssetImage':
+                        $fieldTypeOptions['type'] = 'WS\Core\Library\Asset\Form\AssetImageType';
+                        break;
+                    default:
+                        $fieldTypeOptions['type'] = null;
+                        break;
+                }
+            }
 
             if (isset($fieldTypeOptions['type'])) {
                 $fieldTypeUseStatements[] = $fieldTypeOptions['type'];
