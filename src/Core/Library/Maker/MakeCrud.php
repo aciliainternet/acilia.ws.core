@@ -206,15 +206,13 @@ class MakeCrud extends AbstractMaker
             ]
         );
 
-        $entityListFields = array_map([$this, 'camelCaseToSnakeCase'], $entityListFields);
-
         $generator->generateFile(
             sprintf('%s/translations/cms/cms_%s.en.yaml', $generator->getRootDirectory(), $entityVarSingular),
             __DIR__.'/../../Resources/maker/crud/translations.en.tpl.php',
             [
-                'entityName' => $entityClassDetails->getShortName(),
-                'entityNamePlural' => $inflector->pluralize($entityClassDetails->getShortName()),
-                'entityFields' => $entityListFields
+                'entity_name' => $entityClassDetails->getShortName(),
+                'entity_name_plural' => $inflector->pluralize($entityClassDetails->getShortName()),
+                'entity_fields' => $entityListFields
             ]
         );
 
@@ -222,9 +220,9 @@ class MakeCrud extends AbstractMaker
             sprintf('%s/translations/cms/cms_%s.es.yaml', $generator->getRootDirectory(), $entityVarSingular),
             __DIR__.'/../../Resources/maker/crud/translations.es.tpl.php',
             [
-                'entityName' => $entityClassDetails->getShortName(),
-                'entityNamePlural' => $inflector->pluralize($entityClassDetails->getShortName()),
-                'entityFields' => $entityListFields
+                'entity_name' => $entityClassDetails->getShortName(),
+                'entity_name_plural' => $inflector->pluralize($entityClassDetails->getShortName()),
+                'entity_fields' => $entityListFields
             ]
         );
 

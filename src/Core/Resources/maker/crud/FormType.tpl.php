@@ -30,12 +30,26 @@ class <?= $class_name ?> extends AbstractType
         $builder
 <?php foreach ($form_fields as $form_field => $typeOptions): ?>
 <?php if (null === $typeOptions['type'] && !$typeOptions['options_code']): ?>
-            ->add('<?= $form_field ?>')
+            ->add('<?= $form_field ?>', null, [
+                'label' => '<?= "form.$form_field.label" ?>',
+                'attr' => [
+                    'placeholder' => '<?= "form.$form_field.placeholder" ?>',
+                ],
+            ])
 <?php elseif (null !== $typeOptions['type'] && !$typeOptions['options_code']): ?>
-            ->add('<?= $form_field ?>', <?= $typeOptions['type'] ?>::class)
+            ->add('<?= $form_field ?>', <?= $typeOptions['type'] ?>::class,[
+                'label' => '<?= "form.$form_field.label" ?>',
+                'attr' => [
+                    'placeholder' => '<?= "form.$form_field.placeholder" ?>',
+                ],
+            ])
 <?php else: ?>
             ->add('<?= $form_field ?>', <?= $typeOptions['type'] ? ($typeOptions['type'].'::class') : 'null' ?>, [
-<?= $typeOptions['options_code']."\n" ?>
+<?= $typeOptions['options_code'].",\n" ?>
+                'label' => '<?= "form.$form_field.label" ?>',
+                'attr' => [
+                    'placeholder' =>'<?= "form.$form_field.placeholder" ?>',
+                ],
             ])
 <?php endif; ?>
 <?php endforeach; ?>
