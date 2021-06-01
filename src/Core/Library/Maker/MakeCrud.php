@@ -45,8 +45,9 @@ class MakeCrud extends AbstractMaker
     {
         $command
             ->setDescription('Creates CRUD for Doctrine entity class')
-            ->addArgument('entity-class', InputArgument::REQUIRED, sprintf('The class name of the entity to create CRUD (e.g. <fg=yellow>%s</>)', Str::asClassName(Str::getRandomTerm())))
-        ;
+            ->addArgument('entity-class', InputArgument::REQUIRED,
+                sprintf('The class name of the entity to create CRUD (e.g. <fg=yellow>%s</>)',
+                    Str::asClassName(Str::getRandomTerm())));
 
         $inputConfig->setArgumentAsNonInteractive('entity-class');
     }
@@ -71,7 +72,8 @@ class MakeCrud extends AbstractMaker
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator)
     {
         $entityClassDetails = $generator->createClassNameDetails(
-            Validator::entityExists($input->getArgument('entity-class'), $this->doctrineHelper->getEntitiesForAutocomplete()),
+            Validator::entityExists($input->getArgument('entity-class'),
+                $this->doctrineHelper->getEntitiesForAutocomplete()),
             'Entity\\'
         );
 
@@ -136,7 +138,7 @@ class MakeCrud extends AbstractMaker
 
         // repository class generation
         $repositoryClassDetails = $generator->createClassNameDetails(
-            $entityClassDetails->getRelativeNameWithoutSuffix().'Repository',
+            $entityClassDetails->getRelativeNameWithoutSuffix() . 'Repository',
             'Repository\\',
             'Repository'
         );
@@ -144,7 +146,7 @@ class MakeCrud extends AbstractMaker
         $filterFields = $listFields;
         $generator->generateClass(
             $repositoryClassDetails->getFullName(),
-            __DIR__.'/../../Resources/maker/crud/Repository.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/Repository.tpl.php',
             [
                 'entity_full_class_name' => $entityClassDetails->getFullName(),
                 'entity_class_name' => $entityClassDetails->getShortName(),
@@ -157,7 +159,7 @@ class MakeCrud extends AbstractMaker
         $iter = 0;
         do {
             $formClassDetails = $generator->createClassNameDetails(
-                $entityClassDetails->getRelativeNameWithoutSuffix().($iter ?: '').'Type',
+                $entityClassDetails->getRelativeNameWithoutSuffix() . ($iter ?: '') . 'Type',
                 'Form\\CMS\\',
                 'Type'
             );
@@ -168,7 +170,7 @@ class MakeCrud extends AbstractMaker
 
         $generator->generateClass(
             $formClassDetails->getFullName(),
-            __DIR__.'/../../Resources/maker/crud/FormType.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/FormType.tpl.php',
             [
                 'bounded_full_class_name' => $entityClassDetails->getFullName(),
                 'bounded_class_name' => $entityClassDetails->getShortName(),
@@ -182,7 +184,7 @@ class MakeCrud extends AbstractMaker
 
         // service class generations
         $serviceClassDetails = $generator->createClassNameDetails(
-            $entityClassDetails->getRelativeNameWithoutSuffix().'Service',
+            $entityClassDetails->getRelativeNameWithoutSuffix() . 'Service',
             'Service\\',
             'Service'
         );
@@ -190,7 +192,7 @@ class MakeCrud extends AbstractMaker
         $sortFields = $listFields;
         $generator->generateClass(
             $serviceClassDetails->getFullName(),
-            __DIR__.'/../../Resources/maker/crud/Service.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/Service.tpl.php',
             [
                 'type_full_class_name' => $entityClassDetails->getFullName(),
                 'entity_class_name' => $entityClassDetails->getShortName(),
@@ -204,7 +206,7 @@ class MakeCrud extends AbstractMaker
 
         // controller class generation
         $controllerClassDetails = $generator->createClassNameDetails(
-            $entityClassDetails->getRelativeNameWithoutSuffix().'Controller',
+            $entityClassDetails->getRelativeNameWithoutSuffix() . 'Controller',
             'Controller\\CMS\\',
             'Controller'
         );
@@ -214,7 +216,7 @@ class MakeCrud extends AbstractMaker
 
         $generator->generateController(
             $controllerClassDetails->getFullName(),
-            __DIR__.'/../../Resources/maker/crud/Controller.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/Controller.tpl.php',
             [
                 'service_class_path' => $serviceClassDetails->getFullName(),
                 'service_class_name' => $serviceClassDetails->getShortName(),
@@ -226,7 +228,7 @@ class MakeCrud extends AbstractMaker
         $entityListFields = $listFields;
         $generator->generateFile(
             sprintf('%s/translations/cms/cms_%s.en.yaml', $generator->getRootDirectory(), $entityVarSingular),
-            __DIR__.'/../../Resources/maker/crud/translations.en.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/translations.en.tpl.php',
             [
                 'entity_name' => $entityClassDetails->getShortName(),
                 'entity_name_plural' => $inflector->pluralize($entityClassDetails->getShortName()),
@@ -236,7 +238,7 @@ class MakeCrud extends AbstractMaker
 
         $generator->generateFile(
             sprintf('%s/translations/cms/cms_%s.es.yaml', $generator->getRootDirectory(), $entityVarSingular),
-            __DIR__.'/../../Resources/maker/crud/translations.es.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/translations.es.tpl.php',
             [
                 'entity_name' => $entityClassDetails->getShortName(),
                 'entity_name_plural' => $inflector->pluralize($entityClassDetails->getShortName()),
@@ -251,8 +253,10 @@ class MakeCrud extends AbstractMaker
         $entitySnakeCaseName = strtoupper($this->camelCaseToSnakeCase($entityClassDetails->getShortName()));
 
         $io->text([
-            sprintf('Next: Check your new CRUD by going to <fg=yellow>%s/</>', Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())),
-            sprintf('Remember to add ROLE_%s_APP roles to <fg=yellow>%s/config/packages/security.yaml</>', $entitySnakeCaseName, $generator->getRootDirectory())
+            sprintf('Next: Check your new CRUD by going to <fg=yellow>%s/</>',
+                Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())),
+            sprintf('Remember to add ROLE_%s_APP roles to <fg=yellow>%s/config/packages/security.yaml</>',
+                $entitySnakeCaseName, $generator->getRootDirectory())
         ]);
 
         $io->listing([
