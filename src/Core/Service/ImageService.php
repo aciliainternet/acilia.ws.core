@@ -352,7 +352,7 @@ class ImageService
 
     protected function processImageMetadata(UploadedFile $imageFile): void
     {
-        $exifMetadata = exif_read_data($imageFile);
+        $exifMetadata = @exif_read_data($imageFile);
         if (isset($exifMetadata['Orientation'])) {
             switch($exifMetadata['Orientation']) {
                 case 8:
