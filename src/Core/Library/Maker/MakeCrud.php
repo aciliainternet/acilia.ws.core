@@ -153,18 +153,17 @@ class MakeCrud extends AbstractMaker
             'Repository'
         );
 
+        $filterFields = array_diff($listFields, $associationFieldNames);
+
         if ($isInteractive) {
             $questionFilter = new ChoiceQuestion(
                 'Please select filterFields for repository (default all)',
-                $listFields,
-                implode(',', range(0,(count($listFields) - 1)))
+                $filterFields,
+                implode(',', range(0,(count($filterFields) - 1)))
             );
             $questionFilter->setMultiselect(true);
 
             $filterFields = $helper->ask($input, $io, $questionFilter);
-
-        } else {
-            $filterFields = $listFields;
         }
 
         $generator->generateClass(
