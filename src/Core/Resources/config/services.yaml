@@ -37,10 +37,6 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: setupTemplate, priority: 126 }
 
-    WS\Core\EventListener\DeviceListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: setupDevice, priority: 125 }
-
     WS\Core\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onException, priority: 124 }
