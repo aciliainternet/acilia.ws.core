@@ -15,8 +15,12 @@ use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Bundle\MakerBundle\Validator;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
@@ -47,7 +51,8 @@ class MakeCrud extends AbstractMaker
             ->setDescription('Creates CRUD for Doctrine entity class')
             ->addArgument('entity-class', InputArgument::REQUIRED,
                 sprintf('The class name of the entity to create CRUD (e.g. <fg=yellow>%s</>)',
-                    Str::asClassName(Str::getRandomTerm())));
+                    Str::asClassName(Str::getRandomTerm())))
+            ->addOption('interactive', 'i', InputOption::VALUE_NONE, 'Ask questions about generation of fields');
 
         $inputConfig->setArgumentAsNonInteractive('entity-class');
     }
@@ -71,6 +76,12 @@ class MakeCrud extends AbstractMaker
 
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator)
     {
+        $isInteractive = $input->getOption('interactive');
+
+        if ($isInteractive) {
+            $helper = new SymfonyQuestionHelper();
+        }
+
         $entityClassDetails = $generator->createClassNameDetails(
             Validator::entityExists($input->getArgument('entity-class'),
                 $this->doctrineHelper->getEntitiesForAutocomplete()),
@@ -143,7 +154,20 @@ class MakeCrud extends AbstractMaker
             'Repository'
         );
 
-        $filterFields = $listFields;
+        if ($isInteractive) {
+            $questionFilter = new ChoiceQuestion(
+                'Please select filterFields for repository (default all)',
+                $listFields,
+                implode(',', range(0,(count($listFields) - 1)))
+            );
+            $questionFilter->setMultiselect(true);
+
+            $filterFields = $helper->ask($input, $io, $questionFilter);
+
+        } else {
+            $filterFields = $listFields;
+        }
+
         $generator->generateClass(
             $repositoryClassDetails->getFullName(),
             __DIR__ . '/../../Resources/maker/crud/Repository.tpl.php',
@@ -189,7 +213,28 @@ class MakeCrud extends AbstractMaker
             'Service'
         );
 
-        $sortFields = $listFields;
+
+        if ($isInteractive) {
+
+            $questionList = new ChoiceQuestion(
+                'Please select listFields for service (default all)',
+                $listFields,
+                implode(',', range(0,(count($listFields) - 1)))
+            );
+            $questionList->setMultiselect(true);
+            $listFields = $helper->ask($input, $io, $questionList);
+
+            $questionSort = new ChoiceQuestion(
+                'Please select sortFields for service (default all)',
+                $listFields,
+                implode(',', range(0,(count($listFields) - 1)))
+            );
+            $questionSort->setMultiselect(true);
+            $sortFields = $helper->ask($input, $io, $questionSort);
+        } else {
+            $sortFields = $listFields;
+        }
+
         $generator->generateClass(
             $serviceClassDetails->getFullName(),
             __DIR__ . '/../../Resources/maker/crud/Service.tpl.php',
