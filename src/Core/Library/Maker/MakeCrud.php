@@ -20,7 +20,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
@@ -215,7 +214,6 @@ class MakeCrud extends AbstractMaker
 
 
         if ($isInteractive) {
-
             $questionList = new ChoiceQuestion(
                 'Please select listFields for service (default all)',
                 $listFields,
