@@ -3,7 +3,6 @@
 namespace WS\Core\DependencyInjection;
 
 use WS\Core\Entity\Administrator;
-use WS\Core\EventListener\DeviceListener;
 use WS\Core\Library\Asset\ImageConsumerInterface;
 use WS\Core\Library\DataExport\DataExportCompilerPass;
 use WS\Core\Library\DataExport\DataExportProviderInterface;
@@ -114,10 +113,6 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         // Configure Activity Log
         $activityLogService = $container->getDefinition(ActivityLogService::class);
         $activityLogService->setArgument(0, $config['activity_log']);
-
-        // Configure Device Detector
-        $deviceListener = $container->getDefinition(DeviceListener::class);
-        $deviceListener->setArgument(0, $config['device_detector']);
 
         // Configure Translations
         $translationsService = $container->getDefinition(TranslationService::class);

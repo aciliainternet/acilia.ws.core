@@ -16,7 +16,6 @@ class ContextService
     protected $context;
     /** @var Domain */
     protected $domain;
-    protected $device;
 
     public function __construct($debug, DomainService $domainService)
     {
@@ -75,18 +74,5 @@ class ContextService
     public function getTemplatesBase() : string
     {
         return $this->context == self::CMS ? 'cms': 'site';
-    }
-
-    /**
-     * @return string Device name (see DeviceParserAbstract::deviceTypes). It might be an empty string
-     */
-    public function getDevice()
-    {
-        return $this->device;
-    }
-
-    public function setDevice(string $device)
-    {
-        $this->device = $device;
     }
 }
