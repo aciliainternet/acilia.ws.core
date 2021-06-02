@@ -11,7 +11,7 @@ use <?= $className ?>;
 use WS\Site\Library\Metadata\MetadataFormTrait;
 <?php endif ?>
 <?php if ($publishing_fields): ?>
-    use WS\Core\Library\Publishing\PublishingFormTrait;;
+use WS\Core\Library\Publishing\PublishingFormTrait;
 <?php endif ?>
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,12 +30,30 @@ class <?= $class_name ?> extends AbstractType
         $builder
 <?php foreach ($form_fields as $form_field => $typeOptions): ?>
 <?php if (null === $typeOptions['type'] && !$typeOptions['options_code']): ?>
-            ->add('<?= $form_field ?>')
+            ->add('<?= $form_field ?>', null, [
+                'label' => '<?= "form.$form_field.label" ?>',
+                'attr' => [
+                    'placeholder' => '<?= "form.$form_field.placeholder" ?>',
+                ],
+            ])
 <?php elseif (null !== $typeOptions['type'] && !$typeOptions['options_code']): ?>
-            ->add('<?= $form_field ?>', <?= $typeOptions['type'] ?>::class)
+            ->add('<?= $form_field ?>', <?= $typeOptions['type'] ?>::class,[
+                'label' => '<?= "form.$form_field.label" ?>',
+                'attr' => [
+                    'id' => '<?= $form_field ?>',
+                    'placeholder' => '<?= "form.$form_field.placeholder" ?>',
+                ],<?php if ($typeOptions['type'] === 'AssetImageType'): ?><?= "\n\t\t\t\t" ?>'ws' => [
+                    'entity' => $builder->getData(),
+                    'display-mode' => AssetImageType::ASSET_IMAGE_DISPLAY_MODE_LIST,
+                ],
+                <?php endif; ?><?= "\r\t\t\t" ?>])
 <?php else: ?>
             ->add('<?= $form_field ?>', <?= $typeOptions['type'] ? ($typeOptions['type'].'::class') : 'null' ?>, [
-<?= $typeOptions['options_code']."\n" ?>
+<?= $typeOptions['options_code'].",\n" ?>
+                'label' => '<?= "form.$form_field.label" ?>',
+                'attr' => [
+                    'placeholder' =>'<?= "form.$form_field.placeholder" ?>',
+                ],
             ])
 <?php endif; ?>
 <?php endforeach; ?>

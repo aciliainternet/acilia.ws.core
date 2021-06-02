@@ -3,7 +3,7 @@
 namespace WS\Core\Library\Maker;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Doctrine\Common\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
@@ -15,8 +15,11 @@ use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Bundle\MakerBundle\Validator;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
@@ -24,7 +27,7 @@ use Symfony\Component\Validator\Validation;
 
 class MakeCrud extends AbstractMaker
 {
-    private $doctrineHelper;
+    private DoctrineHelper $doctrineHelper;
 
     public function __construct(DoctrineHelper $doctrineHelper)
     {
@@ -45,8 +48,10 @@ class MakeCrud extends AbstractMaker
     {
         $command
             ->setDescription('Creates CRUD for Doctrine entity class')
-            ->addArgument('entity-class', InputArgument::REQUIRED, sprintf('The class name of the entity to create CRUD (e.g. <fg=yellow>%s</>)', Str::asClassName(Str::getRandomTerm())))
-        ;
+            ->addArgument('entity-class', InputArgument::REQUIRED,
+                sprintf('The class name of the entity to create CRUD (e.g. <fg=yellow>%s</>)',
+                    Str::asClassName(Str::getRandomTerm())))
+            ->addOption('interactive', 'i', InputOption::VALUE_NONE, 'Ask questions about generation of fields');
 
         $inputConfig->setArgumentAsNonInteractive('entity-class');
     }
@@ -70,8 +75,15 @@ class MakeCrud extends AbstractMaker
 
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator)
     {
+        $isInteractive = $input->getOption('interactive');
+
+        if ($isInteractive) {
+            $helper = new SymfonyQuestionHelper();
+        }
+
         $entityClassDetails = $generator->createClassNameDetails(
-            Validator::entityExists($input->getArgument('entity-class'), $this->doctrineHelper->getEntitiesForAutocomplete()),
+            Validator::entityExists($input->getArgument('entity-class'),
+                $this->doctrineHelper->getEntitiesForAutocomplete()),
             'Entity\\'
         );
 
@@ -80,11 +92,20 @@ class MakeCrud extends AbstractMaker
         $fieldTypeUseStatements = [];
         $formFields = [];
         $listFields = [];
+        $entityFields = [];
+        $associationFields = [];
 
         $metadataFields = false;
         $publishingFields = false;
 
         $entityFormFields = $entityDoctrineDetails->getFormFields();
+
+        $associationFieldNames = $this->doctrineHelper->getMetadata($entityClassDetails->getFullName())->getAssociationNames();
+
+        foreach ($associationFieldNames as $associationFieldName) {
+            $associationFields[$associationFieldName] = $this->doctrineHelper->getMetadata($entityClassDetails->getFullName())->getAssociationTargetClass($associationFieldName);
+        }
+
         foreach ($entityFormFields as $name => $fieldTypeOptions) {
 
             // remove internal fields
@@ -103,6 +124,17 @@ class MakeCrud extends AbstractMaker
 
             $fieldTypeOptions = $fieldTypeOptions ?? ['type' => null, 'options_code' => null];
 
+            if (in_array($name, $associationFieldNames)) {
+                switch ($associationFields[$name]) {
+                    case 'WS\Core\Entity\AssetImage':
+                        $fieldTypeOptions['type'] = 'WS\Core\Library\Asset\Form\AssetImageType';
+                        break;
+                    default:
+                        $fieldTypeOptions['type'] = null;
+                        break;
+                }
+            }
+
             if (isset($fieldTypeOptions['type'])) {
                 $fieldTypeUseStatements[] = $fieldTypeOptions['type'];
                 $fieldTypeOptions['type'] = Str::getShortClassName($fieldTypeOptions['type']);
@@ -116,15 +148,28 @@ class MakeCrud extends AbstractMaker
 
         // repository class generation
         $repositoryClassDetails = $generator->createClassNameDetails(
-            $entityClassDetails->getRelativeNameWithoutSuffix().'Repository',
+            $entityClassDetails->getRelativeNameWithoutSuffix() . 'Repository',
             'Repository\\',
             'Repository'
         );
 
-        $filterFields = [$listFields[0]];
+        if ($isInteractive) {
+            $questionFilter = new ChoiceQuestion(
+                'Please select filterFields for repository (default all)',
+                $listFields,
+                implode(',', range(0,(count($listFields) - 1)))
+            );
+            $questionFilter->setMultiselect(true);
+
+            $filterFields = $helper->ask($input, $io, $questionFilter);
+
+        } else {
+            $filterFields = $listFields;
+        }
+
         $generator->generateClass(
             $repositoryClassDetails->getFullName(),
-            __DIR__.'/../../Resources/maker/crud/Repository.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/Repository.tpl.php',
             [
                 'entity_full_class_name' => $entityClassDetails->getFullName(),
                 'entity_class_name' => $entityClassDetails->getShortName(),
@@ -137,7 +182,7 @@ class MakeCrud extends AbstractMaker
         $iter = 0;
         do {
             $formClassDetails = $generator->createClassNameDetails(
-                $entityClassDetails->getRelativeNameWithoutSuffix().($iter ?: '').'Type',
+                $entityClassDetails->getRelativeNameWithoutSuffix() . ($iter ?: '') . 'Type',
                 'Form\\CMS\\',
                 'Type'
             );
@@ -148,7 +193,7 @@ class MakeCrud extends AbstractMaker
 
         $generator->generateClass(
             $formClassDetails->getFullName(),
-            __DIR__.'/../../Resources/maker/crud/FormType.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/FormType.tpl.php',
             [
                 'bounded_full_class_name' => $entityClassDetails->getFullName(),
                 'bounded_class_name' => $entityClassDetails->getShortName(),
@@ -162,42 +207,85 @@ class MakeCrud extends AbstractMaker
 
         // service class generations
         $serviceClassDetails = $generator->createClassNameDetails(
-            $entityClassDetails->getRelativeNameWithoutSuffix().'Service',
+            $entityClassDetails->getRelativeNameWithoutSuffix() . 'Service',
             'Service\\',
             'Service'
         );
 
-        $sortFields = [$listFields[0]];
+
+        if ($isInteractive) {
+            $questionList = new ChoiceQuestion(
+                'Please select listFields for service (default all)',
+                $listFields,
+                implode(',', range(0,(count($listFields) - 1)))
+            );
+            $questionList->setMultiselect(true);
+            $listFields = $helper->ask($input, $io, $questionList);
+
+            $questionSort = new ChoiceQuestion(
+                'Please select sortFields for service (default all)',
+                $listFields,
+                implode(',', range(0,(count($listFields) - 1)))
+            );
+            $questionSort->setMultiselect(true);
+            $sortFields = $helper->ask($input, $io, $questionSort);
+        } else {
+            $sortFields = $listFields;
+        }
+
         $generator->generateClass(
             $serviceClassDetails->getFullName(),
-            __DIR__.'/../../Resources/maker/crud/Service.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/Service.tpl.php',
             [
                 'type_full_class_name' => $entityClassDetails->getFullName(),
                 'entity_class_name' => $entityClassDetails->getShortName(),
                 'entity_type_name' => $formClassDetails->getShortName(),
-                'sort_fields' => $sortFields
+                'entity_type_full_class_name' => $formClassDetails->getFullName(),
+                'sort_fields' => $sortFields,
+                'list_fields' => $listFields,
+                'metadata_fields' => $metadataFields,
             ]
         );
 
         // controller class generation
         $controllerClassDetails = $generator->createClassNameDetails(
-            $entityClassDetails->getRelativeNameWithoutSuffix().'Controller',
+            $entityClassDetails->getRelativeNameWithoutSuffix() . 'Controller',
             'Controller\\CMS\\',
             'Controller'
         );
 
-        $entityVarSingular = lcfirst(Inflector::singularize($entityClassDetails->getShortName()));
+        $inflector = InflectorFactory::create()->build();
+        $entityVarSingular = lcfirst($inflector->singularize($entityClassDetails->getShortName()));
 
-        $listFields = [$listFields[0]];
         $generator->generateController(
             $controllerClassDetails->getFullName(),
-            __DIR__.'/../../Resources/maker/crud/Controller.tpl.php',
+            __DIR__ . '/../../Resources/maker/crud/Controller.tpl.php',
             [
                 'service_class_path' => $serviceClassDetails->getFullName(),
                 'service_class_name' => $serviceClassDetails->getShortName(),
                 'route_path' => Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix()),
-                'route_prefix' => $entityVarSingular,
-                'list_fields' => $listFields
+                'route_prefix' => $entityVarSingular
+            ]
+        );
+
+        $entityFields = array_keys($formFields);
+        $generator->generateFile(
+            sprintf('%s/translations/cms/cms_%s.en.yaml', $generator->getRootDirectory(), $entityVarSingular),
+            __DIR__ . '/../../Resources/maker/crud/translations.en.tpl.php',
+            [
+                'entity_name' => $entityClassDetails->getShortName(),
+                'entity_name_plural' => $inflector->pluralize($entityClassDetails->getShortName()),
+                'entity_fields' => $entityFields
+            ]
+        );
+
+        $generator->generateFile(
+            sprintf('%s/translations/cms/cms_%s.es.yaml', $generator->getRootDirectory(), $entityVarSingular),
+            __DIR__ . '/../../Resources/maker/crud/translations.es.tpl.php',
+            [
+                'entity_name' => $entityClassDetails->getShortName(),
+                'entity_name_plural' => $inflector->pluralize($entityClassDetails->getShortName()),
+                'entity_fields' => $entityFields
             ]
         );
 
@@ -205,6 +293,36 @@ class MakeCrud extends AbstractMaker
 
         $this->writeSuccessMessage($io);
 
-        $io->text(sprintf('Next: Check your new CRUD by going to <fg=yellow>%s/</>', Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())));
+        $entitySnakeCaseName = strtoupper($this->camelCaseToSnakeCase($entityClassDetails->getShortName()));
+
+        $io->text([
+            sprintf('Next: Check your new CRUD by going to <fg=yellow>%s/</>',
+                Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())),
+            sprintf('Remember to add ROLE_%s_APP roles to <fg=yellow>%s/config/packages/security.yaml</>',
+                $entitySnakeCaseName, $generator->getRootDirectory())
+        ]);
+
+        $io->listing([
+            sprintf('ROLE_APP_%s_VIEW', $entitySnakeCaseName),
+            sprintf('ROLE_APP_%s_CREATE', $entitySnakeCaseName),
+            sprintf('ROLE_APP_%s_EDIT', $entitySnakeCaseName),
+            sprintf('ROLE_APP_%s_DELETE', $entitySnakeCaseName),
+        ]);
+    }
+
+    private function camelCaseToSnakeCase(string $camelCase): string
+    {
+        return strtolower(
+            preg_replace(
+                [
+                    '#([A-Z][a-z]*)(\d+[A-Z][a-z]*\d+)#',
+                    '#([A-Z]+\d*)([A-Z])#',
+                    '#([a-z]+\d*)([A-Z])#',
+                    '#([^_\d])([A-Z][a-z])#'
+                ],
+                '$1_$2',
+                $camelCase
+            )
+        );
     }
 }
