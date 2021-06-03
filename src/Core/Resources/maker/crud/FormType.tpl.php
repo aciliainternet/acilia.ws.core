@@ -31,17 +31,17 @@ class <?= $class_name ?> extends AbstractType
 <?php foreach ($form_fields as $form_field => $typeOptions): ?>
 <?php if (null === $typeOptions['type'] && !$typeOptions['options_code']): ?>
             ->add('<?= $form_field ?>', null, [
-                'label' => '<?= "form.$form_field.label" ?>',
+                'label' => '<?= sprintf('form.%s.label', $form_field) ?>',
                 'attr' => [
-                    'placeholder' => '<?= "form.$form_field.placeholder" ?>',
+                    'placeholder' => '<?= sprintf('form.%s.placeholder', $form_field) ?>',
                 ],
             ])
 <?php elseif (null !== $typeOptions['type'] && !$typeOptions['options_code']): ?>
             ->add('<?= $form_field ?>', <?= $typeOptions['type'] ?>::class,[
-                'label' => '<?= "form.$form_field.label" ?>',
+                'label' => '<?= sprintf('form.%s.label', $form_field) ?>',
                 'attr' => [
-                    'id' => '<?= $form_field ?>',
-                    'placeholder' => '<?= "form.$form_field.placeholder" ?>',
+                    'id' => '<?= sprintf('%s_%s', strtolower($bounded_class_name), $form_field) ?>',
+                    'placeholder' => '<?= sprintf('form.%s.placeholder', $form_field) ?>',
                 ],<?php if ($typeOptions['type'] === 'AssetImageType'): ?><?= "\n\t\t\t\t" ?>'ws' => [
                     'entity' => $builder->getData(),
                     'display-mode' => AssetImageType::ASSET_IMAGE_DISPLAY_MODE_LIST,
@@ -50,9 +50,9 @@ class <?= $class_name ?> extends AbstractType
 <?php else: ?>
             ->add('<?= $form_field ?>', <?= $typeOptions['type'] ? ($typeOptions['type'].'::class') : 'null' ?>, [
 <?= $typeOptions['options_code'].",\n" ?>
-                'label' => '<?= "form.$form_field.label" ?>',
+                'label' => '<?= sprintf('form.%s.label', $form_field) ?>',
                 'attr' => [
-                    'placeholder' =>'<?= "form.$form_field.placeholder" ?>',
+                    'placeholder' =>'<?= sprintf('form.%s.placeholder', $form_field) ?>',
                 ],
             ])
 <?php endif; ?>
@@ -60,10 +60,10 @@ class <?= $class_name ?> extends AbstractType
         ;
 
 <?php if ($metadata_fields): ?>
-    $this->addMetadataFieldsFields($builder);
+        $this->addMetadataFieldsFields($builder);
 <?php endif ?>
 <?php if ($publishing_fields): ?>
-    $this->addPublishingFields($builder);
+        $this->addPublishingFields($builder);
 <?php endif ?>
     }
 
