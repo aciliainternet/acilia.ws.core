@@ -94,6 +94,8 @@ class MakeCrud extends AbstractMaker
         $listFields = [];
         $entityFields = [];
         $associationFields = [];
+        $interfaceFields = [];
+        $imageFields = [];
 
         $metadataFields = false;
         $publishingFields = false;
@@ -115,6 +117,7 @@ class MakeCrud extends AbstractMaker
             } elseif (in_array($name, ['metadataTitle', 'metadataDescription', 'metadataKeywords'])) {
                 unset($entityFormFields[$name]);
                 $metadataFields = true;
+                $interfaceFields[] = 'MetadataProviderInterface';
                 continue;
             } elseif (in_array($name, ['publishStatus', 'publishSince', 'publishUntil'])) {
                 unset($entityFormFields[$name]);
@@ -128,6 +131,8 @@ class MakeCrud extends AbstractMaker
                 switch ($associationFields[$name]) {
                     case 'WS\Core\Entity\AssetImage':
                         $fieldTypeOptions['type'] = 'WS\Core\Library\Asset\Form\AssetImageType';
+                        $interfaceFields[] = 'ImageRenditionInterface';
+                        $imageFields[] = $name;
                         break;
                     default:
                         $fieldTypeOptions['type'] = null;
@@ -232,6 +237,8 @@ class MakeCrud extends AbstractMaker
             $sortFields = $listFields;
         }
 
+
+        $interfaceFields = array_unique($interfaceFields);
         $generator->generateClass(
             $serviceClassDetails->getFullName(),
             __DIR__ . '/../../Resources/maker/crud/Service.tpl.php',
@@ -242,7 +249,8 @@ class MakeCrud extends AbstractMaker
                 'entity_type_full_class_name' => $formClassDetails->getFullName(),
                 'sort_fields' => $sortFields,
                 'list_fields' => $listFields,
-                'metadata_fields' => $metadataFields,
+                'interface_fields' => $interfaceFields,
+                'image_fields' => $imageFields,
             ]
         );
 
