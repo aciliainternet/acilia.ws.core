@@ -47,8 +47,8 @@ class <?= $class_name ?> extends AbstractService<?php if (!empty($interface_fiel
     {
         return [
 <?php foreach($image_fields as $image_field): ?>
-            new RenditionDefinition(<?= $entity_class_name ?>::class, '<?= $image_field ?>', 'thumb', 300, 300, RenditionDefinition::METHOD_THUMB),
-            new RenditionDefinition(<?= $entity_class_name ?>::class, '<?= $image_field ?>', '<?= $image_field ?>', 1280, 720, RenditionDefinition::METHOD_CROP),
+            new RenditionDefinition(<?= $entity_class_name ?>::class, '<?= $image_field ?>', 'thumb', 300, 300, RenditionDefinition::METHOD_THUMB, ['80x80', '150x150']),
+            new RenditionDefinition(<?= $entity_class_name ?>::class, '<?= $image_field ?>', '<?= $image_field ?>', 300, 300, RenditionDefinition::METHOD_CROP),
 <?php endforeach; ?>
         ];
     }
