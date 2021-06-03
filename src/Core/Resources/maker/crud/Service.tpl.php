@@ -4,11 +4,11 @@ namespace <?= $namespace ?>;
 
 use <?= $type_full_class_name ?>;
 use <?= $entity_type_full_class_name ?>;
-<?php if (in_array('MetadataProviderInterface', $interface_fields)): ?>
+<?php if (in_array($metadata_provider_interface, $interface_fields)): ?>
 use WS\Site\Library\Metadata\MetadataProviderInterface;
 use WS\Site\Library\Metadata\MetadataProviderTrait;
 <?php endif ?>
-<?php if (in_array('ImageRenditionInterface', $interface_fields)): ?>
+<?php if (in_array($image_rendition_interface, $interface_fields)): ?>
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\Asset\RenditionDefinition;
 <?php endif; ?>
@@ -16,7 +16,7 @@ use WS\Core\Library\CRUD\AbstractService;
 
 class <?= $class_name ?> extends AbstractService<?php if (!empty($interface_fields)): ?> implements <?= implode(', ', $interface_fields) ?><?php endif ?><?= "\n" ?>
 {
-<?php if (in_array('MetadataProviderInterface', $interface_fields)): ?>
+<?php if (in_array($metadata_provider_interface, $interface_fields)): ?>
     use MetadataProviderTrait;
 <?php endif ?>
 
@@ -42,7 +42,7 @@ class <?= $class_name ?> extends AbstractService<?php if (!empty($interface_fiel
         ];
     }
 
-<?php if (in_array('ImageRenditionInterface', $interface_fields) && !empty($image_fields)): ?>
+<?php if (in_array($image_rendition_interface, $interface_fields) && !empty($image_fields)): ?>
     public function getRenditionDefinitions(): array
     {
         return [

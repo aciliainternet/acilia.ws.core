@@ -24,6 +24,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Validator\Validation;
+use WS\Core\Library\Asset\ImageRenditionInterface;
+use WS\Site\Library\Metadata\MetadataProviderInterface;
 
 class MakeCrud extends AbstractMaker
 {
@@ -117,7 +119,7 @@ class MakeCrud extends AbstractMaker
             } elseif (in_array($name, ['metadataTitle', 'metadataDescription', 'metadataKeywords'])) {
                 unset($entityFormFields[$name]);
                 $metadataFields = true;
-                $interfaceFields[] = 'MetadataProviderInterface';
+                $interfaceFields[] = Str::getShortClassName(MetadataProviderInterface::class);
                 continue;
             } elseif (in_array($name, ['publishStatus', 'publishSince', 'publishUntil'])) {
                 unset($entityFormFields[$name]);
@@ -131,7 +133,7 @@ class MakeCrud extends AbstractMaker
                 switch ($associationFields[$name]) {
                     case 'WS\Core\Entity\AssetImage':
                         $fieldTypeOptions['type'] = 'WS\Core\Library\Asset\Form\AssetImageType';
-                        $interfaceFields[] = 'ImageRenditionInterface';
+                        $interfaceFields[] = Str::getShortClassName(ImageRenditionInterface::class);
                         $imageFields[] = $name;
                         break;
                     default:
@@ -251,6 +253,8 @@ class MakeCrud extends AbstractMaker
                 'list_fields' => $listFields,
                 'interface_fields' => $interfaceFields,
                 'image_fields' => $imageFields,
+                'metadata_provider_interface' => Str::getShortClassName(MetadataProviderInterface::class),
+                'image_rendition_interface' => Str::getShortClassName(ImageRenditionInterface::class),
             ]
         );
 
