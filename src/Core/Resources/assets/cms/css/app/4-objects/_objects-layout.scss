@@ -18,12 +18,16 @@
             width: calc(22% - 5px);
         }
 
+        &--small {
+            width: calc(33% - 20px);
+        }
+
         &--medium {
             @include media-breakpoint(md) {
                 width: calc(50% - 10px);
             }
         }
-        
+
         &--long {
             @include media-breakpoint(md) {
                 width: calc(76% - 10px);
@@ -31,11 +35,13 @@
         }
 
         &--image {
-            @include media-breakpoint(md) {
-                width: calc(50% - 10px);
-                max-width: 250px;
-            }
+
         }
+    }
+
+    &__multi-column {
+        column-count: 3;
+        width: 100%;
     }
 }
 
@@ -63,6 +69,7 @@
     @include media-breakpoint(md) {
         grid-template-columns: 1fr 1fr 1fr;
         column-gap: 20px;
+        width: 100%;
     }
 }
 

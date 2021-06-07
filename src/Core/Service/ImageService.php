@@ -313,7 +313,7 @@ class ImageService
             });
 
             if ($definition->getWidth() !== null && $definition->getHeight() !== null) {
-                $image->resizeCanvas($definition->getWidth(), $definition->getHeight(), 'center', false, 'rgba(192, 192, 192, 1)');
+                $image->resizeCanvas($definition->getWidth(), $definition->getHeight(), 'center', false, 'rgba(247, 247, 247, 1)');
             }
 
             // Image and Thumb are 1:1
