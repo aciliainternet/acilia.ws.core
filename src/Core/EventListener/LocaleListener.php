@@ -17,7 +17,7 @@ class LocaleListener
 
     public function setupLocale(RequestEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

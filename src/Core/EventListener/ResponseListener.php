@@ -16,7 +16,7 @@ class ResponseListener
 
     public function onResponse(ResponseEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

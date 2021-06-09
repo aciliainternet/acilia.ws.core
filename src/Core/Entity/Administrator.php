@@ -9,6 +9,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="WS\Core\Repository\AdministratorRepository")
@@ -18,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="ws.administrator.email_already_exists"
  * )
  */
-class Administrator implements UserInterface
+class Administrator implements UserInterface, PasswordAuthenticatedUserInterface, LegacyPasswordAuthenticatedUserInterface
 {
     use BlameableTrait;
     use TimestampableTrait;
@@ -29,7 +31,7 @@ class Administrator implements UserInterface
      *
      * @ORM\Column(name="administrator_id", type="integer", nullable=false)
      */
-    private $id;
+    protected int $id;
 
     /**
      * @Assert\NotBlank()
@@ -37,17 +39,17 @@ class Administrator implements UserInterface
      *
      * @ORM\Column(name="administrator_name", type="string", length=128, nullable=false)
      */
-    private $name;
+    protected string $name;
 
     /**
      * @ORM\Column(name="administrator_salt", type="string", length=32, nullable=false)
      */
-    protected $salt;
+    protected string $salt;
 
     /**
      * @ORM\Column(name="administrator_password", type="string", length=128, nullable=false)
      */
-    private $password;
+    protected string $password;
 
     /**
      * @Assert\NotBlank()
@@ -56,33 +58,31 @@ class Administrator implements UserInterface
      *
      * @ORM\Column(name="administrator_email", type="string", length=127, unique=true, nullable=false)
      */
-    private $email;
+    protected string $email;
 
     /**
      * @ORM\Column(name="administrator_active", type="boolean", nullable=false)
      */
-    private $active = false;
+    protected ?bool $active = false;
 
     /**
     * @ORM\Column(name="administrator_profile", type="string", length=32, nullable=false)
     */
-    private $profile;
+    protected string $profile;
 
     /**
-     * @Assert\Type(type="\DateTime")
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="administrator_created_at", type="datetime", nullable=false)
      */
-    private $createdAt;
+    protected \DateTimeInterface $createdAt;
 
     /**
-     * @Assert\Type(type="\DateTime")
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(name="administrator_modified_at", type="datetime", nullable=false)
      */
-    private $modifiedAt;
+    protected \DateTimeInterface $modifiedAt;
 
     /**
      * @Assert\Length(max=128)
@@ -90,7 +90,7 @@ class Administrator implements UserInterface
      *
      * @ORM\Column(name="administrator_created_by", type="string", length=128, nullable=true)
      */
-    private $createdBy;
+    protected ?string $createdBy;
 
     public function __construct()
     {
@@ -112,6 +112,11 @@ class Administrator implements UserInterface
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 
     public function getUsername(): ?string
@@ -136,7 +141,7 @@ class Administrator implements UserInterface
         return ['ROLE_CMS', $this->profile];
     }
 
-    public function getSalt(): string
+    public function getSalt(): ?string
     {
         return $this->salt;
     }
@@ -148,7 +153,7 @@ class Administrator implements UserInterface
         return $this;
     }
 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -184,7 +189,7 @@ class Administrator implements UserInterface
         return $this;
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 

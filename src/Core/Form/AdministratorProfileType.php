@@ -11,21 +11,21 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Entity\Administrator;
 
 class AdministratorProfileType extends AbstractType
 {
-    protected $encoder;
-    protected $translator;
+    protected UserPasswordHasherInterface $passwordHashService;
+    protected TranslatorInterface $translator;
 
     /**
      * AdministratorProfileType constructor.
      */
-    public function __construct(UserPasswordEncoderInterface $encoder, TranslatorInterface $translator)
+    public function __construct(UserPasswordHasherInterface $passwordHashService, TranslatorInterface $translator)
     {
-        $this->encoder = $encoder;
+        $this->passwordHashService = $passwordHashService;
         $this->translator = $translator;
     }
 
@@ -77,7 +77,7 @@ class AdministratorProfileType extends AbstractType
                 $currentPassword = $event->getForm()->get('password')->getData();
                 $newPassword = $event->getForm()->get('newPassword')->getData();
                 if (!empty($newPassword)) {
-                    if (!$this->encoder->isPasswordValid($administrator, $currentPassword)) {
+                    if (!$this->passwordHashService->isPasswordValid($administrator, $currentPassword)) {
                         $event->getForm()->addError(new FormError(
                             $this->translator->trans('profile.form.password.missmatch.error', [], 'ws_cms_administrator')
                         ));
@@ -91,7 +91,7 @@ class AdministratorProfileType extends AbstractType
                         return;
                     }
 
-                    $newPassword = $this->encoder->encodePassword($administrator, $newPassword);
+                    $newPassword = $this->passwordHashService->hashPassword($administrator, $newPassword);
                     $administrator->setPassword($newPassword);
                 }
             }

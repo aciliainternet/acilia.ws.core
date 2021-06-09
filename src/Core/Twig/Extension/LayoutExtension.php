@@ -86,16 +86,15 @@ class LayoutExtension extends AbstractExtension
         bool $condition = null,
         array $routeParameters = []
     ): string {
-
-        if ($this->requestStack->getMasterRequest() instanceof Request) {
+        if ($this->requestStack->getMainRequest() instanceof Request) {
             foreach ($routePrefix as $route) {
-                if (strpos($this->requestStack->getMasterRequest()->get('_route'), $route) === 0) {
+                if (strpos($this->requestStack->getMainRequest()->get('_route'), $route) === 0) {
                     if ($condition === false) {
                         return '';
                     }
 
                     if ($routeParameters) {
-                        $routeParams = $this->requestStack->getMasterRequest()->get('_route_params');
+                        $routeParams = $this->requestStack->getMainRequest()->get('_route_params');
 
                         foreach ($routeParameters as $k => $v) {
                             if (!isset($routeParams[$k]) || $routeParams[$k] != $v) {

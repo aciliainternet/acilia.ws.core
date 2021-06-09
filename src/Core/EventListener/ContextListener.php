@@ -26,7 +26,7 @@ class ContextListener
 
     public function setupDomain(RequestEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             $domain = $this->contextService->getDomain();
             if ($domain !== null && $domain->getLocale() !== null) {
                 $event->getRequest()->setLocale($domain->getLocale());

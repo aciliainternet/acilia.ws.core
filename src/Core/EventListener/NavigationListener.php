@@ -23,7 +23,7 @@ class NavigationListener
 
     public function onException(ExceptionEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

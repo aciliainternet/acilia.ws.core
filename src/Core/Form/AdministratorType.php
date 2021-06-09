@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use WS\Core\Entity\Administrator;
@@ -21,17 +21,17 @@ use WS\Core\Service\Entity\AdministratorService;
 
 class AdministratorType extends AbstractType
 {
-    protected $administratorService;
-    protected $encoder;
+    protected AdministratorService $administratorService;
+    protected UserPasswordHasherInterface $passwordHashService;
 
     /**
      * AdministratorType constructor.
      *
      */
-    public function __construct(AdministratorService $administratorService, UserPasswordEncoderInterface $encoder)
+    public function __construct(AdministratorService $administratorService, UserPasswordHasherInterface $passwordHashService)
     {
         $this->administratorService = $administratorService;
-        $this->encoder = $encoder;
+        $this->passwordHashService = $passwordHashService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -88,7 +88,7 @@ class AdministratorType extends AbstractType
 
                 $newPassword = $event->getForm()->get('password')->getData();
                 if (!empty($newPassword)) {
-                    $newPassword = $this->encoder->encodePassword($administrator, $newPassword);
+                    $newPassword = $this->passwordHashService->hashPassword($administrator, $newPassword);
                     $administrator->setPassword($newPassword);
                 }
             }

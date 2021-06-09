@@ -22,7 +22,7 @@ class TemplateListener
 
     public function setupTemplate(RequestEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

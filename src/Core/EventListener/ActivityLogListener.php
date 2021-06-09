@@ -157,7 +157,7 @@ class ActivityLogListener
 
     public function onController(ControllerEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -174,7 +174,7 @@ class ActivityLogListener
     private function getUsername(): string
     {
         if ($this->tokenStorage->getToken() instanceof TokenInterface) {
-            return $this->tokenStorage->getToken()->getUsername();
+            return $this->tokenStorage->getToken()->getUserIdentifier();
         }
 
         return 'annon';
