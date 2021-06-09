@@ -19,4 +19,8 @@
         max-height: rem(39);
         padding: $btn-padding;
     }
+
+    .choices[data-type="select-one"] .choices__inner {
+        padding: $btn-padding;
+    }
 }

@@ -5,6 +5,10 @@
         flex-basis: auto;
     }
 
+    &__message {
+        line-height: rem(16);
+    }
+
     &--xsmall {
         width: 150px;
     }

@@ -1,10 +1,14 @@
 .c-img-upload {
+    display: grid;
+    width: 100%;
+    height: 100%;
 
     &__select {
         width: 100%;
 
         @include media-breakpoint('md') {
-            width: 250px;
+            width: rem(250);
+            min-height: rem(39);
         }
     }
 
@@ -17,14 +21,29 @@
         height: auto;
 
         @include media-breakpoint('md') {
-            width: 250px;
+            width: rem(250);
         }
     }
 
+    &__figure {
+        display: grid;
+        place-content: center;
+        border-radius: rem(8);
+        min-height: rem(250);
+        height: 100%;
+        background-color: #f7f7f7;
+        cursor: pointer;
+    }
+
+    &__figure-img {
+        font-size: rem(30);
+    }
+
     &__img {
+        display: block;
+        border-radius: rem(8);
         width: 100%;
         height: auto;
-        margin-bottom: 20px;
     }
 }
 

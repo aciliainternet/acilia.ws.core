@@ -27,7 +27,9 @@ import componentToggleChoice from './components/ws_toggle_choice';
 import settingsCntrl from './controllers/settings';
 import translationCntrl from './controllers/translation';
 import sidebarCntrl from './controllers/sidebar';
+import tabsCntrl from './controllers/tabs';
 
+tabsCntrl();
 sidebarCntrl();
 moduleNotifications();
 componentMarkdown();
