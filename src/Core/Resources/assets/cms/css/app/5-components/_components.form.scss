@@ -117,6 +117,60 @@ $sidebar-content-lg: 350px;
         background-color: $color-white;
     }
 
+    &__tab-list {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        list-style: none;
+        margin-bottom: rem(30);
+        padding: 0;
+    }
+
+    &__tab-item {
+        display: flex;
+        flex-direction: column;
+        padding: rem(12) rem(15);
+        border-radius: rem(5);
+        background-color: #f7f7f7;
+        font-size: $text-font-size;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background 300ms ease-in-out;
+
+        &:after {
+            content: attr(data-text);
+            content: attr(data-text) / "";
+            height: 0;
+            visibility: hidden;
+            overflow: hidden;
+            user-select: none;
+            pointer-events: none;
+            font-weight: $font-weight-semibold;
+        }
+
+        &:hover {
+            background-color: #eeeeee;
+        }
+
+        &.is-active {
+            background-color: rgba($color: $color-info, $alpha: .2);
+            color: $color-info;
+            font-weight: $font-weight-semibold;
+        }
+    }
+
+    &__panel {
+        align-items: flex-start;
+        display: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        &.is-active {
+            display: flex;
+        }
+    }
+
     &--medium {
         max-width: 860px;
         width: 100%;
