@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  linter:
     name: Lint Code Base
     runs-on: ubuntu-latest
     strategy:
@@ -51,7 +51,34 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: PHP-CS-Fixer
+  php-cs-fixer:
+    name: PHP CS Fixer
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # aquí añadir las versiones de PHP sobre las que se ha de lanzar el job
+        php-version: [ '7.4' ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install PHP version
+        uses: shivammathur/setup-php@2.7.0
+        with:
+          coverage: "none"
+          extensions: intl
+          php-version: ${{ matrix.php-version }}
+
+      - name: PHP-CS-Fixer (PSR-12)
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
-          args: src/ --rules=@PSR12 --diff --dry-run --using-cache=no
+          args: src/ --rules=@PSR12 --diff --dry-run
+
+      - name: PHP-CS-Fixer (Symfony ruleset)
+        if: always()
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: src/ --config=.php-cs-fixer-symfony.php --diff --dry-run
