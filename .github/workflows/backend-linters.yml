@@ -11,11 +11,23 @@ jobs:
   php-cs-fixer:
     name: PHP CS Fixer
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # aquí añadir las versiones de PHP sobre las que se ha de lanzar el job
+        php-version: [ '7.4' ]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Install PHP version
+        uses: shivammathur/setup-php@2.7.0
+        with:
+          coverage: "none"
+          extensions: intl
+          php-version: ${{ matrix.php-version }}
 
       - name: PHP-CS-Fixer (PSR-12)
         uses: docker://oskarstark/php-cs-fixer-ga
@@ -25,16 +37,28 @@ jobs:
       - name: PHP-CS-Fixer (Symfony ruleset)
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
-          args: src/ --diff --dry-run
+          args: src/ --config=.php-cs-fixer-symfony.php --diff --dry-run
 
   php-cs:
     name: PHP Code Sniffer
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # aquí añadir las versiones de PHP sobre las que se ha de lanzar el job
+        php-version: [ '7.4' ]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Install PHP version
+        uses: shivammathur/setup-php@2.7.0
+        with:
+          coverage: "none"
+          extensions: intl
+          php-version: ${{ matrix.php-version }}
 
       - name: Install
         run: |
@@ -47,11 +71,39 @@ jobs:
   php-stan:
     name: PHP Stan
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # aquí añadir las versiones de PHP sobre las que se ha de lanzar el job
+        php-version: [ '7.4' ]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Install PHP version
+        uses: shivammathur/setup-php@2.7.0
+        with:
+          coverage: "none"
+          extensions: intl
+          php-version: ${{ matrix.php-version }}
+          tools: composer:v2
+
+      - name: Set Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2.1.2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
+
+      - name: Install dependencies
+        id: install
+        run: composer install --no-interaction --no-progress --prefer-dist --no-suggest --ignore-platform-reqs
 
       - name: Require
         run: composer require --dev phpstan/phpstan
@@ -59,11 +111,12 @@ jobs:
       - name: Run
         run: vendor/bin/phpstan analyse -c phpstan.neon
 
-  linters:
+  symfony-linters:
     name: Symfony Linters
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        # aquí añadir las versiones de PHP sobre las que se ha de lanzar el job
         php-version: ['7.4']
 
     steps:
