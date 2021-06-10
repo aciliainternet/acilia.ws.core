@@ -1,0 +1,57 @@
+name: Acilia Backend Linters
+
+on:
+  pull_request:
+    # aquí debemos seleccionar las ramas donde queremos ejecutar este linter
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # aquí añadir las versiones de PHP sobre las que se ha de lanzar el job
+        php-version: [ '7.4' ]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2.1.2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-${{ matrix.php-version }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: ${{ runner.os }}-${{ matrix.php-version }}-composer-
+
+      - name: Composer install
+        uses: php-actions/composer@v5
+        with:
+          command: install
+          args: --ignore-platform-reqs --no-scripts
+          version: 2
+          php_version: ${{ matrix.php-version }}
+
+      - name: Lint
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_PHP_BUILTIN: true
+          VALIDATE_PHP_PHPCS: true
+          VALIDATE_PHP_PHPSTAN: true
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: PHP-CS-Fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: src/ --rules=@PSR12 --diff --dry-run --using-cache=no
