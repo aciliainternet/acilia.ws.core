@@ -36,42 +36,38 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install PHP_CodeSniffer
+      - name: Install
         run: |
           curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
           php phpcs.phar --version
 
-      - uses: tinovyatkin/action-php-codesniffer@v1
-        with:
-          files: "**.php"
-          phpcs_path: php phpcs.phar
-          standard: phpcs.xml
+      - name: Run
+        run: php phpcs.phar --standard=PSR12 src/
 
   php-stan:
     name: PHP Stan
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: PHPStan
-        uses: docker://oskarstark/phpstan-ga
-        env:
-          REQUIRE_DEV: true
-        with:
-          args: analyse src/
+      - name: Require
+        run: composer require --dev phpstan/phpstan
+
+      - name: Run
+        run: vendor/bin/phpstan analyse -c phpstan.neon
 
   linters:
-    name: Linters
+    name: Symfony Linters
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php-version: ['7.4']
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
