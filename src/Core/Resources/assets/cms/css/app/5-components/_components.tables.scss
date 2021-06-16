@@ -136,6 +136,10 @@ $table-cell-line-height: $base-line-height;
     }
 }
 
+.c-table-responsive {
+    border: $table-border-width solid $table-border-color;
+}
+
 .ws-table-collapse {
     cursor: pointer;
 }
