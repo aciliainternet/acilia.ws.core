@@ -25,8 +25,7 @@
                             <div class="l-form__wrapper-row u-mb-30 js-block" data-menu-link={{ "block-#{node.name}" }}>
                                 <h5 class="u-h5 u-font-bold u-mb-30">
                                     {{ "#{node.source}translation.#{node.name}.name"|trans({}, node.type, domain.locale) }}
-                                    <small class="c-field__message u-mt-5 u-font-normal">
-                                        <i class="fa fa-info-circle"></i>
+                                    <small class="c-field__message d-block u-mt-5 u-font-normal">
                                         {{ "#{node.source}translation.#{node.name}.description"|trans({}, node.type, domain.locale) }}
                                     </small>
                                 </h5>
@@ -40,11 +39,18 @@
                                                 {{ "#{node.source}#{node.name}.#{attribute.name}"|trans({}, node.type, domain.locale)|raw }}
                                             </label>
                                             <textarea
+                                                rows="1"
                                                 class="c-input c-input--textarea-small ws-translation-attribute"
                                                 name="{{ attribute.id }}"
                                                 placeholder=""
                                                 title="{{ "#{node.source}#{node.name}.#{attribute.name}"|trans({}, node.type, domain.locale) }}"
                                             >{{ attribute.translation is not null ? attribute.translation }}</textarea>
+                                            {% if "#{node.source}#{node.name}.#{attribute.name}.description"|trans({}, node.type, domain.locale) != "#{node.source}#{node.name}.#{attribute.name}.description" %}
+                                                    <small class="c-field__message u-mt-5 u-font-normal">
+                                                        <i class="fa fa-info-circle"></i>
+                                                        {{ "#{node.source}#{node.name}.#{attribute.name}.description"|trans({}, node.type, domain.locale) }}
+                                                    </small>
+                                                {% endif %}
                                         </div>
                                     </div>
                                 {% endfor %}
