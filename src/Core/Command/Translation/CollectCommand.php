@@ -104,14 +104,16 @@ class CollectCommand extends Command
 
                     if (isset($matches[1])) {
                         $key = $matches[1];
-                        if (!isset($discoveredTranslations[$type])) {
-                            $discoveredTranslations[$type] = [];
-                        }
-                        if (!isset($discoveredTranslations[$type][$node])) {
-                            $discoveredTranslations[$type][$node] = [];
-                        }
-                        if (!in_array($key, $discoveredTranslations[$type][$node])) {
-                            $discoveredTranslations[$type][$node][] = $key;
+                        if (preg_match('/^(.+)(\.description)$/', $key) === 0) {
+                            if (!isset($discoveredTranslations[$type])) {
+                                $discoveredTranslations[$type] = [];
+                            }
+                            if (!isset($discoveredTranslations[$type][$node])) {
+                                $discoveredTranslations[$type][$node] = [];
+                            }
+                            if (!in_array($key, $discoveredTranslations[$type][$node])) {
+                                $discoveredTranslations[$type][$node][] = $key;
+                            }
                         }
                     }
                 }

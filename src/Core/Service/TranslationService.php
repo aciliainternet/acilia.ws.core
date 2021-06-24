@@ -29,7 +29,7 @@ class TranslationService
         $this->contextService = $contextService;
         $this->sources = [];
     }
-    
+
     public function fillCatalogue(MessageCatalogueInterface $catalogue): void
     {
         if ($this->translations === null) {
@@ -71,7 +71,7 @@ class TranslationService
         $sql = 'SELECT node_name, node_type, node_source, attrib_id, attrib_name, value_translation '
              . 'FROM ws_translation_node JOIN ws_translation_attribute ON (node_id = attrib_node) '
              . '  LEFT JOIN ws_translation_value ON (attrib_id = value_attribute AND (value_domain = :domain OR value_domain IS NULL)) '
-             . 'ORDER BY node_name, attrib_name';
+             . 'ORDER BY node_id, attrib_id';
 
         $conn = $this->registry->getConnection();
         $stmt = $conn->prepare($sql);

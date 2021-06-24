@@ -113,7 +113,15 @@
     {% set attr = attr|merge({ 'class': 'c-choice__input ' ~ attr.class|default('') }) %}
     <div class="c-choice c-choice--checkbox">
         <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-        <label class="c-choice__label" for="checkbox1">{{- form_label(form) -}}</label>
+
+        {% set label_attr = label_attr|merge({'class': 'c-choice__label'|trim}) %}
+        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr} %}{{ block('attributes') }}{% endwith %}{% endif %} for="{{ id }}">
+            {%- if translation_domain is same as(false) -%}
+                {{- label -}}
+            {%- else -%}
+                {{- label|trans(label_translation_parameters, translation_domain) -}}
+            {%- endif -%}
+        </{{ element|default('label') }}>
     </div>
 {%- endblock checkbox_widget -%}
 
