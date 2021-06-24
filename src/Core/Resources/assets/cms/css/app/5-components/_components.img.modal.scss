@@ -4,44 +4,18 @@
 
     &__wrapper {
         height: 100%;
+        overflow: hidden;
     }
 
     &__alert-wrapper {
         position: relative;
-        height: 40px;
+        height: rem(40);
     }
 
     &__alert {
         @include position(absolute, $top: 10px, $left: 0);
-        box-sizing: border-box;
         margin: 0;
-    }
-
-    // Overwrite styles for plugin drag and drop
-    .dz-icon {
-        font-size: rem(50);
-        margin: 0 auto 10px;
-        color: rgba(46, 161, 248, .5);
-    }
-
-    .dropzone {
-        padding: 0;
-    }
-
-    .dropzone:hover {
-        border: 0;
-    }
-
-    .dropzone .dz-message {
-        width: 100%;
-        height: 100%;
-        border: 1px dashed #2ea1f8;
-        background-color: rgba(46, 161, 248, .1);
-        transition: border-width .3s;
-
-        &:hover {
-            border-width: 2px;
-        }
+        box-sizing: border-box;
     }
 
     &__text {
@@ -51,18 +25,15 @@
     }
 
     // Overwrite styles for plugin drag and drop
-
     &__list {
         position: relative;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        grid-auto-rows: min-content;
+        grid-auto-rows: max-content;
         gap: 20px;
-        box-sizing: content-box;
         width: 100%;
-        height: calc(100vh - 510px);
-        margin-top: 20px;
-        padding-right: 18px;
+        height: calc(100% - 245px);
+        margin-bottom: rem(5);
         overflow-y: scroll;
 
         &.no-scroll {
@@ -77,8 +48,6 @@
         cursor: pointer;
 
         &:hover {
-            border: 1px solid $grey-600;
-
             .c-img-modal__img-actions {
                 display: flex;
             }
@@ -89,7 +58,7 @@
                 display: block;
                 width: 100%;
                 height: 100%;
-                background-color: rgba(255, 255, 255, .7);
+                background-color: rgba(255, 255, 255, .8);
             }
         }
 
@@ -99,12 +68,12 @@
 
         &--text {
             display: flex;
-            flex-direction: column;
             align-content: center;
+            flex-direction: column;
             justify-content: center;
             border: 1px solid $grey-600;
-            background-color: $grey-100;
-            width: 212px;
+            background-color: #f7f7f7;
+            width: auto;
             height: 212px;
         }
     }
@@ -126,6 +95,7 @@
         display: block;
         width: 100%;
         height: auto;
+        border-radius: rem(5);
     }
 
     &__img-actions {
@@ -133,7 +103,36 @@
         justify-content: center;
         display: none;
         width: 100%;
-        height: 30px;
+        height: rem(30);
         margin: auto;
+    }
+
+    // Overwrite styles for plugin drag and drop
+    .dz-icon {
+        margin: 0 auto 10px;
+        color: rgba(46, 161, 248, .5);
+        font-size: rem(50);
+    }
+
+    .dropzone {
+        padding: 0;
+
+        &:hover {
+            border: 0;
+        }
+
+        .dz-message {
+            display: grid;
+            width: 100%;
+            height: 100%;
+            padding: rem(25);
+            border: 1px dashed #2ea1f8;
+            background-color: rgba(46, 161, 248, .1);
+            transition: background-color .3s;
+
+            &:hover {
+                background-color: rgba(46, 161, 248, .2);
+            }
+        }
     }
 }

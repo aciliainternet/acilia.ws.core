@@ -54,7 +54,7 @@
 @import "template/settings/settings.notifications";
 @import "template/settings/settings.pagination";
 // @import "template/settings/settings.popovers";
-// @import "template/settings/settings.progress";
+@import "template/settings/settings.progress";
 // @import "template/settings/settings.range";
 @import "template/settings/settings.scrollbar";
 // @import "template/settings/settings.select";
@@ -132,7 +132,7 @@
 @import "template/components/components.notifications";
 @import "template/components/components.pagination";
 // @import "template/components/components.popover";
-// @import "template/components/components.progress";
+@import "template/components/components.progress";
 // @import "template/components/components.ranges";
 // @import "template/components/components.switch";
 @import "template/components/components.tables";
@@ -155,9 +155,9 @@
 // @import "template/components/components.credit-card";
 // @import "template/components/components.search-result";
 // @import "template/components/components.search-form";
-// @import "template/components/components.graph-card";
+@import "template/components/components.graph-card";
 @import "template/components/components.divider";
-// @import "template/components/components.progress-card";
+@import "template/components/components.progress-card";
 // @import "template/components/components.panel";
 // @import "template/components/components.state-card";
 // @import "template/components/components.summary";
