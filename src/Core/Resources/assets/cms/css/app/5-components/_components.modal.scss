@@ -1,81 +1,53 @@
 .a-overlay {
+    @include position(fixed, 0, 0, 0, 0);
     display: none;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
     opacity: 0;
-    position: fixed;
-    z-index: 9998;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: 1ms opacity ease;
-    background: rgba(0, 0, 0, .6);
+    transition: all 275ms ease;
+    background: rgba(0, 0, 0, 0);
 
     &.a-open {
+        background: rgba(0, 0, 0, .6);
         opacity: 1;
     }
 
     &.fade-and-drop {
-        display: block;
+        display: grid;
+        align-items: center;
+        place-content: center;
         opacity: 0;
-        transition: 500ms opacity 500ms ease;
+        transition: all 275ms ease;
 
         &.a-open {
-            top: 0;
-            transition: 500ms opacity ease;
             opacity: 1;
         }
     }
 }
 
 #a-container {
-    position: absolute;
-    left: 50%;
+    position: relative;
     z-index: 9999;
     display: none;
     border-radius: 4px;
-    width: 94%;
-    height: 90%;
-    padding: 50px 30px 30px;
+    width: 90vw;
+    height: 90vh;
+    padding: rem(50) rem(30);
     transition: 1ms opacity ease;
-    transform: translate(-50%, -50%);
-    background: #ffffff;
+    background: $color-white;
     opacity: 0;
     overflow: auto;
 
-    @media (max-width: 767px) {
-        width: 100%;
-        padding: 20px;
-    }
-
-    &.a-open {
-        opacity: 1;
-
-        &.acilia-anchored {
-            top: 20px;
-            transform: translate(-50%, 0);
-        }
-    }
-
     &.fade-and-drop {
-        top: -300%;
         opacity: 1;
         display: block;
-        transition: 500ms top ease;
-
-        &.a-open {
-            top: 50%;
-            transition: 500ms top 500ms ease;
-
-            .acilia-anchored {
-                transition: 500ms top 500ms ease;
-            }
-        }
     }
-
 }
 
 .a-content {
     position: relative;
+    overflow: auto;
     height: 100%;
 }
 
