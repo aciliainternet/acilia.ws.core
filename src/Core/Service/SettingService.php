@@ -15,21 +15,24 @@ use WS\Core\Library\Setting\Definition\Setting as SettingDefinition;
 class SettingService implements AlertGathererInterface
 {
     /** @var SectionDefinition[] */
-    protected $settings;
-    protected $settingValues;
+    protected array $settings;
+    protected ?array $settingValues = null;
 
-    protected $translator;
-    protected $registry;
-    protected $contextService;
+    protected TranslatorInterface $translator;
+    protected ManagerRegistry $registry;
+    protected ContextService $contextService;
 
-    public function __construct(TranslatorInterface $translator, ManagerRegistry $registry, ContextService $contextService)
-    {
+    public function __construct(
+        TranslatorInterface $translator,
+        ManagerRegistry $registry,
+        ContextService $contextService
+    ) {
         $this->translator = $translator;
         $this->registry = $registry;
         $this->contextService = $contextService;
     }
 
-    public function registerSettingDefinition(SettingDefinitionInterface $service)
+    public function registerSettingDefinition(SettingDefinitionInterface $service): void
     {
         foreach ($service->getSettingsDefinition() as $sectionDefinition) {
             if (!isset($this->settings[$sectionDefinition->getCode()])) {
@@ -46,7 +49,7 @@ class SettingService implements AlertGathererInterface
     /**
      * @return SectionDefinition|null
      */
-    public function getSection(string $section) : ?SectionDefinition
+    public function getSection(string $section): ?SectionDefinition
     {
         if (isset($this->settings[$section])) {
             return $this->settings[$section];
@@ -58,7 +61,7 @@ class SettingService implements AlertGathererInterface
     /**
      * @return SectionDefinition[]
      */
-    public function getSections() : array
+    public function getSections(): array
     {
         $sections = $this->settings;
         uasort($sections, function (SectionDefinition $section1, SectionDefinition $section2) {
@@ -75,7 +78,7 @@ class SettingService implements AlertGathererInterface
     /**
      * @return SettingDefinition[]
      */
-    public function getSettingsByGroup(string $section, string $group) : array
+    public function getSettingsByGroup(string $section, string $group): array
     {
         if (isset($this->settings[$section])) {
             foreach ($this->settings[$section]->getGroups() as $grp) {
@@ -94,7 +97,7 @@ class SettingService implements AlertGathererInterface
         return [];
     }
 
-    public function gatherAlerts(GatherAlertsEvent $event)
+    public function gatherAlerts(GatherAlertsEvent $event): void
     {
         $definedSettings = count(is_array($this->settingValues) ? $this->settingValues : []);
         $registeredSettings = 0;
@@ -113,7 +116,7 @@ class SettingService implements AlertGathererInterface
         }
     }
 
-    public function get(string $setting)
+    public function get(string $setting): ?string
     {
         if (isset($this->settingValues[$setting])) {
             return $this->settingValues[$setting];
@@ -137,7 +140,7 @@ class SettingService implements AlertGathererInterface
         return null;
     }
 
-    public function save(SectionDefinition $section, string $settingCode, $value)
+    public function save(SectionDefinition $section, string $settingCode, $value): void
     {
         // get setting definition
         $settingDefinition = null;
@@ -181,7 +184,12 @@ class SettingService implements AlertGathererInterface
         $this->registry->getManager()->flush();
     }
 
-    public function loadSettings()
+    public function clearSettings(): void
+    {
+        $this->settingValues = null;
+    }
+
+    public function loadSettings(): void
     {
         if ($this->settingValues === null) {
             $this->settingValues = [];
@@ -195,7 +203,5 @@ class SettingService implements AlertGathererInterface
                 $this->settingValues[$row['setting_name']] = $row['setting_value'];
             }
         }
-
-        return $this;
     }
 }
