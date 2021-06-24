@@ -23,16 +23,18 @@ class ContextService
         $this->domainService = $domainService;
     }
 
-    public function setContext($context) : self
+    public function setContext($context): self
     {
         $this->context = $context;
 
         return $this;
     }
 
-    public function setDomain(Domain $domain)
+    public function setDomain(Domain $domain): void
     {
         $this->domain = $domain;
+
+        \Locale::setDefault(str_replace('_', '-', $domain));
     }
 
     public function getDomain(): ?Domain
@@ -51,9 +53,18 @@ class ContextService
     /**
      * @return Domain[]
      */
-    public function getDomains() : array
+    public function getDomains(): array
     {
         return $this->domainService->getCanonicals();
+    }
+
+    public function getDomainByLocale(string $locale, string $type = Domain::CANONICAL): ?Domain
+    {
+        $domains = \array_filter($this->getDomains(), function ($d) use ($locale, $type) {
+            return $d->getType() === $type && $locale === $d->getLocale();
+        });
+
+        return \array_shift($domains);
     }
 
     public function isDebug() : bool
