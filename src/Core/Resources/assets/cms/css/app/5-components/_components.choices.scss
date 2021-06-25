@@ -37,7 +37,8 @@
         box-shadow: none;
         border-radius: $base-border-radius;
         width: 100%;
-        min-height: initial;
+        // min-height: initial;
+        min-height: rem(52);
         background-color: $color-white;
         color: $color-default-text;
         overflow: visible;

@@ -1,7 +1,12 @@
 .c-footer {
-    margin-top: 50px;
-    padding: 30px 0;
+    width: 100%;
+    margin: 50px auto;
+    padding: 0 30px 50px;
+}
+
+.c-footer__wrapper {
     border-top: 1px solid $border-color;
+    padding-top: 30px;
     color: $color-default-text;
     font-size: rem(12);
     text-align: right;
