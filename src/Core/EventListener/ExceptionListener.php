@@ -11,18 +11,21 @@ use Twig\Environment;
 
 class ExceptionListener
 {
-    protected $contextService;
-    protected $twigEnvironment;
-    protected $parameterBag;
+    protected ContextService $contextService;
+    protected Environment $twigEnvironment;
+    protected ParameterBagInterface $parameterBag;
 
-    public function __construct(ContextService $contextService, Environment $twigEnvironment, ParameterBagInterface $parameterBag)
-    {
+    public function __construct(
+        ContextService $contextService,
+        Environment $twigEnvironment,
+        ParameterBagInterface $parameterBag
+    ) {
         $this->contextService = $contextService;
         $this->twigEnvironment = $twigEnvironment;
         $this->parameterBag = $parameterBag;
     }
 
-    public function onException(ExceptionEvent $event)
+    public function onException(ExceptionEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

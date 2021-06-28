@@ -9,18 +9,21 @@ use Twig\Environment;
 
 class TemplateListener
 {
-    protected $twigEnvironment;
-    protected $parameterBagInterface;
-    protected $contextService;
+    protected Environment $twigEnvironment;
+    protected ParameterBagInterface $parameterBagInterface;
+    protected ContextService $contextService;
 
-    public function __construct(Environment $twigEnvironment, ParameterBagInterface $parameterBagInterface, ContextService $contextService)
-    {
+    public function __construct(
+        Environment $twigEnvironment,
+        ParameterBagInterface $parameterBagInterface,
+        ContextService $contextService
+    ) {
         $this->twigEnvironment = $twigEnvironment;
         $this->parameterBagInterface = $parameterBagInterface;
         $this->contextService = $contextService;
     }
 
-    public function setupTemplate(RequestEvent $event)
+    public function setupTemplate(RequestEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

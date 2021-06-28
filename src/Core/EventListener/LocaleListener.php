@@ -8,14 +8,14 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class LocaleListener
 {
-    protected $contextService;
+    protected ContextService $contextService;
 
     public function __construct(ContextService $contextService)
     {
         $this->contextService = $contextService;
     }
 
-    public function setupLocale(RequestEvent $event)
+    public function setupLocale(RequestEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

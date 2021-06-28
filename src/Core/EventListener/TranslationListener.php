@@ -9,18 +9,21 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class TranslationListener
 {
-    protected $translator;
-    protected $contextService;
-    protected $translationService;
+    protected TranslatorInterface $translator;
+    protected ContextService $contextService;
+    protected TranslationService $translationService;
 
-    public function __construct(TranslatorInterface $translator, ContextService $contextService, TranslationService $translationService)
-    {
+    public function __construct(
+        TranslatorInterface $translator,
+        ContextService $contextService,
+        TranslationService $translationService
+    ) {
         $this->translator = $translator;
         $this->contextService = $contextService;
         $this->translationService = $translationService;
     }
 
-    public function onRequest(RequestEvent $event)
+    public function onRequest(RequestEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;

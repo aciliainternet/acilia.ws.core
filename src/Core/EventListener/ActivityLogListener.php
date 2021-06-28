@@ -17,10 +17,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ActivityLogListener
 {
-    private $logger;
-    private $contextService;
-    private $activityLogService;
-    private $tokenStorage;
+    private LoggerInterface $logger;
+    private ContextService $contextService;
+    private ActivityLogService $activityLogService;
+    private TokenStorageInterface $tokenStorage;
 
     public function __construct(
         LoggerInterface $logger,
@@ -155,7 +155,7 @@ class ActivityLogListener
         }
     }
 
-    public function onController(ControllerEvent $event)
+    public function onController(ControllerEvent $event): void
     {
         if (!$event->isMasterRequest()) {
             return;
