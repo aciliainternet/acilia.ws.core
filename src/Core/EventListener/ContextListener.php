@@ -3,19 +3,17 @@
 namespace WS\Core\EventListener;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use WS\Core\Entity\Domain;
 use WS\Core\Service\ContextService;
 use WS\Core\Service\DomainService;
 use WS\Core\Service\SettingService;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class ContextListener
 {
-    protected $twigEnvironment;
-    protected $parameterBagInterface;
-    protected $contextService;
-    protected $domainService;
-    protected $settingService;
+    protected ContextService $contextService;
+    protected DomainService $domainService;
+    protected SettingService $settingService;
 
     public function __construct(ContextService $contextService, DomainService $domainService, SettingService $settingService)
     {
@@ -24,7 +22,7 @@ class ContextListener
         $this->settingService = $settingService;
     }
 
-    public function setupDomain(RequestEvent $event)
+    public function setupDomain(RequestEvent $event): void
     {
         if (!$event->isMainRequest()) {
             $domain = $this->contextService->getDomain();
@@ -64,8 +62,15 @@ class ContextListener
             }
         }
 
-        // Detect Domain
+        // Detect domains by host
         $domains = $this->domainService->getByHost($event->getRequest()->getHost());
+
+        // If symfony context use default domain
+        if (!$this->contextService->isCMS() && !$this->contextService->isSite()) {
+            $this->contextService->setDomain(\array_shift($domains));
+            return;
+        }
+
         if (count($domains) == 1) {
             /** @var Domain $domain */
             $domain = $domains[0];
@@ -81,8 +86,8 @@ class ContextListener
                     $event->getRequest()->setLocale($domain->getLocale());
                 }
             }
-            // Domain is Locale dependant
         } else {
+            // Domain is locale dependant
             if ($this->contextService->isCMS()) {
                 /** @var Domain $domain */
                 $domain = $domains[0];
@@ -95,7 +100,10 @@ class ContextListener
                 $domainFound = false;
                 /** @var Domain $domain */
                 foreach ($domains as $domain) {
-                    if (preg_match(sprintf('|^/%s/|i', $domain->getLocale()), $event->getRequest()->getPathInfo())) {
+                    if (preg_match(
+                        sprintf('#^/%s/|^/%s$#i', $domain->getLocale(), $domain->getLocale()),
+                        $event->getRequest()->getPathInfo())
+                    ) {
                         $this->contextService->setDomain($domain);
                         $this->settingService->loadSettings();
                         $domainFound = true;

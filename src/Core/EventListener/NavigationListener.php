@@ -10,18 +10,21 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class NavigationListener
 {
-    protected $contextService;
-    protected $navigationService;
-    protected $kernel;
+    protected ContextService $contextService;
+    protected NavigationService $navigationService;
+    protected HttpKernelInterface $kernel;
 
-    public function __construct(ContextService $contextService, NavigationService $navigationService, HttpKernelInterface $kernel)
-    {
+    public function __construct(
+        ContextService $contextService,
+        NavigationService $navigationService,
+        HttpKernelInterface $kernel
+    ) {
         $this->contextService = $contextService;
         $this->navigationService = $navigationService;
         $this->kernel = $kernel;
     }
 
-    public function onException(ExceptionEvent $event)
+    public function onException(ExceptionEvent $event): void
     {
         if (!$event->isMainRequest()) {
             return;

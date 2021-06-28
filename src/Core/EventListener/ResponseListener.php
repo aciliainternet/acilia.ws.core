@@ -7,14 +7,14 @@ use WS\Core\Service\ContextService;
 
 class ResponseListener
 {
-    protected $contextService;
+    protected ContextService $contextService;
 
     public function __construct(ContextService $contextService)
     {
         $this->contextService = $contextService;
     }
 
-    public function onResponse(ResponseEvent $event)
+    public function onResponse(ResponseEvent $event): void
     {
         if (!$event->isMainRequest()) {
             return;
