@@ -14,7 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class SwitchController extends AbstractController
 {
-    protected $translator;
+    protected TranslatorInterface $translator;
     protected $service;
 
     public function __construct(TranslatorInterface $translator, DomainService $service)
@@ -26,14 +26,10 @@ class SwitchController extends AbstractController
     /**
      * @Route("/switch-domain/{id}", name="ws_switch_domain", methods={"GET"})
      * @Security("is_granted('ROLE_CMS')", message="not_allowed")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
-    public function switch(Request $request, $id)
+    public function switch(Request $request, string $id): Response
     {
-        $domain = $this->service->get($id);
+        $domain = $this->service->get(intval($id));
         if ($domain instanceof Domain) {
             $session = $request->getSession();
             if ($session !== null) {

@@ -4,8 +4,6 @@ namespace WS\Core\Controller\CMS;
 
 use WS\Core\Form\AdministratorProfileType;
 use WS\Core\Service\Entity\AdministratorService;
-use WS\Core\Service\ImageService;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Library\CRUD\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,12 +35,8 @@ class AdministratorController extends AbstractController
     /**
      * @Route("/profile", name="profile")
      * @Security("is_granted('ROLE_CMS')", message="not_allowed")
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
-    public function profile(Request $request)
+    public function profile(Request $request): Response
     {
         $administrator = $this->getUser();
 

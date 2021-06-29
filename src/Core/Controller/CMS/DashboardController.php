@@ -10,10 +10,8 @@ class DashboardController extends AbstractController
 {
     /**
      * @Route("/", name="ws_dashboard")
-     *
-     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         return $this->render('@WSCore/cms/dashboard/index.html.twig');
     }

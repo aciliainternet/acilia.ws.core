@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SettingController extends AbstractController
 {
-    protected $translator;
+    protected TranslatorInterface $translator;
     protected $service;
 
     public function __construct(TranslatorInterface $translator, SettingService $service)
@@ -26,12 +26,8 @@ class SettingController extends AbstractController
 
     /**
      * @Route("/{section}", name="index")
-     *
-     * @param string $section
-     *
-     * @return Response
      */
-    public function index(string $section)
+    public function index(string $section): Response
     {
         $section = $this->service->getSection($section);
         if ($section === null) {
@@ -50,13 +46,8 @@ class SettingController extends AbstractController
 
     /**
      * @Route("/{section}/save", name="save", methods={"POST"})
-     *
-     * @param Request $request
-     * @param string $section
-     *
-     * @return Response
      */
-    public function save(Request $request, string $section)
+    public function save(Request $request, string $section): Response
     {
         if (!$request->isXmlHttpRequest()) {
             return $this->json(
@@ -89,7 +80,7 @@ class SettingController extends AbstractController
         );
     }
 
-    public function form(string $section, string $group)
+    public function form(string $section, string $group): Response
     {
         return $this->render('@WSCore/cms/setting/form.html.twig', [
             'settings' => $this->service->getSettingsByGroup($section, $group),

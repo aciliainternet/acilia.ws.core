@@ -14,8 +14,8 @@ use WS\Core\Service\ImageService;
  */
 class AssetImageController
 {
-    protected $service;
-    protected $imageService;
+    protected AssetImageService $service;
+    protected ImageService $imageService;
 
     public function __construct(AssetImageService $service, ImageService $imageService)
     {
@@ -26,12 +26,8 @@ class AssetImageController
     /**
      * @Route("/list", name="images")
      * @Security("is_granted('ROLE_CMS')", message="not_allowed")
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
      */
-    public function list(Request $request) : JsonResponse
+    public function list(Request $request): JsonResponse
     {
         $filter = (string) $request->get('f');
 
@@ -63,12 +59,8 @@ class AssetImageController
 
     /**
      * @Route("/_save_asset_image", name="save_asset_image", methods={"POST"})
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
      */
-    public function save(Request $request)
+    public function save(Request $request): JsonResponse
     {
         if ($request->files->get('asset')) {
             $imageFile = $request->files->get('asset');
@@ -85,7 +77,7 @@ class AssetImageController
         return new JsonResponse(['msg' => 'No asset found'], 500);
     }
 
-    protected function getLimit() : int
+    protected function getLimit(): int
     {
         return 20;
     }

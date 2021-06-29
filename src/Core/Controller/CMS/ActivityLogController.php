@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ActivityLogController extends AbstractController
 {
-    protected $translator;
+    protected TranslatorInterface $translator;
     protected $service;
 
     public function __construct(TranslatorInterface $translator, ActivityLogService $service)
@@ -25,13 +25,8 @@ class ActivityLogController extends AbstractController
 
     /**
      * @Route("/", name="index")
-     *
-     * @param Request $request
-     *
-     * @return Response
-     * @throws \Exception
      */
-    public function index(Request $request) : Response
+    public function index(Request $request): Response
     {
         if (!$this->isGranted('ROLE_WS_CORE_ACTIVITY_LOG')) {
             throw $this->createAccessDeniedException($this->translator->trans('not_allowed', [], 'ws_cms'));
