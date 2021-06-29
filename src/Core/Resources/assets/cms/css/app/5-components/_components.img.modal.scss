@@ -9,7 +9,7 @@
 
     &__alert-wrapper {
         position: relative;
-        height: rem(40);
+        height: rem(64);
     }
 
     &__alert {
@@ -32,7 +32,7 @@
         grid-auto-rows: max-content;
         gap: 20px;
         width: 100%;
-        height: calc(100% - 245px);
+        height: calc(100% - 265px);
         margin-bottom: rem(5);
         overflow-y: scroll;
 

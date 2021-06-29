@@ -3,6 +3,8 @@
 }
 
 .container-fluid {
+    min-height: calc(100vh - 100px - 145px);
+
     @include media-breakpoint('lg') {
         padding: 0 30px;
     }

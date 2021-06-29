@@ -17,6 +17,7 @@
     .choices__inner,
     .c-input {
         max-height: rem(39);
+        min-height: initial;
         padding: $btn-padding;
     }
 
