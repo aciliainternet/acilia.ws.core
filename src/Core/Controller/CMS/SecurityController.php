@@ -4,6 +4,7 @@ namespace WS\Core\Controller\CMS;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -12,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
-    protected $translator;
+    protected TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
@@ -21,14 +22,12 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/login", name="ws_cms_login")
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authChecker)
-    {
+    public function login(
+        Request $request,
+        AuthenticationUtils $authenticationUtils,
+        AuthorizationCheckerInterface $authChecker
+    ): Response {
         if ($authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('ws_dashboard');
         }

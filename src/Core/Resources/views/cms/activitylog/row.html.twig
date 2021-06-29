@@ -41,13 +41,16 @@
                                 <span class="u-font-semibold u-block">
                                     {{ 'before'|trans({}, trans_prefix) }}:</br>
                                 </span>
-                                <span class="u-inline-block u-ml-20">{{ change.before|raw }}</span>
+                                <span class="u-inline-block u-ml-20">
+                                    {{ change.before is iterable ? change.before|json_encode()|raw : change.before|raw }}
+                                </span>
                             </li>
                             <li class="c-table-collapse__sub-item u-mb-10">
                                 <span class="u-font-semibold u-block">
                                     {{ 'after'|trans({}, trans_prefix) }}:</br>
                                 </span>
-                                <span class="u-inline-block u-ml-20">{{ change.after|raw }}</span>
+                                <span class="u-inline-block u-ml-20">
+                                {{ change.after is iterable ? change.after|json_encode()|raw : change.after|raw }}</span>
                             </li>
                         </ul>
                     </li>

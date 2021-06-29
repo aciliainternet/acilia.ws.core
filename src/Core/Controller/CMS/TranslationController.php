@@ -17,12 +17,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class TranslationController extends AbstractController
 {
-    protected $translator;
+    protected TranslatorInterface $translator;
+    protected ContextService $contextService;
     protected $service;
-    protected $contextService;
 
-    public function __construct(TranslatorInterface $translator, TranslationService $service, ContextService $contextService)
-    {
+
+    public function __construct(
+        TranslatorInterface $translator,
+        ContextService $contextService,
+        TranslationService $service
+    ) {
         $this->translator = $translator;
         $this->service = $service;
         $this->contextService = $contextService;
@@ -30,10 +34,8 @@ class TranslationController extends AbstractController
 
     /**
      * @Route("/", name="index")
-     *
-     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         $translations = $this->service->getForCMS();
 
@@ -45,12 +47,8 @@ class TranslationController extends AbstractController
 
     /**
      * @Route("/save", name="save", methods={"POST"})
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
-    public function save(Request $request)
+    public function save(Request $request): Response
     {
         if (!$request->isXmlHttpRequest()) {
             return $this->json(
