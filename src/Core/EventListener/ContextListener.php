@@ -89,7 +89,6 @@ class ContextListener
         } else {
             // Domain is locale dependant
             if ($this->contextService->isCMS()) {
-                /** @var Domain $domain */
                 $domain = $domains[0];
                 $this->contextService->setDomain($domain);
 
@@ -97,26 +96,28 @@ class ContextListener
                     $session->set(ContextService::SESSION_DOMAIN, $domain->getId());
                 }
             } else {
-                $domainFound = false;
-                /** @var Domain $domain */
-                foreach ($domains as $domain) {
+                $domain = null;
+                foreach ($domains as $d) {
                     if (preg_match(
-                        sprintf('#^/%s/|^/%s$#i', $domain->getLocale(), $domain->getLocale()),
+                        sprintf('#^/%s/|^/%s$#i', $d->getLocale(), $d->getLocale()),
                         $event->getRequest()->getPathInfo())
                     ) {
-                        $this->contextService->setDomain($domain);
-                        $this->settingService->loadSettings();
-                        $domainFound = true;
-
-                        if ($domain->getLocale() !== null) {
-                            $event->getRequest()->setLocale($domain->getLocale());
-                        }
+                        $domain = $d;
+                        break;
                     }
                 }
 
-                if ($domainFound === false) {
-                    throw new \Exception('Unable to setup domain into context.');
+                if ($domain === null) {
+                    // use the default domain
+                    $domain = \array_shift($domains);
                 }
+
+                $this->contextService->setDomain($domain);
+                $this->settingService->loadSettings();
+                if ($domain->getLocale() !== null) {
+                    $event->getRequest()->setLocale($domain->getLocale());
+                }
+
             }
         }
     }

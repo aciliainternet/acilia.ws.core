@@ -66,6 +66,9 @@ class DomainService
         return $this->repository->find($id);
     }
 
+    /**
+     * @return Domain[]
+     */
     public function getByHost($host): array
     {
         $domains = $this->getDomains();

@@ -52,6 +52,12 @@ class Domain
      */
     private $parent;
 
+    /**
+     * @ORM\Column(name="domain_default", type="smallint", nullable=false)
+     */
+    private $default = 0;
+
+
     public function __toString()
     {
         return $this->host;
@@ -142,5 +148,17 @@ class Domain
     public function isAlias()
     {
         return $this->type === self::ALIAS;
+    }
+
+    public function isDefault(): bool
+    {
+        return $this->default === 1;
+    }
+
+    public function setDefault(int $default): self
+    {
+        $this->default = $default;
+
+        return $this;
     }
 }

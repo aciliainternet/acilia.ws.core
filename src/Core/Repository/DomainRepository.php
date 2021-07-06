@@ -21,6 +21,9 @@ class DomainRepository extends EntityRepository
         // fetch parent to avoid extra query
         $qb->leftJoin(sprintf('%s.parent', $alias), 'parent');
 
+        // order by default domain
+        $qb->orderBy(sprintf('%s.default', $alias), 'DESC');
+
         return $qb->getQuery()->execute();
     }
 }
