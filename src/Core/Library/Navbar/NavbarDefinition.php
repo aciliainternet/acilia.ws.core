@@ -20,7 +20,8 @@ class NavbarDefinition
             'icon' => 'fa-angle-right',
             'order' => 999,
             'roles' => [],
-            'divider' => false
+            'divider' => false,
+            'template' => ''
 
         ], $options);
     }
@@ -93,9 +94,14 @@ class NavbarDefinition
     {
         return $this->options['translation_domain'];
     }
-    
-    public function hasDivider(): bool 
+
+    public function hasDivider(): bool
     {
         return $this->options['divider'];
+    }
+
+    public function getTemplate(): string
+    {
+        return $this->options['template'];
     }
 }
