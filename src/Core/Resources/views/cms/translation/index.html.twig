@@ -39,18 +39,27 @@
                                                 {{ "#{node.source}#{node.name}.#{attribute.name}"|trans({}, node.type, domain.locale)|raw }}
                                             </label>
                                             <textarea
-                                                rows="1"
-                                                class="c-input c-input--textarea-small ws-translation-attribute"
-                                                name="{{ attribute.id }}"
-                                                placeholder=""
-                                                title="{{ "#{node.source}#{node.name}.#{attribute.name}"|trans({}, node.type, domain.locale) }}"
+                                                    rows="1"
+                                                    class="c-input c-input--textarea-small ws-translation-attribute"
+                                                    name="{{ attribute.id }}"
+                                                    placeholder=""
+                                                    title="{{ "#{node.source}#{node.name}.#{attribute.name}"|trans({}, node.type, domain.locale) }}"
                                             >{{ attribute.translation is not null ? attribute.translation }}</textarea>
                                             {% if "#{node.source}#{node.name}.#{attribute.name}.description"|trans({}, node.type, domain.locale) != "#{node.source}#{node.name}.#{attribute.name}.description" %}
+                                                <div class="u-flex u-justify-between">
                                                     <small class="c-field__message u-mt-5 u-font-normal">
                                                         <i class="fa fa-info-circle"></i>
                                                         {{ "#{node.source}#{node.name}.#{attribute.name}.description"|trans({}, node.type, domain.locale) }}
                                                     </small>
-                                                {% endif %}
+                                                    <small class="c-field__message d-block u-mt-5 u-font-normal u-align-self-end">
+                                                        {{ "#{node.source}#{node.name}.#{attribute.name}" }}
+                                                    </small>
+                                                </div>
+                                            {% else %}
+                                                <small class="c-field__message d-block u-mt-5 u-font-normal u-align-self-end">
+                                                    {{ "#{node.source}#{node.name}.#{attribute.name}" }}
+                                                </small>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -82,4 +91,3 @@
         </div>
     </div>
 {% endblock %}
-
