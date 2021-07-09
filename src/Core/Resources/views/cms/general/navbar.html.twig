@@ -7,9 +7,13 @@
     <div class="u-ml-auto">
         {% for menu in ws_cms_navbar_get() %}
             {% if menu.roles is empty or ws_cms_sidebar_is_granted(menu.roles) %}
-                <a class="u-mr-20" href="{{ path(menu.routeName, menu.routeOptions) }}" title="{{ menu.label|trans({}, menu.translationDomain)|raw }}">
-                    <i class="fal {{ menu.icon }}"></i>
-                </a>
+                {% if menu.template is not empty %}
+                    {{ include(menu.template, ignore_missing = true) }}
+                {% else %}
+                    <a class="u-mr-20" href="{{ path(menu.routeName, menu.routeOptions) }}" title="{{ menu.label|trans({}, menu.translationDomain)|raw }}">
+                        <i class="fal {{ menu.icon }}"></i>
+                    </a>
+                {% endif %}
             {% endif %}
         {% endfor %}
 
