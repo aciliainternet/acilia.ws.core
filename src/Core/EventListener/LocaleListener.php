@@ -8,6 +8,8 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class LocaleListener
 {
+    public const SESSION_CMS_LOCALE = 'ws_cms_locale';
+
     protected ContextService $contextService;
 
     public function __construct(ContextService $contextService)
@@ -38,6 +40,18 @@ class LocaleListener
 
         if (! empty($this->contextService->getDomain()->getTimezone())) {
             date_default_timezone_set($this->contextService->getDomain()->getTimezone());
+        }
+
+        if ($this->contextService->isCMS()) {
+            // Get session from request
+            $session = $event->getRequest()->getSession();
+
+            if ($session !== null && $session->has(self::SESSION_CMS_LOCALE)) {
+                $event->getRequest()->setLocale($session->get(self::SESSION_CMS_LOCALE));
+                $event->getRequest()->setDefaultLocale($session->get(self::SESSION_CMS_LOCALE));
+            }
+
+            return;
         }
 
         $event->getRequest()->setLocale($this->contextService->getDomain()->getLocale());
