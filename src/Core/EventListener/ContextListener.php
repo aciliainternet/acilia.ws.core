@@ -15,8 +15,11 @@ class ContextListener
     protected DomainService $domainService;
     protected SettingService $settingService;
 
-    public function __construct(ContextService $contextService, DomainService $domainService, SettingService $settingService)
-    {
+    public function __construct(
+        ContextService $contextService,
+        DomainService $domainService,
+        SettingService $settingService
+    ) {
         $this->contextService = $contextService;
         $this->domainService = $domainService;
         $this->settingService = $settingService;

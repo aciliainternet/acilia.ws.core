@@ -10,12 +10,12 @@ use Symfony\Component\Translation\MessageCatalogueInterface;
 
 class TranslationService
 {
-    protected $config;
-    protected $registry;
-    protected $translator;
-    protected $contextService;
-    protected $translations;
-    protected $sources;
+    protected array $config;
+    protected ManagerRegistry $registry;
+    protected TranslatorInterface $translator;
+    protected ContextService $contextService;
+    protected ?array $translations = null;
+    protected array $sources;
 
     public function __construct(
         array $config,
