@@ -62,14 +62,14 @@ class TranslationController extends AbstractController
         try {
             $this->service->updateTranslations($translations);
             return $this->json(
-                ['msg'=> $this->translator->trans('translation.save_success', [], 'ws_cms_translation')],
+                ['msg'=> $this->translator->trans('save_success', [], 'ws_cms_translation')],
                 Response::HTTP_OK
             );
         } catch (\Exception $e) {
         }
 
         return $this->json(
-            ['msg'=> $this->translator->trans('translation.save_failure', [], 'ws_cms_translation')],
+            ['msg'=> $this->translator->trans('save_error', [], 'ws_cms_translation')],
             Response::HTTP_BAD_REQUEST
         );
     }
