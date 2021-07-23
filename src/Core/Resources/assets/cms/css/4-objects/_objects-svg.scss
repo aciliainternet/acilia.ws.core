@@ -1,0 +1,13 @@
+@use '../1-tools/_tools-mixin-rem' as *;
+
+.o-svg {
+    &--button {
+        display: inline-block;
+        fill: currentColor;
+        height: 13px;
+        width: 13px;
+        margin-top: -3px;
+        margin-right: 2px;
+        vertical-align: middle;
+    }
+}

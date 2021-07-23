@@ -1,0 +1,143 @@
+@use '../0-settings/_settings-global' as *;
+@use '../0-settings/_settings-pagination' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
+
+/* ==========================================================================
+#PAGINATION
+========================================================================== */
+.c-pagination-wrapper {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+
+/**
+* 1. Use flex utilitites with `c-pagination` for proper alignement of its
+*    children.
+*/
+.c-pagination { /* [1] */
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin: 35px 0 20px;
+    text-align: center;
+}
+
+/**
+* 1. Remove wierd space between list items.
+*/
+.c-pagination__list {
+    display: flex;
+    font-size: 0; /* [1] */
+}
+
+.c-pagination__item {
+    display: inline-block;
+
+    &:not(:last-child) {
+        margin-right: rem(12);
+    }
+
+    &:first-child {
+        margin-right: rem(24);
+    }
+
+    &:last-child {
+        margin-left: rem(12);
+    }
+}
+
+/**
+* 1. Line height of pagination control should equal its height for proper
+*    vertical alignment.
+*/
+.c-pagination__control {
+    display: block;
+    min-width: 32px;
+    height: $pagination-control-height; /* [1] */
+    padding: $pagination-control-padding;
+    border: $pagination-control-border-width solid $pagination-control-border-color;
+    border-radius: $base-border-radius;
+    background-color: $pagination-control-background-color;
+    color: $pagination-control-color;
+    font-size: $pagination-control-font-size;
+    font-weight: $pagination-control-font-weight;
+    line-height: $pagination-control-height; /* [1] */
+    text-align: center;
+    box-shadow: 0 7px 64px 0 rgba(0, 0, 0, .07);
+    transition: all 275ms ease;
+
+    /**
+    * 1. You may resize this icon if you used another icon font.
+    */
+    i {
+        position: relative;
+        bottom: -1px;
+        transition: color .15s;
+        color: $pagination-control-color;
+        font-size: 16px; /* [1] */
+    }
+    &:hover {
+        background-color: rgba($color: $pagination-control-background-color, $alpha: .7);
+        color: $heading-color;
+        text-decoration: none;
+
+        i {
+        color: $heading-color;
+        }
+    }
+
+    &:disabled {
+        background-color: #e6e9e9;
+        cursor: not-allowed;
+    }
+}
+
+.c-pagination__link {
+    display: block;
+    min-width: 32px;
+    height: $pagination-link-height;
+    padding: $pagination-link-padding;
+    border: $pagination-link-border-width solid $pagination-link-border-color;
+    border-radius: $base-border-radius;
+    background-color: $pagination-link-background-color;
+    color: $pagination-link-color;
+    font-size: $pagination-link-font-size;
+    line-height: $pagination-link-height;
+    text-align: center;
+    transition: all 275ms ease;
+
+    &:hover {
+        background-color: rgba($color: $color-info, $alpha: .3);
+        color: $heading-color;
+        text-decoration: none;
+        transition: background-color 275ms ease;
+    }
+
+    &:disabled {
+        background-color: #e6e9e9;
+        cursor: not-allowed;
+    }
+
+    &.is-active {
+        background-color: $color-info;
+        color: $white;
+
+        &:hover {
+            background-color: rgba($color: $color-info, $alpha: .9);
+            color: $white;
+        }
+    }
+}
+
+.c-pagination__counter {
+    display: inline-block;
+    margin: 0;
+    padding: $pagination-counter-padding;
+    color: $pagination-counter-color;
+    vertical-align: middle;
+}

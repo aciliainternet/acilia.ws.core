@@ -1,0 +1,35 @@
+@use '../0-settings/_settings-global' as *;
+
+///* ========================================================================
+//   #TOGGLE
+//   ======================================================================== */
+
+//
+// 1. Height of toggle button 'c-toggle__btn' should equal the height if its
+//    container `c-toggle`.
+//
+// 2. Label's `line-height` should equal its `height` for centering its
+//    text vertically.
+//
+
+$toggle-height: 52px !default; // [1]
+
+$toggle-btn-width: calc(50% - 10px) !default;
+$toggle-btn-height: $toggle-height !default; // [1]
+$toggle-btn-border-width: 1px !default;
+$toggle-btn-border-color: #E7E9ED !default;
+$toggle-btn-border-radius: $base-border-radius !default;
+
+$toggle-btn-font-size: 14px !default;
+$toggle-btn-color: #565F6D !default;
+$toggle-btn-background-color: transparent !default;
+
+$toggle-btn-active-background-color: transparent !default;
+$toggle-btn-active-border-color: $color-info !default;
+$toggle-btn-active-color:#565F6D !default;
+
+
+$toggle-label-width: 100% !default;
+$toggle-label-height: $toggle-height !default; // [2]
+$toggle-label-line-height: $toggle-label-height !default; // [2]
+

@@ -1,0 +1,10 @@
+@use '../0-settings/_settings-global' as *;
+
+.o-link {
+    color: $color-primary;
+    text-decoration: underline;
+
+    &--break {
+        word-break: break-all;
+    }
+}

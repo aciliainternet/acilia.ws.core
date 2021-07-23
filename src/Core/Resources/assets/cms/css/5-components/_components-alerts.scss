@@ -1,0 +1,98 @@
+@use '../0-settings/_settings-global' as *;
+@use '../0-settings/_settings-alerts' as *;
+@use '../0-settings/_settings-tabs' as *;
+@use '../0-settings/_settings-tables' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
+
+/* ==========================================================================
+   #ALERTS
+   ========================================================================== */
+
+.c-alert {
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin: $alert-margin;
+    padding: $alert-padding;
+    transition: all 0.3s;
+    border-radius: $alert-border-radius;
+    color: $alert-color;
+
+    .c-close {
+        position: absolute;
+        top: $alert-close-top;
+        right: $alert-close-right;
+    }
+
+
+    &.fade {
+        transition: opacity 0.3s;
+        opacity: 0;
+
+        &.show {
+            opacity: 1;
+        }
+    }
+
+    &[class*="--border"] {
+        font-weight: $font-weight-normal;
+        font-size: rem(13);
+    }
+
+    &--border-success {
+        border: 1px solid $alert-success-background-color;
+        background-color: rgba($alert-success-background-color, .2);
+        color: $alert-success-background-color;
+    }
+
+    &--border-info {
+        border: 1px solid $alert-info-background-color;
+        background-color: rgba($alert-info-background-color, .2);
+        color: $alert-info-background-color;
+    }
+
+    &--border-warning {
+        border: 1px solid $alert-warning-background-color;
+        background-color: rgba($alert-warning-background-color, .2);
+        color: $alert-warning-background-color;
+    }
+
+    &--border-danger {
+        border: 1px solid $alert-danger-background-color;
+        background-color: rgba($alert-danger-background-color, .2);
+        color: $alert-danger-background-color;
+    }
+}
+
+
+/**
+ * 1. Align icon with text properly.
+ */
+
+.c-alert__icon {
+    position: relative;
+    bottom: -4px; /* [1] */
+    margin-right: $alert-icon-margin-right;
+    font-size: $alert-icon-font-size;
+    opacity: $alert-icon-opacity;
+}
+
+
+/* Style variants
+   ========================================================================== */
+
+.c-alert--success {
+    background-color: $alert-success-background-color;
+}
+
+.c-alert--info {
+    background-color: $alert-info-background-color;
+}
+
+.c-alert--warning {
+    background-color: $alert-warning-background-color;
+}
+
+.c-alert--danger {
+    background-color: $alert-danger-background-color;
+}

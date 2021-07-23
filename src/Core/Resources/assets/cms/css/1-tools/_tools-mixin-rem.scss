@@ -1,0 +1,14 @@
+@use "sass:math";
+
+// ----- rem ----- //
+//REM conversor
+//use:
+//  .element {
+//    height: rem(50);
+//   }
+
+$font-size: 16;
+
+@function rem($size) {
+    @return #{math.div($size, $font-size)}rem;
+}

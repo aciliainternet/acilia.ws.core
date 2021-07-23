@@ -1,0 +1,116 @@
+@use '../0-settings/_settings-global' as *;
+
+.btn-asset-modal {
+  &.is-hidden {
+    display: none;
+  }
+}
+
+[data-is-visible="false"] {
+  display: none;
+}
+
+.ws-img-selector_modal {
+  display: none;
+}
+
+.ws-img-selector__new-container {
+    padding: 30px;
+    background-color: $body-background-color;
+    border-bottom: 2px solid $grey-300;
+}
+
+.ws-img-selector__new-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 3px dotted #e5e6e7;
+  cursor: pointer;
+
+  &:hover,
+  &.is-active {
+    border-color: #28a745;
+
+    .ws-img-selector__new-text {
+      color: #28a745;
+    }
+  }
+}
+
+.ws-img-selector__new-text {
+  text-align: center;
+  font-size: 16px;
+  margin: 11px auto;
+  width: 178px;
+}
+
+.ws-img-selector__new-upload {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  width: 100%;
+  opacity: 0;
+  z-index: 999;
+  cursor: pointer;
+}
+
+.ws-image-selector__list {
+  position: relative;
+  border: 1px solid #e5e6e7;
+  display: flex;
+  padding: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  height: 500px;
+  margin-top: 20px;
+
+  &.no-scroll {
+    overflow: hidden;
+  }
+}
+
+.ws-image-selector__list__image {
+  position: relative;
+  height: 150px;
+  width: 150px;
+  display: none;
+  margin: 0 43px 20px 0;
+  border-radius: 5px;
+  cursor: pointer;
+
+  img {
+    height: 100%;
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+  }
+
+  &.is-visible {
+    display: block;
+  }
+
+  &:nth-of-type(6n) {
+    margin-right: 0;
+  }
+
+  &:hover {
+    box-shadow: 5px 5px 15px 5px #000000;
+
+    .ws-image-selector__list__image-actions {
+      display: flex;
+    }
+  }
+}
+
+.ws-image-selector__list__image-actions {
+  position: absolute;
+  display: none;
+  bottom: 5px;
+  margin: 0 20px;
+
+  button:nth-of-type(1) {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,44 @@
+@use '../0-settings/_settings-global' as *;
+
+.wp-status {
+    text-transform: capitalize;
+}
+
+.wp-status-terminated,
+.wp-status-failed,
+.wp-status-lockdown {
+    color: $red-500 !important;
+}
+
+.wp-status-active {
+    color: $green-300 !important;
+}
+
+.wp-status-pending,
+.wp-status-lockdown-rollback {
+    color: $orange-400 !important;
+}
+
+.wp-status-ready,
+.wp-status-approved,
+.wp-status-available {
+    color: $green-500 !important;
+}
+
+.wp-status-processing,
+.wp-status-in-progress,
+.wp-status-rollback-requested,
+.wp-status-rebuild {
+    color: $green-100 !important;
+}
+
+.wp-status-processed,
+.wp-status-completed {
+    color: $blue-300 !important;
+}
+
+.wp-status-cancelled,
+.wp-status-cancel-failed,
+.wp-status-cancel-requested {
+    color: $red-200 !important;
+}

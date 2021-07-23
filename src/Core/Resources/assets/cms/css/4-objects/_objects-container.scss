@@ -1,0 +1,14 @@
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-breakpoint' as *;
+
+.container-fluid .container {
+    padding: 0;
+}
+
+.container-fluid {
+    min-height: calc(100vh - 100px - 145px);
+
+    @include media-breakpoint('lg') {
+        padding: 0 30px;
+    }
+}

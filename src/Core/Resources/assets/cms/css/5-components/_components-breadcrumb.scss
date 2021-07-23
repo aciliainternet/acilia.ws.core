@@ -1,0 +1,49 @@
+@use '../0-settings/_settings-global' as *;
+@use '../0-settings/_settings-breadcrumb' as *;
+@use '../1-tools/_tools-mixin-breakpoint' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
+
+/* ==========================================================================
+   #BREADCRUMB
+   ========================================================================== */
+
+.c-breadcrumb {
+    display: block;
+    width: 100%;
+    margin: 10px auto 0 0;
+    padding: 0;
+
+    @include media-breakpoint('md') {
+        margin: 0 auto 0 0;
+        width: auto;
+    }
+}
+
+.c-breadcrumb__item {
+    display: inline-block;
+    color: $breadcrumb-item-color;
+    font-size: rem(13);
+    line-height: rem(13);
+
+    > a {
+        color: inherit;
+        font-size: rem(13);
+        line-height: rem(13);
+    }
+
+    > a:hover {
+        text-decoration: underline;
+    }
+
+    // divider
+    &:not(:last-child)::after {
+        margin: $breadcrumb-divider-margin;
+        color: $breadcrumb-divider-color;
+        content: ">";
+    }
+
+    &.is-active {
+        color: $breadcrumb-item-active-color;
+        font-weight: $font-weight-semibold;
+    }
+}
