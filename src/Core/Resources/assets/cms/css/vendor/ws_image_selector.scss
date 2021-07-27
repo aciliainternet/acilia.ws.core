@@ -7,7 +7,7 @@
 }
 
 [data-is-visible="false"] {
-  display: none;
+  display: none !important;
 }
 
 .ws-img-selector_modal {

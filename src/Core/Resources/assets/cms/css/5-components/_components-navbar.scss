@@ -25,8 +25,11 @@
     border-bottom: $navbar-border-width solid $navbar-border-color;
     background-color: $navbar-background-color;
 
-    @include media-breakpoint('md') {
+    @include respond-to($breakpoint-tablet){
         padding: $spacer-xsmall $spacer-small;
+    }
+
+    @include media-breakpoint('md') {
         flex-direction: row-reverse;
     }
 

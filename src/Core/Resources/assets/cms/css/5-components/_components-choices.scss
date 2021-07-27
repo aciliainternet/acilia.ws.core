@@ -1,4 +1,5 @@
 @use '../0-settings/_settings-global' as *;
+@use '../0-settings/_settings-choice' as *;
 @use '../0-settings/_settings-inputs' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 
@@ -192,3 +193,4 @@
         }
     }
 }
+
