@@ -316,7 +316,7 @@
                 position: relative;
                 box-shadow: none;
                 color: $color-sidebar-active;
-                font-weight: $font-weight-semibold;
+                font-weight: $font-weight-bold;
 
                 &:before {
                     @include position(absolute, $top: 0, $left: 15px);

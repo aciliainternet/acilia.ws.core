@@ -69,9 +69,13 @@
             border-bottom-left-radius: 0;
         }
 
+        &:hover {
+            background-color: rgba($color: $toggle-btn-active-background-color, $alpha: .1);
+        }
+
         &.is-active {
             border-color: $toggle-btn-active-border-color;
-            background-color: $toggle-btn-active-background-color;
+            background-color: rgba($color: $toggle-btn-active-background-color, $alpha: .1);
             color: $toggle-btn-active-color;
 
             #{ $self }__label {
