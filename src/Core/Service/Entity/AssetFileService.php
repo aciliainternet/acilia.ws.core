@@ -58,6 +58,16 @@ class AssetFileService implements FactoryCollectorInterface
         return $assetFile;
     }
 
+    public function clone(AssetFile $originalAssetFile): AssetFile
+    {
+        $assetFile = clone $originalAssetFile;
+
+        $this->em->persist($assetFile);
+        $this->em->flush();
+
+        return $assetFile;
+    }
+
     public function getFactoryCollectorSupported(): array
     {
         return [AssetFile::class];

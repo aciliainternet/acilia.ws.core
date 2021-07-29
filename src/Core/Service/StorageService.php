@@ -58,6 +58,11 @@ class StorageService
         return $finalFileContent;
     }
 
+    public function exists($filePath, $context): bool
+    {
+        return \file_exists(sprintf('%s/%s', $this->storage[$context], $filePath));
+    }
+
     public function getPublicUrl(string $filePath): string
     {
         return sprintf('%s/%s', $this->storage[self::CONTEXT_URL], $filePath);

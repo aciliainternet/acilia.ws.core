@@ -46,6 +46,31 @@ class FileService
         }
     }
 
+    public function copy(AssetFile $originalAssetFile, ?array $options = null): ?AssetFile
+    {
+        if (!$this->storageService->exists(
+            $this->getFilePath($originalAssetFile),
+            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+        )) {
+            $this->logger->error(sprintf(
+                'Error copying AssetFile. File "%s" not found.',
+                $this->getFilePath($originalAssetFile)
+            ));
+
+            return null;
+        }
+
+        $assetFile = $this->assetFileService->clone($originalAssetFile);
+
+        $this->storageService->save(
+            $this->getFilePath($assetFile),
+            file_get_contents($this->storageService->getPrivateUrl($this->getFilePath($originalAssetFile))),
+            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+        );
+
+        return $assetFile;
+    }
+
     public function getFileUrl(AssetFile $assetFile): string
     {
         return $this->storageService->getPublicUrl($this->getFilePath($assetFile));
