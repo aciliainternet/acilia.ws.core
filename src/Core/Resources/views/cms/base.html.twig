@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="google" content="notranslate">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ get_title() }} | {{ 'name'|trans({}, 'cms') }}{% endblock %}</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500,600,700&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="google" content="notranslate">
+    <meta name="googlebot" content="noindex" />
+    <meta name="author" content="Acilia Software">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+    <meta name="title" content="{{ get_title() }} | {{ 'name'|trans({}, 'cms') }}">
+    <meta name="description" content="Powered by WideStand from Acilia Software.">
 
     <link rel="shortcut icon" href="{{ asset('cms/favicon.ico', 'cms') }}" type="image/x-icon">
+    <style>a{color: #475364;}</style>
     <link type="text/css" href="{{ asset('cms/css/app.css', 'cms') }}" rel="stylesheet" />
-
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="o-page {{ bodyClass is defined ? bodyClass }}">

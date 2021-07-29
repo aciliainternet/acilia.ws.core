@@ -127,7 +127,7 @@ $background-color: #f2f2f6 !default;
 // ========================================================================== */
 
 $base-font-family: 'IBM Plex Sans', sans-serif !default;
-$base-font-size: 16 !default;
+$base-font-size: rem(16) !default;
 $base-line-height: 1.5 !default;
 
 // Font Weights
@@ -163,9 +163,9 @@ $heading-color: $color-primary !default;
 $heading-font-weight: $font-weight-semibold !default;
 
 // Links
-$link-color: $color-brand !default;
+$link-color: $color-default-text !default;
 $link-text-decoration: none !default;
-$link-hover-color: $color-brand !default;
+$link-hover-color: $color-default-text !default;
 $link-hover-text-decoration: none !default;
 
 

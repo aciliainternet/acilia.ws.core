@@ -41,7 +41,7 @@
     padding-left: $spacer;
     border-bottom: $base-border-width solid #2a3547;
     color: $grey-300;
-    font-size: 16px;
+    font-size: rem(16);
     vertical-align: middle;
 
     &:hover {
@@ -159,7 +159,6 @@
     }
 
     .c-sidebar__brand {
-        border-color: $base-border-color;
         color: $heading-color;
     }
 
@@ -263,6 +262,7 @@
 
     &__text {
         padding-left: 10px;
+        color: $color-default-text;
     }
 
     &__item {

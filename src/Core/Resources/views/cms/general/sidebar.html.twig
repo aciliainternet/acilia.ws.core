@@ -33,15 +33,17 @@
                     </ul>
                 </li>
             {% else %}
-                <a
-                    class="c-sidebar__link {{ ws_cms_in_route(menu.collapsedRoutes, 'is-active') }}"
-                    href="{{ path(menu.routeName, menu.routeOptions) }}"
-                >
-                    <i class="fal fa-1x {{ menu.icon }}" aria-hidden="true"></i>
-                    <span class="c-sidebar__text">
-                        {{ menu.label|trans({}, menu.translationDomain)|raw  }}
-                    </span>
-                </a>
+                <li>
+                    <a
+                        class="c-sidebar__link {{ ws_cms_in_route(menu.collapsedRoutes, 'is-active') }}"
+                        href="{{ path(menu.routeName, menu.routeOptions) }}"
+                    >
+                        <i class="fal fa-1x {{ menu.icon }}" aria-hidden="true"></i>
+                        <span class="c-sidebar__text">
+                            {{ menu.label|trans({}, menu.translationDomain)|raw  }}
+                        </span>
+                    </a>
+                </li>
             {% endif %}
         {% endif %}
     {% endfor %}
