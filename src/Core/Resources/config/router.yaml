@@ -6,4 +6,4 @@ services:
         parent: router.default
         calls:
             - [ setLoader, ['@WS\Core\Library\Router\Loader\Loader']]
-            - [ setDefaultLocale, ['%locale%']]
+            - [ setDefaultLocale, ['%kernel.default_locale%']]
