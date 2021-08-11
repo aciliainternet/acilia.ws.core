@@ -7,8 +7,8 @@
     height: 100%;
 
     &__wrapper {
-        height: 100%;
         overflow: hidden;
+        height: 100%;
     }
 
     &__alert-wrapper {
@@ -18,8 +18,8 @@
 
     &__alert {
         @include position(absolute, $top: 10px, $left: 0);
-        margin: 0;
         box-sizing: border-box;
+        margin: 0;
     }
 
     &__text {
@@ -29,16 +29,17 @@
     }
 
     // Overwrite styles for plugin drag and drop
+
     &__list {
         position: relative;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         grid-auto-rows: max-content;
         gap: 20px;
+        overflow-y: scroll;
         width: 100%;
         height: calc(100% - 265px);
         margin-bottom: rem(5);
-        overflow-y: scroll;
 
         &.no-scroll {
             overflow: hidden;
@@ -52,13 +53,14 @@
         cursor: pointer;
 
         &:hover {
+
             .c-img-modal__img-actions {
                 display: flex;
             }
 
-            &:before {
-                position: absolute;
+            &::before {
                 content: '';
+                position: absolute;
                 display: block;
                 width: 100%;
                 height: 100%;
@@ -72,13 +74,13 @@
 
         &--text {
             display: flex;
-            align-content: center;
             flex-direction: column;
+            align-content: center;
             justify-content: center;
-            border: 1px solid $grey-600;
-            background-color: #f7f7f7;
             width: auto;
             height: 212px;
+            border: 1px solid $grey-600;
+            background-color: #f7f7f7;
         }
     }
 
@@ -104,14 +106,15 @@
 
     &__img-actions {
         @include position(absolute, $top: 0, $bottom: 0);
-        justify-content: center;
         display: none;
+        justify-content: center;
         width: 100%;
         height: rem(30);
         margin: auto;
     }
 
     // Overwrite styles for plugin drag and drop
+
     .dz-icon {
         margin: 0 auto 10px;
         color: rgba(46, 161, 248, .5);

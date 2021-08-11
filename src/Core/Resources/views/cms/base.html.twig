@@ -26,7 +26,6 @@
     {% for flashMessage in app.session.flashbag.get('cms_error') %}
         <div class="cms-notifications u-hidden" data-type="failure">{{ flashMessage|raw }}</div>
     {% endfor %}
-
     <script type="text/javascript">
         window.cmsTranslations = {
             cancel: '{{ 'cancel'|trans({}, 'ws_cms') }}',

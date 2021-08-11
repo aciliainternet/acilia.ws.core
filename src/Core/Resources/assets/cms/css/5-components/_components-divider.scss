@@ -8,20 +8,29 @@
    ========================================================================== */
 
 .c-divider {
-    display: block;
     position: relative;
+    display: block;
     width: 100%;
     height: $divider-line-height;
     background-color: $divider-line-background-color;
     color: $divider-color;
-    font-size: $divider-font-size;
     font-weight: $divider-font-weight;
+    font-size: $divider-font-size;
     text-align: center;
     text-transform: uppercase;
+
+    @include respond-to ($breakpoint-tablet) {
+
+        &::before,
+        &::after {
+            width: 30%;
+        }
+    }
 
     /**
      * When divider has a text in its center.
      */
+
     &.has-text {
         display: flex;
         align-items: center;
@@ -30,17 +39,10 @@
 
         &::before,
         &::after {
+            content: '';
             width: 42%;
             height: $divider-line-height;
             background-color: $divider-line-background-color;
-            content: "";
-        }
-    }
-
-    @include respond-to ($breakpoint-tablet) {
-        &::before,
-        &::after {
-            width: 30%;
         }
     }
 }
@@ -50,6 +52,7 @@
     text-transform: none;
 
     &.has-text {
+
         &::before,
         &::after {
             width: 25%;

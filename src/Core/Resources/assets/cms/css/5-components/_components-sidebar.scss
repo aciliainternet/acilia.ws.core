@@ -17,14 +17,14 @@
  */
 
 .c-sidebar {
+    @include scrollbar;
     position: relative;
+    z-index: $z-index-200; // DEV NOTE: COMPARE WITH `o-page__sidebar`
+    overflow: auto;
     height: 100%;
     margin: 0;
     padding-bottom: $spacer;
-    background-color: #222C3C;
-    overflow: auto;
-    z-index: $z-index-200; // DEV NOTE: COMPARE WITH `o-page__sidebar`
-    @include scrollbar;
+    background-color: #222c3c;
 }
 
 /**
@@ -36,13 +36,13 @@
 
 .c-sidebar__brand {
     display: flex;
+    vertical-align: middle;
     align-items: center;
     height: $navbar-height; /* [1] */
     padding-left: $spacer;
     border-bottom: $base-border-width solid #2a3547;
     color: $grey-300;
     font-size: rem(16);
-    vertical-align: middle;
 
     &:hover {
         color: $grey-300;
@@ -69,7 +69,7 @@
     display: block;
     width: 100%;
     height: 1px;
-    background-color: #2A3547;
+    background-color: #2a3547;
 }
 
 /**
@@ -78,27 +78,28 @@
 
 .c-sidebar__item {
     position: relative;
-    transition: background-color 0.2s;
+    transition: background-color .2s;
 
     /**
      * 1. Add small arrow to `c-menu__link` when `c-menu__item` has sub-menu.
      */
+
     &.has-submenu > .c-sidebar__link::after { /* [1] */
-        display: inline-block;
+        content: '\f0d7'; // fa-caret-down
         position: absolute;
         top: 12px;
         right: 30px;
-        color: #B7C0CD;
+        display: inline-block;
+        color: #b7c0cd;
         font-family: $base-icon-font;
-        content: "\f0d7"; // fa-caret-down
     }
 
     &.is-open {
-        background-color: #1D2531;
-        box-shadow: inset 3px 0 0 0 #00A8FF;
+        background-color: #1d2531;
+        box-shadow: inset 3px 0 0 0 #00a8ff;
 
         > .c-sidebar__link::after {
-            content: "\f0d8"; // fa-caret-up
+            content: '\f0d8'; // fa-caret-up
         }
     }
 }
@@ -108,13 +109,13 @@
     align-content: center;
     align-items: center;
     padding: 10px 0 10px 30px;
-    transition: background-color .2s;
-    color: #B7C0CD;
+    color: #b7c0cd;
     font-size: .875rem;
+    transition: background-color .2s;
 
     &.is-active {
-        background-color: #1D2531;
-        box-shadow: inset 3px 0 0 0 #00A8FF;
+        background-color: #1d2531;
+        box-shadow: inset 3px 0 0 0 #00a8ff;
     }
 
     &:hover {
@@ -126,11 +127,13 @@
 /**
  * Sub Menu
  */
+
 .c-sidebar__submenu {
     /**
      * Bootstrap classes used to show and hide sidebar submenu.
      * This behaviour depends on collapse.js plugin.
      */
+
     &.collapse {
         display: none;
     }
@@ -141,9 +144,9 @@
 
     &.collapsing {
         position: relative;
-        height: 0;
-        transition: height 0.3s;
         overflow: hidden;
+        height: 0;
+        transition: height .3s;
     }
 }
 
@@ -154,6 +157,14 @@
     border-right: $base-border-width solid $base-border-color;
     background-color: $white;
 
+    /**
+     * 1. Add a slight shadow to the sidebar to make it popup a little bit
+     *    on small screens.
+     */
+    @include respond-to($breakpoint-desktop) {
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, .1); /* [1] */
+    }
+
     .c-sidebar__divider {
         background-color: $base-border-color;
     }
@@ -163,12 +174,13 @@
     }
 
     .c-sidebar__item {
+
         &.has-submenu > .c-sidebar__link::after { /* [1] */
-            color: #B7C0CD;
+            color: #b7c0cd;
         }
 
         &.is-open {
-            background-color: #FAFBFC;
+            background-color: #fafbfc;
         }
     }
 
@@ -192,14 +204,6 @@
             color: $heading-color;
         }
     }
-
-    /**
-     * 1. Add a slight shadow to the sidebar to make it popup a little bit
-     *    on small screens.
-     */
-    @include respond-to($breakpoint-desktop) {
-        box-shadow: 1px 1px 5px rgba(0,0,0,.1); /* [1] */
-    }
 }
 
 
@@ -213,15 +217,15 @@
  */
 
 .c-sidebar-toggle {
-    display: none;
     position: relative;
+    display: none;
     width: $nav-toggle-width;
     height: $nav-toggle-height;
     margin: 0 $spacer-small 0 0; /* [1] */
     padding: 0; /* [1] */
     border: 0; /* [1] */
-    outline: none;
     background-color: transparent; /* [1] */
+    outline: none;
     cursor: pointer;
 
     @include respond-to($breakpoint-desktop) {
@@ -234,13 +238,13 @@
  */
 
 .c-sidebar-toggle__bar {
-    display: block;
     position: relative;
+    display: block;
     width: $nav-toggle-bar-width;
     height: $nav-toggle-bar-height;
-    transition: all .3s;
     border-radius: $nav-toggle-bar-border-radius;
     background-color: $nav-toggle-bar-background-color;
+    transition: all .3s;
 
 
     &:first-child {
@@ -272,12 +276,12 @@
             position: relative;
             box-shadow: none;
 
-            &:before {
+            &::before {
                 @include position(absolute, $top: 0, $left: 15px);
+                content: '';
                 width: 3px;
                 height: 100%;
                 background-color: $color-sidebar-active;
-                content: '';
             }
         }
 
@@ -297,12 +301,14 @@
         position: relative;
     }
 
+    /* stylelint-disable */
     &--light {
         #{ $self }__brand {
             border: 0;
         }
 
         #{ $self }__item {
+
             &.is-open {
                 background-color: $color-white;
             }
@@ -314,16 +320,16 @@
 
             &.is-active {
                 position: relative;
-                box-shadow: none;
                 color: $color-sidebar-active;
+                box-shadow: none;
                 font-weight: $font-weight-bold;
 
-                &:before {
+                &::before {
                     @include position(absolute, $top: 0, $left: 15px);
+                    content: '';
                     width: 3px;
                     height: 100%;
                     background-color: $color-sidebar-active;
-                    content: '';
                 }
 
                 i {
@@ -341,22 +347,24 @@
         margin-left: 20px;
 
         #{ $self }__link {
-            &.is-active {
-                box-shadow: inherit;
-                margin: 0;
 
-                &:before {
+            &.is-active {
+                margin: 0;
+                box-shadow: inherit;
+
+                &::before {
                     content: initial;
                 }
             }
         }
     }
+    /* stylelint-enable */
 
     &__close {
         @include position(absolute, $top: 25px, $right: 20px);
-        cursor: pointer;
         color: $grey-800;
         font-size: rem(20);
+        cursor: pointer;
     }
 }
 

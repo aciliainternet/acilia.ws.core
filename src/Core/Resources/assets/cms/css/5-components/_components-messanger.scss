@@ -32,14 +32,14 @@
 
 .c-messages {
     @include scrollbar;
+    overflow-y: auto;
     height: calc(100vh - (69px + 70px));
     border-right: $base-border-width solid $base-border-color;
-    overflow-y: auto;
 }
 
 .c-message {
-    display: block;
     position: relative;
+    display: block;
     padding: 15px 20px 15px 30px;
     border-bottom: $base-border-width solid $base-border-color;
     color: $heading-color;
@@ -76,15 +76,16 @@
 /**
  * Make room for messages counter
  */
+
 .c-message__snippet {
     margin: 10px 40px 0 0; /* [1] */
 }
 
 .c-message__counter {
-    display: inline-block;
     position: absolute;
     right: 20px;
     bottom: 25px;
+    display: inline-block;
     width: 24px;
     height: 24px;
     border-radius: 100%;
@@ -110,9 +111,9 @@
 }
 
 .c-chat__body {
+    @include scrollbar;
     flex: 1;
     overflow-y: auto;
-    @include scrollbar;
 }
 
 .c-chat__post {
@@ -127,8 +128,8 @@
     display: inline-block;
     margin-bottom: 10px;
     color: $heading-color;
-    font-size: $h6-font-size;
     font-weight: $font-weight-semibold;
+    font-size: $h6-font-size;
 }
 
 .c-chat__message-time {
@@ -148,20 +149,20 @@
  */
 
 .c-chat__divider {
-    display: block;
     position: relative;
+    display: block;
     color: $color-mute;
     font-size: $text-font-size;
     text-align: center;
 
     &::before,
     &::after {
+        content: '';
         position: absolute;
         top: 50%; // at the center
         width: 42%;
         height: 1px;
         background-color: $base-border-color;
-        content: "";
     }
 
     &::before {
@@ -173,11 +174,11 @@
     }
 
     &.is-active {
-        color: #1A91EB;
+        color: #1a91eb;
 
         &::before,
         &::after {
-            background-color: #1A91EB;
+            background-color: #1a91eb;
         }
     }
 }
@@ -198,6 +199,7 @@
     background-color: $base-background-color;
 
     // customize addon to suite composer's design
+
     .c-field__addon {
         padding: 5px 25px;
     }
@@ -205,9 +207,9 @@
 
 
 .c-messanger {
-    border: 1px solid $grey-300;
     overflow: hidden;
     height: calc(100vh - (#{$height-navbar} + #{$margin-navbar} + #{$height-toolbar} + #{$height-pagination} + #{$height-footer}));
+    border: 1px solid $grey-300;
 }
 
 .c-messages {
@@ -244,6 +246,7 @@
     height: calc(100vh - (#{$height-navbar} + #{$margin-navbar} + #{$height-toolbar} + #{$height-pagination} + #{$height-footer}));
 
     &__divider {
+
         &.is-active {
             color: $color-info;
 
@@ -259,22 +262,25 @@
     }
 
     [class*='fa-envelope'] {
-        &:after {
+
+        &::after {
             display: inline-block;
             padding-left: 10px;
-            font-family: 'IBM Plex Sans', sans-serif;
             font-size: rem(14);
+            font-family: 'IBM Plex Sans', sans-serif;
         }
     }
 
     .fa-envelope {
-        &:after {
+
+        &::after {
             content: 'Marcar como no leído';
         }
     }
 
     .fa-envelope-open {
-        &:after {
+
+        &::after {
             content: 'Marcar como leído';
         }
     }

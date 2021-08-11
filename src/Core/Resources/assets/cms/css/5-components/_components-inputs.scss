@@ -12,22 +12,22 @@
     width: 100%;
     margin: 0;
     padding: $input-padding;
-    transition: all .3s;
     border: $input-border-width solid $input-border-color;
     border-radius: $input-border-radius;
     background-color: $input-background-color;
     color: $input-focus-color;
-    font-size: $input-font-size;
     font-weight: $input-font-weight;
+    font-size: $input-font-size;
     line-height: $base-line-height;
     resize: none;
+    transition: all .3s;
 
     &::placeholder {
-        transition: opacity 0.3s;
         color: $input-placeholder-color;
-        font-style: italic;
         font-weight: $input-placeholder-font-weight;
-        opacity: 0.5;
+        font-style: italic;
+        opacity: .5;
+        transition: opacity .3s;
     }
 
     &:focus {
@@ -35,7 +35,7 @@
         outline: none;
 
         &::placeholder {
-            opacity: 0.2;
+            opacity: .2;
         }
     }
 
@@ -52,9 +52,9 @@
     }
 
     &--select {
-        appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
+        appearance: none;
     }
 }
 
@@ -64,11 +64,12 @@
  */
 
 // sass-lint:disable no-qualifying-elements
+
 textarea.c-input {
     min-height: 250px;
-    resize: vertical;
-    font-size: $textarea-font-size;
     font-weight: $textarea-font-weight;
+    font-size: $textarea-font-size;
+    resize: vertical;
 
     &.c-input--textarea-small {
         min-height: 52px;

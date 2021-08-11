@@ -11,9 +11,8 @@
  */
 
 .c-dropdown {
-    display: inline-block;
     position: relative;
-
+    display: inline-block;
 }
 
 
@@ -28,19 +27,19 @@
     position: absolute;
     top: 100%; /* [1] */
     right: 0;
+    z-index: $z-index-400;
     width: $dropdown-menu-width;
     margin: 5px 0 0;
-    transition: visibility 0.3s ease, opacity 0.3s ease;
     border: $dropdown-menu-border-width solid $dropdown-menu-border-color;
     border-radius: $dropdown-menu-border-radius;
     background-color: $dropdown-menu-background-color;
-    text-align: left;
     box-shadow: $dropdown-menu-box-shadow;
-    z-index: $z-index-400;
+    text-align: left;
+    transition: visibility .3s ease, opacity .3s ease;
 
-	&__menu--medium {
-		width: 200px;
-	}
+    &__menu--medium {
+        width: 200px;
+    }
 
     .c-dropdown &,
     .dropdown & {
@@ -78,8 +77,8 @@
     padding: $dropdown-item-padding;
     border-bottom: $dropdown-item-border-width solid $dropdown-item-border-color;
     color: $dropdown-item-color;
-    font-size: $text-font-size;
     font-weight: $dropdown-item-font-weight;
+    font-size: $text-font-size;
 
     &:hover {
         background-color: $dropdown-item-hover-background-color;

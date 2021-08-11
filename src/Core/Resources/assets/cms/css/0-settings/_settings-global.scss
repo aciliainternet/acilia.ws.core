@@ -1,4 +1,4 @@
-@use "../1-tools/_tools-mixin-rem" as *;
+@use '../1-tools/_tools-mixin-rem' as *;
 
 ///* ========================================================================
 //   #GLOBAL
@@ -42,10 +42,10 @@ $gunmetal-300: #2d3848 !default;
 $gunmetal-400: #273142 !default;
 $gunmetal-500: #1d2531 !default;
 
-$white: #fff !default;
-$black: #000 !default;
+$white: #ffffff !default;
+$black: #000000 !default;
 
-$blue-100: #86CAFF !default;
+$blue-100: #86caff !default;
 $blue-200: #53b2f9 !default;
 // $blue-300: #2ea1f8 !default; // main
 $blue-300: #2083fe !default; // main
@@ -93,30 +93,30 @@ $border-color: #dadae4;
 
 // states
 $color-success: #55b45a !default;
-$color-info:    #007c89 !default;
+$color-info: #007c89 !default;
 $color-warning: #ff9f0f !default;
-$color-danger:  #ec0000 !default;
-$color-fancy:   $purple-400 !default;
-$color-mute:    $grey-700 !default;
+$color-danger: #ec0000 !default;
+$color-fancy: $purple-400 !default;
+$color-mute: $grey-700 !default;
 
 // gradients
-$gradient-info:     $blue-300, $blue-400 !default;
-$gradient-success:  $green-300, $green-400 !default;
-$gradient-fancy:    $purple-300, $purple-500 !default;
-$gradient-danger:   $red-100, $red-300 !default;
-$gradient-warning:  $orange-300, $orange-500 !default;
+$gradient-info: $blue-300, $blue-400 !default;
+$gradient-success: $green-300, $green-400 !default;
+$gradient-fancy: $purple-300, $purple-500 !default;
+$gradient-danger: $red-100, $red-300 !default;
+$gradient-warning: $orange-300, $orange-500 !default;
 
 // brands
-$color-facebook:  #2492E4 !default;
-$color-twitter:   #0AF !default;
-$color-pinterest: #E30F27 !default;
-$color-behance:   #187AC6 !default;
-$color-dribbble:  #ea4c89 !default;
-$color-linkedin:  #222 !default;
+$color-facebook: #2492e4 !default;
+$color-twitter: #00aaff !default;
+$color-pinterest: #e30f27 !default;
+$color-behance: #187ac6 !default;
+$color-dribbble: #ea4c89 !default;
+$color-linkedin: #222222 !default;
 
 // backgrounds
-$body-background-color:      #EFF3F6 !default;
-$base-background-color:      $white !default;
+$body-background-color: #eff3f6 !default;
+$base-background-color: $white !default;
 $secondary-background-color: #fafbfc !default;
 $background-color: #f2f2f6 !default;
 
@@ -147,7 +147,7 @@ $text-large-font-size: rem(16) !default;
 $text-color: $color-primary !default;
 $text-strong-color: $color-primary !default;
 $text-mark-color: $white !default;
-$text-mark-background-color: #ff0 !default;
+$text-mark-background-color: #ffff00 !default;
 $text-mute-color: $color-mute !default;
 
 // Headings
@@ -173,15 +173,15 @@ $link-hover-text-decoration: none !default;
 // 3. Borders
 // ========================================================================== */
 $base-border-radius: 4px !default;
-$base-border-style:  solid !default;
-$base-border-color:  $grey-300 !default;
-$base-border-width:  1px !default;
+$base-border-style: solid !default;
+$base-border-color: $grey-300 !default;
+$base-border-width: 1px !default;
 
 
 //
 // 4. Icon Fonts
 // ========================================================================== */
-$base-icon-font: "Font Awesome 5 Pro" !default;
+$base-icon-font: 'Font Awesome 5 Pro' !default;
 
 
 //
@@ -199,9 +199,9 @@ $z-index-500: 500 !default; // over everything
 // ========================================================================== */
 
 $spacer-xsmall: rem(10) !default;
-$spacer-small:  rem(15) !default;
-$spacer:        rem(30) !default;
-$spacer-large:  rem(50) !default;
+$spacer-small: rem(15) !default;
+$spacer: rem(30) !default;
+$spacer-large: rem(50) !default;
 $spacer-xlarge: rem(100) !default;
 
 
@@ -218,10 +218,10 @@ $breakpoint-md: 768px !default;
 $breakpoint-lg: 992px !default;
 $breakpoint-xl: 1200px !default;
 
-$breakpoint-mobile:  $breakpoint-sm !default;
-$breakpoint-tablet:  $breakpoint-md !default;
+$breakpoint-mobile: $breakpoint-sm !default;
+$breakpoint-tablet: $breakpoint-md !default;
 $breakpoint-desktop: $breakpoint-lg !default;
-$breakpoint-wide:    $breakpoint-xl !default;
+$breakpoint-wide: $breakpoint-xl !default;
 
 //
 // 8. Layout

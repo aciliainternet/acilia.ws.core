@@ -3,154 +3,181 @@
 @use '../1-tools/_tools-mixin-rem' as *;
 @use '../1-tools/_tools-mixin-position' as *;
 
+/* stylelint-disable */
 .toast-title {
     font-weight: $font-weight-semibold;
 }
+
 .toast-message {
+    font-weight: $font-weight-normal;
+    font-size: rem(14);
     -ms-word-wrap: break-word;
     word-wrap: break-word;
-    font-size: rem(14);
-    font-weight: $font-weight-normal;
 }
+
 .toast-message a,
 .toast-message label {
     color: $color-white;
 }
+
 .toast-message a:hover {
     text-decoration: none;
 }
+
 .toast-close-button {
     @include position(absolute, $top: 5px, $right: 10px);
     display: inline-block;
-    border: 0;
     padding: 0;
-    cursor: pointer;
+    border: 0;
     background: transparent;
-    -webkit-appearance: none;
     color: $color-white;
-    font-size: rem(24);
     font-weight: 300;
+    font-size: rem(24);
     line-height: rem(15);
+    cursor: pointer;
+    -webkit-appearance: none;
 }
+
 .toast-top-center {
     top: 0;
     right: 0;
     width: 100%;
 }
+
 .toast-bottom-center {
-    bottom: 0;
     right: 0;
+    bottom: 0;
     width: 100%;
 }
+
 .toast-top-full-width {
     top: 0;
     right: 0;
     width: 100%;
 }
+
 .toast-bottom-full-width {
-    bottom: 0;
     right: 0;
+    bottom: 0;
     width: 100%;
 }
+
 .toast-top-left {
     top: 12px;
     left: 12px;
 }
+
 .toast-top-right {
     top: 12px;
     right: 12px;
 }
+
 .toast-bottom-right {
     right: 12px;
     bottom: 12px;
 }
+
 .toast-bottom-left {
     bottom: 12px;
     left: 12px;
 }
+
 #toast-container {
     position: fixed;
     z-index: 999999;
     /*overrides*/
 }
+
 #toast-container * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
 #toast-container > div {
     position: relative;
     overflow: hidden;
+    width: 300px;
     margin: 0 0 6px;
     padding: 20px 20px 20px 50px;
-    width: 300px;
     border-radius: 3px;
     color: $color-white;
 }
-#toast-container > .toast-info:before {
+
+#toast-container > .toast-info::before {
     @include position(absolute, $top: 0, $left: 15px, $bottom: 0);
-    content: "\f05a";
+    content: '\f05a';
     display: inline-block;
     height: 30px;
     margin: auto;
-    font-family: 'Font Awesome 5 Pro';
-    font-size: 1.5em;
     font-weight: 300;
+    font-size: 1.5em;
+    font-family: 'Font Awesome 5 Pro';
 }
-#toast-container > .toast-error:before {
+
+#toast-container > .toast-error::before {
     @include position(absolute, $top: 0, $left: 15px, $bottom: 0);
-    content: "\f06a";
+    content: '\f06a';
     display: inline-block;
     height: 30px;
     margin: auto;
-    font-family: 'Font Awesome 5 Pro';
-    font-size: 1.5em;
     font-weight: 300;
+    font-size: 1.5em;
+    font-family: 'Font Awesome 5 Pro';
 }
-#toast-container > .toast-success:before {
+
+#toast-container > .toast-success::before {
     @include position(absolute, $top: 0, $left: 15px, $bottom: 0);
-    content: "\f00c";
+    content: '\f00c';
     display: inline-block;
     height: 30px;
     margin: auto;
-    font-family: 'Font Awesome 5 Pro';
-    font-size: 1.5em;
     font-weight: 300;
+    font-size: 1.5em;
+    font-family: 'Font Awesome 5 Pro';
 }
-#toast-container > .toast-warning:before {
+
+#toast-container > .toast-warning::before {
     @include position(absolute, $top: 0, $left: 15px, $bottom: 0);
-    content: "\f071";
+    content: '\f071';
     display: inline-block;
     height: 30px;
     margin: auto;
-    font-family: 'Font Awesome 5 Pro';
-    font-size: 1.5em;
     font-weight: 300;
+    font-size: 1.5em;
+    font-family: 'Font Awesome 5 Pro';
 }
+
 #toast-container.toast-top-center > div,
 #toast-container.toast-bottom-center > div {
     width: 300px;
-    margin-left: auto;
     margin-right: auto;
+    margin-left: auto;
 }
+
 #toast-container.toast-top-full-width > div,
 #toast-container.toast-bottom-full-width > div {
     width: 96%;
-    margin-left: auto;
     margin-right: auto;
+    margin-left: auto;
 }
+
 .toast {
     background-color: #030303;
 }
+
 .toast-success {
     background-color: rgba($color-success, .9);
 }
+
 .toast-error {
     background-color: rgba($color-danger, .9);
 }
+
 .toast-info {
     background-color: rgba($color-info, .9);
 }
+
 .toast-warning {
     background-color: rgba($color-warning, .9);
 }
@@ -161,3 +188,4 @@
     background-color: $color-black;
     opacity: .4;
 }
+/* stylelint-enable */

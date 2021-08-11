@@ -19,33 +19,33 @@
  */
 
 .c-btn {
-    display: inline-block;
+    @include linear-gradient(to bottom, $gradient-info); /* [1] */
     position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
     max-width: 100%;
     margin: 0;
     padding: $btn-padding;
-    transition: all 0.15s ease-in-out;
     border: $btn-border-width solid;
-    border-radius: $btn-border-radius;
     border-color: $btn-border-color; /* [1] */
+    border-radius: $btn-border-radius;
     color: $btn-color; /* [1] */
-    font-size: $btn-font-size;
     font-weight: $btn-font-weight;
+    font-size: $btn-font-size;
     line-height: 1.5;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
-    overflow: hidden;
-    vertical-align: middle;
-    appearance: none;
     user-select: none;
-    @include linear-gradient(to bottom, $gradient-info); /* [1] */
+    transition: all .15s ease-in-out;
+    appearance: none;
 
     &:hover,
     &:focus {
-        outline: 0;
         color: $btn-hover-color;
+        outline: 0;
         text-decoration: none;
     }
 
@@ -60,18 +60,17 @@
         padding-right: 2.5rem;
 
         &::after { /* [3] */
-            display: inline-block;
+            content: '\f107'; // fa-angle-down
             position: absolute;
             top: 0;
             right: 0;
+            display: inline-block;
             height: 100%;
             margin-left: 1.25rem;
-            padding: 0.5rem 8px;
-            border-left: 1px solid;
-            border-color: inherit;
+            padding: .5rem 8px;
+            border-left: 1px solid $grey-400;
             color: inherit;
             font-family: $base-icon-font;
-            content: "\f107"; // fa-angle-down
         }
     }
 
@@ -233,8 +232,8 @@
 }
 
 .c-btn--delete {
-    transition: all .2s ease-in-out;
     color: $grey-700;
+    transition: all .2s ease-in-out;
 
     &:hover {
         @include linear-gradient(to bottom, $red-100, $red-300);
@@ -244,8 +243,8 @@
 }
 
 .c-btn--ghost {
-    border: 0;
     padding: 0;
+    border: 0;
     background-color: $color-transparent;
     color: $grey-700;
 
@@ -283,6 +282,6 @@
 }
 
 .c-btn--upload-image {
-    flex-grow: 0.9;
+    flex-grow: .9;
 }
 

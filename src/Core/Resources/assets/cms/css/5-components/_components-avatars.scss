@@ -1,5 +1,7 @@
 .c-avatar {
+
     &.has-dropdown {
+
         &::after {
             content: initial;
         }

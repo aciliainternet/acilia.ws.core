@@ -3,18 +3,21 @@
 @use '../0-settings/_settings-inputs' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 
+/* stylelint-disable */
+
 .choices {
     $self: &;
     margin-bottom: 0;
 
     &__placeholder {
-        transition: opacity 0.3s;
         color: $input-placeholder-color;
         font-weight: $input-placeholder-font-weight;
-        opacity: 0.5;
+        opacity: .5;
+        transition: opacity .3s;
     }
 
-    &[data-type="select-multiple"] {
+    &[data-type='select-multiple'] {
+
         &.is-open {
             #{$self}__inner {
                 #{$self}__list--multiple {
@@ -28,7 +31,7 @@
         }
     }
 
-    &[data-type="select-one"] {
+    &[data-type='select-one'] {
         #{$self}__inner {
             padding: $input-padding;
         }
@@ -37,21 +40,21 @@
     &__inner {
         display: flex;
         align-items: center;
+        overflow: visible;
         box-sizing: border-box;
-        border: $input-border-width solid $input-border-color;
-        box-shadow: none;
-        border-radius: $base-border-radius;
         width: 100%;
         min-height: rem(52);
+        padding: $input-padding;
+        border: $input-border-width solid $input-border-color;
+        border-radius: $base-border-radius;
         background-color: $color-white;
         color: $color-default-text;
-        overflow: visible;
+        box-shadow: none;
+        font-size: rem(14);
+        line-height: 1.35rem;
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        font-size: rem(14);
-        padding: $input-padding;
-        line-height: 1.35rem;
 
         &.is-focused {
             border-color: $input-focus-border-color;
@@ -59,14 +62,15 @@
     }
 
     &__input {
-        background-color: $color-transparent;
         margin-bottom: 0;
+        background-color: $color-transparent;
     }
 
     &__list {
         border-color: $input-border-color !important;
 
         #{ $self }__item {
+
             &--selectable {
                 padding-right: 10px !important;
             }
@@ -82,18 +86,18 @@
 
         &--multiple {
             display: flex;
-            align-items: center;
             flex-wrap: wrap;
+            align-items: center;
             height: 100%;
 
             .choices__item {
+                border-color: transparent;
                 border-radius: rem(5);
                 background-color: rgba($color: $color-info, $alpha: .1);
-                border-color: transparent;
-                font-family: $base-font-family;
+                color: $color-default-text;
                 font-weight: $font-weight-normal;
                 font-size: $text-font-size;
-                color: $color-default-text;
+                font-family: $base-font-family;
                 transition: background 300ms ease-in-out;
 
                 &:hover {
@@ -116,15 +120,15 @@
         z-index: 3;
 
         #{ $self }__inner {
-            border-radius: $base-border-radius;
             border-color: $input-border-color;
+            border-radius: $base-border-radius;
             color: $color-default-text;
 
             &::placeholder {
-                transition: opacity 0.3s;
                 color: $input-placeholder-color;
                 font-weight: $input-placeholder-font-weight;
-                opacity: 0.5;
+                opacity: .5;
+                transition: opacity .3s;
             }
 
             &:focus {
@@ -132,7 +136,7 @@
                 outline: none;
 
                 &::placeholder {
-                    opacity: 0.2;
+                    opacity: .2;
                 }
             }
 
@@ -156,13 +160,15 @@
     margin: 0;
 
     &__input + &__label--batch {
-        &:before {
+
+        &::before {
             margin: 0;
         }
     }
 
     &__input + &__label {
-        &:before {
+
+        &::before {
             top: initial;
             width: rem(20);
             height: rem(20);
@@ -171,26 +177,30 @@
     }
 
     &--checkbox {
+
         .c-field__label {
             margin-bottom: 0;
             font-weight: $font-weight-normal;
         }
 
-        #{ $self }__input:checked + #{ $self }__label:checked  {
+        #{ $self }__input:checked + #{ $self }__label:checked {
+            content: '\f00c';
             border-color: $color-secondary;
             background-color: $color-secondary;
-            font-family: 'Font Awesome 5 Pro';
             font-size: rem(14);
-            content: "\f00c";
+            font-family: 'Font Awesome 5 Pro';
         }
     }
 }
 
 .c-choice-wrapper {
+
     &--small {
+
         .choices__inner {
             min-height: 39px;
         }
     }
 }
 
+/* stylelint-enable */

@@ -14,8 +14,8 @@
     padding: 0;
 
     @include media-breakpoint('md') {
-        margin: 0 auto 0 0;
         width: auto;
+        margin: 0 auto 0 0;
     }
 }
 
@@ -36,10 +36,11 @@
     }
 
     // divider
+
     &:not(:last-child)::after {
+        content: '>';
         margin: $breadcrumb-divider-margin;
         color: $breadcrumb-divider-color;
-        content: ">";
     }
 
     &.is-active {

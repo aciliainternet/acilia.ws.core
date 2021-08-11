@@ -64,11 +64,11 @@ dl dd {
  */
 
 a {
-    transition: color 0.15s ease-in-out;
     background-color: transparent; /* [1] */
     color: $link-color;
     text-decoration: $link-text-decoration;
     cursor: pointer;
+    transition: color .15s ease-in-out;
 
     &:hover {
         color: $link-hover-color;
@@ -86,8 +86,8 @@ pre,
 code,
 kbd,
 samp {
-    font-family: monospace, monospace; /* [1] */
     font-size: 1em; /* [2] */
+    font-family: monospace, monospace; /* [1] */
 }
 
 mark {

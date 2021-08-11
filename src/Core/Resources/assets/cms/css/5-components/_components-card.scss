@@ -65,11 +65,12 @@
 }
 
 .c-card__icon {
-    display: flex;
+    @include linear-gradient(to bottom, $gradient-info);
     position: absolute;
     top: -35px;
     right: 0;
     left: 0;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 70px;
@@ -78,7 +79,6 @@
     border-radius: 100%;
     color: $card-icon-color;
     font-size: $card-icon-font-size;
-    @include linear-gradient(to bottom, $gradient-info);
 
     &:hover i {
         color: inherit;

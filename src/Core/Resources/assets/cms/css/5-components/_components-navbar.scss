@@ -14,8 +14,8 @@
  */
 
 .c-navbar {
-    display: flex;
     position: relative;
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
@@ -25,7 +25,7 @@
     border-bottom: $navbar-border-width solid $navbar-border-color;
     background-color: $navbar-background-color;
 
-    @include respond-to($breakpoint-tablet){
+    @include respond-to($breakpoint-tablet) {
         padding: $spacer-xsmall $spacer-small;
     }
 
@@ -68,7 +68,7 @@
     height: $navbar-brand-height; /* [1] */
     margin: $navbar-brand-margin;
 
-    @include respond-to($breakpoint-tablet){
+    @include respond-to($breakpoint-tablet) {
         margin-right: auto; /* [2] */
     }
 }
@@ -108,6 +108,6 @@
     .c-nav-toggle__icon::before,
     .c-nav-toggle__icon::after {
         background-color: $base-background-color;
-        opacity: 0.95;
+        opacity: .95;
     }
 }

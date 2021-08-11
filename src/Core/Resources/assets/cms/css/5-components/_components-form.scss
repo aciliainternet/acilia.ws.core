@@ -10,9 +10,9 @@ $sidebar-content-lg: 350px;
     max-width: 640px;
     margin: auto;
     padding: 20px;
-    border-radius: 4px;
     border: 1px solid #e6eaee;
-    background-color: #fff;
+    border-radius: 4px;
+    background-color: #ffffff;
 
     @include media-breakpoint('md') {
         padding: 40px;
@@ -33,8 +33,8 @@ $sidebar-content-lg: 350px;
 
         @include media-breakpoint('md') {
             width: calc(100% - #{$sidebar-content-md});
-            padding-right: 30px;
             margin: 0 30px 0 0;
+            padding-right: 30px;
             border-right: 1px solid $grey-400;
         }
 
@@ -48,19 +48,19 @@ $sidebar-content-lg: 350px;
     }
 
     &__content-full {
-        align-items: flex-start;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        align-items: flex-start;
         justify-content: space-between;
         width: 100%;
     }
 
     &__content-aside-full {
-        align-items: flex-start;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        align-items: flex-start;
         justify-content: space-between;
     }
 
@@ -81,18 +81,18 @@ $sidebar-content-lg: 350px;
         display: block;
         width: 100%;
         color: $color-brand;
-        font-size: $text-font-size;
         font-weight: $font-weight-semibold;
+        font-size: $text-font-size;
         text-align: center;
 
         &::before,
         &::after {
+            content: '';
             position: absolute;
             top: 50%; // at the center
             width: 42%;
             height: 1px;
             background-color: $base-border-color;
-            content: '';
         }
 
         &::before {
@@ -116,9 +116,9 @@ $sidebar-content-lg: 350px;
     &__cta {
         @include position(sticky, $top: 0);
         z-index: 1;
-        border-bottom: 1px solid $grey-300;
         margin-bottom: 20px;
         padding: 20px 0;
+        border-bottom: 1px solid $grey-300;
         background-color: $color-white;
     }
 
@@ -126,9 +126,9 @@ $sidebar-content-lg: 350px;
         display: flex;
         align-items: stretch;
         justify-content: space-between;
-        list-style: none;
         margin-bottom: rem(30);
         padding: 0;
+        list-style: none;
     }
 
     &__tab-item {
@@ -142,15 +142,15 @@ $sidebar-content-lg: 350px;
         cursor: pointer;
         transition: background 300ms ease-in-out;
 
-        &:after {
+        &::after {
             content: attr(data-text);
-            content: attr(data-text) / "";
-            height: 0;
-            visibility: hidden;
+            content: attr(data-text) / '';
             overflow: hidden;
-            user-select: none;
-            pointer-events: none;
+            height: 0;
             font-weight: $font-weight-semibold;
+            visibility: hidden;
+            pointer-events: none;
+            user-select: none;
         }
 
         &:hover {
@@ -165,10 +165,10 @@ $sidebar-content-lg: 350px;
     }
 
     &__panel {
-        align-items: flex-start;
         display: none;
         flex-direction: row;
         flex-wrap: wrap;
+        align-items: flex-start;
         justify-content: space-between;
 
         &.is-active {
@@ -177,12 +177,12 @@ $sidebar-content-lg: 350px;
     }
 
     &--medium {
-        max-width: 860px;
         width: 100%;
+        max-width: 860px;
     }
 
     &--full {
-        max-width: 1400px;
         width: 100%;
+        max-width: 1400px;
     }
 }

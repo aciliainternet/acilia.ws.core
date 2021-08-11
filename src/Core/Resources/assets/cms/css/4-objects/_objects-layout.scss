@@ -2,10 +2,11 @@
 @use '../1-tools/_tools-mixin-breakpoint' as *;
 
 .l-form {
+
     &__wrapper-row {
         display: flex;
-        flex-wrap: nowrap;
         flex-direction: column;
+        flex-wrap: nowrap;
         width: 100%;
     }
 
@@ -43,8 +44,8 @@
     }
 
     &__multi-column {
-        column-count: 3;
         width: 100%;
+        column-count: 3;
     }
 }
 
@@ -71,8 +72,8 @@
 
     @include media-breakpoint(md) {
         grid-template-columns: 1fr 1fr 1fr;
-        column-gap: 20px;
         width: 100%;
+        column-gap: 20px;
     }
 }
 
@@ -81,6 +82,7 @@
     flex-direction: column;
 
     @include media-breakpoint(md) {
+
         section:nth-child(1n) {
             order: 2;
         }

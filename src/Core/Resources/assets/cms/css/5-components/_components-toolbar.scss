@@ -32,12 +32,12 @@
     font-size: $toolbar-title-font-size;
 
     &.has-divider::after {
+        content: ' ';
         display: block;
         width: $toolbar-divider-width;
         height: $toolbar-divider-height;
         margin: $toolbar-divider-margin;
         background-color: $toolbar-divider-background-color;
-        content: " ";
     }
 }
 
@@ -57,14 +57,14 @@
     }
 
     &.has-divider::after {
-        display: inline-block;
+        content: ' ';
         position: relative;
         top: 0; // proper alignment
+        display: inline-block;
         width: $toolbar-divider-width;
         height: $toolbar-divider-height;
         margin: $toolbar-divider-margin;
         background-color: $toolbar-divider-background-color;
-        content: " ";
     }
 }
 
@@ -73,12 +73,12 @@
     font-size: $toolbar-link-font-size;
 
     &.has-dropdown::after {
+        content: '\f3d0'; // ion-ios-arrow-down
         display: inline-block;
         margin-left: 10px;
         color: inherit;
-        font-family: $base-icon-font;
         font-size: 12px;
-        content: "\f3d0"; // ion-ios-arrow-down
+        font-family: $base-icon-font;
     }
 }
 
@@ -88,6 +88,7 @@
  */
 
 // We reuse scss variables from `c-tabs` component.
+
 .c-toolbar__nav {
     @media only screen and (max-width: $breakpoint-mobile) {
         margin-right: auto;
@@ -100,6 +101,10 @@
     padding: 0 0 27px;
     color: $tabs-link-color;
     font-size: $tabs-link-font-size;
+
+    @media only screen and (max-width: $breakpoint-mobile) {
+        padding-bottom: 20px;
+    }
 
     &:last-child {
         margin-right: 0;
@@ -114,10 +119,6 @@
         border-bottom: $tabs-link-active-border-width solid $tabs-link-active-border-color;
         color: $tabs-link-active-color;
         font-weight: $font-weight-bold;
-    }
-
-    @media only screen and (max-width: $breakpoint-mobile) {
-        padding-bottom: 20px;
     }
 }
 
@@ -158,6 +159,7 @@
 }
 
 .c-toolbar {
+
     &__row {
         display: flex;
         width: 100%;
@@ -168,19 +170,19 @@
     }
 
     &--caption {
-        border-radius: 4px 4px 0 0;
         border: 1px solid $grey-300;
         border-bottom: 0;
+        border-radius: 4px 4px 0 0;
     }
 
     .choices__inner,
     .c-input {
-        max-height: rem(39);
         min-height: initial;
+        max-height: rem(39);
         padding: $btn-padding;
     }
 
-    .choices[data-type="select-one"] .choices__inner {
+    .choices[data-type='select-one'] .choices__inner {
         padding: $btn-padding;
     }
 }

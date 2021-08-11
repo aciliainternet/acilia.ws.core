@@ -10,7 +10,7 @@
 $field-margin: 0 0 rem(20) 0 !default;
 
 // Field label
-$field-label-font-weight: $font-weight-semibold !default;
+$field-label-font-weight: $font-weight-medium !default;
 $field-label-font-size: $text-font-size !default;
 $field-label-color: #38383d !default;
 $field-label-margin: 0 0 rem(12) 0 !default;
@@ -19,16 +19,16 @@ $field-label-margin: 0 0 rem(12) 0 !default;
 $field-addon-width: rem(42) !default;
 $field-addon-border-width: $base-border-width !default;
 $field-addon-border-color: $grey-400 !default;
-$field-addon-color: #CED0DA !default;
-$field-addon-gradient: #FFF, #F2F4F7 !default;
+$field-addon-color: #ced0da !default;
+$field-addon-gradient: #ffffff, #f2f4f7 !default;
 
 // Field icon
-$field-icon-color: #CED0DA !default;
+$field-icon-color: #ced0da !default;
 $field-icon-font-size: rem(18) !default;
 
 // Field message
 $field-message-margin: 0 rem(5) 0 0 !default;
 $field-message-padding: 0 !default;
 
-$field-message-color: rgba($text-color, 0.5) !default;
+$field-message-color: rgba($text-color, .5) !default;
 $field-message-font-size: $text-small-font-size !default;

@@ -6,11 +6,11 @@
    ========================================================================== */
 
 .c-graph-card {
+    overflow: hidden;
     margin: 0 0 $spacer;
     border: $base-border-width solid $base-border-color;
     border-radius: $base-border-radius;
     background-color: $base-background-color;
-    overflow: hidden;
 }
 
 .c-graph-card__content {
@@ -31,8 +31,8 @@
 .c-graph-card__number {
     margin: 0;
     color: $heading-color;
-    font-size: rem(40px);
     font-weight: $font-weight-light;
+    font-size: rem(40px);
 }
 
 .c-graph-card__status {

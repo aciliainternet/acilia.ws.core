@@ -32,12 +32,12 @@
 
     &__figure {
         display: grid;
-        place-content: center;
-        border-radius: rem(8);
-        min-height: rem(250);
         height: 100%;
+        min-height: rem(250);
+        border-radius: rem(8);
         background-color: #f7f7f7;
         cursor: pointer;
+        place-content: center;
     }
 
     &__figure-img {
@@ -46,13 +46,14 @@
 
     &__img {
         display: block;
-        border-radius: rem(8);
         width: 100%;
         height: auto;
+        border-radius: rem(8);
     }
 }
 
 .c-form__sidebar {
+
     .c-img-upload__wrapper-img,
     .c-img-upload__select {
         width: 100%;

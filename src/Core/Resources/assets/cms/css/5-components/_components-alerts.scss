@@ -9,14 +9,14 @@
    ========================================================================== */
 
 .c-alert {
-    display: flex;
     position: relative;
+    display: flex;
     width: 100%;
     margin: $alert-margin;
     padding: $alert-padding;
-    transition: all 0.3s;
     border-radius: $alert-border-radius;
     color: $alert-color;
+    transition: all .3s;
 
     .c-close {
         position: absolute;
@@ -26,15 +26,15 @@
 
 
     &.fade {
-        transition: opacity 0.3s;
         opacity: 0;
+        transition: opacity .3s;
 
         &.show {
             opacity: 1;
         }
     }
 
-    &[class*="--border"] {
+    &[class*='--border'] {
         font-weight: $font-weight-normal;
         font-size: rem(13);
     }

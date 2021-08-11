@@ -16,19 +16,19 @@
 .c-feed {
     position: relative;
     display: block;
+    overflow: hidden;
     margin-bottom: $spacer;
     padding-left: 32px;
     color: $grey-700;
-    overflow: hidden;
 
     &::before {
+        content: '';
         position: absolute;
         top: 4px;
         left: 6px;
         width: $base-border-width;
         height: 100%;
         background-color: $base-border-color;
-        content: "";
     }
 
     &.has-icons {
@@ -47,7 +47,9 @@
     /**
      * The small circle (dot) before every item of the feed
      */
+
     &::before {
+        content: '';
         position: absolute;
         top: 4px;
         left: -32px;
@@ -55,13 +57,13 @@
         height: 12px;
         border-radius: 100%;
         background-color: $color-brand;
-        content: "";
     }
 
     &:last-child {
         margin-bottom: 0;
 
         &::after {
+            content: '';
             position: absolute;
             top: 16px;
             left: -32px;
@@ -69,20 +71,20 @@
             height: 100%;
             border-radius: 0;
             background-color: $base-background-color;
-            content: "";
         }
     }
 
     &.has-icon {
+
         &::before {
             display: none;
         }
 
         .c-feed__item-icon {
-            display: block;
             position: absolute;
             top: 4px;
             left: -47px;
+            display: block;
             width: 30px;
             height: 30px;
             border-radius: 100%;
@@ -102,6 +104,7 @@
 }
 
 .c-feed__item--brand {
+
     &::before {
         @include linear-gradient(to bottom, $color-brand, $color-brand);
     }
@@ -123,11 +126,11 @@
 }
 
 .c-feed__gallery-item {
+    overflow: hidden;
     width: 80px;
     height: 80px;
     margin: 0 $spacer-xsmall $spacer-xsmall 0;
     border-radius: $base-border-radius;
-    overflow: hidden;
 }
 
 
@@ -141,18 +144,21 @@
    ========================================================================== */
 
 .c-feed__item--fancy {
+
     &::before {
         @include linear-gradient(to bottom, $purple-300, $purple-500);
     }
 }
 
 .c-feed__item--info {
+
     &::before {
         @include linear-gradient(to bottom, $blue-300, $blue-400);
     }
 }
 
 .c-feed__item--success {
+
     &::before {
         @include linear-gradient(to bottom, $green-300, $green-400);
     }

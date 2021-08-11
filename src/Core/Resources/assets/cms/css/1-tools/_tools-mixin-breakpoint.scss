@@ -1,16 +1,16 @@
 @use '../0-settings/_settings-global' as *;
 
-$bp__sm: 768px; //$screen-sm-min; // 768px
-$bp__md: 1024px; //$screen-md-min; // 1024px
-$bp__lg: 1280px; //$screen-lg; // 1280px
-$bp__xl: 1440px; //$screen-lg; // 1440px
+$bp-sm: 768px; //$screen-sm-min; // 768px
+$bp-md: 1024px; //$screen-md-min; // 1024px
+$bp-lg: 1280px; //$screen-lg; // 1280px
+$bp-xl: 1440px; //$screen-lg; // 1440px
 
 $breakpoints: (
-    'sm': $bp__sm,
-    'md': $bp__md,
-    'lg': $bp__lg,
-    'xl': $bp__xl
-    );
+    'sm': $bp-sm,
+    'md': $bp-md,
+    'lg': $bp-lg,
+    'xl': $bp-xl
+);
 
 $breakpoints-count: length($breakpoints);
 
@@ -25,47 +25,46 @@ $breakpoints-count: length($breakpoints);
 @mixin media-breakpoint($media) {
 
     @if $media == sm {
-        @media (min-width: $bp__sm) { @content }
+        @media (min-width: $bp-sm) { @content; }
     }
 
     @else if $media == sm--max {
-        @media (max-width: ($bp__sm - 1)) { @content }
+        @media (max-width: ($bp-sm - 1)) { @content; }
     }
 
     @else if $media == sm--in {
-        @media (min-width: $bp__sm) and (max-width: ($bp__md - 1)) { @content }
+        @media (min-width: $bp-sm) and (max-width: ($bp-md - 1)) { @content; }
     }
 
     @else if $media == md {
-        @media (min-width: $bp__md) { @content }
+        @media (min-width: $bp-md) { @content; }
     }
 
     @else if $media == md--max {
-        @media (max-width: ($bp__md - 1)) { @content }
+        @media (max-width: ($bp-md - 1)) { @content; }
     }
 
     @else if $media == md--in {
-        @media (min-width: $bp__md) and (max-width: ($bp__lg - 1)) { @content }
+        @media (min-width: $bp-md) and (max-width: ($bp-lg - 1)) { @content; }
     }
 
     @else if $media == lg {
-        @media (min-width: $bp__lg) { @content }
+        @media (min-width: $bp-lg) { @content; }
     }
 
     @else if $media == lg--max {
-        @media (max-width: $bp__lg - 1) { @content }
+        @media (max-width: $bp-lg - 1) { @content; }
     }
 
     @else if $media == xl {
-        @media (min-width: $bp__xl) { @content }
+        @media (min-width: $bp-xl) { @content; }
     }
 
     @else if $media == xl--max {
-        @media (max-width: $bp__xl - 1) { @content }
+        @media (max-width: $bp-xl - 1) { @content; }
     }
 
     @else {
-        @media (min-width: $media) { @content }
+        @media (min-width: $media) { @content; }
     }
-
 }

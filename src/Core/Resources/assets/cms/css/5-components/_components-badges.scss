@@ -12,13 +12,14 @@
     padding: $badge-padding;
     border-radius: $badge-border-radius;
     color: $badge-color;
-    font-size: $badge-font-size;
     font-weight: $badge-font-weight;
+    font-size: $badge-font-size;
     text-transform: uppercase;
 
     /**
      * Badges with icons
      */
+
     > i {
         margin-right: rem(5);
     }
@@ -64,7 +65,7 @@
 }
 
 .c-badge--published {
-	background-color: $badge-info-background-color;
+    background-color: $badge-info-background-color;
 }
 
 .c-badge--unpublished {
@@ -72,6 +73,6 @@
 }
 
 .c-badge--draft {
-	background-color: $badge-secondary-background-color;
-	color: $badge-secondary-color;
+    background-color: $badge-secondary-background-color;
+    color: $badge-secondary-color;
 }

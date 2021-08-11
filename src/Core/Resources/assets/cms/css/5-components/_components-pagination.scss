@@ -5,11 +5,12 @@
 /* ==========================================================================
 #PAGINATION
 ========================================================================== */
+
 .c-pagination-wrapper {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -17,11 +18,12 @@
 * 1. Use flex utilitites with `c-pagination` for proper alignement of its
 *    children.
 */
+
 .c-pagination { /* [1] */
     display: flex;
+    flex-direction: column;
     align-content: center;
     align-items: center;
-    flex-direction: column;
     justify-content: center;
     margin: 35px 0 20px;
     text-align: center;
@@ -30,6 +32,7 @@
 /**
 * 1. Remove wierd space between list items.
 */
+
 .c-pagination__list {
     display: flex;
     font-size: 0; /* [1] */
@@ -55,6 +58,7 @@
 * 1. Line height of pagination control should equal its height for proper
 *    vertical alignment.
 */
+
 .c-pagination__control {
     display: block;
     min-width: 32px;
@@ -64,30 +68,32 @@
     border-radius: $base-border-radius;
     background-color: $pagination-control-background-color;
     color: $pagination-control-color;
-    font-size: $pagination-control-font-size;
+    box-shadow: 0 7px 64px 0 rgba(0, 0, 0, .07);
     font-weight: $pagination-control-font-weight;
+    font-size: $pagination-control-font-size;
     line-height: $pagination-control-height; /* [1] */
     text-align: center;
-    box-shadow: 0 7px 64px 0 rgba(0, 0, 0, .07);
     transition: all 275ms ease;
 
     /**
     * 1. You may resize this icon if you used another icon font.
     */
+
     i {
         position: relative;
         bottom: -1px;
-        transition: color .15s;
         color: $pagination-control-color;
         font-size: 16px; /* [1] */
+        transition: color .15s;
     }
+
     &:hover {
         background-color: rgba($color: $pagination-control-background-color, $alpha: .7);
         color: $heading-color;
         text-decoration: none;
 
         i {
-        color: $heading-color;
+            color: $heading-color;
         }
     }
 
@@ -136,8 +142,8 @@
 
 .c-pagination__counter {
     display: inline-block;
+    vertical-align: middle;
     margin: 0;
     padding: $pagination-counter-padding;
     color: $pagination-counter-color;
-    vertical-align: middle;
 }
