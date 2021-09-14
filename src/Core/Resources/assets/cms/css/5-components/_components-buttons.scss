@@ -1,0 +1,287 @@
+@use '../0-settings/_settings-global' as *;
+@use '../0-settings/_settings-buttons' as *;
+@use '../0-settings/_settings-tables' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
+@use '../1-tools/_tools-mixin-linear-gradient' as *;
+
+/* ==========================================================================
+   #BUTTONS
+   ========================================================================== */
+
+/**
+ * 1. Apply (c-btn--info) background if `c-btn--{style}` class isn't specified.
+ * 2. Align icon (if placed inside button) with text properly.
+ * 3. Add dropdown icon/arrow to button with `has-dropdown` class, it depends
+ *    on (FontAwesome) icon font so make sure to modify it if you changed your
+ *    base icon font.
+ * 4. Use `disabled` property on <button> elements, and `is-disabled` class on
+ *    <a> elements as they don't support `disabled` property.
+ */
+
+.c-btn {
+    @include linear-gradient(to bottom, $gradient-info); /* [1] */
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 0;
+    padding: $btn-padding;
+    border: $btn-border-width solid;
+    border-color: $btn-border-color; /* [1] */
+    border-radius: $btn-border-radius;
+    color: $btn-color; /* [1] */
+    font-weight: $btn-font-weight;
+    font-size: $btn-font-size;
+    line-height: 1.5;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s ease-in-out;
+    appearance: none;
+
+    &:hover,
+    &:focus {
+        color: $btn-hover-color;
+        outline: 0;
+        text-decoration: none;
+    }
+
+    i {
+        position: relative;
+        bottom: -1px; /* [2] */
+        font-size: 16px;
+    }
+
+    &.has-dropdown {
+        position: relative;
+        padding-right: 2.5rem;
+
+        &::after { /* [3] */
+            content: '\f107'; // fa-angle-down
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: inline-block;
+            height: 100%;
+            margin-left: 1.25rem;
+            padding: .5rem 8px;
+            border-left: 1px solid $grey-400;
+            color: inherit;
+            font-family: $base-icon-font;
+        }
+    }
+
+    &.is-disabled,
+    &:disabled { /* [4] */
+        border-color: $btn-disabled-border-color;
+        background: $btn-disabled-background-color;
+        color: $btn-disabled-color;
+
+        &:hover,
+        &:focus {
+            border-color: $btn-disabled-border-color;
+            background: $btn-disabled-background-color;
+            color: $btn-disabled-color;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.c-btn--fullwidth {
+    width: 100%;
+}
+
+.c-btn--no-transition {
+    transition: none;
+}
+
+/**
+ * 1. Reduce spacing between the icon and text in small buttons.
+ */
+
+.c-btn--small {
+    padding: $btn-small-padding;
+    font-size: $btn-small-font-size;
+
+    i {
+        margin-right: 5px; /* [1] */
+    }
+}
+
+.c-btn--large {
+    padding: $btn-large-padding;
+    font-size: $btn-large-font-size;
+}
+
+
+/* Style variants
+   ========================================================================== */
+
+/**
+ * Buttons have a simple, nice gradient on the background, we use
+ * sass's `darken()` method to generate a dark shade of the requested color,
+ * then we use our `linear-gradient` mixin to generate the gradient background.
+ */
+
+.c-btn--primary {
+    @include linear-gradient(to bottom, $btn-primary-gradient);
+    border-color: $btn-primary-border-color;
+
+    &:hover {
+        @include linear-gradient(to bottom, $btn-primary-hover-gradient);
+    }
+
+    &:focus {
+        @include linear-gradient(to bottom, $btn-primary-focus-gradient);
+    }
+}
+
+.c-btn--secondary {
+    @include linear-gradient(to bottom, $btn-secondary-gradient);
+    border-color: $btn-secondary-border-color;
+    color: $btn-secondary-color;
+
+    &:hover {
+        @include linear-gradient(to bottom, $btn-secondary-hover-gradient);
+        color: $btn-secondary-hover-color;
+    }
+
+    &:focus {
+        @include linear-gradient(to bottom, $btn-secondary-focus-gradient);
+        color: $btn-secondary-hover-color;
+    }
+}
+
+.c-btn--success {
+    @include linear-gradient(to bottom, $green-300, $green-400);
+    border-color: $green-500;
+
+    &:hover {
+        @include linear-gradient(to bottom, darken($green-300, 4%), darken($green-400, 4%));
+    }
+
+    &:focus {
+        @include linear-gradient(to bottom, darken($green-300, 6%), darken($green-400, 6%));
+    }
+}
+
+.c-btn--fancy {
+    @include linear-gradient(to bottom, $purple-300, $purple-500);
+    border-color: $purple-500;
+
+    &:hover {
+        @include linear-gradient(to bottom, darken($purple-300, 4%), darken($purple-500, 4%));
+    }
+
+    &:focus {
+        @include linear-gradient(to bottom, darken($purple-300, 6%), darken($purple-500, 6%));
+    }
+}
+
+.c-btn--warning {
+    @include linear-gradient(to bottom, $orange-300, $orange-500);
+    border-color: $orange-500;
+
+    &:hover {
+        @include linear-gradient(to bottom, darken($orange-300, 4%), darken($orange-500, 4%));
+    }
+
+    &:focus {
+        @include linear-gradient(to bottom, darken($orange-300, 6%), darken($orange-500, 6%));
+    }
+}
+
+.c-btn--danger {
+    @include linear-gradient(to bottom, $red-100, $red-300);
+    border-color: $red-300;
+
+    &:hover {
+        @include linear-gradient(to bottom, darken($red-100, 4%), darken($red-300, 4%));
+    }
+
+    &:focus {
+        @include linear-gradient(to bottom, darken($red-100, 6%), darken($red-300, 6%));
+    }
+}
+
+.c-btn--brand {
+    @include linear-gradient(to bottom, $color-brand, $color-brand);
+    border-color: $color-brand;
+
+    &:hover {
+        @include linear-gradient(to bottom, darken($color-brand, 4%), darken($color-brand, 4%));
+    }
+
+    &:focus {
+        @include linear-gradient(to bottom, darken($color-brand, 6%), darken($color-brand, 6%));
+    }
+}
+
+.c-btn--cancel {
+    border: 0;
+    background-color: $color-transparent;
+    color: $gunmetal-200;
+    text-decoration: underline;
+
+    &:hover {
+        color: $gunmetal-500;
+    }
+}
+
+.c-btn--delete {
+    color: $grey-700;
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        @include linear-gradient(to bottom, $red-100, $red-300);
+        border-color: $red-300;
+        color: $color-white;
+    }
+}
+
+.c-btn--ghost {
+    padding: 0;
+    border: 0;
+    background-color: $color-transparent;
+    color: $grey-700;
+
+    i {
+        color: $grey-700;
+    }
+
+    &:hover,
+    &:focus {
+        color: $color-primary;
+    }
+}
+
+.c-btn--grey {
+    border: 0;
+    background-color: #716b67;
+    color: $color-white;
+
+    &:hover {
+        background-color: #56524f;
+    }
+}
+
+.c-btn--info {
+    @include linear-gradient(to bottom, $color-info, $color-info);
+    border-color: $color-info;
+
+    &:hover {
+        @include linear-gradient(to bottom, darken($color-info, 4%), darken($color-info, 10%));
+    }
+
+    &:focus {
+        @include linear-gradient(to bottom, darken($color-info, 6%), darken($color-info, 10%));
+    }
+}
+
+.c-btn--upload-image {
+    flex-grow: .9;
+}
+

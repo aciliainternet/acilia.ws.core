@@ -1,0 +1,66 @@
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-breakpoint' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
+@use '../1-tools/_tools-mixin-position' as *;
+
+.c-img-upload {
+    display: grid;
+    width: 100%;
+    height: 100%;
+
+    &__select {
+        width: 100%;
+
+        @include media-breakpoint('md') {
+            width: rem(250);
+            min-height: rem(39);
+        }
+    }
+
+    &__wrapper-img {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: auto;
+
+        @include media-breakpoint('md') {
+            width: rem(250);
+        }
+    }
+
+    &__figure {
+        display: grid;
+        height: 100%;
+        min-height: rem(250);
+        border-radius: rem(8);
+        background-color: #f7f7f7;
+        cursor: pointer;
+        place-content: center;
+    }
+
+    &__figure-img {
+        font-size: rem(30);
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: rem(8);
+    }
+}
+
+.c-form__sidebar {
+
+    .c-img-upload__wrapper-img,
+    .c-img-upload__select {
+        width: 100%;
+    }
+
+    .c-btn-upload-image-container {
+        display: flex;
+        justify-content: space-between;
+    }
+}

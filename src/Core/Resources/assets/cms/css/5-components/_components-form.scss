@@ -1,0 +1,188 @@
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-breakpoint' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
+@use '../1-tools/_tools-mixin-position' as *;
+
+$sidebar-content-md: 280px;
+$sidebar-content-lg: 350px;
+
+.c-form {
+    max-width: 640px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #e6eaee;
+    border-radius: 4px;
+    background-color: #ffffff;
+
+    @include media-breakpoint('md') {
+        padding: 40px;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+
+        @include media-breakpoint('md') {
+            flex-direction: row;
+        }
+    }
+
+    &__content {
+        width: 100%;
+        margin-bottom: 20px;
+
+        @include media-breakpoint('md') {
+            width: calc(100% - #{$sidebar-content-md});
+            margin: 0 30px 0 0;
+            padding-right: 30px;
+            border-right: 1px solid $grey-400;
+        }
+
+        @include media-breakpoint('lg') {
+            width: calc(100% - #{$sidebar-content-lg});
+        }
+
+        .c-field:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+
+    &__content-full {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    &__content-aside-full {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    &__sidebar {
+        width: 100%;
+
+        @include media-breakpoint('md') {
+            width: $sidebar-content-md;
+        }
+
+        @include media-breakpoint('lg') {
+            width: $sidebar-content-lg;
+        }
+    }
+
+    &__fieldset {
+        position: relative;
+        display: block;
+        width: 100%;
+        color: $color-brand;
+        font-weight: $font-weight-semibold;
+        font-size: $text-font-size;
+        text-align: center;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%; // at the center
+            width: 42%;
+            height: 1px;
+            background-color: $base-border-color;
+        }
+
+        &::before {
+            left: 0;
+        }
+
+        &::after {
+            right: 0;
+        }
+
+        &.is-active {
+            color: $color-brand;
+
+            &::before,
+            &::after {
+                background-color: $color-brand;
+            }
+        }
+    }
+
+    &__cta {
+        @include position(sticky, $top: 0);
+        z-index: 1;
+        margin-bottom: 20px;
+        padding: 20px 0;
+        border-bottom: 1px solid $grey-300;
+        background-color: $color-white;
+    }
+
+    &__tab-list {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        margin-bottom: rem(30);
+        padding: 0;
+        list-style: none;
+    }
+
+    &__tab-item {
+        display: flex;
+        flex-direction: column;
+        padding: rem(12) rem(15);
+        border-radius: rem(5);
+        background-color: #f7f7f7;
+        font-size: $text-font-size;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background 300ms ease-in-out;
+
+        &::after {
+            content: attr(data-text);
+            content: attr(data-text) / '';
+            overflow: hidden;
+            height: 0;
+            font-weight: $font-weight-semibold;
+            visibility: hidden;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        &:hover {
+            background-color: #eeeeee;
+        }
+
+        &.is-active {
+            background-color: rgba($color: $color-info, $alpha: .2);
+            color: $color-info;
+            font-weight: $font-weight-semibold;
+        }
+    }
+
+    &__panel {
+        display: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        &.is-active {
+            display: flex;
+        }
+    }
+
+    &--medium {
+        width: 100%;
+        max-width: 860px;
+    }
+
+    &--full {
+        width: 100%;
+        max-width: 1400px;
+    }
+}

@@ -1,0 +1,31 @@
+@use '../0-settings/_settings-global' as *;
+@use '../0-settings/_settings-inputs' as *;
+@use '../0-settings/_settings-variables';
+@use '../1-tools/_tools-mixin-rem' as *;
+
+.c-input {
+    line-height: $base-line-height;
+
+    &--small {
+        padding: $btn-padding;
+    }
+
+    &--select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    &::placeholder {
+        font-style: italic;
+    }
+}
+
+textarea.c-input {
+    min-height: 250px;
+    resize: vertical;
+
+    &.c-input--textarea-small {
+        min-height: 52px;
+    }
+}

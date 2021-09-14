@@ -1,0 +1,12 @@
+// @use "@fontsource/ibm-plex-sans/scss/mixins" as ibmPlexSans;
+@use "../../../../../../../../../../node_modules/@fontsource/ibm-plex-sans/scss/mixins" as ibmPlexSans;
+
+$weights: 300, 400, 500, 600, 700;
+@each $weight in $weights {
+   @include ibmPlexSans.fontFaceCustom(
+      $weight: $weight,
+      $display: swap,
+      $woff2Path: "/cms/fonts/ibm-plex-sans-latin-#{$weight}-normal.woff2",
+      $woffPath: "/cms/fonts/ibm-plex-sans-latin-#{$weight}-normal.woff",
+   );
+}

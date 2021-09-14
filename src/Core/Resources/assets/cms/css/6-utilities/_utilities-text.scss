@@ -1,0 +1,36 @@
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
+
+.u-font-normal {
+    font-weight: $font-weight-normal;
+}
+
+.u-font-medium {
+    font-weight: $font-weight-medium;
+}
+
+.u-font-semibold{
+    font-weight: $font-weight-semibold;
+}
+
+.u-font-bold {
+    font-weight: $font-weight-bold;
+}
+
+.u-text-small {
+    font-size: rem(11);
+}
+
+.u-text-medium {
+    font-size: rem(13);
+}
+
+.u-text-color-white {
+    color: $white;
+}
+
+.dataTables_info {
+    margin-top: rem(20);
+    color: $grey-700;
+    font-size: $text-small-font-size;
+}
