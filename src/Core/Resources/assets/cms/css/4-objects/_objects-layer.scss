@@ -1,0 +1,14 @@
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-position' as *;
+
+.o-layer {
+    @include position(fixed, 0, 0, 0, 0);
+    z-index: 2;
+    display: none;
+    background-color: $color-default-text;
+    opacity: .2;
+
+    &.is-active {
+        display: block;
+    }
+}

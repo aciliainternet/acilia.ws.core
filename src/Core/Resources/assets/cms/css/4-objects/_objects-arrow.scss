@@ -1,0 +1,38 @@
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-position' as *;
+
+$easing: cubic-bezier(.25, 1.7, .35, .8);
+$duration: .5s;
+
+.o-arrow {
+    position: relative;
+    width: 10px;
+    height: 6px;
+    cursor: pointer;
+    transition: transform .2s ease-in-out;
+}
+
+.is-open .o-arrow,
+.show .o-arrow {
+    transform: rotate(180deg);
+}
+
+.c-sidebar__link {
+
+    .o-arrow {
+        @include position(absolute, $top: 0, $right: 20px, $bottom: 0);
+        margin: auto;
+    }
+
+    .o-arrow path {
+        stroke: $grey-700;
+    }
+
+    &:hover {
+
+        .o-arrow path {
+            stroke: $color-primary;
+        }
+    }
+}
+

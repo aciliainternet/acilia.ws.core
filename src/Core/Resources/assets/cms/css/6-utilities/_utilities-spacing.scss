@@ -1,0 +1,112 @@
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-breakpoint' as *;
+
+/* ==========================================================================
+   #SPACINGS
+   ========================================================================== */
+
+/**
+ * Utility classes to put specific spacing values onto elements. The below loop
+ * will generate us a suite of classes like:
+ *
+ *   .u-mt {}
+ *   .u-pl-30 {}
+ *   .u-mr-10 {}
+ *   .u-pnone {}
+ */
+
+$spacing-directions: (
+  null: null,
+  "t": "-top",
+  "r": "-right",
+  "b": "-bottom",
+  "l": "-left",
+) !default;
+
+$spacing-properties: (
+  "m": "margin",
+  "p": "padding"
+) !default;
+
+$spacing-sizes: (
+  "-5": 5px,
+  "-10": 10px,
+  "-15": 15px,
+  "-20": 20px,
+  "-25": 25px,
+  "-30": 30px,
+  "-40": 40px,
+  "-50": 50px,
+  "-60": 60px,
+  "-70": 70px,
+  "-80": 80px,
+  "-90": 90px,
+  "-100": 100px,
+  "-0": 0,
+) !default;
+
+@each $property-namespace, $property in $spacing-properties {
+
+  @each $direction-namespace, $direction-rules in $spacing-directions {
+
+    @each $size-namespace, $size in $spacing-sizes {
+
+      .u-#{$property-namespace}#{$direction-namespace}#{$size-namespace} {
+
+        @each $direction in $direction-rules {
+          #{$property}#{$direction}: $size !important;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+   #RESPONSIVE-SPACINGS
+   ========================================================================== */
+
+/**
+  * Utility classes to put specific spacing values onto elements. The below loop
+ * will generate us a suite of classes like:
+ *
+ *   .u-mt-10@sm {}
+ *   .u-pl-30@md {}
+ *   .u-mr-10@lg {}
+*/
+
+$widths-breakpoint-separator: \@ !default;
+
+$spacing-directions: null !default;
+
+$spacing-properties: null !default;
+
+$spacing-sizes: null !default;
+
+
+@each $property-namespace, $property in $spacing-properties {
+
+    @each $direction-namespace, $direction-rules in $spacing-directions {
+
+        @each $size-namespace, $size in $spacing-sizes {
+
+            @each $bp-name, $bp-value in $breakpoints {
+
+               @include media-breakpoint($bp-name) {
+
+                    .u-#{$property-namespace}#{$direction-namespace}#{$size-namespace}#{$widths-breakpoint-separator}#{$bp-name} {
+
+                        @each $direction in $direction-rules {
+                            #{$property}#{$direction}: $size !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+

@@ -1,0 +1,15 @@
+@use '../1-tools/_tools-mixin-clearfix' as *;
+
+/* ==========================================================================
+   #CLEARFIX UTILITIY
+   ========================================================================== */
+
+// sass-lint:disable no-important
+
+/**
+ * Clear floated elements by adding `u-clearfix` to the parent element.
+ */
+
+.u-clearfix {
+   @include clearfix;
+}

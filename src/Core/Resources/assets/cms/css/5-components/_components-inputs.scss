@@ -1,0 +1,107 @@
+@use '../0-settings/_settings-global' as *;
+@use '../0-settings/_settings-inputs' as *;
+@use '../0-settings/_settings-buttons' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
+
+/* ==========================================================================
+   #INPUTS
+   ========================================================================== */
+
+.c-input {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: $input-padding;
+    border: $input-border-width solid $input-border-color;
+    border-radius: $input-border-radius;
+    background-color: $input-background-color;
+    color: $input-focus-color;
+    font-weight: $input-font-weight;
+    font-size: $input-font-size;
+    line-height: $base-line-height;
+    resize: none;
+    transition: all .3s;
+
+    &::placeholder {
+        color: $input-placeholder-color;
+        font-weight: $input-placeholder-font-weight;
+        font-style: italic;
+        opacity: .5;
+        transition: opacity .3s;
+    }
+
+    &:focus {
+        border-color: $input-focus-border-color;
+        outline: none;
+
+        &::placeholder {
+            opacity: .2;
+        }
+    }
+
+    &.is-disabled,
+    &:disabled {
+        border-color: $input-disabled-border-color;
+        background-color: $input-disabled-background-color;
+        color: $input-disabled-color;
+        cursor: not-allowed;
+    }
+
+    &--small {
+        padding: $btn-padding;
+    }
+
+    &--select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+}
+
+
+/**
+ * Textarea
+ */
+
+// sass-lint:disable no-qualifying-elements
+
+textarea.c-input {
+    min-height: 250px;
+    font-weight: $textarea-font-weight;
+    font-size: $textarea-font-size;
+    resize: vertical;
+
+    &.c-input--textarea-small {
+        min-height: 52px;
+    }
+}
+// sass-lint:enable no-qualifying-elements
+
+/* State variants
+   ========================================================================== */
+
+.c-input--success {
+    border-color: $input-success-border-color;
+
+    &:focus {
+        border-color: $input-success-border-color;
+    }
+}
+
+.c-input--warning {
+    border-color: $input-warning-border-color;
+
+    &:focus {
+        border-color: $input-warning-border-color;
+    }
+}
+
+.c-input--danger {
+    border-color: $input-danger-border-color;
+    color: $input-danger-color;
+
+    &:focus {
+        border-color: $input-danger-border-color;
+        color: $input-danger-color;
+    }
+}
