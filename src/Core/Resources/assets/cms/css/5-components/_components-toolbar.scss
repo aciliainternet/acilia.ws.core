@@ -182,6 +182,12 @@
         padding: $btn-padding;
     }
 
+    .c-choice-wrapper--small {
+        .choices__inner {
+            min-height: 39px;
+        }
+    }
+
     .choices[data-type='select-one'] .choices__inner {
         padding: $btn-padding;
     }
