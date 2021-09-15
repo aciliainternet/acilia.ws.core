@@ -79,8 +79,7 @@
 .CodeMirror-placeholder {
     color: $input-placeholder-color !important;
     font-weight: $input-placeholder-font-weight;
-    font-style: italic;
     font-size: rem(14) !important;
-    opacity: .5;
+    opacity: .7;
     transition: opacity .3s;
 }

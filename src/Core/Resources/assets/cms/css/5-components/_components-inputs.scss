@@ -25,8 +25,7 @@
     &::placeholder {
         color: $input-placeholder-color;
         font-weight: $input-placeholder-font-weight;
-        font-style: italic;
-        opacity: .5;
+        opacity: .7;
         transition: opacity .3s;
     }
 

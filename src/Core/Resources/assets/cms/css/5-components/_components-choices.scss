@@ -12,7 +12,7 @@
     &__placeholder {
         color: $input-placeholder-color;
         font-weight: $input-placeholder-font-weight;
-        opacity: .5;
+        opacity: .7;
         transition: opacity .3s;
     }
 
@@ -28,6 +28,10 @@
 
         #{ $self }__button {
             color: $color-info;
+        }
+
+        #{ $self }__inner {
+            min-height: rem(66);
         }
     }
 
@@ -127,7 +131,7 @@
             &::placeholder {
                 color: $input-placeholder-color;
                 font-weight: $input-placeholder-font-weight;
-                opacity: .5;
+                opacity: .7;
                 transition: opacity .3s;
             }
 
