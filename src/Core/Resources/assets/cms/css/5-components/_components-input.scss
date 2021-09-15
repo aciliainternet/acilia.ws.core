@@ -15,10 +15,6 @@
         -moz-appearance: none;
         appearance: none;
     }
-
-    &::placeholder {
-        font-style: italic;
-    }
 }
 
 textarea.c-input {
