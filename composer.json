@@ -23,6 +23,7 @@
         "symfony/monolog-bundle": "^3.6",
         "symfony/orm-pack": "^2.0",
         "symfony/process": "^5.4",
+        "symfony/runtime": "^5.4",
         "symfony/security-bundle": "^5.4",
         "symfony/serializer-pack": "^1.0",
         "symfony/translation": "^5.4",
