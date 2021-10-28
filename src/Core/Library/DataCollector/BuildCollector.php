@@ -10,9 +10,9 @@ use WS\Core\Service\ContextService;
 
 class BuildCollector extends DataCollector
 {
-    protected $parameterBag;
-    protected $contextService;
-    protected $components = [];
+    protected ParameterBagInterface $parameterBag;
+    protected ContextService $contextService;
+    protected array $components = [];
 
     public function __construct(ParameterBagInterface $parameterBag, ContextService $contextService)
     {

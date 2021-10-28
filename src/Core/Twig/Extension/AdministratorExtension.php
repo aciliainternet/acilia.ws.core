@@ -9,8 +9,8 @@ use Twig\Extension\AbstractExtension;
 
 class AdministratorExtension extends AbstractExtension
 {
-    protected $administratorService;
-    protected $translator;
+    protected AdministratorService $administratorService;
+    protected TranslatorInterface $translator;
 
     public function __construct(AdministratorService $administratorService, TranslatorInterface $translator)
     {
@@ -18,7 +18,7 @@ class AdministratorExtension extends AbstractExtension
         $this->translator = $translator;
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('ws_cms_administrator_profile', [$this, 'getProfile']),

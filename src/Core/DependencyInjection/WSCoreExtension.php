@@ -44,7 +44,7 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
     use RoleLoaderTrait;
     use AddRolesTrait;
 
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
@@ -117,10 +117,9 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         // Configure Translations
         $translationsService = $container->getDefinition(TranslationService::class);
         $translationsService->setArgument(0, $config['translations']);
-
     }
 
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         foreach ($container->getExtensions() as $name => $extension) {
             switch ($name) {

@@ -12,7 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class AddCommand extends Command
 {
-    protected $domainService;
+    protected DomainService $domainService;
 
     public function __construct(DomainService $domainService)
     {
@@ -21,7 +21,7 @@ class AddCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ws:domain:add')
@@ -34,7 +34,7 @@ class AddCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 

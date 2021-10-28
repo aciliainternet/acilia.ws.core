@@ -7,7 +7,7 @@ use Twig\Token;
 
 class PageConfigurationTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token)
+    public function parse(Token $token): PageConfigurationNode
     {
         $parser = $this->parser;
         $stream = $parser->getStream();
@@ -19,7 +19,7 @@ class PageConfigurationTokenParser extends AbstractTokenParser
         return new PageConfigurationNode($name, $value, $token->getLine(), $this->getTag());
     }
 
-    public function getTag()
+    public function getTag(): string
     {
         return 'page_configuration';
     }

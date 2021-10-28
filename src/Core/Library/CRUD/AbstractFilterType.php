@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 
 abstract class AbstractFilterType extends AbstractType
 {
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'fe';
     }

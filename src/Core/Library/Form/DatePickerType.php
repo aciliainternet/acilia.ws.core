@@ -9,19 +9,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DatePickerType extends AbstractType
 {
-    const DATE_PICKER_ATTR = [
+    public const DATE_PICKER_ATTR = [
         'data-component' => 'ws_datepicker',
         'data-format' => 'date'
     ];
 
-    protected $translator;
+    protected TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'attr' => self::DATE_PICKER_ATTR,
@@ -31,7 +31,7 @@ class DatePickerType extends AbstractType
         ]);
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return DateTimeType::class;
     }

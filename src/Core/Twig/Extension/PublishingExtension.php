@@ -9,14 +9,14 @@ use WS\Core\Library\Publishing\PublishingEntityInterface;
 
 class PublishingExtension extends AbstractExtension
 {
-    protected $translator;
+    protected TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter(PublishingEntityInterface::FILTER_STATUS, [$this, 'getStatus'], ['is_safe' => ['html']])

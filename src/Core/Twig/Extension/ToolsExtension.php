@@ -14,10 +14,10 @@ use Twig\Extension\AbstractExtension;
 
 class ToolsExtension extends AbstractExtension
 {
-    protected $contextService;
-    protected $alertService;
-    protected $settingService;
-    protected $dashboardService;
+    protected ContextService $contextService;
+    protected AlertService $alertService;
+    protected SettingService $settingService;
+    protected DashboardService $dashboardService;
 
     public function __construct(
         ContextService $contextService,
@@ -31,7 +31,7 @@ class ToolsExtension extends AbstractExtension
         $this->dashboardService = $dashboardService;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('get_current_domain', [$this, 'getCurrentDomain']),
@@ -50,17 +50,17 @@ class ToolsExtension extends AbstractExtension
         ];
     }
 
-    public function getCurrentDomain()
+    public function getCurrentDomain(): ?Domain
     {
         return $this->contextService->getDomain();
     }
 
-    public function getDomains()
+    public function getDomains(): array
     {
         return $this->contextService->getDomains();
     }
 
-    public function getLocaleDomain(string $locale) : ?Domain
+    public function getLocaleDomain(string $locale): ?Domain
     {
         foreach ($this->contextService->getDomains() as $domain) {
             if ($domain->getLocale() === $locale) {
@@ -71,7 +71,7 @@ class ToolsExtension extends AbstractExtension
         return null;
     }
 
-    public function hasLocaleDomain(string $locale) : bool
+    public function hasLocaleDomain(string $locale): bool
     {
         foreach ($this->contextService->getDomains() as $domain) {
             if ($domain->getLocale() === $locale) {
@@ -82,28 +82,28 @@ class ToolsExtension extends AbstractExtension
         return false;
     }
 
-    public function hasAlerts()
+    public function hasAlerts(): bool
     {
         $alerts = $this->alertService->getAlerts();
         return count($alerts) > 0;
     }
 
-    public function getAlerts()
+    public function getAlerts(): array
     {
         return $this->alertService->getAlerts();
     }
 
-    public function getSetting($setting)
+    public function getSetting($setting): ?string
     {
         return $this->settingService->get($setting);
     }
 
-    public function getSettingSections()
+    public function getSettingSections(): array
     {
         return $this->settingService->getSections();
     }
 
-    public function getFormTheme()
+    public function getFormTheme(): string
     {
         if ($this->contextService->isCMS()) {
             return '@WSCore/cms/form/fields.html.twig';
@@ -112,7 +112,7 @@ class ToolsExtension extends AbstractExtension
         return 'form_div_layout.html.twig';
     }
 
-    public function getFilterQuery($queryParams, $filters)
+    public function getFilterQuery($queryParams, $filters): string
     {
         $filterPath = '';
         foreach ($filters as $filter) {
@@ -124,7 +124,7 @@ class ToolsExtension extends AbstractExtension
         return $filterPath;
     }
 
-    public function getBatchActionData(string $action)
+    public function getBatchActionData(string $action): ?array
     {
         switch ($action) {
             case AbstractController::DELETE_BATCH_ACTION:

@@ -15,12 +15,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SwitchController extends AbstractController
 {
     protected TranslatorInterface $translator;
-    protected $service;
+    protected DomainService $domainService;
 
-    public function __construct(TranslatorInterface $translator, DomainService $service)
+    public function __construct(TranslatorInterface $translator, DomainService $domainService)
     {
         $this->translator = $translator;
-        $this->service = $service;
+        $this->domainService = $domainService;
     }
 
     /**
@@ -29,7 +29,7 @@ class SwitchController extends AbstractController
      */
     public function switch(Request $request, string $id): Response
     {
-        $domain = $this->service->get(intval($id));
+        $domain = $this->domainService->get(intval($id));
         if ($domain instanceof Domain) {
             $session = $request->getSession();
             if ($session !== null) {

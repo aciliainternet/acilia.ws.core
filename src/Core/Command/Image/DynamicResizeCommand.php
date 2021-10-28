@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DynamicResizeCommand extends Command
 {
-    protected $imageService;
+    protected ImageService $imageService;
 
     public function __construct(ImageService $imageService)
     {
@@ -19,7 +19,7 @@ class DynamicResizeCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ws:image:dynamic-resize')
@@ -28,7 +28,7 @@ class DynamicResizeCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $imageFile = $input->getArgument('image');
         if ($imageFile === null) {

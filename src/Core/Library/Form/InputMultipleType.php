@@ -8,11 +8,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InputMultipleType extends AbstractType
 {
-    const INPUT_MULTIPLE_TYPE_ATTR = [
+    public const INPUT_MULTIPLE_TYPE_ATTR = [
         'data-component' => 'ws_input-multiple',
     ];
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'widget' => 'single_text',
@@ -21,7 +21,7 @@ class InputMultipleType extends AbstractType
         ]);
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return TextType::class;
     }

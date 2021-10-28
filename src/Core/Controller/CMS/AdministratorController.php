@@ -15,8 +15,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class AdministratorController extends AbstractController
 {
-    protected $service;
-
     public function __construct(AdministratorService $service)
     {
         $this->service = $service;

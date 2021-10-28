@@ -7,36 +7,33 @@ use WS\Core\Service\NavigationService;
 use WS\Core\Library\Router\Loader\Loader;
 use Symfony\Bundle\FrameworkBundle\Routing\Router as BaseRouter;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\Routing\RouteCollection;
 
 class Router extends BaseRouter
 {
-    /** @var Loader */
-    protected $loader;
-    protected $defaultLocale;
-    /** @var NavigationService */
-    protected $navigationService;
+    protected NavigationService $navigationService;
 
     public function __construct()
     {
         call_user_func_array(array('Symfony\Bundle\FrameworkBundle\Routing\Router', '__construct'), func_get_args());
     }
 
-    public function setNavigationService(NavigationService $navigationService)
+    public function setNavigationService(NavigationService $navigationService): void
     {
         $this->navigationService = $navigationService;
     }
 
-    public function setLoader(Loader $loader)
+    public function setLoader(Loader $loader): void
     {
         $this->loader = $loader;
     }
 
-    public function setDefaultLocale($locale)
+    public function setDefaultLocale(string $locale): void
     {
         $this->defaultLocale = $locale;
     }
 
-    public function generate($name, $parameters = [], $referenceType = self::ABSOLUTE_PATH)
+    public function generate(string $name, array $parameters = [], int $referenceType = self::ABSOLUTE_PATH): ?string
     {
         // determine the most suitable locale to use for route generation
         $locale = $this->getLocale($parameters);
@@ -91,12 +88,12 @@ class Router extends BaseRouter
         throw new RouteNotFoundException(sprintf('Route "%s" not found', $name));
     }
 
-    public function getRouteCollection()
+    public function getRouteCollection(): RouteCollection
     {
         return $this->loader->load(parent::getRouteCollection());
     }
 
-    protected function getLocale(array $parameters)
+    protected function getLocale(array $parameters): string
     {
         $currentLocale = $this->context->getParameter('_locale');
         if (isset($parameters['_locale'])) {

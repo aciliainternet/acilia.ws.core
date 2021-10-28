@@ -9,14 +9,14 @@ use Symfony\Component\Form\FormView;
 
 class SlugType extends AbstractType
 {
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
             'ws_attr' => ['data-component' => 'ws_slug']
         ]);
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return TextType::class;
     }

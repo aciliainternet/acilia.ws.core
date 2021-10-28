@@ -13,7 +13,7 @@ class PageConfigurationNode extends Node
         parent::__construct(['value' => $value], ['name' => $name], $line, $tag);
     }
 
-    public function compile(Compiler $compiler)
+    public function compile(Compiler $compiler): void
     {
         $compiler
             ->raw('$this->env->getExtension(\'WS\Core\Twig\Extension\PageConfigurationExtension\')->configure(')

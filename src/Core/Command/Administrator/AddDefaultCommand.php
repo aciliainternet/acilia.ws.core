@@ -15,15 +15,17 @@ class AddDefaultCommand extends Command
     protected AdministratorService $administratorService;
     protected UserPasswordHasherInterface $passwordHasherService;
 
-    public function __construct(AdministratorService $administratorService, UserPasswordHasherInterface $passwordHasherService)
-    {
+    public function __construct(
+        AdministratorService $administratorService,
+        UserPasswordHasherInterface $passwordHasherService
+    ) {
         $this->administratorService = $administratorService;
         $this->passwordHasherService = $passwordHasherService;
 
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ws:administrator:add-default')
@@ -32,7 +34,7 @@ class AddDefaultCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 

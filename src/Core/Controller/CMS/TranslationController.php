@@ -19,16 +19,16 @@ class TranslationController extends AbstractController
 {
     protected TranslatorInterface $translator;
     protected ContextService $contextService;
-    protected $service;
+    protected TranslationService $translationService;
 
 
     public function __construct(
         TranslatorInterface $translator,
         ContextService $contextService,
-        TranslationService $service
+        TranslationService $translationService
     ) {
         $this->translator = $translator;
-        $this->service = $service;
+        $this->translationService = $translationService;
         $this->contextService = $contextService;
     }
 
@@ -37,7 +37,7 @@ class TranslationController extends AbstractController
      */
     public function index(): Response
     {
-        $translations = $this->service->getForCMS();
+        $translations = $this->translationService->getForCMS();
 
         return $this->render('@WSCore/cms/translation/index.html.twig', [
             'domain' => $this->contextService->getDomain(),
@@ -60,7 +60,7 @@ class TranslationController extends AbstractController
         $translations = json_decode((string) $request->getContent(), true);
 
         try {
-            $this->service->updateTranslations($translations);
+            $this->translationService->updateTranslations($translations);
             return $this->json(
                 ['msg'=> $this->translator->trans('save_success', [], 'ws_cms_translation')],
                 Response::HTTP_OK

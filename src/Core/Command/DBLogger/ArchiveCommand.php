@@ -9,9 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ArchiveCommand extends Command
 {
-    const ARCHIVE_DAYS = 30;
+    private const ARCHIVE_DAYS = 30;
 
-    private $em = null;
+    private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {
@@ -20,7 +20,7 @@ class ArchiveCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ws:dblogger:archive')
@@ -41,7 +41,7 @@ class ArchiveCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
             $days = $input->getOption('days');

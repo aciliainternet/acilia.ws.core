@@ -10,21 +10,21 @@ use Twig\TwigTest;
 
 class ActivityLogExtension extends AbstractExtension
 {
-    private $activityLogService;
+    private ActivityLogService $activityLogService;
 
     public function __construct(ActivityLogService $activityLogService)
     {
         $this->activityLogService = $activityLogService;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('ws_activity_log_enabled', [$this, 'isEnabled']),
         ];
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('ws_activity_log_model', [$this, 'printModel']),
@@ -32,26 +32,26 @@ class ActivityLogExtension extends AbstractExtension
         ];
     }
 
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('ws_activity_log_selected', [$this, 'selected']),
         ];
     }
 
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->activityLogService->isEnabled();
     }
 
-    public function printModel(string $modelName)
+    public function printModel(string $modelName): string
     {
         $classPath = explode('\\', $modelName);
 
         return $classPath[count($classPath) -1];
     }
 
-    public function printActionClass(string $action)
+    public function printActionClass(string $action): string
     {
         switch ($action) {
             case 'create':
@@ -63,7 +63,7 @@ class ActivityLogExtension extends AbstractExtension
         }
     }
 
-    public function selected($value, $filter, $key)
+    public function selected($value, $filter, $key): bool
     {
         if (isset($filter[$key]) && $filter[$key] == $value) {
             return true;

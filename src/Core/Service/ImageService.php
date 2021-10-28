@@ -225,7 +225,7 @@ class ImageService
         }
     }
 
-    public function getImageUrl(AssetImage $image, $rendition, $subRendition = null) : string
+    public function getImageUrl(AssetImage $image, string $rendition, ?string $subRendition = null) : string
     {
         return $this->storageService->getPublicUrl($this->getFilePath($image, $rendition, $subRendition));
     }
@@ -240,10 +240,17 @@ class ImageService
         return $originalImage;
     }
 
-    protected function getFilePath(AssetImage $assetImage, $rendition, $subRendition = null) : string
+    protected function getFilePath(AssetImage $assetImage, string $rendition, ?string $subRendition = null) : string
     {
         if ($subRendition !== null) {
-            return sprintf('images/%d/%d/%s/%s/%s', floor($assetImage->getId() / 1000), $assetImage->getId(), $rendition, $subRendition, $assetImage->getFilename());
+            return sprintf(
+                'images/%d/%d/%s/%s/%s',
+                floor($assetImage->getId() / 1000),
+                $assetImage->getId(),
+                $rendition,
+                $subRendition,
+                $assetImage->getFilename()
+            );
         }
 
         return sprintf('images/%d/%d/%s/%s', floor($assetImage->getId() / 1000), $assetImage->getId(), $rendition, $assetImage->getFilename());

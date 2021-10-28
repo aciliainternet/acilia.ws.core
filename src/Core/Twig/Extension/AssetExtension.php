@@ -9,21 +9,21 @@ use Twig\TwigFunction;
 
 class AssetExtension extends AbstractExtension
 {
-    protected $imageService;
+    protected ImageService $imageService;
 
     public function __construct(ImageService $imageService)
     {
         $this->imageService = $imageService;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('asset_get_image', [$this, 'getImage']),
         ];
     }
 
-    public function getImage(AssetImage $image, $rendition, $subRendition = null) : string
+    public function getImage(AssetImage $image, string $rendition, ?string $subRendition = null): string
     {
         return $this->imageService->getImageUrl($image, $rendition, $subRendition);
     }

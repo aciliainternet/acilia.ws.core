@@ -8,6 +8,7 @@ use WS\Core\Entity\TranslationNode;
 use WS\Core\Service\TranslationService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,14 +16,17 @@ use Symfony\Component\Console\Command\Command;
 
 class CollectCommand extends Command
 {
-    protected $parameterBag;
-    protected $em;
-    protected $translationService;
-    protected $nodesRepository;
-    protected $attributesRepository;
+    protected ParameterBagInterface $parameterBag;
+    protected EntityManagerInterface $em;
+    protected TranslationService $translationService;
+    protected EntityRepository $nodesRepository;
+    protected EntityRepository $attributesRepository;
 
-    public function __construct(ParameterBagInterface $parameterBag, EntityManagerInterface $em, TranslationService $translationService)
-    {
+    public function __construct(
+        ParameterBagInterface $parameterBag,
+        EntityManagerInterface $em,
+        TranslationService $translationService
+    ) {
         $this->parameterBag = $parameterBag;
         $this->em = $em;
         $this->translationService = $translationService;
@@ -32,7 +36,7 @@ class CollectCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ws:translation:collect')
@@ -40,7 +44,7 @@ class CollectCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Gather Local App translations
         $appTranslationsPath = sprintf('%s/translations', $this->parameterBag->get('kernel.project_dir'));
@@ -54,7 +58,7 @@ class CollectCommand extends Command
         return 0;
     }
 
-    protected function gatherTranslations(string $directory, string $source)
+    protected function gatherTranslations(string $directory, string $source): void
     {
         $finder = new Finder();
         $finder->files()->in($directory)->exclude('cms')->name('/\.yaml/');

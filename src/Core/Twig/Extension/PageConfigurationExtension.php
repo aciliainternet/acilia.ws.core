@@ -8,10 +8,10 @@ use WS\Core\Twig\Tag\PageConfiguration\PageConfigurationTokenParser;
 
 class PageConfigurationExtension extends AbstractExtension
 {
-    protected $title;
-    protected $header;
-    protected $subheader;
-    protected $breadcrumbs;
+    protected string $title;
+    protected string $header;
+    protected string $subheader;
+    protected array $breadcrumbs;
 
     public function __construct()
     {
@@ -21,14 +21,14 @@ class PageConfigurationExtension extends AbstractExtension
         $this->breadcrumbs = [];
     }
 
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new PageConfigurationTokenParser(),
         ];
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('get_title', [$this, 'getTitle']),
@@ -38,27 +38,27 @@ class PageConfigurationExtension extends AbstractExtension
         ];
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function getHeader()
+    public function getHeader(): string
     {
         return $this->header;
     }
 
-    public function getSubheader()
+    public function getSubheader(): string
     {
         return $this->subheader;
     }
 
-    public function getBreadcrumbs()
+    public function getBreadcrumbs(): array
     {
         return $this->breadcrumbs;
     }
 
-    public function configure($config)
+    public function configure($config): void
     {
         if (isset($config['title'])) {
             if (empty($this->title)) {
