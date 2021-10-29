@@ -2,6 +2,7 @@
 
 namespace WS\Core\Service;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Entity\Setting;
@@ -18,16 +19,16 @@ class SettingService implements AlertGathererInterface
     protected array $settings;
     protected ?array $settingValues = null;
     protected TranslatorInterface $translator;
-    protected ManagerRegistry $registry;
+    protected EntityManagerInterface $em;
     protected ContextService $contextService;
 
     public function __construct(
         TranslatorInterface $translator,
-        ManagerRegistry $registry,
+        EntityManagerInterface $em,
         ContextService $contextService
     ) {
         $this->translator = $translator;
-        $this->registry = $registry;
+        $this->em = $em;
         $this->contextService = $contextService;
     }
 
@@ -136,8 +137,13 @@ class SettingService implements AlertGathererInterface
         return null;
     }
 
-    public function save(SectionDefinition $section, string $settingCode, $value): void
+    public function save(SectionDefinition $section, string $settingCode, string $value): void
     {
+        $domain = $this->contextService->getDomain();
+        if (null === $domain) {
+            throw new \RuntimeException('Domain not available.');
+        }
+
         // get setting definition
         $settingDefinition = null;
         foreach ($section->getGroups() as $groupDef) {
@@ -159,7 +165,7 @@ class SettingService implements AlertGathererInterface
             return;
         }
 
-        $setting = $this->registry->getRepository(Setting::class)->findOneBy([
+        $setting = $this->em->getRepository(Setting::class)->findOneBy([
             'name' => $settingCode,
             'domain' => $this->contextService->getDomain()
         ]);
@@ -171,13 +177,13 @@ class SettingService implements AlertGathererInterface
             $setting
                 ->setName($settingCode)
                 ->setValue($value)
-                ->setDomain($this->contextService->getDomain())
+                ->setDomain($domain)
             ;
 
-            $this->registry->getManager()->persist($setting);
+            $this->em->persist($setting);
         }
 
-        $this->registry->getManager()->flush();
+        $this->em->flush();
     }
 
     public function clearSettings(): void
@@ -187,14 +193,21 @@ class SettingService implements AlertGathererInterface
 
     public function loadSettings(): void
     {
+        $domain = $this->contextService->getDomain();
+        if (null === $domain) {
+            throw new \RuntimeException('Domain not available.');
+        }
+
         if ($this->settingValues === null) {
             $this->settingValues = [];
 
-            $conn = $this->registry->getConnection();
+            $conn = $this->em->getConnection();
             $stmt = $conn->prepare('SELECT * FROM ws_setting WHERE setting_domain = :domain');
-            $stmt->execute(['domain' => $this->contextService->getDomain()->getId()]);
+            $result = $stmt->executeQuery([
+                'domain' => $domain->getId()
+            ]);
 
-            $rows = $stmt->fetchAll();
+            $rows = $result->fetchAllAssociative();
             foreach ($rows as $row) {
                 $this->settingValues[$row['setting_name']] = $row['setting_value'];
             }

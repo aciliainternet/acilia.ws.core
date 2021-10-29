@@ -47,7 +47,10 @@ class CollectCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Gather Local App translations
-        $appTranslationsPath = sprintf('%s/translations', $this->parameterBag->get('kernel.project_dir'));
+        $appTranslationsPath = sprintf(
+            '%s/translations',
+            \strval($this->parameterBag->get('kernel.project_dir'))
+        );
         $this->gatherTranslations($appTranslationsPath, '');
 
         // Gather Bundled translations

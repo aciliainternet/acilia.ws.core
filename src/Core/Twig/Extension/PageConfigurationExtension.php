@@ -58,7 +58,7 @@ class PageConfigurationExtension extends AbstractExtension
         return $this->breadcrumbs;
     }
 
-    public function configure($config): void
+    public function configure(array $config): void
     {
         if (isset($config['title'])) {
             if (empty($this->title)) {

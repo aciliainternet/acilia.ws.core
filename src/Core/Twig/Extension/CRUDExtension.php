@@ -9,6 +9,7 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use WS\Core\Library\Router\Router;
 
 class CRUDExtension extends AbstractExtension
 {
@@ -35,16 +36,26 @@ class CRUDExtension extends AbstractExtension
         ];
     }
 
-    public function getPath(string $name, array $parameters = [], bool $relative = false): string
+    public function getPath(string $name, array $parameters = [], bool $relative = false): ?string
     {
         $request = $this->requestStack->getCurrentRequest();
+        if (null === $request) {
+            return null;
+        }
+
+        /** @var Router */
+        $urlGenerator = $this->generator;
 
         $parameters = array_merge(
-            $this->generator->getContextParams($name, $request->attributes->get('_route_params')),
+            $urlGenerator->getContextParams($name, (array) $request->get('_route_params')),
             $parameters
         );
 
-        return $this->generator->generate($name, $parameters, $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH);
+        return $urlGenerator->generate(
+            $name,
+            $parameters,
+            $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH
+        );
     }
 
     public function listIsDate(?\DateTimeInterface $dateTime): string
@@ -56,16 +67,21 @@ class CRUDExtension extends AbstractExtension
         return '-';
     }
 
-    public function listFilter(Environment $environment, string $filter, array $options, string $value): string
+    public function listFilter(Environment $environment, string $filter, array $options, string $value): ?string
     {
         $twigFilter = $environment->getFilter($filter);
         if ($twigFilter instanceof TwigFilter) {
+            if (null === $twigFilter->getCallable()) {
+                return null;
+            }
             $filteredValue = call_user_func_array($twigFilter->getCallable(), [$value, $options]);
 
             $safeContext = $twigFilter->getSafe(new \Twig\Node\Node());
             if (!is_array($safeContext) || !in_array('html', $safeContext)) {
-                /** @var \Twig\TwigFilter $twigFilter */
                 $escapeFilter = $environment->getFilter('escape');
+                if (null === $escapeFilter || null === $escapeFilter->getCallable()) {
+                    return null;
+                }
                 $filteredValue = call_user_func($escapeFilter->getCallable(), $environment, $filteredValue);
             }
 

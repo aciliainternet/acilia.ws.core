@@ -17,8 +17,8 @@ class StorageService
     public function __construct(ParameterBagInterface $parameterBag)
     {
         $this->storage = [
-            self::CONTEXT_PRIVATE => sprintf('%s/storage', $parameterBag->get('kernel.project_dir')),
-            self::CONTEXT_PUBLIC => sprintf('%s/public/storage', $parameterBag->get('kernel.project_dir')),
+            self::CONTEXT_PRIVATE => sprintf('%s/storage', \strval($parameterBag->get('kernel.project_dir'))),
+            self::CONTEXT_PUBLIC => sprintf('%s/public/storage', \strval($parameterBag->get('kernel.project_dir'))),
             self::CONTEXT_URL => '/storage',
         ];
     }

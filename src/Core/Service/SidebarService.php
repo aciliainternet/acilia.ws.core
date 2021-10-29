@@ -28,7 +28,7 @@ class SidebarService
         $this->loadSidebarDefinitions();
 
         $sidebarContainer = null;
-        foreach ($this->sidebar as $container) {
+        foreach ((array) $this->sidebar as $container) {
             if ($container->getCode() === $containerCode) {
                 $sidebarContainer = $container;
                 break;
@@ -58,7 +58,7 @@ class SidebarService
         // load sidebar definitions
         $this->loadSidebarDefinitions();
 
-        foreach ($this->sidebar as $keyContainer => $container) {
+        foreach ((array) $this->sidebar as $keyContainer => $container) {
             if ($container->getCode() === $containerCode) {
                 if ($contentCode !== null) {
                     /** @var SidebarDefinition $sidebarContent */
@@ -85,7 +85,7 @@ class SidebarService
         $sidebar = [];
 
         /** @var SidebarDefinition $sidebarDefinition */
-        foreach ($this->sidebar as $sidebarDefinition) {
+        foreach ((array) $this->sidebar as $sidebarDefinition) {
             if (isset($sidebar[$sidebarDefinition->getCode()])) {
                 foreach ($sidebarDefinition->getChildren() as $menu) {
                     $sidebar[$sidebarDefinition->getCode()]->addChild($menu);

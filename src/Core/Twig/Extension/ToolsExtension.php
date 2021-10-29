@@ -93,7 +93,7 @@ class ToolsExtension extends AbstractExtension
         return $this->alertService->getAlerts();
     }
 
-    public function getSetting($setting): ?string
+    public function getSetting(string $setting): ?string
     {
         return $this->settingService->get($setting);
     }
@@ -112,7 +112,7 @@ class ToolsExtension extends AbstractExtension
         return 'form_div_layout.html.twig';
     }
 
-    public function getFilterQuery($queryParams, $filters): string
+    public function getFilterQuery(array $queryParams, array $filters): string
     {
         $filterPath = '';
         foreach ($filters as $filter) {

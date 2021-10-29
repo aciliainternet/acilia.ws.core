@@ -11,12 +11,10 @@ use WS\Core\Service\ContextService;
 
 class ActivityLogService
 {
-    protected $logger;
-    protected $em;
-    protected $contextService;
-
-    /** @var ActivityLogRepository */
-    protected $repository;
+    protected LoggerInterface $logger;
+    protected EntityManagerInterface $em;
+    protected ContextService $contextService;
+    protected ActivityLogRepository $repository;
 
     public function __construct(LoggerInterface $logger, EntityManagerInterface $em, ContextService $contextService)
     {
@@ -26,14 +24,7 @@ class ActivityLogService
         $this->repository = $this->em->getRepository(ActivityLog::class);
     }
 
-    /**
-     * @param array $filters
-     * @param int $page
-     * @param int $limit
-     *
-     * @return array
-     */
-    public function getAll(array $filters, int $page, int $limit)
+    public function getAll(array $filters, int $page, int $limit): array
     {
         /** @var ActivityLog[] */
         $entities = $this->repository->getAll($this->contextService->getDomain(), $filters, $limit, ($page - 1) * $limit);
@@ -44,7 +35,7 @@ class ActivityLogService
         foreach ($entities as $log) {
             $log->setParsedChanges($this->getParsedChanges($log));
         }
-        
+
         return [
             'data' => $entities,
             'total' => $total
@@ -122,7 +113,7 @@ class ActivityLogService
         return \ucfirst(\preg_replace('/(?<!\ )[A-Z]/', ' $0', $key));
     }
 
-    protected function isFieldChanged($key, $before, $after): bool
+    protected function isFieldChanged(string $key, array $before, array $after): bool
     {
         if (isset($before[$key]) && isset($after[$key]) && $before[$key] === $after[$key]) {
             return false;
@@ -139,7 +130,7 @@ class ActivityLogService
         return true;
     }
 
-    protected function isFieldValid($key): bool
+    protected function isFieldValid(string $key): bool
     {
         // @todo: implement relationships
         if (in_array($key, ['__initializer__', '__cloner__', '__isInitialized__'])) {

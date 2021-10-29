@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SettingController extends AbstractController
 {
     protected TranslatorInterface $translator;
+    protected SettingService $service;
 
     public function __construct(TranslatorInterface $translator, SettingService $service)
     {
