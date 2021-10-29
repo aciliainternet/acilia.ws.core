@@ -21,7 +21,6 @@ class TranslationController extends AbstractController
     protected ContextService $contextService;
     protected TranslationService $translationService;
 
-
     public function __construct(
         TranslatorInterface $translator,
         ContextService $contextService,

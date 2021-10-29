@@ -8,23 +8,21 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class SidebarService
 {
-    protected $services = [];
-    /** @var array */
-    protected $sidebar = null;
-    /** @var ParameterBag */
-    public $assets;
+    protected array $services = [];
+    protected ?array $sidebar = null;
+    public ParameterBag $assets;
 
     public function __construct()
     {
         $this->assets = new ParameterBag();
     }
 
-    public function registerSidebarDefinition(SidebarDefinitionInterface $service)
+    public function registerSidebarDefinition(SidebarDefinitionInterface $service): void
     {
         $this->services[] = $service;
     }
 
-    public function getSidebarDefinition(string $containerCode, ?string $contentCode = null) : ?SidebarDefinition
+    public function getSidebarDefinition(string $containerCode, ?string $contentCode = null): ?SidebarDefinition
     {
         // load sidebar definitions
         $this->loadSidebarDefinitions();
@@ -55,7 +53,7 @@ class SidebarService
         return null;
     }
 
-    public function removeSidebarDefinition(string $containerCode, ?string $contentCode = null)
+    public function removeSidebarDefinition(string $containerCode, ?string $contentCode = null): void
     {
         // load sidebar definitions
         $this->loadSidebarDefinitions();
@@ -79,7 +77,7 @@ class SidebarService
         }
     }
 
-    public function getSidebar() : array
+    public function getSidebar(): array
     {
         // load sidebar definitions
         $this->loadSidebarDefinitions();
@@ -116,7 +114,7 @@ class SidebarService
         return $sidebar;
     }
 
-    protected function loadSidebarDefinitions()
+    protected function loadSidebarDefinitions(): void
     {
         if ($this->sidebar === null) {
             $this->sidebar = [];

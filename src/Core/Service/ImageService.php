@@ -14,15 +14,18 @@ use WS\Core\Service\Entity\AssetImageService;
 
 class ImageService
 {
-    protected $logger;
-    protected $assetImageService;
-    protected $storageService;
-    protected $imageManager;
-    protected $renditions;
-    protected $renderMethods = [];
+    protected LoggerInterface $logger;
+    protected AssetImageService $assetImageService;
+    protected StorageService $storageService;
+    protected ImageManager $imageManager;
+    protected array $renditions;
+    protected array $renderMethods = [];
 
-    public function __construct(LoggerInterface $logger, AssetImageService $assetImageService, StorageService $storageService)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        AssetImageService $assetImageService,
+        StorageService $storageService
+    ) {
         $this->logger = $logger;
         $this->assetImageService = $assetImageService;
         $this->storageService = $storageService;
@@ -32,7 +35,7 @@ class ImageService
         $this->registerRenderMethod(RenditionDefinition::METHOD_THUMB, \Closure::fromCallable([$this, 'renderMethodThumb']));
     }
 
-    public function registerRenditions(ImageRenditionInterface $service)
+    public function registerRenditions(ImageRenditionInterface $service): void
     {
         foreach ($service->getRenditionDefinitions() as $definition) {
             if ($definition instanceof RenditionDefinition) {
@@ -41,7 +44,7 @@ class ImageService
         }
     }
 
-    public function addRendition(RenditionDefinition $definition)
+    public function addRendition(RenditionDefinition $definition): void
     {
         if (!isset($this->renditions[$definition->getClass()])) {
             $this->renditions[$definition->getClass()] = [];
@@ -54,7 +57,7 @@ class ImageService
         $this->renditions[$definition->getClass()][$definition->getField()][$definition->getName()] = $definition;
     }
 
-    public function getRenditions($class, $field) : array
+    public function getRenditions(string $class, string $field): array
     {
         if (isset($this->renditions[$class]) && isset($this->renditions[$class][$field])) {
             return $this->renditions[$class][$field];
@@ -63,7 +66,7 @@ class ImageService
         return [];
     }
 
-    public function getAspectRatios($class, $field) : array
+    public function getAspectRatios(string $class, string $field): array
     {
         $aspectRatios = [];
 
@@ -79,7 +82,7 @@ class ImageService
         return array_unique($aspectRatios);
     }
 
-    public function getAspectRatiosForComponent($class, $field) : array
+    public function getAspectRatiosForComponent(string $class, string $field): array
     {
         $ratios = [];
         $aspectRatios = $this->getAspectRatios($class, $field);
@@ -103,7 +106,7 @@ class ImageService
         return $ratios;
     }
 
-    public function getMinimumsForComponent($class, $field)
+    public function getMinimumsForComponent(string $class, string $field): array
     {
         $minimums = [];
 
@@ -136,13 +139,19 @@ class ImageService
         return $minimums;
     }
 
-    public function registerRenderMethod($method, callable $function)
+    public function registerRenderMethod(string $method, callable $function): void
     {
         $this->renderMethods[$method] = $function;
     }
 
-    public function handle($entity, $imageField, UploadedFile $imageFile, array $options = null, $entityClass = null) : AssetImage
-    {
+    public function handle(
+        $entity,
+        string $imageField,
+        UploadedFile $imageFile,
+        array $options = null,
+        ?string $entityClass = null
+    ) : AssetImage {
+
         $this->processImageMetadata($imageFile);
 
         $assetImage = $this->assetImageService->createFromUploadedFile($imageFile, $entity, $imageField);
@@ -182,8 +191,14 @@ class ImageService
         return $assetImage;
     }
 
-    public function copy($entity, $imageField, int $assetId, array $options = null, $entityClass = null) : ?AssetImage
-    {
+    public function copy(
+        $entity,
+        string $imageField,
+        int $assetId,
+        array $options = null,
+        ?string $entityClass = null
+    ): ?AssetImage {
+
         $sourceAssetImage = $this->assetImageService->get($assetId);
         if ($sourceAssetImage === null) {
             return null;
@@ -212,7 +227,7 @@ class ImageService
         return $assetImage;
     }
 
-    public function delete($entity, $imageField)
+    public function delete($entity, string $imageField): void
     {
         $fieldSetter = sprintf('set%s', ucfirst((string) $imageField));
         if (method_exists($entity, $fieldSetter)) {
@@ -225,12 +240,12 @@ class ImageService
         }
     }
 
-    public function getImageUrl(AssetImage $image, string $rendition, ?string $subRendition = null) : string
+    public function getImageUrl(AssetImage $image, string $rendition, ?string $subRendition = null): string
     {
         return $this->storageService->getPublicUrl($this->getFilePath($image, $rendition, $subRendition));
     }
 
-    public function dynamicResize($requestedFile, $originalFile, $width, $height) : Image
+    public function dynamicResize(string $requestedFile, string $originalFile, int $width, int $height): Image
     {
         $originalContent = $this->storageService->get(sprintf('images/%s', $originalFile), StorageService::CONTEXT_PUBLIC);
         $originalImage = $this->imageManager->make($originalContent);
@@ -240,7 +255,7 @@ class ImageService
         return $originalImage;
     }
 
-    protected function getFilePath(AssetImage $assetImage, string $rendition, ?string $subRendition = null) : string
+    protected function getFilePath(AssetImage $assetImage, string $rendition, ?string $subRendition = null): string
     {
         if ($subRendition !== null) {
             return sprintf(
@@ -253,17 +268,31 @@ class ImageService
             );
         }
 
-        return sprintf('images/%d/%d/%s/%s', floor($assetImage->getId() / 1000), $assetImage->getId(), $rendition, $assetImage->getFilename());
+        return sprintf(
+            'images/%d/%d/%s/%s',
+            floor($assetImage->getId() / 1000),
+            $assetImage->getId(),
+            $rendition,
+            $assetImage->getFilename()
+        );
     }
 
-    protected function createRendition(AssetImage $assetImage, RenditionDefinition $definition, array $options = null)
-    {
-        $imageContent = $this->storageService->get($this->getFilePath($assetImage, 'original'), StorageService::CONTEXT_PUBLIC);
-        $image = $this->imageManager->make($imageContent);
+    protected function createRendition(
+        AssetImage $assetImage,
+        RenditionDefinition $definition,
+        array $options = null
+    ): void {
 
+        $imageContent = $this->storageService->get($this->getFilePath($assetImage, 'original'), StorageService::CONTEXT_PUBLIC);
+
+        $image = $this->imageManager->make($imageContent);
         $image = $this->executeRenderMethod($definition, $image, $options);
 
-        $this->storageService->save($this->getFilePath($assetImage, $definition->getName()), $image->encode(null, $definition->getQuality()), StorageService::CONTEXT_PUBLIC);
+        $this->storageService->save(
+            $this->getFilePath($assetImage, $definition->getName()),
+            $image->encode(null, $definition->getQuality()),
+            StorageService::CONTEXT_PUBLIC
+        );
 
         foreach ($definition->getSubRenditions() as $subRendition) {
             list($subRenditionWidth, $subRenditionHeight) = explode('x', $subRendition, 2);
@@ -288,7 +317,7 @@ class ImageService
         }
     }
 
-    protected function executeRenderMethod(RenditionDefinition $definition, Image $image, array $options = null) : Image
+    protected function executeRenderMethod(RenditionDefinition $definition, Image $image, array $options = null): Image
     {
         if (isset($this->renderMethods[$definition->getMethod()])) {
             return call_user_func_array($this->renderMethods[$definition->getMethod()], [$definition, $image, $options]);
@@ -297,7 +326,7 @@ class ImageService
         throw new \Exception(sprintf('Render Method "%s" not registered.', $definition->getMethod()));
     }
 
-    protected function renderMethodThumb(RenditionDefinition $definition, Image $image, array $options = null) : Image
+    protected function renderMethodThumb(RenditionDefinition $definition, Image $image, ?array $options = null): Image
     {
         // If Crop data is defined, crop it
         $key = array_key_first($options['cropper']);
@@ -333,7 +362,7 @@ class ImageService
         return $image;
     }
 
-    protected function renderMethodCrop(RenditionDefinition $definition, Image $image, array $options = null) : Image
+    protected function renderMethodCrop(RenditionDefinition $definition, Image $image, ?array $options = null): Image
     {
         // If Crop data is defined, crop it
         $key = str_replace(':', 'x', $definition->getAspectRatio());

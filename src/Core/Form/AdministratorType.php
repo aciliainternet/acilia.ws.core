@@ -24,17 +24,15 @@ class AdministratorType extends AbstractType
     protected AdministratorService $administratorService;
     protected UserPasswordHasherInterface $passwordHashService;
 
-    /**
-     * AdministratorType constructor.
-     *
-     */
-    public function __construct(AdministratorService $administratorService, UserPasswordHasherInterface $passwordHashService)
-    {
+    public function __construct(
+        AdministratorService $administratorService,
+        UserPasswordHasherInterface $passwordHashService
+    ) {
         $this->administratorService = $administratorService;
         $this->passwordHashService = $passwordHashService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
@@ -95,7 +93,7 @@ class AdministratorType extends AbstractType
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Administrator::class,

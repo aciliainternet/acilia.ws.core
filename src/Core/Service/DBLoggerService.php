@@ -8,9 +8,9 @@ use Monolog\Logger;
 
 class DBLoggerService extends AbstractProcessingHandler
 {
-    protected $em;
-    
-    public function __construct(EntityManagerInterface $em, $level = Logger::DEBUG, $bubble = true)
+    protected EntityManagerInterface $em;
+
+    public function __construct(EntityManagerInterface $em, string $level = Logger::DEBUG, bool $bubble = true)
     {
         $this->em = $em;
         parent::__construct($level, $bubble);

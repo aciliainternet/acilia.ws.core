@@ -7,8 +7,8 @@ use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
 
 class SidebarDefinitionService implements SidebarDefinitionInterface
 {
-    protected $settingService;
-    protected $sidebarService;
+    protected SettingService $settingService;
+    protected SidebarService $sidebarService;
 
     public function __construct(SettingService $settingService, SidebarService $sidebarService)
     {

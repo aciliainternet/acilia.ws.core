@@ -7,15 +7,15 @@ use Twig\Environment;
 
 class DashboardService
 {
-    protected $twig;
-    protected $widgets = [];
+    protected Environment $twig;
+    protected array $widgets = [];
 
     public function __construct(Environment $twig)
     {
         $this->twig = $twig;
     }
 
-    public function addWidget(DashboardWidgetInterface $widget)
+    public function addWidget(DashboardWidgetInterface $widget): void
     {
         $this->widgets[$widget->getId()] = $widget;
     }

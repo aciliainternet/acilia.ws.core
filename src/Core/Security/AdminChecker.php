@@ -10,14 +10,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class AdminChecker implements UserCheckerInterface
 {
-    protected $translator;
+    protected TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    public function checkPreAuth(UserInterface $administrator)
+    public function checkPreAuth(UserInterface $administrator): void
     {
         if (!$administrator instanceof Administrator) {
             return;
@@ -29,7 +29,7 @@ class AdminChecker implements UserCheckerInterface
         }
     }
 
-    public function checkPostAuth(UserInterface $user)
+    public function checkPostAuth(UserInterface $user): void
     {
     }
 }

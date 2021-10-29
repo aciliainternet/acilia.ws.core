@@ -12,18 +12,21 @@ use Twig\Extension\AbstractExtension;
 
 class CRUDExtension extends AbstractExtension
 {
-    private $requestStack;
-    private $generator;
-    private $translator;
+    private RequestStack $requestStack;
+    private UrlGeneratorInterface $generator;
+    private TranslatorInterface $translator;
 
-    public function __construct(RequestStack $requestStack, UrlGeneratorInterface $generator, TranslatorInterface $translator)
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        UrlGeneratorInterface $generator,
+        TranslatorInterface $translator
+    ) {
         $this->requestStack = $requestStack;
         $this->generator = $generator;
         $this->translator = $translator;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('ws_cms_path', [$this, 'getPath']),
@@ -32,7 +35,7 @@ class CRUDExtension extends AbstractExtension
         ];
     }
 
-    public function getPath($name, $parameters = [], $relative = false)
+    public function getPath(string $name, array $parameters = [], bool $relative = false): string
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -44,7 +47,7 @@ class CRUDExtension extends AbstractExtension
         return $this->generator->generate($name, $parameters, $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 
-    public function listIsDate(?\DateTimeInterface $dateTime)
+    public function listIsDate(?\DateTimeInterface $dateTime): string
     {
         if ($dateTime instanceof \DateTimeInterface) {
             return $dateTime->format($this->translator->trans('date_hour_format', [], 'ws_cms'));
@@ -53,7 +56,7 @@ class CRUDExtension extends AbstractExtension
         return '-';
     }
 
-    public function listFilter(Environment $environment, $filter, $options, $value)
+    public function listFilter(Environment $environment, string $filter, array $options, string $value): string
     {
         $twigFilter = $environment->getFilter($filter);
         if ($twigFilter instanceof TwigFilter) {

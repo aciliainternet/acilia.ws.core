@@ -7,9 +7,9 @@ use WS\Core\Library\DataExport\DataExportProviderInterface;
 
 class DataExportService
 {
-    protected $dataExporters = [];
+    protected array $dataExporters = [];
 
-    public function addDataExporter(DataExportProviderInterface $dataExporter)
+    public function addDataExporter(DataExportProviderInterface $dataExporter): void
     {
         $this->dataExporters[$dataExporter->getFormat()] = $dataExporter;
     }

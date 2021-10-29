@@ -7,18 +7,19 @@ use WS\Core\Library\Alert\AlertGathererInterface;
 
 class AlertService
 {
-    protected $gatherers = [];
-    protected $alerts = null;
+    protected array $gatherers = [];
+    protected ?array $alerts = null;
 
     public function addGatherer(AlertGathererInterface $gatherer)
     {
         $this->gatherers[] = $gatherer;
     }
 
-    public function getAlerts()
+    public function getAlerts(): array
     {
         if ($this->alerts === null) {
             $event = new GatherAlertsEvent();
+
             /** @var AlertGathererInterface $gatherer */
             foreach ($this->gatherers as $gatherer) {
                 $gatherer->gatherAlerts($event);
@@ -27,6 +28,6 @@ class AlertService
             $this->alerts = $event->getAlerts();
         }
 
-        return (array) $this->alerts;
+        return $this->alerts;
     }
 }

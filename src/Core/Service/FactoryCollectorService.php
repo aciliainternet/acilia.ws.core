@@ -7,12 +7,12 @@ use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
 
 class FactoryCollectorService
 {
-    protected $services = [];
-    protected $supportedEntities = [];
-    protected $collect = [];
-    protected $objects = [];
+    protected array $services = [];
+    protected array $supportedEntities = [];
+    protected array $collect = [];
+    protected array $objects = [];
 
-    public function registerService(FactoryCollectorInterface $service)
+    public function registerService(FactoryCollectorInterface $service): void
     {
         $this->services[] = $service;
 
@@ -21,17 +21,17 @@ class FactoryCollectorService
         }
     }
 
-    public function isSupported(string $className) : bool
+    public function isSupported(string $className): bool
     {
         return in_array($className, $this->supportedEntities);
     }
 
-    public function getCollector()
+    public function getCollector(): FactoryCollector
     {
         return new FactoryCollector($this);
     }
 
-    public function fetch(array $collection)
+    public function fetch(array $collection): array
     {
         $objects = [];
         foreach ($collection as $className => $data) {

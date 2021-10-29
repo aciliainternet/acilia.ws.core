@@ -17,12 +17,12 @@ use WS\Core\Library\CRUD\AbstractRepository;
 
 class AssetImageRepository extends AbstractRepository
 {
-    public function getEntityClass()
+    public function getEntityClass(): string
     {
         return AssetImage::class;
     }
 
-    public function getFilterFields()
+    public function getFilterFields(): array
     {
         return ['filename'];
     }

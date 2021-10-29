@@ -13,8 +13,11 @@ class FileService
     protected AssetFileService $assetFileService;
     protected StorageService $storageService;
 
-    public function __construct(LoggerInterface $logger, AssetFileService $assetFileService, StorageService $storageService)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        AssetFileService $assetFileService,
+        StorageService $storageService
+    ) {
         $this->logger = $logger;
         $this->assetFileService = $assetFileService;
         $this->storageService = $storageService;

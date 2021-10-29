@@ -17,7 +17,7 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ActivityLogRepository extends EntityRepository
 {
-    public function getAllUsers()
+    public function getAllUsers(): array
     {
         $alias = 'a';
 
@@ -28,7 +28,7 @@ class ActivityLogRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function getAllModels()
+    public function getAllModels(): array
     {
         $alias = 'a';
 
@@ -38,7 +38,7 @@ class ActivityLogRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    protected function setFilters(array $filters, QueryBuilder &$qb)
+    protected function setFilters(array $filters, QueryBuilder &$qb): void
     {
         //Set filters
         if (isset($filters['model_id'])) {
@@ -57,15 +57,7 @@ class ActivityLogRepository extends EntityRepository
         }
     }
 
-    /**
-     * @param Domain $domain
-     * @param array $filters
-     * @param int|null $limit
-     * @param int|null $offset
-     *
-     * @return mixed
-     */
-    public function getAll(Domain $domain, array $filters, int $limit = null, int $offset = null)
+    public function getAll(Domain $domain, array $filters, int $limit = null, int $offset = null): array
     {
         $alias = 't';
         $qb = $this->createQueryBuilder($alias);
@@ -85,7 +77,7 @@ class ActivityLogRepository extends EntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getAllCount(Domain $domain, array $filters)
+    public function getAllCount(Domain $domain, array $filters): int
     {
         $alias = 't';
         $qb = $this->createQueryBuilder($alias)->select(sprintf(sprintf('count(%s.id)', $alias)));

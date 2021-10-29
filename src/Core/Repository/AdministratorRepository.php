@@ -13,12 +13,12 @@ use WS\Core\Library\CRUD\AbstractRepository;
  */
 class AdministratorRepository extends AbstractRepository
 {
-    public function getEntityClass()
+    public function getEntityClass(): string
     {
         return Administrator::class;
     }
 
-    public function getFilterFields()
+    public function getFilterFields(): array
     {
         return ['name', 'email'];
     }

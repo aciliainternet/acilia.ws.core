@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use WS\Core\Entity\Domain;
 use WS\Core\Service\ContextService;
 
 class BuildCollector extends DataCollector
@@ -20,12 +21,12 @@ class BuildCollector extends DataCollector
         $this->contextService = $contextService;
     }
 
-    public function addComponent($component)
+    public function addComponent($component): void
     {
         $this->components[] = $component;
     }
 
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null): void
     {
         $build = 'dev';
         if ($this->parameterBag->get('build') != '') {
@@ -44,27 +45,27 @@ class BuildCollector extends DataCollector
         ];
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->data = array();
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'ws.build_collector';
     }
 
-    public function getBuild()
+    public function getBuild(): string
     {
         return $this->data['build'];
     }
 
-    public function getDomain()
+    public function getDomain(): ?Domain
     {
         return $this->data['domain'];
     }
 
-    public function getComponents()
+    public function getComponents(): array
     {
         return $this->data['components'];
     }

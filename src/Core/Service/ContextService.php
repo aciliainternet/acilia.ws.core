@@ -11,11 +11,10 @@ class ContextService
     const SYMFONY = 'symfony';
     const SESSION_DOMAIN = 'ws_domain_id';
 
-    protected $debug;
-    protected $domainService;
-    protected $context;
-    /** @var Domain */
-    protected $domain;
+    protected bool $debug;
+    protected DomainService $domainService;
+    protected string $context;
+    protected Domain $domain;
 
     public function __construct($debug, DomainService $domainService)
     {
@@ -67,22 +66,22 @@ class ContextService
         return \array_shift($domains);
     }
 
-    public function isDebug() : bool
+    public function isDebug(): bool
     {
         return $this->debug;
     }
 
-    public function isCMS() : bool
+    public function isCMS(): bool
     {
         return $this->context == self::CMS;
     }
 
-    public function isSite() : bool
+    public function isSite(): bool
     {
         return $this->context == self::SITE;
     }
 
-    public function getTemplatesBase() : string
+    public function getTemplatesBase(): string
     {
         return $this->context == self::CMS ? 'cms': 'site';
     }

@@ -17,7 +17,6 @@ class SettingService implements AlertGathererInterface
     /** @var SectionDefinition[] */
     protected array $settings;
     protected ?array $settingValues = null;
-
     protected TranslatorInterface $translator;
     protected ManagerRegistry $registry;
     protected ContextService $contextService;
@@ -46,9 +45,6 @@ class SettingService implements AlertGathererInterface
         }
     }
 
-    /**
-     * @return SectionDefinition|null
-     */
     public function getSection(string $section): ?SectionDefinition
     {
         if (isset($this->settings[$section])) {

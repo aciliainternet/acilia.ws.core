@@ -7,15 +7,12 @@ use WS\Core\Library\Storage\StorageDriverInterface;
 
 class StorageService
 {
-    const CONTEXT_PUBLIC = 'public';
-    const CONTEXT_URL = 'url';
-    const CONTEXT_PRIVATE = 'private';
+    public const CONTEXT_PUBLIC = 'public';
+    public const CONTEXT_URL = 'url';
+    public const CONTEXT_PRIVATE = 'private';
 
-    /** @var StorageDriverInterface */
-    protected $driver;
-
-    /** @var array */
-    protected $storage;
+    protected StorageDriverInterface $driver;
+    protected array $storage;
 
     public function __construct(ParameterBagInterface $parameterBag)
     {
@@ -26,7 +23,7 @@ class StorageService
         ];
     }
 
-    public function save($filePath, $content, $context): self
+    public function save(string $filePath, string $content, string $context): self
     {
         //$this->driver->save($resource, $context);
 
@@ -41,7 +38,7 @@ class StorageService
         return $this;
     }
 
-    public function get($filePath, $context): string
+    public function get(string $filePath, string $context): string
     {
         //return $this->driver->get($resource, $context);
 
@@ -58,7 +55,7 @@ class StorageService
         return $finalFileContent;
     }
 
-    public function exists($filePath, $context): bool
+    public function exists(string $filePath, string $context): bool
     {
         return \file_exists(sprintf('%s/%s', $this->storage[$context], $filePath));
     }

@@ -7,10 +7,10 @@ use WS\Core\Library\Navbar\NavbarDefinitionInterface;
 
 class NavbarService
 {
-    protected $services = [];
-    protected $navbar = null;
+    protected array $services = [];
+    protected ?array $navbar = null;
 
-    public function registerNavbarDefinition(NavbarDefinitionInterface $service)
+    public function registerNavbarDefinition(NavbarDefinitionInterface $service): void
     {
         $this->services[] = $service;
     }

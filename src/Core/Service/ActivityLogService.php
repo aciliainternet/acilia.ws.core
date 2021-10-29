@@ -6,10 +6,10 @@ use WS\Core\Library\ActivityLog\ActivityLogInterface;
 
 class ActivityLogService
 {
-    protected $enabled;
-    protected $supportedEntities = [];
+    protected bool $enabled;
+    protected array $supportedEntities = [];
 
-    public function __construct($enabled)
+    public function __construct(bool $enabled)
     {
         $this->enabled = $enabled;
     }

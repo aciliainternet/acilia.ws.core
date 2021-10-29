@@ -63,9 +63,9 @@ class ActivityLogExtension extends AbstractExtension
         }
     }
 
-    public function selected($value, $filter, $key): bool
+    public function selected($value, array $filter, string $key): bool
     {
-        if (isset($filter[$key]) && $filter[$key] == $value) {
+        if (isset($filter[$key]) && $filter[$key] === $value) {
             return true;
         }
 

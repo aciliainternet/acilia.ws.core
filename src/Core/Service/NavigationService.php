@@ -9,14 +9,15 @@ use WS\Core\Library\Navigation\ResolvedPath;
 
 class NavigationService
 {
-    protected $parameterBag;
-    protected $providers = [];
-    protected $navigations = [];
-    protected $routes = [];
+    protected ParameterBagInterface $parameterBag;
+    protected array $providers = [];
+    protected array $navigations = [];
+    protected array $routes = [];
 
     public function __construct(ParameterBagInterface $parameterBag)
     {
         $this->parameterBag = $parameterBag;
+
         $cacheFile = $this->parameterBag->get('kernel.cache_dir') . '/ws_navigation_routes.php';
         if (file_exists($cacheFile) && is_readable($cacheFile)) {
             $this->routes = include($cacheFile);
@@ -54,7 +55,7 @@ class NavigationService
         return array_key_exists($name, $this->routes);
     }
 
-    public function generateRoute($name, $parameters): ?string
+    public function generateRoute(string $name, array $parameters): ?string
     {
         $path = null;
 
@@ -78,7 +79,7 @@ class NavigationService
         return $path;
     }
 
-    public function getRouteController($name)
+    public function getRouteController(string $name): ?string
     {
         $controller = null;
 
@@ -89,7 +90,7 @@ class NavigationService
         return $controller;
     }
 
-    public function resolvePath($path): ?array
+    public function resolvePath(string $path): ?array
     {
         $attributes = null;
         $resolvedPath = null;
@@ -109,5 +110,4 @@ class NavigationService
 
         return $attributes;
     }
-
 }

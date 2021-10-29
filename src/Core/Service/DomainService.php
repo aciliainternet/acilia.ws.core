@@ -9,19 +9,16 @@ use WS\Core\Repository\DomainRepository;
 
 class DomainService
 {
-    /** @var DomainRepository $repository */
-    protected $repository;
-
-    protected $logger;
-    protected $em;
-    protected $domains;
+    protected DomainRepository $repository;
+    protected LoggerInterface $logger;
+    protected EntityManagerInterface $em;
+    protected ?array $domains = null;
 
     public function __construct(LoggerInterface $logger, EntityManagerInterface $em)
     {
         $this->logger = $logger;
         $this->em = $em;
         $this->repository = $this->em->getRepository(Domain::class);
-        $this->domains = null;
     }
 
     public function getDomains(): array
