@@ -18,7 +18,7 @@ class NavigationService
     {
         $this->parameterBag = $parameterBag;
 
-        $cacheFile = $this->parameterBag->get('kernel.cache_dir') . '/ws_navigation_routes.php';
+        $cacheFile = sprintf('%s/ws_navigation_routes.php', \strval($this->parameterBag->get('kernel.cache_dir')));
         if (file_exists($cacheFile) && is_readable($cacheFile)) {
             $this->routes = include($cacheFile);
         }
@@ -29,7 +29,7 @@ class NavigationService
         $this->providers[] = $provider;
     }
 
-    public function addNavigation($name, $route): void
+    public function addNavigation(string $name, string $route): void
     {
         $this->navigations[$name] = $route;
     }
@@ -46,11 +46,11 @@ class NavigationService
             ];
         }
 
-        $cacheFile = $this->parameterBag->get('kernel.cache_dir') . '/ws_navigation_routes.php';
+        $cacheFile = sprintf('%s//ws_navigation_routes.php', \strval($this->parameterBag->get('kernel.cache_dir')));
         file_put_contents($cacheFile, '<?php return ' . var_export($routes, true) . ';');
     }
 
-    public function hasRoute($name): bool
+    public function hasRoute(string $name): bool
     {
         return array_key_exists($name, $this->routes);
     }
@@ -103,7 +103,7 @@ class NavigationService
             }
         }
 
-        if ($resolvedPath instanceof  ResolvedPath && $this->hasRoute($resolvedPath->getName())) {
+        if ($resolvedPath instanceof ResolvedPath && $this->hasRoute($resolvedPath->getName())) {
             $attributes = $resolvedPath->getAttributes();
             $attributes['_controller'] = $this->getRouteController($resolvedPath->getName());
         }

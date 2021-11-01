@@ -25,7 +25,7 @@ class AdministratorExtension extends AbstractExtension
         ];
     }
 
-    public function getProfile(?string $profile): string
+    public function getProfile(string $profile): string
     {
         return $this->translator->trans($this->administratorService->getProfileLabel($profile), [], 'cms');
     }

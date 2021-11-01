@@ -11,7 +11,7 @@ use WS\Core\Library\CRUD\AbstractRepository;
  * @method AssetFile|null findOneBy(array $criteria, array $orderBy = null)
  * @method AssetFile[]    findAll()
  * @method AssetFile[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method AssetFile[]    getAvailableByIds(Domain $domain, array $ids): array
+ * @method AssetFile[]    getAvailableByIds(?Domain $domain, array $ids): array
  */
 
 class AssetFileRepository extends AbstractRepository

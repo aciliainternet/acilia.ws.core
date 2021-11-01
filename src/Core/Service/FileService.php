@@ -23,25 +23,30 @@ class FileService
         $this->storageService = $storageService;
     }
 
-    public function handle(UploadedFile $fileFile, $entity, string $fileField, ?array $options = null): AssetFile
+    public function handle(UploadedFile $fileFile, object $entity, string $fileField, ?array $options = null): AssetFile
     {
+        $fileFileContent = file_get_contents($fileFile->getPathname());
+        if (false === $fileFileContent) {
+            throw new \RuntimeException('File cannot be read');
+        }
+
         $assetFile = $this->assetFileService->createFromUploadedFile($fileFile, $entity, $fileField);
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
-            file_get_contents($fileFile->getPathname()),
+            $fileFileContent,
             $options['context'] ?? StorageService::CONTEXT_PRIVATE
         );
 
         return $assetFile;
     }
 
-    public function delete($entity, string $fileField): void
+    public function delete(object $entity, string $fileField): void
     {
         $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));
         if (method_exists($entity, $fieldSetter)) {
             try {
-                $ref = new \ReflectionMethod(get_class($entity), $fieldSetter);
+                $ref = new \ReflectionMethod(\strval(\get_class($entity)), $fieldSetter);
                 $ref->invoke($entity, null);
             } catch (\ReflectionException $e) {
                 $this->logger->error(sprintf('Error deleting AssetFile on Entity. Error: %s', $e->getMessage()));
@@ -63,11 +68,18 @@ class FileService
             return null;
         }
 
+        $originalFileContent = file_get_contents(
+            $this->storageService->getPrivateUrl($this->getFilePath($originalAssetFile))
+        );
+        if (false === $originalFileContent) {
+            throw new \RuntimeException('File cannot be read');
+        }
+
         $assetFile = $this->assetFileService->clone($originalAssetFile);
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
-            file_get_contents($this->storageService->getPrivateUrl($this->getFilePath($originalAssetFile))),
+            $originalFileContent,
             $options['context'] ?? StorageService::CONTEXT_PRIVATE
         );
 

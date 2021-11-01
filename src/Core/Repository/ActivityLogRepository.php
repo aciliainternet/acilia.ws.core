@@ -57,7 +57,7 @@ class ActivityLogRepository extends EntityRepository
         }
     }
 
-    public function getAll(Domain $domain, array $filters, int $limit = null, int $offset = null): array
+    public function getAll(?Domain $domain, array $filters, int $limit = null, int $offset = null): array
     {
         $alias = 't';
         $qb = $this->createQueryBuilder($alias);
@@ -77,7 +77,7 @@ class ActivityLogRepository extends EntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getAllCount(Domain $domain, array $filters): int
+    public function getAllCount(?Domain $domain, array $filters): int
     {
         $alias = 't';
         $qb = $this->createQueryBuilder($alias)->select(sprintf(sprintf('count(%s.id)', $alias)));

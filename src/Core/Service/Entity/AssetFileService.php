@@ -33,21 +33,23 @@ class AssetFileService implements FactoryCollectorInterface
         return ['createdAt', 'filename'];
     }
 
-    public function createFromUploadedFile(UploadedFile $fileFile, $entity = null, string $fileField = null): AssetFile
+    public function createFromUploadedFile(UploadedFile $fileFile, object $entity = null, string $fileField = null): AssetFile
     {
         $assetFile = (new AssetFile())
             ->setFilename($this->sanitizeFilename($fileFile))
             ->setMimeType((string) $fileFile->getMimeType())
         ;
 
-        $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));
-        if (method_exists($entity, $fieldSetter)) {
-            try {
-                // set asset file into entity
-                $ref = new \ReflectionMethod(get_class($entity), $fieldSetter);
-                $ref->invoke($entity, $assetFile);
-            } catch (\ReflectionException $e) {
-                $this->logger->error(sprintf('Error setting AssetFile into Entity. Error: %s', $e->getMessage()));
+        if (null !== $entity && null !== $fileField) {
+            $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));
+            if (method_exists($entity, $fieldSetter)) {
+                try {
+                    // set asset file into entity
+                    $ref = new \ReflectionMethod(get_class($entity), $fieldSetter);
+                    $ref->invoke($entity, $assetFile);
+                } catch (\ReflectionException $e) {
+                    $this->logger->error(sprintf('Error setting AssetFile into Entity. Error: %s', $e->getMessage()));
+                }
             }
         }
 

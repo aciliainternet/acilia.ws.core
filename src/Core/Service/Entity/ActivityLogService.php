@@ -110,7 +110,7 @@ class ActivityLogService
 
     protected function parseKeyName(string $key): string
     {
-        return \ucfirst(\preg_replace('/(?<!\ )[A-Z]/', ' $0', $key));
+        return \ucfirst(\strval(\preg_replace('/(?<!\ )[A-Z]/', ' $0', $key)));
     }
 
     protected function isFieldChanged(string $key, array $before, array $after): bool

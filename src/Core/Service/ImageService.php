@@ -7,6 +7,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Image;
 use Intervention\Image\Constraint;
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 use WS\Core\Entity\AssetImage;
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\Asset\RenditionDefinition;
@@ -145,12 +146,16 @@ class ImageService
     }
 
     public function handle(
-        $entity,
+        object $entity,
         string $imageField,
         UploadedFile $imageFile,
         array $options = null,
         ?string $entityClass = null
-    ) : AssetImage {
+    ): AssetImage {
+        $imageFileContent = file_get_contents($imageFile->getPathname());
+        if (false === $imageFileContent) {
+            throw new \RuntimeException('Image cannot be read');
+        }
 
         $this->processImageMetadata($imageFile);
 
@@ -158,16 +163,16 @@ class ImageService
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
-            file_get_contents($imageFile->getPathname()),
+            $imageFileContent,
             StorageService::CONTEXT_PUBLIC
         );
 
         if ($entityClass === null) {
-            $entityClass = get_class($entity);
+            $entityClass = \get_class($entity);
         }
 
         /** @var RenditionDefinition $definition */
-        foreach ($this->getRenditions($entityClass, $imageField) as $definition) {
+        foreach ($this->getRenditions((string) $entityClass, $imageField) as $definition) {
             $this->createRendition($assetImage, $definition, $options);
         }
 
@@ -176,13 +181,18 @@ class ImageService
 
     public function handleStandalone(UploadedFile $imageFile, array $options = null) : AssetImage
     {
+        $imageFileContent = file_get_contents($imageFile->getPathname());
+        if (false === $imageFileContent) {
+            throw new \RuntimeException('Image cannot be read');
+        }
+
         $this->processImageMetadata($imageFile);
 
         $assetImage = $this->assetImageService->createFromUploadedFile($imageFile);
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
-            file_get_contents($imageFile->getPathname()),
+            $imageFileContent,
             StorageService::CONTEXT_PUBLIC
         );
 
@@ -192,7 +202,7 @@ class ImageService
     }
 
     public function copy(
-        $entity,
+        object $entity,
         string $imageField,
         int $assetId,
         array $options = null,
@@ -220,19 +230,19 @@ class ImageService
         );
 
         /** @var RenditionDefinition $definition */
-        foreach ($this->getRenditions($entityClass, $imageField) as $definition) {
+        foreach ($this->getRenditions(\strval($entityClass), $imageField) as $definition) {
             $this->createRendition($assetImage, $definition, $options);
         }
 
         return $assetImage;
     }
 
-    public function delete($entity, string $imageField): void
+    public function delete(object $entity, string $imageField): void
     {
         $fieldSetter = sprintf('set%s', ucfirst((string) $imageField));
         if (method_exists($entity, $fieldSetter)) {
             try {
-                $ref = new \ReflectionMethod(get_class($entity), $fieldSetter);
+                $ref = new \ReflectionMethod(\strval(get_class($entity)), $fieldSetter);
                 $ref->invoke($entity, null);
             } catch (\ReflectionException $e) {
                 $this->logger->error(sprintf('Error deleting AssetImage on Entity. Error: %s', $e->getMessage()));
@@ -329,10 +339,15 @@ class ImageService
     protected function renderMethodThumb(RenditionDefinition $definition, Image $image, ?array $options = null): Image
     {
         // If Crop data is defined, crop it
-        $key = array_key_first($options['cropper']);
         if (isset($options['cropper']) && is_array($options['cropper']) && count($options['cropper']) > 0) {
+            $key = array_key_first($options['cropper']);
             if (null !== $options['cropper'][$key]) {
-                list($cropData['w'], $cropData['h'], $cropData['x'], $cropData['y']) = explode(';', $options['cropper'][$key]);
+                list(
+                    $cropData['w'],
+                    $cropData['h'],
+                    $cropData['x'],
+                    $cropData['y']
+                ) = explode(';', $options['cropper'][$key]);
                 $image->crop(
                     (int) round((float) $cropData['w']),
                     (int) round((float) $cropData['h']),
@@ -364,10 +379,20 @@ class ImageService
 
     protected function renderMethodCrop(RenditionDefinition $definition, Image $image, ?array $options = null): Image
     {
+        $aspectRatio = $definition->getAspectRatio();
+        if (null === $aspectRatio) {
+            throw new \RuntimeException('Aspect ratio for crop not defined');
+        }
+
         // If Crop data is defined, crop it
-        $key = str_replace(':', 'x', $definition->getAspectRatio());
+        $key = str_replace(':', 'x', $aspectRatio);
         if (isset($options['cropper']) && isset($options['cropper'][$key])) {
-            list($cropData['w'], $cropData['h'], $cropData['x'], $cropData['y']) = explode(';', $options['cropper'][$key]);
+            list(
+                $cropData['w'],
+                $cropData['h'],
+                $cropData['x'],
+                $cropData['y']
+            ) = explode(';', $options['cropper'][$key]);
 
             $image->crop(
                 (int) round((float) $cropData['w']),
@@ -389,7 +414,7 @@ class ImageService
     protected function processImageMetadata(UploadedFile $imageFile): void
     {
         $exifMetadata = @exif_read_data($imageFile);
-        if (isset($exifMetadata['Orientation'])) {
+        if (is_array($exifMetadata) && isset($exifMetadata['Orientation'])) {
             switch($exifMetadata['Orientation']) {
                 case 8:
                     $this->imageManager->make($imageFile->getPathname())

@@ -73,14 +73,16 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getAvailableByIds(Domain $domain, array $ids): array
+    public function getAvailableByIds(?Domain $domain = null, array $ids): array
     {
         $alias = 't';
         $qb = $this->createQueryBuilder($alias)
             ->where(sprintf('%s.id IN (:ids)', $alias))
             ->setParameter('ids', $ids);
 
-        $this->setDomainRestriction($alias, $qb, $domain);
+        if (null !== $domain) {
+            $this->setDomainRestriction($alias, $qb, $domain);
+        }
 
         return $qb->getQuery()->execute();
     }
