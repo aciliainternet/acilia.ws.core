@@ -20,7 +20,7 @@ class DashboardService
         $this->widgets[$widget->getId()] = $widget;
     }
 
-    public function getWidget($id): DashboardWidgetInterface
+    public function getWidget(string $id): DashboardWidgetInterface
     {
         if (!array_key_exists($id, $this->widgets)) {
             throw new \Exception(sprintf('There is no Widget registered with id "%s"', $id));

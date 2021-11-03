@@ -14,15 +14,15 @@ class ContextService
     protected bool $debug;
     protected DomainService $domainService;
     protected string $context;
-    protected Domain $domain;
+    protected ?Domain $domain = null;
 
-    public function __construct($debug, DomainService $domainService)
+    public function __construct(bool $debug, DomainService $domainService)
     {
         $this->debug = $debug;
         $this->domainService = $domainService;
     }
 
-    public function setContext($context): self
+    public function setContext(string $context): self
     {
         $this->context = $context;
 
@@ -33,7 +33,7 @@ class ContextService
     {
         $this->domain = $domain;
 
-        \Locale::setDefault(str_replace('_', '-', $domain));
+        \Locale::setDefault(\strval(\str_replace('_', '-', $domain)));
     }
 
     public function getDomain(): ?Domain

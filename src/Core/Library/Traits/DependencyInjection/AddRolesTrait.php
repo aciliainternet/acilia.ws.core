@@ -6,10 +6,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 trait AddRolesTrait
 {
-    public function addRoles(ContainerBuilder $container, array $roles)
+    public function addRoles(ContainerBuilder $container, array $roles): void
     {
         $roles = array_merge_recursive(
-            $container->getParameter('security.role_hierarchy.roles'),
+            (array) $container->getParameter('security.role_hierarchy.roles'),
             $roles
         );
 

@@ -10,7 +10,7 @@ class AlertService
     protected array $gatherers = [];
     protected ?array $alerts = null;
 
-    public function addGatherer(AlertGathererInterface $gatherer)
+    public function addGatherer(AlertGathererInterface $gatherer): void
     {
         $this->gatherers[] = $gatherer;
     }

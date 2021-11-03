@@ -12,7 +12,7 @@ use WS\Core\Library\CRUD\AbstractRepository;
  * @method AssetImage[]    findAll()
  * @method AssetImage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method AssetImage[]    getAvailableByIds(Domain $domain, array $ids): array
- * @method AssetImage[]    getAll(Domain $domain, ?string $filter, array $orderBy = null, int $limit = null, int $offset = null)
+ * @method AssetImage[]    getAll(Domain $domain, ?string $search, ?array $filter, array $orderBy = null, int $limit = null, int $offset = null)
  */
 
 class AssetImageRepository extends AbstractRepository

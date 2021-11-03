@@ -12,13 +12,10 @@ use Psr\Log\LoggerInterface;
 
 class AssetImageService implements FactoryCollectorInterface
 {
-    protected $logger;
-    protected $em;
-
-    /** @var AssetImageRepository */
-    protected $repository;
-
-    protected $contextService;
+    protected LoggerInterface $logger;
+    protected EntityManagerInterface $em;
+    protected ContextService $contextService;
+    protected AssetImageRepository $repository;
 
     public function __construct(
         LoggerInterface $logger,
@@ -36,16 +33,6 @@ class AssetImageService implements FactoryCollectorInterface
         return ['createdAt', 'filename'];
     }
 
-    /**
-     * @param string|null $search
-     * @param int $page
-     * @param int $limit
-     * @param string $sort
-     * @param string $dir
-     *
-     * @return array
-     * @throws \Exception
-     */
     public function getAll(?string $search, int $page, int $limit, string $sort = '', string $dir = ''): array
     {
         $offset = ($page - 1) * $limit;
@@ -68,10 +55,9 @@ class AssetImageService implements FactoryCollectorInterface
         return [];
     }
 
-    public function createFromUploadedFile(UploadedFile $imageFile, $entity = null, string $imageField = null): AssetImage
+    public function createFromUploadedFile(UploadedFile $imageFile, ?object $entity = null, string $imageField = null): AssetImage
     {
-        $assetImage = new AssetImage();
-        $assetImage
+        $assetImage = (new AssetImage())
             ->setFilename($this->sanitizeFilename($imageFile))
             ->setMimeType((string) $imageFile->getMimeType())
         ;
@@ -101,10 +87,9 @@ class AssetImageService implements FactoryCollectorInterface
         return $assetImage;
     }
 
-    public function createFromAsset($entity, $imageField, AssetImage $sourceAsset): AssetImage
+    public function createFromAsset(object $entity, string $imageField, AssetImage $sourceAsset): AssetImage
     {
-        $assetImage = new AssetImage();
-        $assetImage
+        $assetImage = (new AssetImage())
             ->setFilename($sourceAsset->getFilename())
             ->setMimeType($sourceAsset->getMimeType())
             ->setWidth($sourceAsset->getWidth())

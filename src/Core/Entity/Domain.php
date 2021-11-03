@@ -68,7 +68,7 @@ class Domain
         return $this->id;
     }
 
-    public function getHost(): ?string
+    public function getHost(): string
     {
         return $this->host;
     }

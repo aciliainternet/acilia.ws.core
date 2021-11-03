@@ -10,7 +10,7 @@ class DBLoggerService extends AbstractProcessingHandler
 {
     protected EntityManagerInterface $em;
 
-    public function __construct(EntityManagerInterface $em, string $level = Logger::DEBUG, bool $bubble = true)
+    public function __construct(EntityManagerInterface $em, int $level = Logger::DEBUG, bool $bubble = true)
     {
         $this->em = $em;
         parent::__construct($level, $bubble);
@@ -18,17 +18,16 @@ class DBLoggerService extends AbstractProcessingHandler
 
     protected function write(array $record): void
     {
-        $connection = $this->em->getConnection();
-        if ($connection) {
-            $sql = 'INSERT INTO ws_log (log_id, log_channel, log_message, log_level, log_datetime) VALUES (NULL, ?, ?, ?, ?)';
-            $stmt = $connection->prepare($sql);
+        $conn = $this->em->getConnection();
 
-            $stmt->bindValue(1, $record['channel']);
-            $stmt->bindValue(2, $record['message']);
-            $stmt->bindValue(3, $record['level_name']);
-            $stmt->bindValue(4, $record['datetime']->format('Y-m-d H:i:s'));
+        $sql = 'INSERT INTO ws_log (log_id, log_channel, log_message, log_level, log_datetime) VALUES (NULL, ?, ?, ?, ?)';
+        $stmt = $conn->prepare($sql);
 
-            $stmt->execute();
-        }
+        $stmt->bindValue(1, $record['channel']);
+        $stmt->bindValue(2, $record['message']);
+        $stmt->bindValue(3, $record['level_name']);
+        $stmt->bindValue(4, $record['datetime']->format('Y-m-d H:i:s'));
+
+        $stmt->executeQuery();
     }
 }
