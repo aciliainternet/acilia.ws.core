@@ -6,8 +6,8 @@ use WS\Core\Service\FactoryCollectorService;
 
 class FactoryCollector
 {
-    protected $factoryService;
-    protected $collect;
+    protected FactoryCollectorService $factoryService;
+    protected array $collect;
 
     public function __construct(FactoryCollectorService $factoryService)
     {
@@ -15,7 +15,7 @@ class FactoryCollector
         $this->collect = [];
     }
 
-    public function add(string $className, array $data) : void
+    public function add(string $className, array $data): void
     {
         if (! $this->factoryService->isSupported($className)) {
             throw new \Exception(sprintf('Service in Factory Service for class "%s" was not registered', $className));
@@ -26,7 +26,7 @@ class FactoryCollector
         }
     }
 
-    public function fetch()
+    public function fetch(): array
     {
         return $this->factoryService->fetch($this->collect);
     }

@@ -4,5 +4,5 @@ namespace WS\Core\Library\Navigation;
 
 interface NavigationProviderInterface
 {
-    public function resolveNavigationPath($path): ?ResolvedPath;
+    public function resolveNavigationPath(string $path): ?ResolvedPath;
 }

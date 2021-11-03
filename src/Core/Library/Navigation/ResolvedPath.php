@@ -4,20 +4,20 @@ namespace WS\Core\Library\Navigation;
 
 class ResolvedPath
 {
-    protected $name;
-    protected $attributes = [];
+    protected string $name;
+    protected array $attributes = [];
 
     public function setName(string $name): void
-{
-    $this->name = $name;
-}
+    {
+        $this->name = $name;
+    }
 
     public function getName(): string
     {
         return $this->name;
     }
 
-    public function addAttribute(string $name, $value = null): void
+    public function addAttribute(string $name, mixed $value = null): void
     {
         $this->attributes[$name] = $value;
     }

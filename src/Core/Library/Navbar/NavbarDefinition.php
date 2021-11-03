@@ -4,10 +4,10 @@ namespace WS\Core\Library\Navbar;
 
 class NavbarDefinition
 {
-    protected $code;
-    protected $label;
-    protected $route;
-    protected $options;
+    protected string $code;
+    protected string $label;
+    protected ?array $route;
+    protected array $options;
 
     public function __construct(string $code, string $label, array $route = null, array $options = [])
     {
@@ -36,7 +36,7 @@ class NavbarDefinition
         return $this->label;
     }
 
-    public function getRouteName(): ?string
+    public function getRouteName(): string
     {
         if (isset($this->route['route_name'])) {
             return $this->route['route_name'];
@@ -85,7 +85,7 @@ class NavbarDefinition
         return $this;
     }
 
-    public function getOrder(): ?int
+    public function getOrder(): int
     {
         return $this->options['order'];
     }

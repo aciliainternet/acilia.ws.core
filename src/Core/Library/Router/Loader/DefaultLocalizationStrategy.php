@@ -5,27 +5,25 @@ namespace WS\Core\Library\Router\Loader;
 use WS\Core\Service\DomainService;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
-use Doctrine\DBAL\DBALException;
 
 class DefaultLocalizationStrategy implements LocalizationStrategyInterface
 {
-    protected $domains = null;
-    protected $aliases = null;
-    protected $aliasList = null;
-
-    protected $domainService;
+    protected ?array $domains = null;
+    protected ?array $aliases = null;
+    protected ?array $aliasList = null;
+    protected DomainService $domainService;
 
     public function __construct(DomainService $domainService)
     {
         $this->domainService = $domainService;
     }
 
-    protected function getDomains() : array
+    protected function getDomains(): array
     {
         if ($this->domains === null) {
             try {
                 $domains = $this->domainService->getCanonicals();
-            } catch (DBALException $e) {
+            } catch (\Exception $e) {
                 $domains = [];
             }
 
@@ -37,25 +35,27 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
         return ($this->domains === null) ? [] : $this->domains;
     }
 
-    protected function getAliases() : array
+    protected function getAliases(): array
     {
         if ($this->aliases === null) {
             $domains = $this->domainService->getAliases();
 
             $this->aliases = [];
             foreach ($domains as $domain) {
-                if (!isset($this->aliases[$domain->getParent()->getHost()])) {
-                    $this->aliases[$domain->getParent()->getHost()] = [];
-                }
+                if (null !== $domain->getParent()) {
+                    if (!isset($this->aliases[$domain->getParent()->getHost()])) {
+                        $this->aliases[$domain->getParent()->getHost()] = [];
+                    }
 
-                $this->aliases[$domain->getParent()->getHost()][] = $domain->getHost();
+                    $this->aliases[$domain->getParent()->getHost()][] = $domain->getHost();
+                }
             }
         }
 
-        return ($this->aliases === null) ? [] : $this->aliases;
+        return $this->aliases;
     }
 
-    protected function getAliasList() : array
+    protected function getAliasList(): array
     {
         if ($this->aliasList === null) {
             $domains = $this->domainService->getAliases();
@@ -66,15 +66,15 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
             }
         }
 
-        return ($this->aliasList === null) ? [] : $this->aliasList;
+        return $this->aliasList;
     }
 
-    public function getLocales() : array
+    public function getLocales(): array
     {
         return array_keys($this->getDomains());
     }
 
-    public function getParameters(RequestContext $context) : array
+    public function getParameters(RequestContext $context): array
     {
         $parameters = [];
         $aliasList = $this->getAliasList();
@@ -90,7 +90,7 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
         return $parameters;
     }
 
-    public function localize($locale, Route $route)
+    public function localize(string $locale, Route $route): void
     {
         $aliases = $this->getAliases();
         $domains = $this->getDomains();

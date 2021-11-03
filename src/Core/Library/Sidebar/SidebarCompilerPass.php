@@ -13,7 +13,7 @@ class SidebarCompilerPass implements CompilerPassInterface
 
     const TAG = 'ws.sidebar_definition';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(SidebarService::class)) {
             return;

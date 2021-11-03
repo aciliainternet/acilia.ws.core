@@ -4,10 +4,10 @@ namespace WS\Core\Library\Setting\Definition;
 
 class Section
 {
-    protected $code;
-    protected $name;
-    protected $options;
-    protected $groups;
+    protected string $code;
+    protected string $name;
+    protected array $options;
+    protected array $groups;
 
     public function __construct(string $code, string $name, array $options = [])
     {
@@ -23,12 +23,12 @@ class Section
         ], $options);
     }
 
-    public function getCode() : string
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    public function addGroup(Group $settingGroupDefinition) : Section
+    public function addGroup(Group $settingGroupDefinition): Section
     {
         if (isset($this->groups[$settingGroupDefinition->getCode()])) {
             foreach ($settingGroupDefinition->getSettings() as $settingDefinition) {
@@ -44,7 +44,7 @@ class Section
     /**
      * @return Group[]
      */
-    public function getGroups() : array
+    public function getGroups(): array
     {
         return $this->groups;
     }

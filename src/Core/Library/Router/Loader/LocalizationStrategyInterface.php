@@ -7,9 +7,9 @@ use Symfony\Component\Routing\Route;
 
 interface LocalizationStrategyInterface
 {
-    public function getLocales() : array;
+    public function getLocales(): array;
 
-    public function localize($locale, Route $route);
+    public function localize(string $locale, Route $route): void;
 
     public function getParameters(RequestContext $context): array;
 }

@@ -4,10 +4,10 @@ namespace WS\Core\Library\Setting\Definition;
 
 class Group
 {
-    protected $code;
-    protected $name;
-    protected $settings;
-    protected $options;
+    protected string $code;
+    protected string $name;
+    protected array $settings;
+    protected array $options;
 
     public function __construct(string $code, string $name, array $options = [])
     {
@@ -21,7 +21,7 @@ class Group
         ], $options);
     }
 
-    public function getCode() : string
+    public function getCode(): string
     {
         return $this->code;
     }
@@ -36,7 +36,7 @@ class Group
     /**
      * @return Setting[]
      */
-    public function getSettings() : array
+    public function getSettings(): array
     {
         return $this->settings;
     }

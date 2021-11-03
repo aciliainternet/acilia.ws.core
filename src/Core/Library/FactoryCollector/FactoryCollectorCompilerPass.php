@@ -13,7 +13,7 @@ class FactoryCollectorCompilerPass implements CompilerPassInterface
 
     const TAG = 'ws.factory_collector';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(FactoryCollectorService::class)) {
             return;

@@ -13,7 +13,7 @@ class NavbarCompilerPass implements CompilerPassInterface
 
     const TAG = 'ws.navbar_definition';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(NavbarService::class)) {
             return;

@@ -7,12 +7,12 @@ class SidebarDefinition
     const SIDEBAR_CONTAINER = true;
     const SIDEBAR_CONTENT = false;
 
-    protected $code;
-    protected $container;
-    protected $label;
-    protected $route;
-    protected $options;
-    protected $children;
+    protected string $code;
+    protected array $container;
+    protected string $label;
+    protected ?array $route;
+    protected array $options;
+    protected array $children;
 
     public function __construct(string $code, string $label, array $route = null, array $options = [])
     {
@@ -48,7 +48,7 @@ class SidebarDefinition
         return $this->options['container'];
     }
 
-    public function getRouteName(): ?string
+    public function getRouteName(): string
     {
         if (isset($this->route['route_name'])) {
             return $this->route['route_name'];
@@ -90,7 +90,7 @@ class SidebarDefinition
         return $this->options['collapsed_routes'];
     }
 
-    public function setCollapsedRoutes(array $collapsedRoutes)
+    public function setCollapsedRoutes(array $collapsedRoutes): SidebarDefinition
     {
         $this->options['collapsed_routes'] = $collapsedRoutes;
 
@@ -109,12 +109,12 @@ class SidebarDefinition
         return $this->options['icon'];
     }
 
-    public function addChild(SidebarDefinition $child)
+    public function addChild(SidebarDefinition $child): void
     {
         $this->children[] = $child;
     }
 
-    public function removeChild(SidebarDefinition $child)
+    public function removeChild(SidebarDefinition $child): void
     {
         foreach ($this->children as $childKey => $childValue) {
             if ($child->getCode() === $childValue->getCode()) {
@@ -146,7 +146,7 @@ class SidebarDefinition
         return $this;
     }
 
-    public function getOrder(): ?int
+    public function getOrder(): int
     {
         return $this->options['order'];
     }
@@ -155,8 +155,8 @@ class SidebarDefinition
     {
         return $this->options['translation_domain'];
     }
-    
-    public function hasDivider(): bool 
+
+    public function hasDivider(): bool
     {
         return $this->options['divider'];
     }

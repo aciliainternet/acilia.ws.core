@@ -4,12 +4,11 @@ namespace WS\Core\Library\Setting\Definition;
 
 class Setting
 {
-    protected $code;
-    protected $name;
-    protected $type;
-    protected $value;
-    protected $options;
-    protected $group;
+    protected string $code;
+    protected string $name;
+    protected string $type;
+    protected ?string $value;
+    protected array $options;
 
     public function __construct(string $code, string $name, string $type, array $options = [])
     {
@@ -28,12 +27,12 @@ class Setting
         ], $options);
     }
 
-    public function getCode() : string
+    public function getCode(): string
     {
         return $this->code;
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -58,7 +57,7 @@ class Setting
         return $this->options['description'];
     }
 
-    public function getValue()
+    public function getValue(): ?string
     {
         if ($this->value === null) {
             return $this->options['default'];
@@ -67,17 +66,17 @@ class Setting
         return $this->value;
     }
 
-    public function setValue($value)
+    public function setValue(?string $value): void
     {
-        return $this->value = $value;
+        $this->value = $value;
     }
 
-    public function getPlaceholder() : string
+    public function getPlaceholder(): string
     {
         return $this->options['placeholder'];
     }
 
-    public function getDefault()
+    public function getDefault(): ?string
     {
         return $this->options['default'];
     }
