@@ -191,14 +191,21 @@ class SettingService implements AlertGathererInterface
 
     public function loadSettings(): void
     {
+        $domain = $this->contextService->getDomain();
+        if (null === $domain) {
+            throw new \RuntimeException('Domain not available.');
+        }
+
         if ($this->settingValues === null) {
             $this->settingValues = [];
 
             $conn = $this->registry->getConnection();
             $stmt = $conn->prepare('SELECT * FROM ws_setting WHERE setting_domain = :domain');
-            $stmt->execute(['domain' => $this->contextService->getDomain()->getId()]);
+            $result = $stmt->executeQuery([
+                'domain' => $domain->getId()
+            ]);
 
-            $rows = $stmt->fetchAll();
+            $rows = $result->fetchAllAssociative();
             foreach ($rows as $row) {
                 $this->settingValues[$row['setting_name']] = $row['setting_value'];
             }

@@ -32,6 +32,11 @@ class TranslationService
 
     public function fillCatalogue(MessageCatalogueInterface $catalogue): void
     {
+        $domain = $this->contextService->getDomain();
+        if (null === $domain) {
+            throw new \RuntimeException('Domain not available.');
+        }
+
         if ($this->translations === null) {
             $sql = 'SELECT node_name, node_type, node_source, attrib_name, value_translation '
                  . 'FROM ws_translation_node JOIN ws_translation_attribute ON (node_id = attrib_node) '
@@ -40,11 +45,12 @@ class TranslationService
 
             $conn = $this->registry->getConnection();
             $stmt = $conn->prepare($sql);
-            $stmt->execute(['domain' => $this->contextService->getDomain()->getId()]);
+            $result = $stmt->executeQuery([
+                'domain' => $domain->getId()
+            ]);
 
             $this->translations = [];
-            $result = $stmt->fetchAll();
-
+            $result = $result->fetchAllAssociative();
             foreach ($result as $row) {
                 $sourcePrefix = !empty($row['node_source']) ? ($row['node_source'] . '.') : '';
                 $id = sprintf('%s%s.%s', $sourcePrefix, $row['node_name'], $row['attrib_name']);
@@ -66,6 +72,11 @@ class TranslationService
 
     public function getForCMS(): array
     {
+        $domain = $this->contextService->getDomain();
+        if (null === $domain) {
+            throw new \RuntimeException('Domain not available.');
+        }
+
         $translations = [];
 
         $sql = 'SELECT node_name, node_type, node_source, attrib_id, attrib_name, value_translation '
@@ -75,9 +86,11 @@ class TranslationService
 
         $conn = $this->registry->getConnection();
         $stmt = $conn->prepare($sql);
-        $stmt->execute(['domain' => $this->contextService->getDomain()->getId()]);
+        $result = $stmt->executeQuery([
+            'domain' => $domain->getId()
+        ]);
 
-        $result = $stmt->fetchAll();
+        $result = $result->fetchAllAssociative();
         foreach ($result as $row) {
             if (!isset($translations[$row['node_name']])) {
                 $translations[$row['node_name']] = [
