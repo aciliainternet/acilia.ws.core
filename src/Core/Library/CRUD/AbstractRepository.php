@@ -15,7 +15,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
 {
     use DomainRepositoryTrait;
 
-    protected $contextService;
+    protected ContextService $contextService;
 
     public function __construct(ContextService $contextService, ManagerRegistry $registry)
     {
@@ -24,24 +24,14 @@ abstract class AbstractRepository extends ServiceEntityRepository
         parent::__construct($registry, $this->getEntityClass());
     }
 
-    abstract public function getEntityClass();
+    abstract public function getEntityClass(): string;
 
-    abstract public function getFilterFields();
+    abstract public function getFilterFields(): array;
 
-    public function processFilterExtended(QueryBuilder $qb, ?array $filter)
+    public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
     }
 
-    /**
-     * @param Domain $domain
-     * @param string|null $search
-     * @param array|null $filter
-     * @param array|null $orderBy
-     * @param int|null $limit
-     * @param int|null $offset
-     *
-     * @return int|mixed|string
-     */
     public function getAll(
         Domain $domain,
         ?string $search,
@@ -49,7 +39,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         array $orderBy = null,
         int $limit = null,
         int $offset = null
-    ) {
+    ): array {
         $alias = 't';
         $qb = $this->createQueryBuilder($alias);
 
@@ -87,14 +77,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    /**
-     * @param Domain $domain
-     * @param string|null $search
-     * @param array|null $filter
-     *
-     * @return int
-     */
-    public function getAllCount(Domain $domain, ?string $search, ?array $filter)
+    public function getAllCount(Domain $domain, ?string $search, ?array $filter): int
     {
         $alias = 't';
 
@@ -115,12 +98,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @param string $alias
-     * @param QueryBuilder $qb
-     * @param string|null $search
-     */
-    protected function setFilter(string $alias, QueryBuilder $qb, ?string $search)
+    protected function setFilter(string $alias, QueryBuilder $qb, ?string $search): void
     {
         if (!$search) {
             return;
@@ -141,12 +119,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @param QueryBuilder $qb
-     * @param string $alias
-     * @param array $filters
-     */
-    protected function setFilters(string $alias, QueryBuilder $qb, array $filters)
+    protected function setFilters(string $alias, QueryBuilder $qb, array $filters): void
     {
         foreach ($filters as $field => $value) {
             $qb->andWhere(sprintf('%s LIKE :%s_filter', sprintf('%s.%s', $alias, $field), $field));
@@ -154,10 +127,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-     * @param array $ids
-     */
-    public function batchDelete(array $ids)
+    public function batchDelete(array $ids): void
     {
         $alias = 't';
 

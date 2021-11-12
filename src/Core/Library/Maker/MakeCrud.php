@@ -46,7 +46,7 @@ class MakeCrud extends AbstractMaker
         return 'Creates a WS command of different flavors';
     }
 
-    public function configureCommand(Command $command, InputConfiguration $inputConfig)
+    public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
             ->setDescription('Creates CRUD for Doctrine entity class')
@@ -58,7 +58,7 @@ class MakeCrud extends AbstractMaker
         $inputConfig->setArgumentAsNonInteractive('entity-class');
     }
 
-    public function configureDependencies(DependencyBuilder $dependencies)
+    public function configureDependencies(DependencyBuilder $dependencies): void
     {
         $dependencies->addClassDependency(Route::class, 'router');
 
@@ -75,7 +75,7 @@ class MakeCrud extends AbstractMaker
         $dependencies->addClassDependency(ParamConverter::class, 'annotations');
     }
 
-    public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator)
+    public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator): void
     {
         $isInteractive = $input->getOption('interactive');
 
@@ -104,10 +104,11 @@ class MakeCrud extends AbstractMaker
 
         $entityFormFields = $entityDoctrineDetails->getFormFields();
 
-        $associationFieldNames = $this->doctrineHelper->getMetadata($entityClassDetails->getFullName())->getAssociationNames();
+        $classMetadata = $this->doctrineHelper->getMetadata($entityClassDetails->getFullName());
+        $associationFieldNames = $classMetadata->getAssociationNames();
 
         foreach ($associationFieldNames as $associationFieldName) {
-            $associationFields[$associationFieldName] = $this->doctrineHelper->getMetadata($entityClassDetails->getFullName())->getAssociationTargetClass($associationFieldName);
+            $associationFields[$associationFieldName] = $classMetadata->getAssociationTargetClass($associationFieldName);
         }
 
         foreach ($entityFormFields as $name => $fieldTypeOptions) {

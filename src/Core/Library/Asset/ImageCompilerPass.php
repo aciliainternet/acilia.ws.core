@@ -14,7 +14,7 @@ class ImageCompilerPass implements CompilerPassInterface
     const TAG_RENDITIONS = 'ws.image_renditions';
     const TAG_CONSUMER = 'ws.image_consumer';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(ImageService::class)) {
             return;

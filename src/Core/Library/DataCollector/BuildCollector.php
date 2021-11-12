@@ -47,7 +47,7 @@ class BuildCollector extends DataCollector
 
     public function reset(): void
     {
-        $this->data = array();
+        $this->data = [];
     }
 
     public function getName(): string

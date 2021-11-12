@@ -15,30 +15,30 @@ class Setting
      * @ORM\GeneratedValue()
      * @ORM\Column(name="setting_id", type="integer")
      */
-    protected $id;
+    protected int $id;
 
     /**
      * @ORM\Column(name="setting_name", type="string", length=128, nullable=false)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(name="setting_value", type="text", nullable=true)
      */
-    private $value;
+    private ?string $value;
 
     /**
      * @ORM\ManyToOne(targetEntity="WS\Core\Entity\Domain")
      * @ORM\JoinColumn(name="setting_domain", referencedColumnName="domain_id", nullable=false)
      */
-    protected $domain;
+    private Domain $domain;
 
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -62,7 +62,7 @@ class Setting
         return $this;
     }
 
-    public function getDomain(): ?Domain
+    public function getDomain(): Domain
     {
         return $this->domain;
     }

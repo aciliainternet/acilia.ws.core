@@ -6,7 +6,7 @@ use WS\Core\Service\ImageService;
 
 interface ImageConsumerInterface
 {
-    public function setImageService(ImageService $imageService);
+    public function setImageService(ImageService $imageService): void;
 
     public function getImageService(): ImageService;
 }

@@ -7,17 +7,25 @@ class RenditionDefinition
     const METHOD_THUMB = 'thumb';
     const METHOD_CROP = 'crop';
 
-    protected $class;
-    protected $field;
-    protected $name;
-    protected $width;
-    protected $height;
-    protected $method;
-    protected $subRenditions;
-    protected $quality;
+    protected string $class;
+    protected string $field;
+    protected string $name;
+    protected ?int $width;
+    protected ?int $height;
+    protected string $method;
+    protected array $subRenditions;
+    protected int $quality;
 
-    public function __construct(string $class, $field, string $name, ?int $width, ?int $height, string $method, array $subRenditions = null, $quality = 90)
-    {
+    public function __construct(
+        string $class,
+        string $field,
+        string $name,
+        ?int $width,
+        ?int $height,
+        string $method,
+        array $subRenditions = null,
+        int $quality = 90
+    ) {
         $this->class = $class;
         $this->field = $field;
         $this->name = $name;

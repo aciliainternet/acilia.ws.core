@@ -15,8 +15,11 @@ trait RoleCalculatorTrait
             }
         } elseif ($classPath[0] === 'App') {
             $classWords = preg_split('/(?=[A-Z])/', $classPath[2], -1, PREG_SPLIT_NO_EMPTY);
-            $classRole = implode('_', $classWords);
+            if (false === $classWords) {
+                throw new \Exception(sprintf('Unable to calculate Access Role for class: %s', $class));
+            }
 
+            $classRole = implode('_', $classWords);
             $role = sprintf('ROLE_APP_%s', $classRole);
             if ($action !== null) {
                 $role = sprintf('%s_%s', $role, $action);

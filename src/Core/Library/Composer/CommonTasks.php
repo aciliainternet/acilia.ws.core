@@ -6,11 +6,11 @@ use Composer\Script\Event;
 
 abstract class CommonTasks
 {
-    abstract public static function getAssetsSource();
+    abstract public static function getAssetsSource(): string;
 
-    abstract public static function getAssetsTarget();
+    abstract public static function getAssetsTarget(): string;
 
-    public static function linkAssets(Event $event)
+    public static function linkAssets(Event $event): void
     {
         $target = '../../' . str_replace(getcwd() . '/', '', static::getAssetsSource());
         $link = static::getAssetsTarget();

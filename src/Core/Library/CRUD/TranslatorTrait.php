@@ -15,8 +15,10 @@ trait TranslatorTrait
         } elseif ($classPath[0] === 'App') {
             $controllerName = str_replace('Controller', '', $classPath[count($classPath) - 1]);
             $controllerWords = preg_split('/(?=[A-Z])/', $controllerName, -1, PREG_SPLIT_NO_EMPTY);
+            if (false === $controllerWords) {
+                throw new \Exception(sprintf('Unable to calculate Translation Prefix for Controller: %s', $controllerClass));
+            }
             $controllerPrefix = implode('_', $controllerWords);
-
             $prefix = sprintf('cms_%s', $controllerPrefix);
         } else {
             throw new \Exception(sprintf('Unable to calculate Translation Prefix for Controller: %s', $controllerClass));

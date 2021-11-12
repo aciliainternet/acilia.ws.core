@@ -15,65 +15,65 @@ class TranslationNode
      * @ORM\GeneratedValue()
      * @ORM\Column(name="node_id", type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(name="node_name", type="string", length=32, nullable=false)
      */
-    private $name;
+    private string $name;
 
     /**
      * @ORM\Column(name="node_source", type="string", length=12, nullable=true)
      */
-    private $source;
+    private ?string $source;
 
     /**
      * @ORM\Column(name="node_type", type="string", length=12, nullable=false)
      */
-    private $type;
+    private string $type;
 
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setName($name) : self
+    public function setName($name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getName() : ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setSource($source) : self
+    public function setSource($source): self
     {
         $this->source = $source;
 
         return $this;
     }
 
-    public function getSource() : ?string
+    public function getSource(): ?string
     {
         return $this->source;
     }
 
-    public function setType($type) : self
+    public function setType($type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getType() : self
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function getSourcePath() : string
+    public function getSourcePath(): string
     {
         $source = '';
         if ($this->source) {

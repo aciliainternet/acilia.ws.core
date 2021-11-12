@@ -13,9 +13,9 @@ use Psr\Log\LoggerInterface;
 
 abstract class AbstractService implements DBLoggerInterface
 {
-    protected $logger;
-    protected $em;
-    protected $contextService;
+    protected LoggerInterface $logger;
+    protected EntityManagerInterface $em;
+    protected ContextService $contextService;
     protected $repository;
 
     public function __construct(LoggerInterface $logger, EntityManagerInterface $em, ContextService $contextService)
@@ -34,12 +34,12 @@ abstract class AbstractService implements DBLoggerInterface
 
     abstract public function getListFields(): array;
 
-    public function getImageEntityClass($entity): ?string
+    public function getImageEntityClass(object $entity): ?string
     {
         return null;
     }
 
-    public function getImageFields($entity): array
+    public function getImageFields(object $entity): array
     {
         $images = [];
 
@@ -52,7 +52,7 @@ abstract class AbstractService implements DBLoggerInterface
         return array_keys($images);
     }
 
-    public function getFileFields(FormInterface $form, $entity): array
+    public function getFileFields(FormInterface $form, object $entity): array
     {
         $files = [];
 
@@ -65,27 +65,21 @@ abstract class AbstractService implements DBLoggerInterface
         return $files;
     }
 
-    public function getEntity()
+    public function getEntity(): ?object
     {
         try {
+            if (!class_exists($this->getEntityClass())) {
+                return null;
+            }
+
             $ref = new \ReflectionClass($this->getEntityClass());
+
             return $ref->newInstance();
         } catch (\ReflectionException $e) {
             return null;
         }
     }
 
-    /**
-     * @param string|null $search
-     * @param array|null $filter
-     * @param int $page
-     * @param int $limit
-     * @param string $sort
-     * @param string $dir
-     *
-     * @return array
-     * @throws \Exception
-     */
     public function getAll(
         ?string $search,
         ?array $filter,
@@ -93,7 +87,7 @@ abstract class AbstractService implements DBLoggerInterface
         int $limit,
         string $sort = '',
         string $dir = ''
-    ) {
+    ): array {
         if ($sort) {
             if (!in_array($sort, $this->getSortFields())) {
                 throw new \Exception('Sort by this field is not allowed');
@@ -117,10 +111,7 @@ abstract class AbstractService implements DBLoggerInterface
         return ['total' => $total, 'data' => $entities];
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function create($entity)
+    public function create(object $entity): object
     {
         if (get_class($entity) !== $this->getEntityClass()) {
             throw new \Exception(sprintf('This service only handles "%s" but "%s" was provided.', $this->getEntityClass(), get_class($entity)));
@@ -144,10 +135,7 @@ abstract class AbstractService implements DBLoggerInterface
         }
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function edit($entity)
+    public function edit(object $entity): object
     {
         if (get_class($entity) !== $this->getEntityClass()) {
             throw new \Exception(sprintf('This service only handles "%s" but "%s" was provided.', $this->getEntityClass(), get_class($entity)));
@@ -166,20 +154,12 @@ abstract class AbstractService implements DBLoggerInterface
         }
     }
 
-    /**
-     * @param int $id
-     *
-     * @return object|null
-     */
-    public function get(int $id)
+    public function get(int $id): object
     {
         return $this->repository->findOneBy(['id' => $id]);
     }
 
-    /**
-     * @throws \Exception
-     */
-    public function delete($entity)
+    public function delete(object $entity): void
     {
         if (get_class($entity) !== $this->getEntityClass()) {
             throw new \Exception(sprintf('This service only handles "%s" but "%s" was provided.', $this->getEntityClass(), get_class($entity)));
@@ -198,11 +178,7 @@ abstract class AbstractService implements DBLoggerInterface
         }
     }
 
-    /**
-     * @param array $ids
-     * @throws \Exception
-     */
-    public function batchDelete(array $ids)
+    public function batchDelete(array $ids): void
     {
         try {
             $this->repository->batchDelete($ids);

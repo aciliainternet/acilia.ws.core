@@ -23,7 +23,7 @@ class StorageService
         ];
     }
 
-    public function save(string $filePath, string $content, string $context): self
+    public function save(string $filePath, string $content, string $context): void
     {
         //$this->driver->save($resource, $context);
 
@@ -34,8 +34,6 @@ class StorageService
         }
 
         file_put_contents($finalFile, $content);
-
-        return $this;
     }
 
     public function get(string $filePath, string $context): string

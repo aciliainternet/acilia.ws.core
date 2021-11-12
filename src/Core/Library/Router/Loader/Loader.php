@@ -9,8 +9,8 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Loader
 {
-    private $localizationStrategy;
-    private $navigationService;
+    private LocalizationStrategyInterface $localizationStrategy;
+    private NavigationService $navigationService;
 
     public function __construct(LocalizationStrategyInterface $localizationStrategy, NavigationService $navigationService)
     {
@@ -18,12 +18,12 @@ class Loader
         $this->navigationService = $navigationService;
     }
 
-    public function getParameters(RequestContext $context)
+    public function getParameters(RequestContext $context): array
     {
         return $this->localizationStrategy->getParameters($context);
     }
 
-    public function load(RouteCollection $collection)
+    public function load(RouteCollection $collection): array
     {
         // Process routes and create new translated routes
         foreach ($collection->all() as $name => $route) {
@@ -49,7 +49,7 @@ class Loader
             }
         }
 
-        // Process Navigational routs
+        // Process Navigational routes
         foreach ($collection->all() as $name => $route) {
             $routeOptions = $route->getOptions();
             if (isset($routeOptions['navigation']) && $routeOptions['navigation'] === true) {

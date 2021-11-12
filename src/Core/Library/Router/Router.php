@@ -50,20 +50,17 @@ class Router extends BaseRouter
             // let symfony generate the route
             return $generator->generate($name, $parameters, $referenceType);
         } catch (RouteNotFoundException $e) {
-            // Try with the providers
-            if ($this->navigationService) {
-                if ($this->navigationService->hasRoute($name)) {
+            if ($this->navigationService->hasRoute($name)) {
 
-                    if (UrlGenerator::ABSOLUTE_URL === $referenceType || UrlGenerator::NETWORK_PATH === $referenceType) {
-                        return sprintf('%s://%s%s',
-                            $generator->getContext()->getScheme(),
-                            $generator->getContext()->getHost(),
-                            $this->navigationService->generateRoute($name, $parameters)
-                        );
-                    }
-
-                    return $this->navigationService->generateRoute($name, $parameters);
+                if (UrlGenerator::ABSOLUTE_URL === $referenceType || UrlGenerator::NETWORK_PATH === $referenceType) {
+                    return sprintf('%s://%s%s',
+                        $generator->getContext()->getScheme(),
+                        $generator->getContext()->getHost(),
+                        $this->navigationService->generateRoute($name, $parameters)
+                    );
                 }
+
+                return $this->navigationService->generateRoute($name, $parameters);
             }
         }
 

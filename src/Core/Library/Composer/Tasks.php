@@ -4,12 +4,12 @@ namespace WS\Core\Library\Composer;
 
 class Tasks extends CommonTasks
 {
-    public static function getAssetsSource()
+    public static function getAssetsSource(): string
     {
-        return realpath(__DIR__ . '/../../Resources/assets');
+        return (string) realpath(__DIR__ . '/../../Resources/assets');
     }
 
-    public static function getAssetsTarget()
+    public static function getAssetsTarget(): string
     {
         return 'assets/ws/core';
     }

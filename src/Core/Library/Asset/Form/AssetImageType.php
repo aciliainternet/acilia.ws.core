@@ -25,14 +25,14 @@ class AssetImageType extends AbstractType
     const ASSET_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     const ASSET_IMAGE_MAX_SIZE = '25M';
 
-    protected $imageService;
+    protected ImageService $imageService;
 
     public function __construct(ImageService $imageService)
     {
         $this->imageService = $imageService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['ws']['entity'] === null) {
             throw new InvalidConfigurationException('The options "ws[entity]" is required.');
@@ -94,7 +94,7 @@ class AssetImageType extends AbstractType
         }
 
         $builder->add('asset_image', EntityType::class, $assetImageOptions);
-        
+
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             $assetImage = $event->getForm()->get('asset_image');
             $submittedData = $event->getData();
@@ -106,7 +106,7 @@ class AssetImageType extends AbstractType
         });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
             'ws' => [
@@ -117,7 +117,7 @@ class AssetImageType extends AbstractType
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'compound' => true,

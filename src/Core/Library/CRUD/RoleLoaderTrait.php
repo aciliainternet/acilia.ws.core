@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 trait RoleLoaderTrait
 {
-    public function loadRoles(ContainerBuilder $container, string $masterRole, array $entities, array $actions)
+    public function loadRoles(ContainerBuilder $container, string $masterRole, array $entities, array $actions): void
     {
         $roles = [];
         $roles[$masterRole] = [];

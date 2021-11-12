@@ -17,6 +17,9 @@ class CsvExportProvider implements DataExportProviderInterface
     public function export(DataExport $data): string
     {
         $pointer = fopen('php://temp', 'r+');
+        if (false === $pointer) {
+            return '';
+        }
 
         // set CSV header row
         fputcsv($pointer, $data->getHeaders());
@@ -30,7 +33,7 @@ class CsvExportProvider implements DataExportProviderInterface
         $data = stream_get_contents($pointer);
         fclose($pointer);
 
-        return $data;
+        return (false === $data) ? '' : $data;
     }
 
     public function headers(): array

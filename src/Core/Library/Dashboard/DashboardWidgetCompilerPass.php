@@ -11,7 +11,7 @@ class DashboardWidgetCompilerPass implements CompilerPassInterface
 {
     const TAG = 'ws.dashboard_widget';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->has(DashboardService::class)) {
             return;

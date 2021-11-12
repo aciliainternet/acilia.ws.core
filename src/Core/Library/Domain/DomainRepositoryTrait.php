@@ -8,16 +8,14 @@ use WS\Core\Library\Domain\DomainDependantInterface;
 
 trait DomainRepositoryTrait
 {
-    /**
-     * @param string $alias
-     * @param QueryBuilder $qb
-     * @param Domain $domain
-     */
-    protected function setDomainRestriction($alias, QueryBuilder $qb, Domain $domain)
+    protected function setDomainRestriction(string $alias, QueryBuilder $qb, Domain $domain): void
     {
-        if (in_array(DomainDependantInterface::class, class_implements($this->getClassName()))) {
-            $qb->andWhere(sprintf('%s.domain = :domain', $alias));
-            $qb->setParameter('domain', $domain);
+        $class = class_implements($this->getClassName());
+        if (false !== $class) {
+            if (in_array(DomainDependantInterface::class, $class)) {
+                $qb->andWhere(sprintf('%s.domain = :domain', $alias));
+                $qb->setParameter('domain', $domain);
+            }
         }
     }
 }
