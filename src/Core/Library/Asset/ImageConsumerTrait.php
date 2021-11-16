@@ -6,9 +6,9 @@ use WS\Core\Service\ImageService;
 
 trait ImageConsumerTrait
 {
-    protected $imageService;
+    protected ImageService $imageService;
 
-    public function setImageService(ImageService $imageService)
+    public function setImageService(ImageService $imageService): void
     {
         $this->imageService = $imageService;
     }

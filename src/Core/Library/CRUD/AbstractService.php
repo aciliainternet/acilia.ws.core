@@ -9,6 +9,7 @@ use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Service\ContextService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectRepository;
 use Psr\Log\LoggerInterface;
 
 abstract class AbstractService implements DBLoggerInterface
@@ -16,7 +17,7 @@ abstract class AbstractService implements DBLoggerInterface
     protected LoggerInterface $logger;
     protected EntityManagerInterface $em;
     protected ContextService $contextService;
-    protected $repository;
+    protected AbstractRepository $repository;
 
     public function __construct(LoggerInterface $logger, EntityManagerInterface $em, ContextService $contextService)
     {
@@ -117,6 +118,10 @@ abstract class AbstractService implements DBLoggerInterface
             throw new \Exception(sprintf('This service only handles "%s" but "%s" was provided.', $this->getEntityClass(), get_class($entity)));
         }
 
+        if (!\method_exists($entity, 'getId')) {
+            throw new \Exception('This service only handles WS inherited entities.');
+        }
+
         try {
             if ($entity instanceof DomainDependantInterface) {
                 $entity->setDomain($this->contextService->getDomain());
@@ -141,6 +146,10 @@ abstract class AbstractService implements DBLoggerInterface
             throw new \Exception(sprintf('This service only handles "%s" but "%s" was provided.', $this->getEntityClass(), get_class($entity)));
         }
 
+        if (!\method_exists($entity, 'getId')) {
+            throw new \Exception('This service only handles WS inherited entities.');
+        }
+
         try {
             $this->em->flush();
 
@@ -154,7 +163,7 @@ abstract class AbstractService implements DBLoggerInterface
         }
     }
 
-    public function get(int $id): object
+    public function get(int $id): ?object
     {
         return $this->repository->findOneBy(['id' => $id]);
     }
@@ -163,6 +172,10 @@ abstract class AbstractService implements DBLoggerInterface
     {
         if (get_class($entity) !== $this->getEntityClass()) {
             throw new \Exception(sprintf('This service only handles "%s" but "%s" was provided.', $this->getEntityClass(), get_class($entity)));
+        }
+
+        if (!\method_exists($entity, 'getId')) {
+            throw new \Exception('This service only handles WS inherited entities.');
         }
 
         $id = $entity->getId();

@@ -29,7 +29,7 @@ class NavigationService
         $this->providers[] = $provider;
     }
 
-    public function addNavigation(string $name, string $route): void
+    public function addNavigation(string $name, Route $route): void
     {
         $this->navigations[$name] = $route;
     }
@@ -98,7 +98,7 @@ class NavigationService
         /** @var NavigationProviderInterface $provider */
         foreach ($this->providers as $provider) {
             $resolvedPath = $provider->resolveNavigationPath($path);
-            if ($resolvedPath instanceof  ResolvedPath) {
+            if ($resolvedPath instanceof ResolvedPath) {
                 break;
             }
         }

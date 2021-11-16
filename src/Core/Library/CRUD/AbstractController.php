@@ -38,29 +38,29 @@ abstract class AbstractController extends BaseController
     use TranslatorTrait;
     use RouteTrait;
 
-    protected $translator;
-    protected $imageService;
-    protected $fileService;
-    protected $dataExportService;
-    protected $events = [];
-    protected $service;
+    protected TranslatorInterface $translator;
+    protected ImageService $imageService;
+    protected FileService $fileService;
+    protected DataExportService $dataExportService;
+    protected array $events = [];
+    protected AbstractService $service;
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
 
-    public function setImageService(ImageService $imageService)
+    public function setImageService(ImageService $imageService): void
     {
         $this->imageService = $imageService;
     }
 
-    public function setFileService(FileService $fileService)
+    public function setFileService(FileService $fileService): void
     {
         $this->fileService = $fileService;
     }
 
-    public function setDataExportService(DataExportService $dataExportService)
+    public function setDataExportService(DataExportService $dataExportService): void
     {
         $this->dataExportService = $dataExportService;
     }
@@ -75,12 +75,12 @@ abstract class AbstractController extends BaseController
         return [];
     }
 
-    public function trans($id, array $parameters = array(), $domain = null, $locale = null): string
+    public function trans(string $id, array $parameters = array(), ?string $domain = null, ?string $locale = null): string
     {
         return $this->translator->trans($id, $parameters, $domain, $locale);
     }
 
-    protected function addEvent($event, \Closure $callback): void
+    protected function addEvent(string $event, \Closure $callback): void
     {
         $this->events[$event] = $callback;
     }
@@ -90,7 +90,7 @@ abstract class AbstractController extends BaseController
         return 20;
     }
 
-    protected function useCRUDTemplate($template): bool
+    protected function useCRUDTemplate(string $template): bool
     {
         if ($template == 'index.html.twig') {
             return true;
@@ -103,7 +103,7 @@ abstract class AbstractController extends BaseController
         return false;
     }
 
-    protected function getTemplate($template, $entity = null): string
+    protected function getTemplate(string $template, ?object $entity = null): string
     {
         $routePrefix = '';
         $controllerClass = get_class($this);
@@ -132,7 +132,7 @@ abstract class AbstractController extends BaseController
         }
     }
 
-    protected function handleImages(FormInterface $form, $entity): void
+    protected function handleImages(FormInterface $form, object $entity): void
     {
         if ($this->getService()->getImageFields($entity)) {
             foreach ($this->getService()->getImageFields($entity) as $imageField) {
@@ -147,7 +147,7 @@ abstract class AbstractController extends BaseController
                         $this->events[self::EVENT_IMAGE_HANDLE]($entity, $imageField, $assetImage);
                     }
                 } elseif ($form->get($imageField)->has('asset_data') && is_numeric($form->get($imageField)->get('asset_data')->getData())) {
-                    $imageId = $form->get($imageField)->get('asset_data')->getData();
+                    $imageId = intval($form->get($imageField)->get('asset_data')->getData());
                     $options = [
                         'cropper' => $form->get($imageField)->get('cropper')->getData()
                     ];
@@ -168,7 +168,7 @@ abstract class AbstractController extends BaseController
         }
     }
 
-    protected function handleFiles(FormInterface $form, $entity): void
+    protected function handleFiles(FormInterface $form, object $entity): void
     {
         foreach ($this->getService()->getFileFields($form, $entity) as $fileFieldName) {
 
@@ -198,7 +198,7 @@ abstract class AbstractController extends BaseController
         }
     }
 
-    protected function getFormErrorMessagesList(FormInterface $form, int $output = 0)
+    protected function getFormErrorMessagesList(FormInterface $form, int $output = 0): mixed
     {
         $errors = [];
 
@@ -214,12 +214,12 @@ abstract class AbstractController extends BaseController
         return $errors;
     }
 
-    protected function getFilterExtendedFormType()
+    protected function getFilterExtendedFormType(): ?string
     {
         return null;
     }
 
-    protected function getFilterExtendedForm()
+    protected function getFilterExtendedForm(): ?FormInterface
     {
         $formType = $this->getFilterExtendedFormType();
 
@@ -237,11 +237,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @Route("/", name="index")
-     *
-     * @param Request $request
-     *
-     * @return Response
-     * @throws \Exception
      */
     public function index(Request $request): Response
     {
@@ -336,11 +331,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @Route("/create", name="create")
-     *
-     * @param Request $request
-     *
-     * @return Response
-     * @throws \Exception
      */
     public function create(Request $request): Response
     {
@@ -404,12 +394,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @Route ("/edit/{id}", name="edit")
-     *
-     * @param Request $request
-     * @param int $id
-     *
-     * @return Response
-     * @throws \Exception
      */
     public function edit(Request $request, int $id): Response
     {
@@ -469,11 +453,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @Route ("/delete/{id}", name="delete", methods="POST"))
-     *
-     * @param Request $request
-     * @param int $id
-     *
-     * @return Response
      */
     public function delete(Request $request, int $id): Response
     {
@@ -514,10 +493,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @Route ("/batch/delete", name="batch_delete", methods="POST"))
-     *
-     * @param Request $request
-     *
-     * @return Response
      */
     public function batchDelete(Request $request): Response
     {
@@ -557,11 +532,6 @@ abstract class AbstractController extends BaseController
 
     /**
      * @Route ("/export", name="export", methods="GET"))
-     *
-     * @param Request $request
-     *
-     * @return Response
-     * @throws \Exception
      */
     public function export(Request $request): Response
     {

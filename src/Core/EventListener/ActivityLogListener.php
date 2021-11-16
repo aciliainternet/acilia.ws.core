@@ -47,6 +47,10 @@ class ActivityLogListener
             return;
         }
 
+        if (!\method_exists($entity, 'getId')) {
+            return;
+        }
+
         try {
             // get entity service
             $entityService = $this->activityLogService->getService($entityName);
@@ -104,6 +108,10 @@ class ActivityLogListener
             return;
         }
 
+        if (!\method_exists($entity, 'getId')) {
+            return;
+        }
+
         try {
             // set date of the insert
             $activityLogDate = new \DateTime();
@@ -133,6 +141,10 @@ class ActivityLogListener
         $entityName = get_class($entity);
 
         if (! $this->activityLogService->isSupported($entityName)) {
+            return;
+        }
+
+        if (!\method_exists($entity, 'getId')) {
             return;
         }
 

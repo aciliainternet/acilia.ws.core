@@ -6,6 +6,7 @@ use WS\Core\Service\ContextService;
 use WS\Core\Service\TranslationService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\Translation\DataCollectorTranslator;
 
 class TranslationListener
 {
@@ -23,6 +24,14 @@ class TranslationListener
         $this->translationService = $translationService;
     }
 
+    /**
+     * @return DataCollectorTranslator
+     */
+    protected function getTranslator(): TranslatorInterface
+    {
+        return $this->translator;
+    }
+
     public function onRequest(RequestEvent $event): void
     {
         if (!$event->isMainRequest()) {
@@ -33,9 +42,9 @@ class TranslationListener
             return;
         }
 
-        $this->translator->setLocale($this->contextService->getDomain()->getLocale());
+        $this->getTranslator()->setLocale($this->contextService->getDomain()->getLocale());
 
-        $catalogue = $this->translator->getCatalogue($this->contextService->getDomain()->getLocale());
+        $catalogue = $this->getTranslator()->getCatalogue($this->contextService->getDomain()->getLocale());
         $this->translationService->fillCatalogue($catalogue);
     }
 }

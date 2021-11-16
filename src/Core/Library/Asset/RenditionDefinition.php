@@ -13,7 +13,7 @@ class RenditionDefinition
     protected ?int $width;
     protected ?int $height;
     protected string $method;
-    protected array $subRenditions;
+    protected ?array $subRenditions;
     protected int $quality;
 
     public function __construct(
@@ -23,7 +23,7 @@ class RenditionDefinition
         ?int $width,
         ?int $height,
         string $method,
-        array $subRenditions = null,
+        ?array $subRenditions = null,
         int $quality = 90
     ) {
         $this->class = $class;

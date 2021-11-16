@@ -23,7 +23,7 @@ class Loader
         return $this->localizationStrategy->getParameters($context);
     }
 
-    public function load(RouteCollection $collection): array
+    public function load(RouteCollection $collection): RouteCollection
     {
         // Process routes and create new translated routes
         foreach ($collection->all() as $name => $route) {

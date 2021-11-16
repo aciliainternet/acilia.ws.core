@@ -107,7 +107,7 @@ class Router extends BaseRouter
     public function getContextParams(string $name, array $params): array
     {
         $contextParams = [];
-
+        
         $routeDefinition = $this->getRouteCollection()->get($name);
         if (null !== $routeDefinition) {
             foreach ($params as $param => $value) {
