@@ -113,6 +113,9 @@ class Router extends BaseRouter
     public function getContextParams(string $name, array $params): array
     {
         $contextParams = [];
+        if (empty($params)) {
+            return $contextParams;
+        }
 
         $routeDefinition = $this->getRouteCollection()->get($name);
         if (null !== $routeDefinition) {
