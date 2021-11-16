@@ -6,7 +6,7 @@
     'breadcrumbs': [
         {
             'name': 'title'|trans({}, trans_prefix),
-            'path': ws_cms_path("#{route_prefix}_index"),
+            'path': path("#{route_prefix}_index"),
             'main': true
         },
         {
@@ -32,7 +32,7 @@
             <div class="c-divider u-mv-small"></div>
 
             <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
-            <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+            <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
 
             {{ form_end(form, {'render_rest': false}) }}
         </div>

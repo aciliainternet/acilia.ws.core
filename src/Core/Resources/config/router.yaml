@@ -1,9 +1,12 @@
-parameters:
-
 services:
-
     WS\Core\Library\Router\Router:
-        parent: router.default
+        decorates: router
+        arguments: ['@.inner']
         calls:
-            - [ setLoader, ['@WS\Core\Library\Router\Loader\Loader']]
-            - [ setDefaultLocale, ['%kernel.default_locale%']]
+            - [ setLoader, ['@WS\Core\Library\Router\RoutingLoader']]
+
+    WS\Core\Library\Router\RoutingLoader:
+        tags: [routing.loader]
+        calls:
+            - [ setProjectDir, ['%kernel.project_dir%']]
+            - [ setLocalizationStrategy, ['@WS\Core\Library\Router\Loader\DefaultLocalizationStrategy']]

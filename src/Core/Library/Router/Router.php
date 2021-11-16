@@ -2,97 +2,102 @@
 
 namespace WS\Core\Library\Router;
 
-use Symfony\Component\Routing\Generator\UrlGenerator;
-use WS\Core\Service\NavigationService;
-use WS\Core\Library\Router\Loader\Loader;
-use Symfony\Bundle\FrameworkBundle\Routing\Router as BaseRouter;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Contracts\Service\ServiceSubscriberInterface;
+use Symfony\Bundle\FrameworkBundle\Routing\Router as BaseRouter;
+use Symfony\Component\Config\Loader\LoaderInterface;
 
-class Router extends BaseRouter
+class Router implements WarmableInterface, ServiceSubscriberInterface, RouterInterface
 {
-    protected NavigationService $navigationService;
+    private BaseRouter $router;
+    private RoutingLoader $loader;
 
-    public function __construct()
+    public function __construct(BaseRouter $router)
     {
-        call_user_func_array(array('Symfony\Bundle\FrameworkBundle\Routing\Router', '__construct'), func_get_args());
+        $this->router = $router;
     }
 
-    public function setNavigationService(NavigationService $navigationService): void
-    {
-        $this->navigationService = $navigationService;
-    }
-
-    public function setLoader(Loader $loader): void
+    public function setLoader(RoutingLoader $loader): void
     {
         $this->loader = $loader;
     }
 
-    public function setDefaultLocale(string $locale): void
+    public function getLoader(): RoutingLoader
     {
-        $this->defaultLocale = $locale;
+        return $this->loader;
     }
 
-    public function generate(string $name, array $parameters = [], int $referenceType = self::ABSOLUTE_PATH): ?string
+    public function getRouteCollection(): RouteCollection
     {
-        // determine the most suitable locale to use for route generation
-        $locale = $this->getLocale($parameters);
+        return $this->router->getRouteCollection();
+    }
+
+    public function warmUp(string $cacheDir): array
+    {
+        return $this->router->warmUp($cacheDir);
+    }
+
+    public static function getSubscribedServices(): array
+    {
+        return [
+            'routing.loader' => LoaderInterface::class,
+        ];
+    }
+
+    public function setContext(RequestContext $context): void
+    {
+        $this->router->setContext($context);
+    }
+
+    public function getContext(): RequestContext
+    {
+        return $this->router->getContext();
+    }
+
+    public function matchRequest(Request $request): array
+    {
+        return $this->router->matchRequest($request);
+    }
+
+    public function generate(string $name, array $parameters = [], int $referenceType = self::ABSOLUTE_PATH): string
+    {
+        $loader = $this->getLoader();
 
         // define parameters based on loader needs
         $parameters = array_merge(
             $parameters,
-            $this->loader->getParameters($this->context)
+            $loader->getParameters($this->getContext())
         );
-
-        $generator = $this->getGenerator();
 
         try {
             // let symfony generate the route
-            return $generator->generate($name, $parameters, $referenceType);
+            return $this->router->generate($name, $parameters, $referenceType);
         } catch (RouteNotFoundException $e) {
-            if ($this->navigationService->hasRoute($name)) {
-
-                if (UrlGenerator::ABSOLUTE_URL === $referenceType || UrlGenerator::NETWORK_PATH === $referenceType) {
-                    return sprintf('%s://%s%s',
-                        $generator->getContext()->getScheme(),
-                        $generator->getContext()->getHost(),
-                        $this->navigationService->generateRoute($name, $parameters)
-                    );
-                }
-
-                return $this->navigationService->generateRoute($name, $parameters);
-            }
         }
 
         // let ws generate the route
-        $wsName = sprintf('%s/%s', $name, $locale);
+        $wsName = sprintf('%s/%s', $name, $this->getLocale($parameters));
         try {
-            return $generator->generate($wsName, $parameters, $referenceType);
+            return $this->router->generate($wsName, $parameters, $referenceType);
         } catch (RouteNotFoundException $e) {
-            // Try with the providers
-            if ($this->navigationService->hasRoute($wsName)) {
-                if (UrlGenerator::ABSOLUTE_URL === $referenceType || UrlGenerator::NETWORK_PATH === $referenceType) {
-                    return sprintf('%s://%s%s',
-                        $generator->getContext()->getScheme(),
-                        $generator->getContext()->getHost(),
-                        $this->navigationService->generateRoute($wsName, $parameters)
-                    );
-                }
-                return $this->navigationService->generateRoute($wsName, $parameters);
-            }
         }
 
         throw new RouteNotFoundException(sprintf('Route "%s" not found', $name));
     }
 
-    public function getRouteCollection(): RouteCollection
+    public function match(string $pathinfo)
     {
-        return $this->loader->load(parent::getRouteCollection());
+        return $this->router->match($pathinfo);
     }
 
     protected function getLocale(array $parameters): string
     {
-        $currentLocale = $this->context->getParameter('_locale');
+        $currentLocale = $this->getContext()->getParameter('_locale');
         if (isset($parameters['_locale'])) {
             $locale = $parameters['_locale'];
         } elseif ($currentLocale) {
@@ -102,21 +107,5 @@ class Router extends BaseRouter
         }
 
         return $locale;
-    }
-
-    public function getContextParams(string $name, array $params): array
-    {
-        $contextParams = [];
-        
-        $routeDefinition = $this->getRouteCollection()->get($name);
-        if (null !== $routeDefinition) {
-            foreach ($params as $param => $value) {
-                if (preg_match(sprintf('/{%s}/', $param), $routeDefinition->getPath())) {
-                    $contextParams[$param] = $value;
-                }
-            }
-        }
-
-        return $contextParams;
     }
 }

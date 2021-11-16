@@ -1,4 +1,4 @@
-<a class="c-sidebar__brand" href="{{ ws_cms_path('ws_dashboard') }}" title="{{ 'name'|trans({}, 'cms') }}">
+<a class="c-sidebar__brand" href="{{ path('ws_dashboard') }}" title="{{ 'name'|trans({}, 'cms') }}">
     {% if ws_cms_sidebar_has_asset('logo') %}
         <img src="{{ absolute_url(ws_cms_sidebar_get_asset('logo')) }}" width="144" height="44" alt="logo" />
     {% endif %}
