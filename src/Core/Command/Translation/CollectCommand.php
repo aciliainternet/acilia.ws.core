@@ -8,7 +8,6 @@ use WS\Core\Entity\TranslationNode;
 use WS\Core\Service\TranslationService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,8 +18,8 @@ class CollectCommand extends Command
     protected ParameterBagInterface $parameterBag;
     protected EntityManagerInterface $em;
     protected TranslationService $translationService;
-    protected EntityRepository $nodesRepository;
-    protected EntityRepository $attributesRepository;
+    protected  $nodesRepository;
+    protected $attributesRepository;
 
     public function __construct(
         ParameterBagInterface $parameterBag,
@@ -135,8 +134,8 @@ class CollectCommand extends Command
                     if (!$translationNode instanceof TranslationNode) {
                         $translationNode = new TranslationNode();
                         $translationNode
-                            ->setName($node)
-                            ->setType($type)
+                            ->setName(\strval($node))
+                            ->setType(\strval($type))
                             ->setSource($source)
                         ;
                         $this->em->persist($translationNode);

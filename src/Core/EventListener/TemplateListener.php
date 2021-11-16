@@ -26,7 +26,10 @@ class TemplateListener
 
     protected function getTwigLoader(): FilesystemLoader
     {
-        return $this->twigEnvironment->getLoader();
+        /** @var FilesystemLoader */
+        $loader = $this->twigEnvironment->getLoader();
+
+        return $loader;
     }
 
     public function setupTemplate(RequestEvent $event): void

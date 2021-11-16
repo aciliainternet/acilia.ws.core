@@ -9,7 +9,7 @@ use WS\Core\Library\Router\Loader\LocalizationStrategyInterface;
 
 class RoutingLoader extends Loader
 {
-    private $isLoaded = false;
+    private bool $isLoaded = false;
     private LocalizationStrategyInterface $localizationStrategy;
     private string $projectDir;
 
@@ -23,7 +23,7 @@ class RoutingLoader extends Loader
         $this->localizationStrategy = $localizationStrategy;
     }
 
-    public function supports($resource, string $type = null)
+    public function supports($resource, string $type = null): bool
     {
         return 'ws_annotation' === $type;
     }

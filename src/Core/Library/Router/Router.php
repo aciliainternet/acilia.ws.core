@@ -15,10 +15,12 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 class Router implements WarmableInterface, ServiceSubscriberInterface, RouterInterface
 {
     private BaseRouter $router;
+    private string $defaultLocale;
     private RoutingLoader $loader;
 
-    public function __construct(BaseRouter $router)
+    public function __construct(BaseRouter $router, string $defaultLocale)
     {
+        $this->defaultLocale = $defaultLocale;
         $this->router = $router;
     }
 
@@ -90,22 +92,22 @@ class Router implements WarmableInterface, ServiceSubscriberInterface, RouterInt
         throw new RouteNotFoundException(sprintf('Route "%s" not found', $name));
     }
 
-    public function match(string $pathinfo)
+    public function match(string $pathinfo): array
     {
         return $this->router->match($pathinfo);
     }
 
     protected function getLocale(array $parameters): string
     {
-        $currentLocale = $this->getContext()->getParameter('_locale');
         if (isset($parameters['_locale'])) {
-            $locale = $parameters['_locale'];
-        } elseif ($currentLocale) {
-            $locale = $currentLocale;
-        } else {
-            $locale = $this->defaultLocale;
+            return $parameters['_locale'];
         }
 
-        return $locale;
+        $currentLocale = $this->getContext()->getParameter('_locale');
+        if (null !== $currentLocale) {
+            return $currentLocale;
+        }
+
+        return $this->defaultLocale;
     }
 }

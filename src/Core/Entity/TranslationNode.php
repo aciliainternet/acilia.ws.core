@@ -37,19 +37,19 @@ class TranslationNode
         return $this->id;
     }
 
-    public function setName($name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setSource($source): self
+    public function setSource(?string $source): self
     {
         $this->source = $source;
 
@@ -61,7 +61,7 @@ class TranslationNode
         return $this->source;
     }
 
-    public function setType($type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 

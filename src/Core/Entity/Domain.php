@@ -19,51 +19,51 @@ class Domain
      * @ORM\GeneratedValue()
      * @ORM\Column(name="domain_id", type="integer")
      */
-    protected $id;
+    protected int $id;
 
     /**
      * @ORM\Column(name="domain_host", type="string", length=64, nullable=false)
      */
-    private $host;
+    private string $host;
 
     /**
      * @ORM\Column(name="domain_locale", type="string", length=2, nullable=false)
      */
-    private $locale;
+    private string $locale;
 
     /**
      * @ORM\Column(name="domain_culture", type="string", length=6, nullable=false)
      */
-    private $culture;
+    private string $culture;
 
     /**
      * @ORM\Column(name="domain_timezone", type="string", length=32, nullable=false)
      */
-    private $timezone;
+    private string $timezone;
 
     /**
      * @ORM\Column(name="domain_type", type="string", length=12, nullable=false)
      */
-    private $type;
+    private string $type;
 
     /**
      * @ORM\ManyToOne(targetEntity="WS\Core\Entity\Domain")
      * @ORM\JoinColumn(name="domain_parent", referencedColumnName="domain_id", nullable=true)
      */
-    private $parent;
+    private ?Domain $parent;
 
     /**
      * @ORM\Column(name="domain_default", type="smallint", nullable=false)
      */
-    private $default = 0;
+    private int $default = 0;
 
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->host;
     }
 
-    public function getId() : ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -80,7 +80,7 @@ class Domain
         return $this;
     }
 
-    public function getLocale(): ?string
+    public function getLocale(): string
     {
         return $this->locale;
     }
@@ -92,7 +92,7 @@ class Domain
         return $this;
     }
 
-    public function getCulture(): ?string
+    public function getCulture(): string
     {
         return $this->culture;
     }
@@ -104,7 +104,7 @@ class Domain
         return $this;
     }
 
-    public function getTimezone(): ?string
+    public function getTimezone(): string
     {
         return $this->timezone;
     }
@@ -116,7 +116,7 @@ class Domain
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): string
     {
         return $this->type;
     }
@@ -140,12 +140,12 @@ class Domain
         return $this;
     }
 
-    public function isCanonical()
+    public function isCanonical(): bool
     {
         return $this->type === self::CANONICAL;
     }
 
-    public function isAlias()
+    public function isAlias(): bool
     {
         return $this->type === self::ALIAS;
     }

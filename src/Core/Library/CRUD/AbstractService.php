@@ -9,7 +9,6 @@ use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Service\ContextService;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectRepository;
 use Psr\Log\LoggerInterface;
 
 abstract class AbstractService implements DBLoggerInterface

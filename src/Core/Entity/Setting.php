@@ -5,7 +5,7 @@ namespace WS\Core\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\Table(name="ws_setting", uniqueConstraints={@ORM\UniqueConstraint(columns={"setting_domain", "setting_name"})})
  */
 class Setting

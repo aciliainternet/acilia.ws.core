@@ -62,7 +62,7 @@ class AssetFile
 
     public function __toString() : string
     {
-        return $this->id;
+        return \strval($this->id);
     }
 
     public function getId(): ?int

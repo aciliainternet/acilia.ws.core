@@ -22,54 +22,50 @@ class AssetImage
      * @ORM\GeneratedValue()
      * @ORM\Column(name="image_id", type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(name="image_filename", type="string", length=128, nullable=false)
      */
-    private $filename;
+    private string $filename;
 
     /**
      * @ORM\Column(name="image_mime_type", type="string", length=32, nullable=false)
      */
-    private $mimeType;
+    private string $mimeType;
 
     /**
      * @ORM\Column(name="image_width", type="integer", nullable=true)
      */
-    private $width;
+    private int $width;
 
     /**
      * @ORM\Column(name="image_height", type="integer", nullable=true)
      */
-    private $height;
+    private int $height;
 
     /**
-     * @Assert\Type("DateTime")
-     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="image_created_at", type="datetime", nullable=false)
      */
-    private $createdAt;
+    private \DateTimeInterface $createdAt;
 
     /**
-     * @Assert\Type("DateTime")
-     *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="image_modified_at", type="datetime", nullable=false)
      */
-    private $modifiedAt;
+    private \DateTimeInterface $modifiedAt;
 
     /**
      * @Assert\Length(max=128)
      * @Gedmo\Blameable(on="create")
      * @ORM\Column(name="image_created_by", type="string", length=128, nullable=true)
      */
-    private $createdBy;
+    private ?string $createdBy;
 
-    public function __toString() : string
+    public function __toString(): string
     {
-        return $this->id;
+        return \strval($this->id);
     }
 
     public function getId(): ?int

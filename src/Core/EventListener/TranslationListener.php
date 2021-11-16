@@ -24,12 +24,12 @@ class TranslationListener
         $this->translationService = $translationService;
     }
 
-    /**
-     * @return DataCollectorTranslator
-     */
-    protected function getTranslator(): TranslatorInterface
+    protected function getTranslator(): DataCollectorTranslator
     {
-        return $this->translator;
+        /** @var DataCollectorTranslator */
+        $translator = $this->translator;
+        
+        return $translator;
     }
 
     public function onRequest(RequestEvent $event): void

@@ -59,7 +59,7 @@ class TranslationValue
         return $this->id;
     }
 
-    public function setTranslation($translation): self
+    public function setTranslation(?string $translation): self
     {
         $this->translation = $translation;
 

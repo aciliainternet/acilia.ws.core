@@ -192,7 +192,7 @@ class ActivityLogListener
         return 'annon';
     }
 
-    private function getDomainId($entity): ?int
+    private function getDomainId(object $entity): ?int
     {
         if ($entity instanceof DomainDependantInterface) {
             return $entity->getDomain()->getId();

@@ -1,7 +1,7 @@
 services:
     WS\Core\Library\Router\Router:
         decorates: router
-        arguments: ['@.inner']
+        arguments: ['@.inner', '%kernel.default_locale%']
         calls:
             - [ setLoader, ['@WS\Core\Library\Router\RoutingLoader']]
 
