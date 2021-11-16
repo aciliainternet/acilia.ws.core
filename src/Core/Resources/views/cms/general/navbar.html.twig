@@ -29,7 +29,7 @@
 
         {{ include('@WSCore/cms/general/dropdown_profile.html.twig') }}
     </div>
-
+    
     {% set breadcrumbs = [{ 'name': 'dashboard.menu'|trans({}, 'ws_cms'), 'path': path('ws_dashboard') }]|merge(get_breadcrumbs()) %}
     <ol class="c-breadcrumb">
         {% for breadcrumb in breadcrumbs %}

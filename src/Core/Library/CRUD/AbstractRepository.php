@@ -40,8 +40,8 @@ abstract class AbstractRepository extends ServiceEntityRepository
         int $limit = null,
         int $offset = null
     ): array {
-        $alias = 't';
-        $qb = $this->createQueryBuilder($alias);
+        $qb = $this->getAllQueryBuilder();
+        $alias = $qb->getRootAliases()[0];
 
         $this->setFilter($alias, $qb, $search);
 
@@ -79,9 +79,10 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
     public function getAllCount(Domain $domain, ?string $search, ?array $filter): int
     {
-        $alias = 't';
+        $qb = $this->getAllCountQueryBuilder();
+        $alias = $qb->getRootAliases()[0];
 
-        $qb = $this->createQueryBuilder($alias)->select(sprintf(sprintf('count(%s.id)', $alias)));
+        $qb = $qb->select(sprintf(sprintf('count(%s.id)', $alias)));
 
         $this->setFilter($alias, $qb, $search);
 
@@ -137,5 +138,17 @@ abstract class AbstractRepository extends ServiceEntityRepository
             ->setParameter('ids', $ids);
 
         $qb->getQuery()->execute();
+    }
+
+    protected function getAllQueryBuilder(): QueryBuilder
+    {
+        $alias = 't';
+        return $this->createQueryBuilder($alias);
+    }
+
+    protected function getAllCountQueryBuilder(): QueryBuilder
+    {
+        $alias = 't';
+        return $this->createQueryBuilder($alias);
     }
 }
