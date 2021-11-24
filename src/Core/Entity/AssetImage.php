@@ -30,7 +30,10 @@ class AssetImage
     private string $filename;
 
     /**
-     * @ORM\Column(name="image_mime_type", type="string", length=32, nullable=false)
+     * @Assert\Length(max=128)
+     * @Assert\NotBlank()
+     *
+     * @ORM\Column(name="image_mime_type", type="string", length=128, nullable=false)
      */
     private string $mimeType;
 

@@ -91,6 +91,11 @@ class FileService
         return $this->storageService->getPublicUrl($this->getFilePath($assetFile));
     }
 
+    public function getFilePrivate(AssetFile $assetFile): string
+    {
+        return $this->storageService->getPrivateUrl($this->getFilePath($assetFile));
+    }
+
     protected function getFilePath(AssetFile $assetFile): string
     {
         return sprintf('files/%d/%d/%s',

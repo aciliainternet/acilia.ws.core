@@ -33,10 +33,10 @@ class AssetFile
     private string $filename;
 
     /**
-     * @Assert\Length(max=32)
+     * @Assert\Length(max=128)
      * @Assert\NotBlank()
      *
-     * @ORM\Column(name="file_mime_type", type="string", length=32, nullable=false)
+     * @ORM\Column(name="file_mime_type", type="string", length=128, nullable=false)
      */
     private string $mimeType;
 
