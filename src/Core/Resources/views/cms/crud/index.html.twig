@@ -117,7 +117,7 @@
                 </div>
 
                 {% if data|length > 0 %}
-                    <table class="c-table c-table--highlight">
+                    <table class="{% block crud_table_class %}c-table c-table--highlight{% endblock %}">
                         {% if dir == 'asc' %}
                             {% set dirClass = '_asc' %}
                             {% set newDir = 'desc' %}
