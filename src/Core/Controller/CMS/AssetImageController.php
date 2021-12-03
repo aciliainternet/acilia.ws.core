@@ -62,7 +62,7 @@ class AssetImageController
      */
     public function save(Request $request): JsonResponse
     {
-        if ($request->files->get('asset')) {
+        if ($request->files->has('asset')) {
             $imageFile = $request->files->get('asset');
 
             $assetImage = $this->imageService->handleStandalone($imageFile, ['cropper' => []]);
