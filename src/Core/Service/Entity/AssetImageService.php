@@ -83,14 +83,16 @@ class AssetImageService implements FactoryCollectorInterface
                 ->setHeight($assetImageInfo[1]);
         }
 
-        $fieldSetter = sprintf('set%s', ucfirst((string) $imageField));
-        if (method_exists($entity, $fieldSetter)) {
-            try {
-                // set asset image into entity
-                $ref = new \ReflectionMethod(get_class($entity), $fieldSetter);
-                $ref->invoke($entity, $assetImage);
-            } catch (\ReflectionException $e) {
-                $this->logger->error(sprintf('Error setting AssetImage into Entity. Error: %s', $e->getMessage()));
+        if (null !== $entity) {
+            $fieldSetter = sprintf('set%s', ucfirst((string) $imageField));
+            if (method_exists($entity, $fieldSetter)) {
+                try {
+                    // set asset image into entity
+                    $ref = new \ReflectionMethod(get_class($entity), $fieldSetter);
+                    $ref->invoke($entity, $assetImage);
+                } catch (\ReflectionException $e) {
+                    $this->logger->error(sprintf('Error setting AssetImage into Entity. Error: %s', $e->getMessage()));
+                }
             }
         }
 
