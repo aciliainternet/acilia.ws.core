@@ -2,15 +2,13 @@
 
 namespace WS\Core\Library\Composer;
 
-use Composer\Script\Event;
-
 abstract class CommonTasks
 {
     abstract public static function getAssetsSource(): string;
 
     abstract public static function getAssetsTarget(): string;
 
-    public static function linkAssets(Event $event): void
+    public static function linkAssets(): void
     {
         $target = '../../' . str_replace(getcwd() . '/', '', static::getAssetsSource());
         $link = static::getAssetsTarget();

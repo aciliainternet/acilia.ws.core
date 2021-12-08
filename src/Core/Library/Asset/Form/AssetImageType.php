@@ -39,7 +39,7 @@ class AssetImageType extends AbstractType
         }
 
         $entity = $options['ws']['entity'];
-        $entityClass = get_class($entity);
+        $entityClass = \strval(get_class($entity));
         $entityField = $builder->getName();
 
         $aspectRatiosFractions = $this->imageService->getAspectRatiosForComponent($entityClass, $entityField);
@@ -84,7 +84,7 @@ class AssetImageType extends AbstractType
             // Get Asset Image from Entity
             $fieldGetter = sprintf('get%s', ucfirst($entityField));
             if (method_exists($entity, $fieldGetter)) {
-                $ref = new \ReflectionMethod(get_class($entity), $fieldGetter);
+                $ref = new \ReflectionMethod($entity, $fieldGetter);
                 $asset = $ref->invoke($entity);
                 if ($asset instanceof AssetImage) {
                     $assetImageOptions['data'] = $asset;

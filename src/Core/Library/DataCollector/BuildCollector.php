@@ -21,7 +21,7 @@ class BuildCollector extends DataCollector
         $this->contextService = $contextService;
     }
 
-    public function addComponent($component): void
+    public function addComponent(object $component): void
     {
         $this->components[] = $component;
     }

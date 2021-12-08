@@ -370,7 +370,7 @@ abstract class AbstractController extends BaseController
 
                     $this->addFlash('cms_success', $this->trans('create_success', [], $this->getTranslatorPrefix()));
 
-                    return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }
@@ -429,7 +429,7 @@ abstract class AbstractController extends BaseController
 
                     $this->addFlash('cms_success', $this->trans('edit_success', [], $this->getTranslatorPrefix()));
 
-                    return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('edit_error', [], $this->getTranslatorPrefix()));
                 }
@@ -536,8 +536,9 @@ abstract class AbstractController extends BaseController
     public function export(Request $request): Response
     {
         $this->denyAccessUnlessAllowed('view');
-
-        if (! $this->getService() instanceof DataExportInterface) {
+        
+        $service = $this->getService();
+        if (!$service instanceof DataExportInterface) {
             throw new NotFoundHttpException();
         }
 
@@ -559,7 +560,7 @@ abstract class AbstractController extends BaseController
         if (isset($this->events[self::EVENT_EXPORT_FETCH_DATA])) {
             $data = $this->events[self::EVENT_EXPORT_FETCH_DATA]();
         } else {
-            $data = $this->getService()->getDataExport($search, $filterExtendedData, (string)$request->get('sort'), (string)$request->get('dir'));
+            $data = $service->getDataExport($search, $filterExtendedData, (string)$request->get('sort'), (string)$request->get('dir'));
         }
 
         $format = (string) strtolower($request->get('format', CsvExportProvider::EXPORT_FORMAT));

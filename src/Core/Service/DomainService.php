@@ -66,7 +66,7 @@ class DomainService
     /**
      * @return Domain[]
      */
-    public function getByHost($host): array
+    public function getByHost(string $host): array
     {
         $domains = $this->getDomains();
 

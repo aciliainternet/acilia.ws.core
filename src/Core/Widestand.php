@@ -5,5 +5,5 @@ namespace WS\Core;
 class Widestand
 {
     const NAME = 'Core';
-    const VERSION = '0.2021-03-04';
+    const VERSION = '0.2022-01-01';
 }

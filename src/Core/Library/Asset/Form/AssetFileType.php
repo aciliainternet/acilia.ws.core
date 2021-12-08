@@ -39,7 +39,7 @@ class AssetFileType extends AbstractType
             // get asset file from entity
             $fieldGetter = sprintf('get%s', ucfirst($builder->getName()));
             if (method_exists($options['ws']['entity'], $fieldGetter)) {
-                $ref = new \ReflectionMethod(get_class($options['ws']['entity']), $fieldGetter);
+                $ref = new \ReflectionMethod($options['ws']['entity'], $fieldGetter);
                 $asset = $ref->invoke($options['ws']['entity']);
                 if ($asset instanceof AssetFile) {
                     $assetFileOptions['data'] = $asset;

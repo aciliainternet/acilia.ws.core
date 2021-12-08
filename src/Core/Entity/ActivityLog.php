@@ -53,7 +53,7 @@ class ActivityLog implements DomainDependantInterface
     protected string $action;
 
     /**
-     * @ORM\Column(type="json_array", name="activity_log_changes", nullable=true)
+     * @ORM\Column(type="json", name="activity_log_changes", nullable=true)
      */
     protected ?array $changes;
 

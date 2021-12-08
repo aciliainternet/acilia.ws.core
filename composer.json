@@ -46,5 +46,6 @@
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php56": "*"
-    }
+    },
+    "minimum-stability": "stable"
 }
