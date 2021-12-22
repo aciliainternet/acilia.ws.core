@@ -40,7 +40,6 @@
 @use '4-objects/_objects-figure';
 @use '4-objects/_objects-image';
 @use '4-objects/_objects-layer';
-@use '4-objects/_objects-layout';
 @use '4-objects/_objects-line';
 @use '4-objects/_objects-link';
 @use '4-objects/_objects-link-block';
@@ -104,6 +103,7 @@
 @use '6-utilities/utilities-spacing-property';
 @use '6-utilities/_utilities-sizes';
 @use '6-utilities/_utilities-text';
+@use '6-utilities/_utilities-template';
 @use '6-utilities/_utilities-typography';
 
 
