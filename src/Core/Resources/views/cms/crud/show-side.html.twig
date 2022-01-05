@@ -2,7 +2,7 @@
 
 {% block content %}
     {{ form_start(form) }}
-    
+
     <div class="c-form c-form--full">
         <div class="u-flex u-mr-auto">
             <h2 class="c-form__title u-h2 u-mb-30">{{ 'title'|trans({}, trans_prefix) }}</h2>
@@ -13,8 +13,14 @@
                 {% endblock crud_show_side_content %}
 
                 <div class="c-divider u-mv-small"></div>
-                <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
-                <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+
+                <div>
+                    <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                    {% if form.saveAndBack is defined %}
+                        {{ form_widget(form.saveAndBack) }}
+                    {% endif %}
+                    <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+                </div>
             </div>
 
             <div class="c-form__sidebar">

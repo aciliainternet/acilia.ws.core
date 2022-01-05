@@ -95,7 +95,8 @@ abstract class AbstractService implements DBLoggerInterface
         string $dir = ''
     ) {
         if ($sort) {
-            if (!in_array($sort, $this->getSortFields())) {
+            $sortFields = array_merge(array_keys($this->getSortFields()), array_values($this->getSortFields()));
+            if (!in_array($sort, $sortFields)) {
                 throw new \Exception('Sort by this field is not allowed');
             }
             $orderBy = [(string) $sort => $dir ? strtoupper($dir) : 'ASC'];

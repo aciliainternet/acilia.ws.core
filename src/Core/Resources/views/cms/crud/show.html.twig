@@ -27,12 +27,20 @@
                 </div>
             {% endblock %}
 
+            {% if form.saveAndBack is defined %}
+                {% set saveAndBackField = form_widget(form.saveAndBack) %}
+            {% endif %}
             {{ form_widget(form) }}
 
             <div class="c-divider u-mv-small"></div>
 
-            <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
-            <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+            <div>
+                <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                {% if form.saveAndBack is defined %}
+                    {{ saveAndBackField|raw }}
+                {% endif %}
+                <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+            </div>
 
             {{ form_end(form, {'render_rest': false}) }}
         </div>

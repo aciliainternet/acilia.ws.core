@@ -292,9 +292,11 @@ abstract class AbstractController extends BaseController
 
         // Mark sortable fields
         $listFields = $this->getService()->getListFields();
+        $sortFields = $this->getService()->getSortFields();
+        $sortFields = array_merge(array_keys($sortFields), array_values($sortFields));
         foreach ($listFields as &$field) {
             $field['sortable'] = false;
-            if (in_array($field['name'], $this->getService()->getSortFields())) {
+            if (in_array($field['name'], $sortFields)) {
                 $field['sortable'] = true;
             }
         }
@@ -380,7 +382,12 @@ abstract class AbstractController extends BaseController
 
                     $this->addFlash('cms_success', $this->trans('create_success', [], $this->getTranslatorPrefix()));
 
-                    return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    if ($form->get('saveAndBack')->isClicked()) {
+                        return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    }
+                    return $this->redirect(
+                        $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()])
+                    );
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }
@@ -445,7 +452,12 @@ abstract class AbstractController extends BaseController
 
                     $this->addFlash('cms_success', $this->trans('edit_success', [], $this->getTranslatorPrefix()));
 
-                    return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    if ($form->get('saveAndBack')->isClicked()) {
+                        return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    }
+                    return $this->redirect(
+                        $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()])
+                    );
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('edit_error', [], $this->getTranslatorPrefix()));
                 }
