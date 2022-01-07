@@ -5,6 +5,7 @@ alerts.tooltip: "{0} You don't have any alerts|{1} You have one unattended alert
 logout: Logout
 search: Search
 filter: Filters
+export: Export
 export.csv: CSV
 new: New
 edit: Edit

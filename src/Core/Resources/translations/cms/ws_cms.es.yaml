@@ -5,6 +5,7 @@ alerts.tooltip: "{0} No tienes ninguna alerta|{1} Tienes una alerta sin definir|
 logout: Salir
 search: Buscar
 filter: Filtros
+export: Exportar
 export.csv: CSV
 new: Nuevo
 edit: Editar

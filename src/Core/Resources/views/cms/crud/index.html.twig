@@ -76,7 +76,7 @@
                                             id="ExportDropdownButton"
                                             aria-haspopup="true" aria-expanded="false">
                                             {{ source('@WSCore/cms/icons/export.svg') }}
-                                            Exportar
+                                            {{ 'export'|trans({}, 'ws_cms') }}
                                     </button>
                                     {% block crud_export_formats %}
                                         <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
