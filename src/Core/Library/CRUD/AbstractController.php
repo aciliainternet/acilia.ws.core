@@ -382,7 +382,7 @@ abstract class AbstractController extends BaseController
 
                     $this->addFlash('cms_success', $this->trans('create_success', [], $this->getTranslatorPrefix()));
 
-                    if ($form->get('saveAndBack')->isClicked()) {
+                    if ($form->has('saveAndBack') && $form->get('saveAndBack')->isClicked()) {
                         return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
                     }
                     return $this->redirect(
@@ -452,7 +452,7 @@ abstract class AbstractController extends BaseController
 
                     $this->addFlash('cms_success', $this->trans('edit_success', [], $this->getTranslatorPrefix()));
 
-                    if ($form->get('saveAndBack')->isClicked()) {
+                    if ($form->has('saveAndBack') && $form->get('saveAndBack')->isClicked()) {
                         return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
                     }
                     return $this->redirect(
