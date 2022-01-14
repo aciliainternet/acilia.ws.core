@@ -36,6 +36,11 @@ class AdministratorType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $passwordConstraints = [new Length(['min' => 8]), new NotBlank()];
+        if ($options['edit']) {
+            $passwordConstraints = [new Length(['min' => 8])];
+        }
+
         $builder
             ->add('name', TextType::class, [
                 'label' => 'form.name.label',
@@ -58,10 +63,7 @@ class AdministratorType extends AbstractType
                 'first_options' => ['label' => 'form.password.label'],
                 'second_options' => ['label' => 'form.repeat_password.label'],
                 'mapped' => false,
-                'constraints' => [
-                    new NotBlank(),
-                    new Length(['min' => 8]),
-                ]
+                'constraints' => $passwordConstraints
             ])
             ->add('profile', ChoiceType::class, [
                 'choice_translation_domain' => 'cms',
