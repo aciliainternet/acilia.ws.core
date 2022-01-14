@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route("/administrator", name="ws_administrator_")
@@ -62,5 +63,32 @@ class AdministratorController extends AbstractController
         }
 
         return $this->render('@WSCore/cms/administrator/profile.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route ("/edit/{id}", name="edit")
+     */
+    public function edit(Request $request, int $id): Response
+    {
+        $entity = $this->getService()->get($id);
+        if ($entity === null || get_class($entity) !== $this->getService()->getEntityClass()) {
+            throw new NotFoundHttpException(sprintf($this->trans('not_found', [], $this->getTranslatorPrefix()), $id));
+        }
+
+        $this->addEvent(
+            self::EVENT_EDIT_CREATE_FORM,
+            function () use ($entity) {
+                return $this->createForm(
+                    $this->getService()->getFormClass(),
+                    $entity,
+                    [
+                        'edit' => true,
+                        'translation_domain' => $this->getTranslatorPrefix()
+                    ]
+                );
+            }
+        );
+
+        return parent::edit($request, $id);
     }
 }
