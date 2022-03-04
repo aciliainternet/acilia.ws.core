@@ -31,7 +31,7 @@
         "symfony/web-link": "5.3.*",
         "symfony/yaml": "5.3.*",
         "symfony/maker-bundle": "^1.15",
-        "sensio/framework-extra-bundle": "5.3.*",
+        "sensio/framework-extra-bundle": "^5.3",
         "antishov/doctrine-extensions-bundle": "^1.4",
         "intervention/image": "^2.5",
         "erusev/parsedown": "^1.7"
