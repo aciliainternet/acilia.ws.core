@@ -47,6 +47,11 @@
     }
 }
 
+.c-table-responsive\@desktop {
+    position: relative;
+    overflow-x: auto;
+}
+
 @media (max-width: $breakpoint-mobile) {
 
     .c-table-responsive\@mobile {
@@ -81,12 +86,11 @@
 
     .c-table-responsive\@desktop {
         display: block;
-        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         width: 100%;
 
         .c-table {
-            display: block;
+            display: table;
             overflow-y: hidden;
         }
     }
@@ -253,6 +257,7 @@
 
     &:last-child {
         padding-right: $spacer;
+        text-align: right;
     }
 }
 
@@ -280,14 +285,10 @@ $table-cell-line-height: $base-line-height;
 
 
 .c-table {
-    display: block;
+    display: table;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     width: 100%;
-
-    @include media-breakpoint('lg') {
-        display: table;
-    }
 
     &__cell {
         color: $gunmetal-100;
@@ -308,21 +309,16 @@ $table-cell-line-height: $base-line-height;
 
     &__link {
         display: block;
-        overflow: hidden;
-        max-width: 300px;
         color: $gunmetal-100;
         font-weight: $font-weight-normal;
         font-size: $table-cell-font-size;
         line-height: $table-cell-line-height;
-        text-overflow: ellipsis;
-        white-space: nowrap;
 
-        @include media-breakpoint('lg') {
-            overflow: initial;
-            max-width: initial;
-            text-overflow: initial;
-            white-space: initial;
-        }
+        overflow: initial;
+        max-width: initial;
+        text-overflow: initial;
+        white-space: initial;
+
 
         &:hover {
             color: $gunmetal-200;
