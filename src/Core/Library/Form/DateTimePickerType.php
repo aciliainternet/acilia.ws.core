@@ -11,7 +11,8 @@ class DateTimePickerType extends AbstractType
 {
     const DATE_TIME_PICKER_ATTR = [
         'data-component' => 'ws_datepicker',
-        'data-format' => 'date_hour'
+        'data-format' => 'date_hour',
+        'data-default-hour' => '0'
     ];
 
     protected $translator;
