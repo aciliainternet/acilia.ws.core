@@ -53,14 +53,10 @@ class ActivityLogController extends AbstractController
         if ($modelIdFilter > 0 && is_int($modelIdFilter)) {
             $filters['model_id'] = $modelIdFilter;
         }
-        if ($userFilter !== '' && in_array($userFilter, array_map(function ($element) {
-            return $element['user'];
-        }, $users))) {
+        if ($userFilter !== '' && in_array($userFilter, array_map(fn($element) => $element['user'], $users))) {
             $filters['user'] = $userFilter;
         }
-        if ($modelFilter !== '' && in_array($modelFilter, array_map(function ($element) {
-            return $element['model'];
-        }, $models))) {
+        if ($modelFilter !== '' && in_array($modelFilter, array_map(fn($element) => $element['model'], $models))) {
             $filters['model'] = $modelFilter;
         }
 

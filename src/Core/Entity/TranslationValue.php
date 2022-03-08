@@ -34,7 +34,7 @@ class TranslationValue
     /**
      * @ORM\Column(name="value_translation", type="text", nullable=true)
      */
-    private ?string $translation;
+    private ?string $translation = null;
 
     /**
      * @Gedmo\Timestampable(on="create")

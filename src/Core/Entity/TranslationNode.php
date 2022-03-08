@@ -25,7 +25,7 @@ class TranslationNode
     /**
      * @ORM\Column(name="node_source", type="string", length=12, nullable=true)
      */
-    private ?string $source;
+    private ?string $source = null;
 
     /**
      * @ORM\Column(name="node_type", type="string", length=12, nullable=false)

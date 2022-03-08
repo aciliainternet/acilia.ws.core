@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ArchiveCommand extends Command
 {
+    protected static $defaultName = 'ws:dblogger:archive';
     private const ARCHIVE_DAYS = 30;
 
     private EntityManagerInterface $em;
@@ -22,9 +23,7 @@ class ArchiveCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setName('ws:dblogger:archive')
-            ->setDescription('Moves the log to it\'s archive')
+        $this->setDescription('Moves the log to it\'s archive')
             ->addOption(
                 'days',
                 'd',

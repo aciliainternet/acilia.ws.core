@@ -128,7 +128,7 @@ class MakeCrud extends AbstractMaker
                 continue;
             }
 
-            $fieldTypeOptions = $fieldTypeOptions ?? ['type' => null, 'options_code' => null];
+            $fieldTypeOptions ??= ['type' => null, 'options_code' => null];
 
             if (in_array($name, $associationFieldNames)) {
                 switch ($associationFields[$name]) {

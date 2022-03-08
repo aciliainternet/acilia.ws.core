@@ -89,7 +89,7 @@ abstract class AbstractService implements DBLoggerInterface
         string $dir = ''
     ): array {
         if ($sort) {
-            $sortFields = array_merge(array_keys($this->getSortFields()), array_values($this->getSortFields()));
+            $sortFields = [...array_keys($this->getSortFields()), ...array_values($this->getSortFields())];
             if (!in_array($sort, $sortFields)) {
                 throw new \Exception('Sort by this field is not allowed');
             }

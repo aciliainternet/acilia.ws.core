@@ -90,7 +90,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @ORM\Column(name="administrator_created_by", type="string", length=128, nullable=true)
      */
-    protected ?string $createdBy;
+    protected ?string $createdBy = null;
 
     public function __construct()
     {

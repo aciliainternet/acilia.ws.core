@@ -77,16 +77,14 @@ class AdministratorController extends AbstractController
 
         $this->addEvent(
             self::EVENT_EDIT_CREATE_FORM,
-            function () use ($entity) {
-                return $this->createForm(
-                    $this->getService()->getFormClass(),
-                    $entity,
-                    [
-                        'edit' => true,
-                        'translation_domain' => $this->getTranslatorPrefix()
-                    ]
-                );
-            }
+            fn() => $this->createForm(
+                $this->getService()->getFormClass(),
+                $entity,
+                [
+                    'edit' => true,
+                    'translation_domain' => $this->getTranslatorPrefix()
+                ]
+            )
         );
 
         return parent::edit($request, $id);

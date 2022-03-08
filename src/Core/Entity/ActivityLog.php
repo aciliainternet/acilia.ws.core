@@ -27,7 +27,7 @@ class ActivityLog implements DomainDependantInterface
      * @ORM\ManyToOne(targetEntity="WS\Core\Entity\Domain")
      * @ORM\JoinColumn(name="activity_log_domain", referencedColumnName="domain_id", nullable=true)
      */
-    private ?Domain $domain;
+    private ?Domain $domain = null;
 
     /**
      * @Assert\Length(max = 128)
@@ -55,9 +55,9 @@ class ActivityLog implements DomainDependantInterface
     /**
      * @ORM\Column(type="json", name="activity_log_changes", nullable=true)
      */
-    protected ?array $changes;
+    protected ?array $changes = null;
 
-    protected ?array $parsedChanges;
+    protected ?array $parsedChanges = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -71,7 +71,7 @@ class ActivityLog implements DomainDependantInterface
      *
      * @ORM\Column(name="activity_log_created_by", type="string", length=128, nullable=true)
      */
-    private ?string $createdBy;
+    private ?string $createdBy = null;
 
     public function getId(): int
     {

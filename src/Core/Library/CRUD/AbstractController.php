@@ -288,7 +288,7 @@ abstract class AbstractController extends BaseController
         // Mark sortable fields
         $listFields = $this->getService()->getListFields();
         $sortFields = $this->getService()->getSortFields();
-        $sortFields = array_merge(array_keys($sortFields), array_values($sortFields));
+        $sortFields = [...array_keys($sortFields), ...array_values($sortFields)];
         foreach ($listFields as &$field) {
             $field['sortable'] = false;
             if (in_array($field['name'], $sortFields)) {

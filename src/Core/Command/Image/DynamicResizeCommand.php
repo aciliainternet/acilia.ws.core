@@ -10,6 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DynamicResizeCommand extends Command
 {
+    protected static $defaultName = 'ws:image:dynamic-resize';
     protected ImageService $imageService;
 
     public function __construct(ImageService $imageService)
@@ -21,9 +22,7 @@ class DynamicResizeCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setName('ws:image:dynamic-resize')
-            ->setDescription('Resize a missing image dynamically on-the-fly')
+        $this->setDescription('Resize a missing image dynamically on-the-fly')
             ->addArgument('image', InputArgument::REQUIRED, 'The image wanted')
         ;
     }

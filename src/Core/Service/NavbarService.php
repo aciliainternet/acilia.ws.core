@@ -28,9 +28,7 @@ class NavbarService
                 }
             }
 
-            usort($this->navbar, function (NavbarDefinition $menu1, NavbarDefinition $menu2) {
-                return strcmp((string) $menu1->getOrder(), (string) $menu2->getOrder());
-            });
+            usort($this->navbar, fn(NavbarDefinition $menu1, NavbarDefinition $menu2) => strcmp((string) $menu1->getOrder(), (string) $menu2->getOrder()));
         }
 
         return $this->navbar;

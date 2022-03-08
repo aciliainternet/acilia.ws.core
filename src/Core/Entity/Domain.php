@@ -50,7 +50,7 @@ class Domain
      * @ORM\ManyToOne(targetEntity="WS\Core\Entity\Domain")
      * @ORM\JoinColumn(name="domain_parent", referencedColumnName="domain_id", nullable=true)
      */
-    private ?Domain $parent;
+    private ?Domain $parent = null;
 
     /**
      * @ORM\Column(name="domain_default", type="smallint", nullable=false)

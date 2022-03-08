@@ -59,9 +59,7 @@ class ContextService
 
     public function getDomainByLocale(string $locale, string $type = Domain::CANONICAL): ?Domain
     {
-        $domains = \array_filter($this->getDomains(), function ($d) use ($locale, $type) {
-            return $d->getType() === $type && $locale === $d->getLocale();
-        });
+        $domains = \array_filter($this->getDomains(), fn($d) => $d->getType() === $type && $locale === $d->getLocale());
 
         return \array_shift($domains);
     }

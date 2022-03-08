@@ -99,17 +99,13 @@ class SidebarService
         foreach ($sidebar as $menu) {
             if ($menu->isContainer()) {
                 $sidebarContents = $menu->getChildren();
-                usort($sidebarContents, function (SidebarDefinition $menu1, SidebarDefinition $menu2) {
-                    return strcmp((string) $menu1->getOrder(), (string) $menu2->getOrder());
-                });
+                usort($sidebarContents, fn(SidebarDefinition $menu1, SidebarDefinition $menu2) => strcmp((string) $menu1->getOrder(), (string) $menu2->getOrder()));
                 $menu->setChildren($sidebarContents);
             }
         }
 
         // order containers menu
-        usort($sidebar, function (SidebarDefinition $menu1, SidebarDefinition $menu2) {
-            return strcmp((string) $menu1->getOrder(), (string) $menu2->getOrder());
-        });
+        usort($sidebar, fn(SidebarDefinition $menu1, SidebarDefinition $menu2) => strcmp((string) $menu1->getOrder(), (string) $menu2->getOrder()));
 
         return $sidebar;
     }

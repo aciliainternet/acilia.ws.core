@@ -64,7 +64,7 @@ class AssetImage
      * @Gedmo\Blameable(on="create")
      * @ORM\Column(name="image_created_by", type="string", length=128, nullable=true)
      */
-    private ?string $createdBy;
+    private ?string $createdBy = null;
 
     public function __toString(): string
     {

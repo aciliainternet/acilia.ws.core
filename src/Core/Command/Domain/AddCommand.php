@@ -12,6 +12,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class AddCommand extends Command
 {
+    protected static $defaultName = 'ws:domain:add';
     protected DomainService $domainService;
 
     public function __construct(DomainService $domainService)
@@ -23,9 +24,7 @@ class AddCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setName('ws:domain:add')
-            ->setDescription('Add a new Domain into WideStand')
+        $this->setDescription('Add a new Domain into WideStand')
             ->addArgument('host', InputArgument::REQUIRED, 'The hostname of the domain')
             ->addArgument('locale', InputArgument::REQUIRED, 'The locale of the domain')
             ->addArgument('type', InputArgument::REQUIRED, 'The type of the domain')

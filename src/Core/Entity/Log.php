@@ -11,41 +11,32 @@ use Doctrine\ORM\Mapping as ORM;
 class Log
 {
     /**
-     * @var integer
      *
      * @ORM\Column(name="log_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private int $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="log_channel", type="string", length=255, nullable=true)
      */
-    private $channel;
+    private string $channel;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="log_level", type="string", length=255, nullable=true)
      */
-    private $level;
+    private string $level;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="log_message", type="text", nullable=true)
      */
-    private $message;
+    private string $message;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="log_datetime", type="datetime", nullable=false)
      */
-    private $datetime;
+    private \DateTime $datetime;
 
     /**
      * Get id

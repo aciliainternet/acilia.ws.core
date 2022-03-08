@@ -25,7 +25,7 @@ class Setting
     /**
      * @ORM\Column(name="setting_value", type="text", nullable=true)
      */
-    private ?string $value;
+    private ?string $value = null;
 
     /**
      * @ORM\ManyToOne(targetEntity="WS\Core\Entity\Domain")

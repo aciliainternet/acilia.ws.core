@@ -95,9 +95,7 @@ class DomainService
             }
         }
 
-        usort($canonicals, function (Domain $d1, Domain $d2) {
-            return strcmp($d1->getHost(), $d2->getHost());
-        });
+        usort($canonicals, fn(Domain $d1, Domain $d2) => strcmp($d1->getHost(), $d2->getHost()));
 
         return $canonicals;
     }
@@ -117,9 +115,7 @@ class DomainService
             }
         }
 
-        usort($aliases, function (Domain $d1, Domain $d2) {
-            return strcmp($d1->getHost(), $d2->getHost());
-        });
+        usort($aliases, fn(Domain $d1, Domain $d2) => strcmp($d1->getHost(), $d2->getHost()));
 
         return $aliases;
     }

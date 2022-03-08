@@ -14,7 +14,7 @@ trait ActivityLogTrait
 
         throw new \Exception(sprintf(
             'Your service "%s" must implement the method "getActivityLogSupported" or imlements the abstract service "WS\Core\Library\CRUD\AbstractService()"',
-            get_called_class()
+            static::class
         ));
     }
 

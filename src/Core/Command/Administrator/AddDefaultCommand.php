@@ -12,6 +12,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AddDefaultCommand extends Command
 {
+    protected static $defaultName = 'ws:administrator:add-default';
     protected AdministratorService $administratorService;
     protected UserPasswordHasherInterface $passwordHasherService;
 
@@ -27,9 +28,7 @@ class AddDefaultCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setName('ws:administrator:add-default')
-            ->setDescription('Populate the default Administrator for the App')
+        $this->setDescription('Populate the default Administrator for the App')
             ->setHidden(true)
         ;
     }
