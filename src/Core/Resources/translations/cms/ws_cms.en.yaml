@@ -38,7 +38,7 @@ symfony_date_format: "MM/dd/yyyy"
 symfony_hour_format: "h:mm a"
 pagination.first: First
 pagination.last: Last
-pagination.info: Showing one element.|Showing %from% to %to% of %count% elements.
+pagination.info: Showing one element.|Showing %from% to <span id="pagination_subtotal"> %to% </span> of <span id="pagination_total"> %count% </span> elements.
 domain_switched: Switched to domain %domain% (%locale%)
 view_profile: View Profile
 dashboard: Dashboard

@@ -26,6 +26,13 @@ function onRemoveDone(event) {
           setTimeout(() => {
             document.querySelector('.js-genericDelete_remove').remove();
           }, 800);
+          const pagSubtotal = document.querySelector('#pagination_subtotal');
+          let pagSubtotalValue = pagSubtotal.textContent;
+          pagSubtotal.textContent = pagSubtotalValue-1;
+
+          const pagTotal = document.querySelector('#pagination_total');
+          let pagTotalValue = pagTotal.textContent;
+          pagTotal.textContent = pagTotalValue-1;
         }
       });
       break;
