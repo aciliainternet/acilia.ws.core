@@ -97,7 +97,7 @@ class Router implements WarmableInterface, ServiceSubscriberInterface, RouterInt
         return $this->router->match($pathinfo);
     }
 
-    protected function getLocale(array $parameters): string
+    protected function getLocale(?array $parameters = []): string
     {
         if (isset($parameters['_locale'])) {
             return $parameters['_locale'];
