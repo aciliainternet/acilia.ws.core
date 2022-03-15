@@ -96,7 +96,7 @@ class Router extends BaseRouter
         return $this->loader->load(parent::getRouteCollection());
     }
 
-    protected function getLocale(array $parameters)
+    protected function getLocale(?array $parameters = [])
     {
         $currentLocale = $this->context->getParameter('_locale');
         if (isset($parameters['_locale'])) {
