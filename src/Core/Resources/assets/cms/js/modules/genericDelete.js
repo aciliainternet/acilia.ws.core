@@ -26,6 +26,16 @@ function onRemoveDone(event) {
           setTimeout(() => {
             document.querySelector('.js-genericDelete_remove').remove();
           }, 800);
+
+          const pagSubtotalValue = document.getElementById('js-pagination_subtotal');
+          if (pagSubtotalValue) {
+            pagSubtotalValue.textContent = parseInt(pagSubtotalValue.textContent, 10) - 1;
+          }
+
+          const pagTotalValue = document.getElementById('js-pagination_total');
+          if (pagTotalValue) {
+            pagTotalValue.textContent = parseInt(pagTotalValue.textContent, 10) - 1;
+          }
         }
       });
       break;
@@ -79,7 +89,7 @@ function remove(event) {
 }
 
 function init() {
-  document.querySelectorAll('.js-genericDelete').forEach(input => input.addEventListener('click', remove));
+  document.querySelectorAll('.js-genericDelete').forEach((input) => input.addEventListener('click', remove));
 }
 
 export default init();
