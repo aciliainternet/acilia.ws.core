@@ -56,7 +56,7 @@ async function useImage(event) {
         element.classList.remove('u-hidden');
       }
 
-      if (document.querySelector(`.js-open-modal.js-not-on-preview[data-id-asset-component="${id}"]`)) {
+      if (document.querySelector(`.js-open-modal.js-not-on-preview[data-id-asset-component="${id}"] i`)) {
         document.querySelector(`.js-open-modal.js-not-on-preview[data-id-asset-component="${id}"]`)
           .classList.add('u-hidden');
       }
