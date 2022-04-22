@@ -110,4 +110,21 @@ class Router implements WarmableInterface, ServiceSubscriberInterface, RouterInt
 
         return $this->defaultLocale;
     }
+
+    public function getContextParams(string $name, array $params): array
+    {
+        $contextParams = [];
+        if (empty($params)) {
+            return $contextParams;
+        }
+        $routeDefinition = $this->getRouteCollection()->get($name);
+        if (null !== $routeDefinition) {
+            foreach ($params as $param => $value) {
+                if (preg_match(sprintf('/{%s}/', $param), $routeDefinition->getPath())) {
+                    $contextParams[$param] = $value;
+                }
+            }
+        }
+        return $contextParams;
+    }
 }
