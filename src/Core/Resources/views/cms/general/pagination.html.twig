@@ -16,7 +16,7 @@
 
                 {% if currentPage > 1 %}
                     <li class="c-pagination__item">
-                        <a class="c-pagination__control" href="{{ path(url, params|merge({'page': 1})) }}">
+                        <a class="c-pagination__control" href="{{ ws_cms_path(url, params|merge({'page': 1})) }}">
                             <i class="fa fa-caret-left"></i>
                         </a>
                     </li>
@@ -26,7 +26,7 @@
                     {% if 0 == (currentPage - nearbyPagesLimit) - loop.index %}
                         {% if 1 == loop.index %}
                             <li class="c-pagination__item">
-                                <a class="c-pagination__link" href="{{ path(url, params|merge({'page': 1 })) }}">1</a>
+                                <a class="c-pagination__link" href="{{ ws_cms_path(url, params|merge({'page': 1 })) }}">1</a>
                             </li>
                         {% endif %}
                     {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index  and (currentPage + nearbyPagesLimit) < nbPages %}
@@ -36,7 +36,7 @@
                         <li class="c-pagination__item">
                             <a
                                 class="c-pagination__link {{ currentPage == loop.index ? 'is-active' }}"
-                                href="{{ path(url, params|merge({'page': loop.index})) }}"
+                                href="{{ ws_cms_path(url, params|merge({'page': loop.index})) }}"
                             >
                                 {{ loop.index }}
                             </a>
@@ -46,7 +46,7 @@
 
                 {% if currentPage < nbPages %}
                     <li class="c-pagination__item">
-                        <a class="c-pagination__control" href="{{ path(url, params|merge({'page': nbPages})) }}">
+                        <a class="c-pagination__control" href="{{ ws_cms_path(url, params|merge({'page': nbPages})) }}">
                             <i class="fa fa-caret-right"></i>
                         </a>
                     </li>
