@@ -54,6 +54,10 @@
 
         &:hover {
 
+            .c-btn--delete-image {
+                display: block;
+            }
+
             .c-img-modal__img-actions {
                 display: flex;
             }
