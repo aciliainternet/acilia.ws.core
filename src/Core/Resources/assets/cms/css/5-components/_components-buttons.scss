@@ -287,11 +287,17 @@
 }
 
 .c-btn--delete-image {
-    @include position(absolute, $right: 0);
+    @include position(absolute, $top: 5px, $right: 5px);
     display: none;
 
     i {
         margin-right: 0;
+    }
+
+    &:hover {
+        @include linear-gradient(to bottom, darken($red-100, 4%), darken($red-300, 4%));
+        border-color: $red-300;
+        color: $btn-hover-color;
     }
 }
 
