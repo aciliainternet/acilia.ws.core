@@ -71,6 +71,26 @@ async function useImage(event) {
   }
 }
 
+function deleteImage(event) {
+  const { dataset } = event.currentTarget;
+  const httpRequest = new XMLHttpRequest();
+
+  if (dataset.path) {
+    httpRequest.open('POST', dataset.path);
+    httpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    showLoader(imageListContainer);
+    httpRequest.onreadystatechange = () => {
+      const imgToRemove = imageListContainer.querySelector(`img[id="${dataset.imageId}"]`);
+
+      if (imgToRemove && imgToRemove.parentElement) {
+        imageListContainer.removeChild(imgToRemove.parentElement);
+      }
+      hideLoader();
+    };
+    httpRequest.send(JSON.stringify({ assetId: dataset.imageId }));
+  }
+}
+
 function showElements(imageList) {
   const { id } = document.querySelector(`.js-image-selector-modal[data-id="${dataId}"]`).dataset;
   const imgTemplate = document.querySelector(`[data-id="${dataId}"].js-image-item`).outerHTML;
@@ -90,6 +110,7 @@ function showElements(imageList) {
 
       imageListContainer.lastChild.querySelector('.js-list-image-crop').addEventListener('click', openCropper);
       imageListContainer.lastChild.querySelector('.js-list-image-use').addEventListener('click', useImage);
+      imageListContainer.lastChild.querySelector('.js-list-image-delete').addEventListener('click', deleteImage);
     });
 
     lazyLoadUpdate();

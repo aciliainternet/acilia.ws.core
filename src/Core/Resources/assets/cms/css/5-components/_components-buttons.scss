@@ -3,6 +3,7 @@
 @use '../0-settings/_settings-tables' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 @use '../1-tools/_tools-mixin-linear-gradient' as *;
+@use '../1-tools/_tools-mixin-position' as *;
 
 /* ==========================================================================
    #BUTTONS
@@ -283,5 +284,14 @@
 
 .c-btn--upload-image {
     flex-grow: .9;
+}
+
+.c-btn--delete-image {
+    @include position(absolute, $right: 0);
+    display: none;
+
+    i {
+        margin-right: 0;
+    }
 }
 
