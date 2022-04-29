@@ -48,6 +48,13 @@ class AssetImage
     private int $height;
 
     /**
+     * @ORM\Column(name="image_visible", type="boolean", nullable=false, options={"default" : 1})
+     */
+    private bool $visible = true;
+
+    /**
+     * @Assert\Type("DateTime")
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="image_created_at", type="datetime", nullable=false)
      */
@@ -120,6 +127,18 @@ class AssetImage
     public function setHeight(?int $height): self
     {
         $this->height = $height;
+
+        return $this;
+    }
+
+    public function isVisible(): bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(?bool $visible): self
+    {
+        $this->visible = $visible;
 
         return $this;
     }

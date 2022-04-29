@@ -8,11 +8,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use WS\Core\Service\ImageService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/asset-image", name="ws_asset_image_")
  */
-class AssetImageController
+class AssetImageController extends AbstractController
 {
     protected AssetImageService $service;
     protected ImageService $imageService;
@@ -21,6 +22,16 @@ class AssetImageController
     {
         $this->service = $service;
         $this->imageService = $imageService;
+    }
+
+    protected function getService(): AssetImageService
+    {
+        return $this->service;
+    }
+
+    protected function getLimit(): int
+    {
+        return 20;
     }
 
     /**
@@ -41,7 +52,7 @@ class AssetImageController
             $limit = $this->getLimit();
         }
 
-        $data = $this->service->getAll($filter, $page, $limit, (string)$request->get('sort'), (string)$request->get('dir'));
+        $data = $this->getService()->getAll($filter, $page, $limit, (string)$request->get('sort'), (string)$request->get('dir'));
 
         $response = [];
         foreach ($data as $image) {
@@ -58,7 +69,7 @@ class AssetImageController
     }
 
     /**
-     * @Route("/_save_asset_image", name="save_asset_image", methods={"POST"})
+     * @Route("/_save_asset_image", name="save_asset_image", methods="POST")
      */
     public function save(Request $request): JsonResponse
     {
@@ -77,8 +88,39 @@ class AssetImageController
         return new JsonResponse(['msg' => 'No asset found'], 500);
     }
 
-    protected function getLimit(): int
+    /**
+     * @Route ("/soft-delete", name="soft_delete", methods="POST")
+     * @Security("is_granted('ROLE_CMS')", message="not_allowed")
+     */
+    public function delete(Request $request): JsonResponse
     {
-        return 20;
+        if (!$request->isXmlHttpRequest()) {
+            return $this->json(
+                ['msg' => 'Bad request'],
+                JsonResponse::HTTP_BAD_REQUEST
+            );
+        }
+
+        try {
+            $params = json_decode($request->getContent(), true);
+
+            $entity = $this->getService()->get($params['assetId']);
+            if ($entity === null) {
+                return $this->json([
+                    'msg' => 'AssetImage not found'
+                ], JsonResponse::HTTP_NOT_FOUND);
+            }
+
+            $entity->setVisible(false);
+            $this->getService()->edit($entity);
+
+            return $this->json(
+                ['msg' => 'Delete success'],
+                JsonResponse::HTTP_OK);
+        } catch (\Exception $e) {
+            return $this->json([
+                'msg' => 'Asset Image deletion failed'
+            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }
