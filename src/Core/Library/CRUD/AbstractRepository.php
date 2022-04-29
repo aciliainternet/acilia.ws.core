@@ -47,7 +47,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
         if (isset($orderBy) && count($orderBy)) {
             foreach ($orderBy as $field => $dir) {
-                $qb->orderBy(sprintf('%s.%s', $alias, $field), $dir);
+                $qb->addOrderBy(sprintf('%s.%s', $alias, $field), $dir);
             }
         }
 
