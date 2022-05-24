@@ -31,7 +31,9 @@
         }
 
         #{ $self }__inner {
+            align-items: flex-start;
             min-height: rem(66);
+            overflow: scroll;
         }
     }
 
