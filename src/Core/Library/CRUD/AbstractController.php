@@ -171,7 +171,6 @@ abstract class AbstractController extends BaseController
     protected function handleFiles(FormInterface $form, object $entity): void
     {
         foreach ($this->getService()->getFileFields($form, $entity) as $fileFieldName) {
-
             if (!empty($form->get($fileFieldName)->get('asset')->getData())) {
                 $fileField = $form->get($fileFieldName)->get('asset')->getData();
 
@@ -364,7 +363,6 @@ abstract class AbstractController extends BaseController
         }
 
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
@@ -377,7 +375,10 @@ abstract class AbstractController extends BaseController
                     $this->addFlash('cms_success', $this->trans('create_success', [], $this->getTranslatorPrefix()));
 
                     if ($form->has('saveAndBack') && $form->get('saveAndBack')->isClicked()) {
-                        return $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
+                        $url = $form->has('referer')
+                            ? $form->get('referer')->getData()
+                            : $this->wsGenerateUrl($this->getRouteNamePrefix() . '_index');
+                        return $this->redirect($url);
                     }
 
                     return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()]);
@@ -438,9 +439,11 @@ abstract class AbstractController extends BaseController
                     $this->handleFiles($form, $entity);
 
                     $this->addFlash('cms_success', $this->trans('edit_success', [], $this->getTranslatorPrefix()));
-
                     if ($form->has('saveAndBack') && $form->get('saveAndBack')->isClicked()) {
-                        return $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
+                        $url = $form->has('referer')
+                            ? $form->get('referer')->getData()
+                            : $this->wsGenerateUrl($this->getRouteNamePrefix() . '_index');
+                        return $this->redirect($url);
                     }
 
                     return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()]);
