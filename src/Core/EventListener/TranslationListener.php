@@ -24,11 +24,10 @@ class TranslationListener
         $this->translationService = $translationService;
     }
 
-    protected function getTranslator(): DataCollectorTranslator
+    protected function getTranslator(): TranslatorInterface
     {
-        /** @var DataCollectorTranslator */
         $translator = $this->translator;
-        
+
         return $translator;
     }
 
@@ -42,9 +41,11 @@ class TranslationListener
             return;
         }
 
-        $this->getTranslator()->setLocale($this->contextService->getDomain()->getLocale());
+        /** @var DataCollectorTranslator */
+        $translator = $this->getTranslator();
+        $translator->setLocale($this->contextService->getDomain()->getLocale());
 
-        $catalogue = $this->getTranslator()->getCatalogue($this->contextService->getDomain()->getLocale());
+        $catalogue = $translator->getCatalogue($this->contextService->getDomain()->getLocale());
         $this->translationService->fillCatalogue($catalogue);
     }
 }
