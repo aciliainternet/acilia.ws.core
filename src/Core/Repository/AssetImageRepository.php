@@ -28,7 +28,7 @@ class AssetImageRepository extends AbstractRepository
         return ['filename'];
     }
 
-    public function processFilterExtended(QueryBuilder $qb, ?array $filter)
+    public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
          if (isset($filter['visible'])) {
             $qb
