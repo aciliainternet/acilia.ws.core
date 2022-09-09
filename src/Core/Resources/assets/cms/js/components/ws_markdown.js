@@ -3,6 +3,8 @@
 import EasyMDE from 'easymde';
 import { init as initMarkdownImage, handleImage } from './ws_markdown/ws_markdown_image';
 
+const editors = [];
+
 function clearLocalStorageData(id) {
   const { localStorage, performance } = window;
 
@@ -56,6 +58,13 @@ function createMarkdown(elm, cmsTranslations, config) {
   return new EasyMDE(mdeConfiguration);
 }
 
+export function refreshEditor(id) {
+  const editor = editors.find((e) => e.key === id);
+  if (editor) {
+    editor.instance.codemirror.refresh();
+  }
+}
+
 function init() {
   const markDowns = document.querySelectorAll('[data-component="ws_markdown"]');
 
@@ -67,7 +76,7 @@ function init() {
     }
 
     markDowns.forEach((elm) => {
-      createMarkdown(elm, cmsTranslations, getConfig());
+      editors.push({key: element, instance: createMarkdown(elm, cmsTranslations, getConfig())});
     });
 
     initMarkdownImage();
