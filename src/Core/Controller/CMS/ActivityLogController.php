@@ -42,7 +42,6 @@ class ActivityLogController extends AbstractController
             $limit = 20;
         }
 
-        $users = $this->service->getUsers();
         $models = $this->service->getModels();
 
         $filters = [];
@@ -53,9 +52,7 @@ class ActivityLogController extends AbstractController
         if ($modelIdFilter > 0 && is_int($modelIdFilter)) {
             $filters['model_id'] = $modelIdFilter;
         }
-        if ($userFilter !== '' && in_array($userFilter, array_map(function ($element) {
-            return $element['user'];
-        }, $users))) {
+        if ($userFilter !== '') {
             $filters['user'] = $userFilter;
         }
         if ($modelFilter !== '' && in_array($modelFilter, array_map(function ($element) {
@@ -84,7 +81,6 @@ class ActivityLogController extends AbstractController
                     'params' => $request->query->all(),
                     'filters' => $filters,
                     'trans_prefix' => 'ws_cms_activity_log',
-                    'users' => $users,
                     'models' => $models
                 ]
             )
