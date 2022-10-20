@@ -54,7 +54,7 @@ class ActivityLogRepository extends EntityRepository
 
         $this->setFilters($filters, $qb);
 
-        $qb->orderBy(sprintf('%s.createdAt', $alias), 'DESC');
+        $qb->orderBy(sprintf('%s.id', $alias), 'DESC');
 
         if (isset($limit) && isset($offset)) {
             $qb->setFirstResult($offset);
