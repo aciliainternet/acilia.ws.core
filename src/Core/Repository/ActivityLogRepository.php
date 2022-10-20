@@ -17,26 +17,6 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ActivityLogRepository extends EntityRepository
 {
-    public function getAllUsers(): array
-    {
-        $alias = 'a';
-
-        $qb = $this->createQueryBuilder($alias);
-        $qb->select('DISTINCT a.createdBy as user')
-            ->where('a.createdBy IS NOT NULL');
-
-        return $qb->getQuery()->getResult();
-    }
-
-    public function getAllModels(): array
-    {
-        $alias = 'a';
-
-        $qb = $this->createQueryBuilder($alias);
-        $qb->select('DISTINCT a.model as model');
-
-        return $qb->getQuery()->getResult();
-    }
 
     protected function setFilters(array $filters, QueryBuilder &$qb): void
     {
@@ -52,8 +32,8 @@ class ActivityLogRepository extends EntityRepository
         }
 
         if (isset($filters['user'])) {
-            $qb->andWhere('t.createdBy = :user')
-                ->setParameter('user', $filters['user']);
+            $qb->andWhere('t.createdBy LIKE :user')
+                ->setParameter('user', sprintf('%%%s%%', $filters['user']));
         }
     }
 
@@ -67,7 +47,7 @@ class ActivityLogRepository extends EntityRepository
 
         $this->setFilters($filters, $qb);
 
-        $qb->orderBy(sprintf('%s.createdAt', $alias), 'DESC');
+        $qb->orderBy(sprintf('%s.id', $alias), 'DESC');
 
         if (isset($limit) && isset($offset)) {
             $qb->setFirstResult($offset);

@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 use WS\Core\Entity\ActivityLog;
 use WS\Core\Library\ActivityLog\ActivityLogChanges;
 use WS\Core\Repository\ActivityLogRepository;
+use WS\Core\Service\ActivityLogService as ActivityLogRegistry;
 use WS\Core\Service\ContextService;
 
 class ActivityLogService
@@ -15,13 +16,19 @@ class ActivityLogService
     protected EntityManagerInterface $em;
     protected ContextService $contextService;
     protected ActivityLogRepository $repository;
+    protected ActivityLogRegistry $activityLogRegistry;
 
-    public function __construct(LoggerInterface $logger, EntityManagerInterface $em, ContextService $contextService)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        EntityManagerInterface $em,
+        ContextService $contextService,
+        ActivityLogRegistry $activityLogRegistry
+    ) {
         $this->logger = $logger;
         $this->em = $em;
         $this->contextService = $contextService;
         $this->repository = $this->em->getRepository(ActivityLog::class);
+        $this->activityLogRegistry = $activityLogRegistry;
     }
 
     public function getAll(array $filters, int $page, int $limit): array
@@ -98,14 +105,14 @@ class ActivityLogService
         return $result;
     }
 
-    public function getUsers(): array
-    {
-        return $this->repository->getAllUsers();
-    }
-
     public function getModels(): array
     {
-        return $this->repository->getAllModels();
+        return array_map(
+            function($item) {
+                return ['model' => $item];
+            },
+            $this->activityLogRegistry->getServices()
+        );
     }
 
     protected function parseKeyName(string $key): string

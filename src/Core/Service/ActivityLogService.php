@@ -33,4 +33,9 @@ class ActivityLogService
     {
         return $this->supportedEntities[$className];
     }
+
+    public function getServices(): array
+    {
+        return array_keys($this->supportedEntities);
+    }
 }

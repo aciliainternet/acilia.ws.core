@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActivityLogController extends AbstractController
 {
     protected TranslatorInterface $translator;
-    protected ActivityLogService $service;
+    protected $service;
 
     public function __construct(TranslatorInterface $translator, ActivityLogService $service)
     {
@@ -42,9 +42,7 @@ class ActivityLogController extends AbstractController
             $limit = 20;
         }
 
-        $users = $this->service->getUsers();
         $models = $this->service->getModels();
-
         $filters = [];
 
         $modelIdFilter = (int) $request->query->get('f');
@@ -53,10 +51,12 @@ class ActivityLogController extends AbstractController
         if ($modelIdFilter > 0 && is_int($modelIdFilter)) {
             $filters['model_id'] = $modelIdFilter;
         }
-        if ($userFilter !== '' && in_array($userFilter, array_map(fn($element) => $element['user'], $users))) {
+        if ($userFilter !== '') {
             $filters['user'] = $userFilter;
         }
-        if ($modelFilter !== '' && in_array($modelFilter, array_map(fn($element) => $element['model'], $models))) {
+        if ($modelFilter !== '' && in_array($modelFilter, array_map(function ($element) {
+            return $element['model'];
+        }, $models))) {
             $filters['model'] = $modelFilter;
         }
 
@@ -80,7 +80,6 @@ class ActivityLogController extends AbstractController
                     'params' => $request->query->all(),
                     'filters' => $filters,
                     'trans_prefix' => 'ws_cms_activity_log',
-                    'users' => $users,
                     'models' => $models
                 ]
             )

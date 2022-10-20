@@ -52,17 +52,14 @@
                         </div>
 
                         <div class="c-field c-field--inline c-field--inline-medium c-choice-wrapper c-choice-wrapper--small u-mr-10">
-                            <select name="u" data-component="ws_select">
-                                <option value="">{{ 'select_by'|trans({}, trans_prefix) }}</option>
-                                {% for user in users %}
-                                    <option
-                                        value='{{ user['user'] }}'
-                                        {{ user['user'] is ws_activity_log_selected(filters, 'user') ? 'selected="selected"' : '' }}
-                                    >
-                                        {{ user['user'] }}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                            <input
+                                type="text"
+                                name="u"
+                                autocomplete="off"
+                                class="c-input c-input--small"
+                                value="{{ app.request.get('u') }}"
+                                placeholder="{{ 'select_by'|trans({}, trans_prefix) }}"
+                            >
                         </div>
 
                         <button type="submit" class="c-btn c-btn--info u-mr-5">
