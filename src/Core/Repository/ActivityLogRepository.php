@@ -31,8 +31,8 @@ class ActivityLogRepository extends EntityRepository
         }
 
         if (isset($filters['user'])) {
-            $qb->andWhere('t.createdBy LIKE :user')
-                ->setParameter('user', sprintf('%%%s%%', $filters['user']));
+            $qb->andWhere('t.createdBy = :user')
+                ->setParameter('user', $filters['user']);
         }
     }
 
