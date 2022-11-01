@@ -15,7 +15,7 @@ use WS\Core\Library\Setting\Definition\Setting as SettingDefinition;
 class SettingService implements AlertGathererInterface
 {
     /** @var SectionDefinition[] */
-    protected array $settings;
+    protected array $settings = [];
     protected ?array $settingValues = null;
 
     protected TranslatorInterface $translator;

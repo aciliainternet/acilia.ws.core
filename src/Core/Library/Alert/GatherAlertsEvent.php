@@ -4,7 +4,7 @@ namespace WS\Core\Library\Alert;
 
 class GatherAlertsEvent
 {
-    protected $alerts;
+    protected $alerts = [];
 
     public function addAlert(AlertMessage $alert)
     {
