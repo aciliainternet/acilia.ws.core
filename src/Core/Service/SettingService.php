@@ -3,7 +3,6 @@
 namespace WS\Core\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Entity\Setting;
 use WS\Core\Library\Alert\AlertGathererInterface;
@@ -16,7 +15,7 @@ use WS\Core\Library\Setting\Definition\Setting as SettingDefinition;
 class SettingService implements AlertGathererInterface
 {
     /** @var SectionDefinition[] */
-    protected array $settings;
+    protected array $settings = [];
     protected ?array $settingValues = null;
     protected TranslatorInterface $translator;
     protected EntityManagerInterface $em;
