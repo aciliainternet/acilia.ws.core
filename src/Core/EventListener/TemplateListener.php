@@ -38,6 +38,10 @@ class TemplateListener
             return;
         }
 
+        if (!$this->contextService->isCMS() || !$this->contextService->isSite()) {
+            return;
+        }
+
         // Setup Twig paths for the current context
         $twigPaths = $this->getTwigLoader()->getPaths();
 
