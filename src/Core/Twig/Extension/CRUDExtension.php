@@ -9,6 +9,7 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use WS\Core\Library\Router\Router;
 
 class CRUDExtension extends AbstractExtension
 {
@@ -36,10 +37,12 @@ class CRUDExtension extends AbstractExtension
     {
         $request = $this->requestStack->getCurrentRequest();
 
-        $parameters = array_merge(
-            $this->generator->getContextParams($name, $request->attributes->get('_route_params')),
-            $parameters
-        );
+        if ($this->generator instanceof Router) {
+            $parameters = array_merge(
+                $this->generator->getContextParams($name, $request->attributes->get('_route_params')),
+                $parameters
+            );
+        }
 
         return $this->generator->generate($name, $parameters, $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH);
     }

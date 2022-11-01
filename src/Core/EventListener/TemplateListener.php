@@ -38,7 +38,7 @@ class TemplateListener
             return;
         }
 
-        if (!$this->contextService->isCMS() || !$this->contextService->isSite()) {
+        if (!($this->contextService->isCMS() || $this->contextService->isSite())) {
             return;
         }
 

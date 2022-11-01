@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActivityLogController extends AbstractController
 {
     protected TranslatorInterface $translator;
-    protected $service;
+    protected ActivityLogService $service;
 
     public function __construct(TranslatorInterface $translator, ActivityLogService $service)
     {

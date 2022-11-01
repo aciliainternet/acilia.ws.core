@@ -377,7 +377,7 @@ abstract class AbstractController extends BaseController
                     if ($form->has('saveAndBack') && $form->get('saveAndBack')->isClicked()) {
                         $url = $form->has('referer')
                             ? $form->get('referer')->getData()
-                            : $this->wsGenerateUrl($this->getRouteNamePrefix() . '_index');
+                            : $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
                         return $this->redirect($url);
                     }
 
@@ -442,7 +442,7 @@ abstract class AbstractController extends BaseController
                     if ($form->has('saveAndBack') && $form->get('saveAndBack')->isClicked()) {
                         $url = $form->has('referer')
                             ? $form->get('referer')->getData()
-                            : $this->wsGenerateUrl($this->getRouteNamePrefix() . '_index');
+                            : $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
                         return $this->redirect($url);
                     }
 

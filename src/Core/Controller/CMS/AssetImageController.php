@@ -102,7 +102,7 @@ class AssetImageController extends AbstractController
         }
 
         try {
-            $params = json_decode($request->getContent(), true);
+            $params = json_decode(\strval($request->getContent()), true);
 
             $entity = $this->getService()->get($params['assetId']);
             if ($entity === null) {

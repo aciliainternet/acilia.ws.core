@@ -99,7 +99,7 @@ class ImageService
                 list($width, $height) = explode(':', $aspectRatio, 2);
                 $ratios[$key] = [
                     'label' => $aspectRatio,
-                    'fraction' => round($width / $height, 4, PHP_ROUND_HALF_UP)
+                    'fraction' => round(\intval($width) / \intval($height), 4, PHP_ROUND_HALF_UP)
                 ];
             }
         }
@@ -310,12 +310,12 @@ class ImageService
 
             // check image width is empty
             if ($subRenditionWidth <= 0) {
-                $subRenditionWidth = floor(($subRenditionHeight / $image->getHeight()) * $image->getWidth());
+                $subRenditionWidth = floor((\intval($subRenditionHeight) / $image->getHeight()) * $image->getWidth());
             }
 
             // check image height is empty
             if ($subRenditionHeight <= 0) {
-                $subRenditionHeight = floor(($subRenditionWidth / $image->getWidth()) * $image->getHeight());
+                $subRenditionHeight = floor((\intval($subRenditionWidth) / $image->getWidth()) * $image->getHeight());
             }
 
             $subRenditionImage->fit((int) $subRenditionWidth, (int) $subRenditionHeight);

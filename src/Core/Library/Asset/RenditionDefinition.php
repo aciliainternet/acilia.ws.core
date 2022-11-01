@@ -40,7 +40,7 @@ class RenditionDefinition
     {
         if (is_numeric($this->width) && is_numeric($this->height)) {
             $gcd = gmp_gcd((int) $this->width, (int) $this->height);
-            $max = gmp_strval($gcd, 10);
+            $max = \intval(gmp_strval($gcd, 10));
 
             return sprintf('%d:%d', (int) $this->width / $max, (int) $this->height / $max);
         }
