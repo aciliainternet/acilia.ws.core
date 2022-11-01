@@ -67,23 +67,23 @@ class ContextService
         return \array_shift($domains);
     }
 
-    public function isDebug() : bool
+    public function isDebug(): bool
     {
         return $this->debug;
     }
 
-    public function isCMS() : bool
+    public function isCMS(): bool
     {
-        return $this->context == self::CMS;
+        return $this->context === self::CMS;
     }
 
-    public function isSite() : bool
+    public function isSite(): bool
     {
-        return $this->context == self::SITE;
+        return $this->context === self::SITE;
     }
 
-    public function getTemplatesBase() : string
+    public function getTemplatesBase(): string
     {
-        return $this->context == self::CMS ? 'cms': 'site';
+        return $this->context === self::CMS ? 'cms': 'site';
     }
 }
