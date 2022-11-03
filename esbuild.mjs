@@ -8,9 +8,14 @@ import { copy } from 'esbuild-plugin-copy';
 dotenv.config();
 
 function generateManifest(entry) {
+  const manifestKeysMap = {
+    'core.scss': 'core.css',
+    'core.js': 'core.js',
+  };
+
   const manifestEntry = entry;
   return Object.keys(manifestEntry).reduce((acc, key) => {
-    manifestEntry[key] = manifestEntry[key].replace('public/', '');
+    manifestEntry[key] = manifestEntry[key].replace('src/Core/Resources/assets/cms', '/bundles/wscore/');
     return { ...acc, [key]: manifestEntry[key] };
   }, {});
 }
