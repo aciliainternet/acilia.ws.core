@@ -1,4 +1,4 @@
-@use '../../../node_modules/easymde/dist/easymde.min'  as *;
+@use 'easymde/dist/easymde.min'  as *;
 @use '../0-settings/_settings-global' as *;
 @use '../0-settings/_settings-inputs' as *;
 @use '../1-tools/_tools-mixin-rem' as *;

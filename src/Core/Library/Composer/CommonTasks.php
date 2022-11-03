@@ -25,6 +25,7 @@ abstract class CommonTasks
             if (!file_exists(dirname($link))) {
                 mkdir(dirname($link));
             }
+            var_dump($target, $link);
             symlink($target, $link);
         }
     }
