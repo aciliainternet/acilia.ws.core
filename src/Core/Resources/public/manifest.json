@@ -1,4 +1,4 @@
 {
-  "core.scss": "src/Core/Resources/public/css/core-B3KZ2M2D.css",
-  "core.js": "src/Core/Resources/public/js/core-TH7SWWJZ.js"
+  "core.css": "/bundles/wscore/css/core-B3KZ2M2D.css",
+  "core.js": "/bundles/wscore/js/core-TH7SWWJZ.js"
 }
