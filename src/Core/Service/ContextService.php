@@ -13,7 +13,7 @@ class ContextService
 
     protected bool $debug;
     protected DomainService $domainService;
-    protected string $context;
+    protected string $context = '';
     protected ?Domain $domain = null;
 
     public function __construct(bool $debug, DomainService $domainService)
