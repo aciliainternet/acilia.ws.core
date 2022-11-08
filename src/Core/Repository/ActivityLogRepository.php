@@ -17,7 +17,6 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ActivityLogRepository extends EntityRepository
 {
-
     protected function setFilters(array $filters, QueryBuilder &$qb): void
     {
         //Set filters

@@ -33,6 +33,11 @@ class AssetImageService implements FactoryCollectorInterface
         return ['createdAt', 'filename'];
     }
 
+    public function getFilterFields(): array
+    {
+        return ['filename'];
+    }
+
     public function getAll(?string $search, int $page, int $limit, string $sort = '', string $dir = ''): array
     {
         $offset = ($page - 1) * $limit;

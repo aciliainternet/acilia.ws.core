@@ -34,6 +34,8 @@ abstract class AbstractService implements DBLoggerInterface
 
     abstract public function getListFields(): array;
 
+    abstract public function getFilterFields(): array;
+
     public function getImageEntityClass(object $entity): ?string
     {
         return null;
@@ -106,8 +108,10 @@ abstract class AbstractService implements DBLoggerInterface
             }
         }
 
-        $entities = $this->repository->getAll($this->contextService->getDomain(), $search, $filter, $orderBy, $limit, ($page - 1) * $limit);
-        $total = $this->repository->getAllCount($this->contextService->getDomain(), $search, $filter);
+        $filterFields = $this->getFilterFields();
+
+        $entities = $this->repository->getAll($this->contextService->getDomain(), $search, $filter, $filterFields, $orderBy, $limit, ($page - 1) * $limit);
+        $total = $this->repository->getAllCount($this->contextService->getDomain(), $search, $filter, $filterFields);
 
         return ['total' => $total, 'data' => $entities];
     }
