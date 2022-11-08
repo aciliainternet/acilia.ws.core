@@ -17,9 +17,4 @@ class AdministratorRepository extends AbstractRepository
     {
         return Administrator::class;
     }
-
-    public function getFilterFields(): array
-    {
-        return ['name', 'email'];
-    }
 }

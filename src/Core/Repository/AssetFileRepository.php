@@ -20,11 +20,4 @@ class AssetFileRepository extends AbstractRepository
     {
         return AssetFile::class;
     }
-
-    public function getFilterFields(): array
-    {
-        return ['filename'];
-    }
-
-
 }

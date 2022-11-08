@@ -33,6 +33,11 @@ class AssetFileService implements FactoryCollectorInterface
         return ['createdAt', 'filename'];
     }
 
+    public function getFilterFields(): array
+    {
+        return ['filename'];
+    }
+
     public function createFromUploadedFile(UploadedFile $fileFile, object $entity = null, string $fileField = null): AssetFile
     {
         $assetFile = (new AssetFile())

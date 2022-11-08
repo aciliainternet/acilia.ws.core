@@ -29,6 +29,11 @@ class AdministratorService extends AbstractService implements ActivityLogInterfa
         return ['name'];
     }
 
+    public function getFilterFields(): array
+    {
+        return ['name', 'email'];
+    }
+
     public function getListFields(): array
     {
         return [
