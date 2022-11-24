@@ -11,9 +11,9 @@
     <meta name="title" content="{{ get_title() }} | {{ 'name'|trans({}, 'cms') }}">
     <meta name="description" content="Powered by WideStand from Acilia Software.">
 
-    <link rel="shortcut icon" href="{{ asset('cms/favicon.ico', 'cms') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('cms/favicon.ico', 'core') }}" type="image/x-icon">
     <style>a{color: #475364;}</style>
-    <link type="text/css" href="{{ asset('core.css', 'cms') }}" rel="stylesheet" />
+    <link type="text/css" href="{{ asset('core.css', 'core') }}" rel="stylesheet" />
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="o-page {{ bodyClass is defined ? bodyClass }}">
@@ -89,7 +89,7 @@
         };
     </script>
 
-    <script type="text/javascript" src="{{ asset('core.js', 'cms') }}"></script>
+    <script type="text/javascript" src="{{ asset('core.js', 'core') }}"></script>
 
     <!-- Custom JavaScript -->
     {% block javascript %}{% endblock %}
