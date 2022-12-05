@@ -30,7 +30,10 @@
             {% if form.saveAndBack is defined %}
                 {% set saveAndBackField = form_widget(form.saveAndBack) %}
             {% endif %}
-            {{ form_widget(form) }}
+
+            {% block crud_show_content %}
+                {{ form_widget(form) }}
+            {% endblock %}
 
             <div class="c-divider u-mv-small"></div>
 
