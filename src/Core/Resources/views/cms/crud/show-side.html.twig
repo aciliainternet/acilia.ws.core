@@ -3,10 +3,14 @@
 {% block content %}
     {{ form_start(form) }}
 
-    <div class="c-form c-form--full">
-        <div class="u-flex u-mr-auto">
-            <h2 class="c-form__title u-h2 u-mb-30">{{ 'title'|trans({}, trans_prefix) }}</h2>
-        </div>
+    <div class="c-form c-form--full" {% block crud_show_side_formfull_attributes %}{% endblock crud_show_side_formfull_attributes %}>
+
+        {% block crud_show_title %}
+            <div class="u-flex u-mr-auto">
+                <h2 class="c-form__title u-h2 u-mb-30">{{ 'title'|trans({}, trans_prefix) }}</h2>
+            </div>
+        {% endblock crud_show_title %}
+
         <div class="u-flex">
             <div class="c-form__content c-form__content-aside-full">
                 {% block crud_show_side_content %}
