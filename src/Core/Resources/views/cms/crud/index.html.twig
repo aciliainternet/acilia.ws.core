@@ -219,7 +219,9 @@
                                                     {% elseif field.filter|default(false) %}
                                                         {{ ws_cms_crud_list_filter(field.filter, field.options|default([]), attribute(entity, field.name)) }}
                                                     {% else %}
-                                                        {{ attribute(entity, field.name) }}
+                                                        {% block crud_table_body_row_field %}
+                                                            {{ attribute(entity, field.name) }}
+                                                        {% endblock %}
                                                     {% endif %}
                                                 {% if is_granted(view_roles['edit']) %}
                                                     </a>
