@@ -2,18 +2,20 @@
 
 namespace WS\Core\Command\Image;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use WS\Core\Service\ImageService;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'ws:image:dynamic-resize',
+    description: 'Resize a missing image dynamically on-the-fly',
+)]
 class DynamicResizeCommand extends Command
 {
-    protected static $defaultName = 'ws:image:dynamic-resize';
-    protected ImageService $imageService;
-
-    public function __construct(ImageService $imageService)
+    public function __construct(protected ImageService $imageService)
     {
         $this->imageService = $imageService;
 
@@ -22,8 +24,7 @@ class DynamicResizeCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Resize a missing image dynamically on-the-fly')
-            ->addArgument('image', InputArgument::REQUIRED, 'The image wanted')
+        $this->addArgument('image', InputArgument::REQUIRED, 'The image wanted')
         ;
     }
 

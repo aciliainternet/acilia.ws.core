@@ -9,15 +9,18 @@ use WS\Core\Service\TranslationService;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\Command;
 
+#[AsCommand(
+    name: 'ws:translation:collect',
+    description: 'Collect the registered translations for the public site'
+)]
 class CollectCommand extends Command
 {
-    protected static $defaultName = 'ws:translation:collect';
-
     private ParameterBagInterface $parameterBag;
     private EntityManagerInterface $em;
     private TranslationService $translationService;
@@ -36,13 +39,6 @@ class CollectCommand extends Command
         $this->attributesRepository = $this->em->getRepository(TranslationAttribute::class);
 
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this
-            ->setDescription('Collect the registered translations for the public site')
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

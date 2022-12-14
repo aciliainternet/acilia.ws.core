@@ -2,19 +2,21 @@
 namespace WS\Core\Command\DBLogger;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(
+    name: 'ws:dblogger:archive',
+    description: 'Moves the log to it\'s archive.'
+)]
 class ArchiveCommand extends Command
 {
-    protected static $defaultName = 'ws:dblogger:archive';
     private const ARCHIVE_DAYS = 30;
 
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(private EntityManagerInterface $em)
     {
         $this->em = $em;
 
@@ -23,8 +25,7 @@ class ArchiveCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Moves the log to it\'s archive')
-            ->addOption(
+        $this->addOption(
                 'days',
                 'd',
                 InputOption::VALUE_REQUIRED,
