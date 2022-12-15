@@ -10,9 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/settings", name="ws_setting_")
- */
+#[Route(path: '/settings', name: 'ws_setting_')]
 class SettingController extends AbstractController
 {
     protected TranslatorInterface $translator;
@@ -24,9 +22,7 @@ class SettingController extends AbstractController
         $this->service = $service;
     }
 
-    /**
-     * @Route("/{section}", name="index")
-     */
+    #[Route(path: '/{section}', name: 'index')]
     public function index(string $section): Response
     {
         $section = $this->service->getSection($section);
@@ -44,9 +40,7 @@ class SettingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{section}/save", name="save", methods={"POST"})
-     */
+    #[Route(path: '/{section}/save', name: 'save', methods: ['POST'])]
     public function save(Request $request, string $section): Response
     {
         if (!$request->isXmlHttpRequest()) {

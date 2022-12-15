@@ -17,8 +17,6 @@ class DynamicResizeCommand extends Command
 {
     public function __construct(protected ImageService $imageService)
     {
-        $this->imageService = $imageService;
-
         parent::__construct();
     }
 
@@ -45,7 +43,7 @@ class DynamicResizeCommand extends Command
             $originalFile = sprintf('/%d/%d/%s/%s', $matches[1], $matches[2], $matches[3], $matches[6]);
 
             try {
-                $newImage = $this->imageService->dynamicResize($requestedFile, $originalFile, $matches[4], $matches[5]);
+                $newImage = $this->imageService->dynamicResize($requestedFile, $originalFile, intval($matches[4]), intval($matches[5]));
                 header(sprintf('Content-Type: %s', $newImage->mime()));
                 header('x-rendered-by: ws-dynamic-resize');
                 echo $newImage->encode(null, 75);

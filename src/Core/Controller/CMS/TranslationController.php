@@ -11,10 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-/**
- * @Route("/translation", name="ws_translation_")
- * @Security("is_granted('ROLE_WS_CORE_TRANSLATION')", message="not_allowed")
- */
+
+#[Route(path: '/translation', name: 'ws_translation_')]
+#[Security("is_granted('ROLE_WS_CORE_TRANSLATION')", message: 'not_allowed')]
 class TranslationController extends AbstractController
 {
     protected TranslatorInterface $translator;
@@ -31,9 +30,7 @@ class TranslationController extends AbstractController
         $this->contextService = $contextService;
     }
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(): Response
     {
         $translations = $this->translationService->getForCMS();
@@ -44,9 +41,7 @@ class TranslationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/save", name="save", methods={"POST"})
-     */
+    #[Route(path: '/save', name: 'save', methods: ['POST'])]
     public function save(Request $request): Response
     {
         if (!$request->isXmlHttpRequest()) {

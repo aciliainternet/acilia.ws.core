@@ -8,69 +8,51 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Library\Domain\DomainDependantTrait;
 
-/**
- * @ORM\Entity(repositoryClass="WS\Core\Repository\ActivityLogRepository")
- * @ORM\Table(name="ws_activity_log", options={"collate"="utf8_unicode_ci", "charset"="utf8", "engine"="InnoDB"})
- */
+#[ORM\Entity(repositoryClass: 'WS\Core\Repository\ActivityLogRepository')]
+#[ORM\Table(name: 'ws_activity_log', options: ['collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'engine' => 'InnoDB'])]
 class ActivityLog implements DomainDependantInterface
 {
     use DomainDependantTrait;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer", name="activity_log_id")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: 'integer', name: 'activity_log_id')]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     protected int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="WS\Core\Entity\Domain")
-     * @ORM\JoinColumn(name="activity_log_domain", referencedColumnName="domain_id", nullable=true)
-     */
+    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
+    #[ORM\JoinColumn(name: 'activity_log_domain', referencedColumnName: 'domain_id', nullable: true)]
     private ?Domain $domain = null;
 
-    /**
-     * @Assert\Length(max = 128)
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(type="string", length=128, name="activity_log_model", nullable=false)
-     */
+    #[Assert\Length(max: 128)]
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'string', length: 128, name: 'activity_log_model', nullable: false)]
     protected string $model;
 
-    /**
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(type="integer", name="activity_log_model_id", nullable=false)
-     */
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'integer', name: 'activity_log_model_id', nullable: false)]
     protected int $modelId;
 
-    /**
-     * @Assert\Length(max = 128)
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(type="string", length=128, name="activity_log_action", nullable=false)
-     */
+    #[Assert\Length(max: 128)]
+    #[Assert\NotBlank]
+    #[ORM\Column(type: 'string', length: 128, name: 'activity_log_action', nullable: false)]
     protected string $action;
 
-    /**
-     * @ORM\Column(type="json", name="activity_log_changes", nullable=true)
-     */
+    #[ORM\Column(type: 'json', name: 'activity_log_changes', nullable: true)]
     protected ?array $changes = null;
 
     protected ?array $parsedChanges = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="activity_log_created_at", type="datetime")
      */
+    #[ORM\Column(name: 'activity_log_created_at', type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
     /**
-     * @Assert\Length(max=128)
      * @Gedmo\Blameable(on="create")
-     *
-     * @ORM\Column(name="activity_log_created_by", type="string", length=128, nullable=true)
      */
+    #[Assert\Length(max: 128)]
+    #[ORM\Column(name: 'activity_log_created_by', type: 'string', length: 128, nullable: true)]
     private ?string $createdBy = null;
 
     public function getId(): int

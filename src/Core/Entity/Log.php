@@ -4,38 +4,25 @@ namespace WS\Core\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="ws_log", options={"collate"="utf8_unicode_ci", "charset"="utf8", "engine"="InnoDB"})
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'ws_log', options: ['collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'engine' => 'InnoDB'])]
 class Log
 {
-    /**
-     *
-     * @ORM\Column(name="log_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private int $id;
+    #[ORM\Column(name: 'log_id', type: 'integer', nullable: false)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(name="log_channel", type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(name: 'log_channel', type: 'string', length: 255, nullable: true)]
     private string $channel;
 
-    /**
-     * @ORM\Column(name="log_level", type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(name: 'log_level', type: 'string', length: 255, nullable: true)]
     private string $level;
 
-    /**
-     * @ORM\Column(name="log_message", type="text", nullable=true)
-     */
+    #[ORM\Column(name: 'log_message', type: 'text', nullable: true)]
     private string $message;
 
-    /**
-     * @ORM\Column(name="log_datetime", type="datetime", nullable=false)
-     */
+    #[ORM\Column(name: 'log_datetime', type: 'datetime', nullable: false)]
     private \DateTime $datetime;
 
     /**

@@ -3,7 +3,6 @@
 namespace WS\Core\Controller\CMS;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
@@ -20,11 +19,8 @@ class SecurityController extends AbstractController
         $this->translator = $translator;
     }
 
-    /**
-     * @Route("/login", name="ws_cms_login")
-     */
+    #[Route(path: '/login', name: 'ws_cms_login')]
     public function login(
-        Request $request,
         AuthenticationUtils $authenticationUtils,
         AuthorizationCheckerInterface $authChecker
     ): Response {

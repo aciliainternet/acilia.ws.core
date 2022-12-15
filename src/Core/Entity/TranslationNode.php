@@ -4,32 +4,23 @@ namespace WS\Core\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="ws_translation_node", uniqueConstraints={@ORM\UniqueConstraint(columns={"node_name"})})
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'ws_translation_node')]
+#[ORM\UniqueConstraint(columns: ['node_name'])]
 class TranslationNode
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="node_id", type="integer")
-     */
-    private int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'node_id', type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(name="node_name", type="string", length=32, nullable=false)
-     */
+    #[ORM\Column(name: 'node_name', type: 'string', length: 32, nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(name="node_source", type="string", length=12, nullable=true)
-     */
+    #[ORM\Column(name: 'node_source', type: 'string', length: 12, nullable: true)]
     private ?string $source = null;
 
-    /**
-     * @ORM\Column(name="node_type", type="string", length=12, nullable=false)
-     */
+    #[ORM\Column(name: 'node_type', type: 'string', length: 12, nullable: false)]
     private string $type;
 
     public function getId(): ?int

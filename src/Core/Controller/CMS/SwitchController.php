@@ -23,10 +23,8 @@ class SwitchController extends AbstractController
         $this->domainService = $domainService;
     }
 
-    /**
-     * @Route("/switch-domain/{id}", name="ws_switch_domain", methods={"GET"})
-     * @Security("is_granted('ROLE_CMS')", message="not_allowed")
-     */
+    #[Route(path: '/switch-domain/{id}', name: 'ws_switch_domain', methods: ['GET'])]
+    #[Security("is_granted('ROLE_CMS')", message: 'not_allowed')]
     public function switch(Request $request, string $id): Response
     {
         $domain = $this->domainService->get(intval($id));

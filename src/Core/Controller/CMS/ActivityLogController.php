@@ -9,9 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/activity-log", name="ws_activity_log_")
- */
+#[Route(path: '/activity-log', name: 'ws_activity_log_')]
 class ActivityLogController extends AbstractController
 {
     protected TranslatorInterface $translator;
@@ -23,9 +21,7 @@ class ActivityLogController extends AbstractController
         $this->service = $service;
     }
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(Request $request): Response
     {
         if (!$this->isGranted('ROLE_WS_CORE_ACTIVITY_LOG')) {

@@ -234,9 +234,7 @@ abstract class AbstractController extends BaseController
         return null;
     }
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(Request $request): Response
     {
         $this->denyAccessUnlessAllowed('view');
@@ -334,9 +332,7 @@ abstract class AbstractController extends BaseController
         );
     }
 
-    /**
-     * @Route("/create", name="create")
-     */
+    #[Route(path: '/create', name: 'create')]
     public function create(Request $request): Response
     {
         $this->denyAccessUnlessAllowed('create');
@@ -403,9 +399,7 @@ abstract class AbstractController extends BaseController
         ], $extraData));
     }
 
-    /**
-     * @Route ("/edit/{id}", name="edit")
-     */
+    #[Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, int $id): Response
     {
         $this->denyAccessUnlessAllowed('edit');
@@ -468,9 +462,7 @@ abstract class AbstractController extends BaseController
         ], $extraData));
     }
 
-    /**
-     * @Route ("/delete/{id}", name="delete", methods="POST"))
-     */
+    #[Route(path: '/delete/{id}', name: 'delete', methods: 'POST')]
     public function delete(Request $request, int $id): Response
     {
         try {
@@ -508,9 +500,7 @@ abstract class AbstractController extends BaseController
         }
     }
 
-    /**
-     * @Route ("/batch/delete", name="batch_delete", methods="POST"))
-     */
+    #[Route(path: '/batch/delete', name: 'batch_delete', methods: 'POST')]
     public function batchDelete(Request $request): Response
     {
         try {
@@ -547,9 +537,7 @@ abstract class AbstractController extends BaseController
         }
     }
 
-    /**
-     * @Route ("/export", name="export", methods="GET"))
-     */
+    #[Route(path: '/export', name: 'export', methods: 'GET')]
     public function export(Request $request): Response
     {
         $this->denyAccessUnlessAllowed('view');

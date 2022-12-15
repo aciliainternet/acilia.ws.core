@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController extends AbstractController
 {
-    /**
-     * @Route("/", name="ws_dashboard")
-     */
+    #[Route(path: '/', name: 'ws_dashboard')]
     public function index(): Response
     {
         return $this->render('@WSCore/cms/dashboard/index.html.twig');
