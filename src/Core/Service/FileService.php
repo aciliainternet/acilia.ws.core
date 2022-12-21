@@ -33,6 +33,24 @@ class FileService
         return $assetFile;
     }
 
+    public function handleStandalone(UploadedFile $fileFile, ?array $options = null): AssetFile
+    {
+        $fileFileContent = file_get_contents($fileFile->getPathname());
+        if (false === $fileFileContent) {
+            throw new \RuntimeException('File cannot be read');
+        }
+
+        $assetFile = $this->assetFileService->createFromUploadedFile($fileFile);
+
+        $this->storageService->save(
+            $this->getFilePath($assetFile),
+            $fileFileContent,
+            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+        );
+
+        return $assetFile;
+    }
+
     public function delete($entity, string $fileField): void
     {
         $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));
