@@ -24,6 +24,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         parent::__construct($registry, $this->getEntityClass());
     }
 
+    /** @return class-string<object> */
     abstract public function getEntityClass(): string;
 
     public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
@@ -35,9 +36,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
         ?string $search,
         ?array $filter,
         ?array $filtetrFields,
-        array $orderBy = null,
-        int $limit = null,
-        int $offset = null
+        ?array $orderBy = null,
+        ?int $limit = null,
+        ?int $offset = null
     ): array {
         $qb = $this->getAllQueryBuilder();
         $alias = $qb->getRootAliases()[0];
