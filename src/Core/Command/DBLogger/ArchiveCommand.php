@@ -52,7 +52,7 @@ class ArchiveCommand extends Command
             }
 
             if ($days > $purge) {
-                throw new \Exception(sprintf('Purge days (%s) must be greater than Archive days (%s)', $purge, $days));
+                throw new \Exception(sprintf('Purge days (%s) must be greater than Archive days (%s)', strval($purge), strval($days)));
             }
 
             // Calculate now

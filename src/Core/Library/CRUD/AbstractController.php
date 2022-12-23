@@ -3,20 +3,21 @@
 namespace WS\Core\Library\CRUD;
 
 use Symfony\Component\Form\Form;
-use WS\Core\Library\DataExport\DataExportInterface;
-use WS\Core\Library\DataExport\Provider\CsvExportProvider;
-use WS\Core\Service\DataExportService;
 use WS\Core\Service\FileService;
 use WS\Core\Service\ImageService;
 use Symfony\Component\Form\FormError;
+use WS\Core\Service\DataExportService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use WS\Core\Library\DataExport\DataExportInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Library\DataExport\Provider\CsvExportProvider;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseController;
 
 abstract class AbstractController extends BaseController
@@ -44,10 +45,16 @@ abstract class AbstractController extends BaseController
     protected DataExportService $dataExportService;
     protected array $events = [];
     protected AbstractService $service;
+    protected EntityManagerInterface $doctrine;
 
     public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
+    }
+
+    public function setDoctrine(EntityManagerInterface $doctrine): void
+    {
+        $this->doctrine = $doctrine;
     }
 
     public function setImageService(ImageService $imageService): void
@@ -164,7 +171,7 @@ abstract class AbstractController extends BaseController
                 }
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            $this->doctrine->flush();
         }
     }
 
@@ -193,7 +200,7 @@ abstract class AbstractController extends BaseController
                 }
             }
 
-            $this->getDoctrine()->getManager()->flush();
+            $this->doctrine->flush();
         }
     }
 
@@ -276,7 +283,7 @@ abstract class AbstractController extends BaseController
         $paginationData = [
             'currentPage' => $page,
             'url' => $request->get('_route'),
-            'nbPages' => ceil($data['total']/$limit),
+            'nbPages' => ceil($data['total'] / $limit),
             'currentCount' => count($data['data']),
             'totalCount' => $data['total'],
             'limit' => $limit
@@ -336,7 +343,7 @@ abstract class AbstractController extends BaseController
     public function create(Request $request): Response
     {
         $this->denyAccessUnlessAllowed('create');
-
+        /** @var ?object */
         $entity = $this->getService()->getEntity();
         if ($entity === null) {
             throw new BadRequestHttpException($this->translator->trans('bad_request', [], 'ws_cms'));

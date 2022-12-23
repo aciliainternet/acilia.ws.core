@@ -2,28 +2,27 @@
 
 namespace WS\Core\Library\CRUD;
 
-use Doctrine\ORM\NoResultException;
 use WS\Core\Entity\Domain;
-use WS\Core\Library\Domain\DomainRepositoryTrait;
-use WS\Core\Service\ContextService;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\NoResultException;
+use WS\Core\Service\ContextService;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
+use WS\Core\Library\Domain\DomainRepositoryTrait;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
     use DomainRepositoryTrait;
 
-    protected ContextService $contextService;
-
-    public function __construct(ContextService $contextService, ManagerRegistry $registry)
+    public function __construct(protected ContextService $contextService, ManagerRegistry $registry)
     {
-        $this->contextService = $contextService;
-
         parent::__construct($registry, $this->getEntityClass());
     }
 
+    /**
+     * @return class-string<object>
+     */
     abstract public function getEntityClass(): string;
 
     public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
@@ -35,9 +34,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
         ?string $search,
         ?array $filter,
         ?array $filtetrFields,
-        array $orderBy = null,
-        int $limit = null,
-        int $offset = null
+        ?array $orderBy = null,
+        ?int $limit = null,
+        ?int $offset = null
     ): array {
         $qb = $this->getAllQueryBuilder();
         $alias = $qb->getRootAliases()[0];
@@ -98,6 +97,9 @@ abstract class AbstractRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param array<string, string> $filtetrFields
+     */
     protected function setFilter(string $alias, QueryBuilder $qb, ?string $search, ?array $filtetrFields): void
     {
         if (!$search) {
@@ -106,9 +108,11 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
         $filterConditions = [];
         $filterParameters = [];
-        foreach ($filtetrFields as $field) {
-            $filterConditions[] = sprintf('%s LIKE :%s_filter', sprintf('%s.%s', $alias, $field), $field);
-            $filterParameters[sprintf('%s_filter', $field)] = sprintf('%%%s%%', $search);
+        if ($filtetrFields !== null) {
+            foreach ($filtetrFields as $field) {
+                $filterConditions[] = sprintf('%s LIKE :%s_filter', sprintf('%s.%s', $alias, $field), $field);
+                $filterParameters[sprintf('%s_filter', $field)] = sprintf('%%%s%%', $search);
+            }
         }
 
         if (count($filterConditions) > 0) {

@@ -43,7 +43,7 @@ class ActivityLogListener
         $entity = $args->getEntity();
         $entityName = get_class($entity);
 
-        if (! $this->activityLogService->isSupported($entityName)) {
+        if (!$this->activityLogService->isSupported($entityName)) {
             return;
         }
 
@@ -74,7 +74,7 @@ class ActivityLogListener
             // discard unneeded changed fields
             if ($entityService->getActivityLogFields() !== null) {
                 foreach ($changes as $field => $value) {
-                    if (! in_array($field, $entityService->getActivityLogFields())) {
+                    if (!in_array($field, $entityService->getActivityLogFields())) {
                         unset($changes[$field]);
                     }
                 }
@@ -104,7 +104,7 @@ class ActivityLogListener
         $entity = $args->getEntity();
         $entityName = get_class($entity);
 
-        if (! $this->activityLogService->isSupported($entityName)) {
+        if (!$this->activityLogService->isSupported($entityName)) {
             return;
         }
 
@@ -140,7 +140,7 @@ class ActivityLogListener
         $entity = $args->getEntity();
         $entityName = get_class($entity);
 
-        if (! $this->activityLogService->isSupported($entityName)) {
+        if (!$this->activityLogService->isSupported($entityName)) {
             return;
         }
 

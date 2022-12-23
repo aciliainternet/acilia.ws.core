@@ -2,13 +2,14 @@
 
 namespace WS\Core\Library\CRUD;
 
-use WS\Core\Service\DataExportService;
 use WS\Core\Service\FileService;
 use WS\Core\Service\ImageService;
+use WS\Core\Service\DataExportService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 
 class CRUDCompilerPass implements CompilerPassInterface
 {
@@ -42,6 +43,12 @@ class CRUDCompilerPass implements CompilerPassInterface
             $dataExportServiceDefinition = $container->findDefinition(DataExportService::class);
         }
 
+        // Get Doctrine Service Definition
+        $entityManagerDefinition = null;
+        if ($container->has(EntityManagerInterface::class)) {
+            $entityManagerDefinition = $container->findDefinition(EntityManagerInterface::class);
+        }
+
         // Get all tagged CRUD Controllers
         $taggedServices = $this->findAndSortTaggedServices(self::TAG, $container);
         foreach ($taggedServices as $taggedService) {
@@ -66,6 +73,11 @@ class CRUDCompilerPass implements CompilerPassInterface
             // Link DataExport Service
             if ($dataExportServiceDefinition) {
                 $definition->addMethodCall('setDataExportService', [$dataExportServiceDefinition]);
+            }
+
+            // Link Doctrine Service
+            if ($entityManagerDefinition) {
+                $definition->addMethodCall('setDoctrine', [$entityManagerDefinition]);
             }
         }
     }

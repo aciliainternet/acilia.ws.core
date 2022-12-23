@@ -103,7 +103,7 @@ class ActivityLog implements DomainDependantInterface
         return $this;
     }
 
-    public function getChanges(): array
+    public function getChanges(): ?array
     {
         return $this->changes;
     }

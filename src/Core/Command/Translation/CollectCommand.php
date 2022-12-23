@@ -80,8 +80,8 @@ class CollectCommand extends Command
                 }
 
                 unset($matches);
-
-                $translationKeys = array_keys(Yaml::parse($file->getContents()));
+                
+                $translationKeys = array_keys((array) Yaml::parse($file->getContents()));
                 foreach ($translationKeys as $key) {
                     if (!in_array($key, $candidateTranslations[$type])) {
                         $candidateTranslations[$type][] = $key;
