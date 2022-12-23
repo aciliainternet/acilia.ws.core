@@ -2,13 +2,12 @@
 
 namespace WS\Core\Repository;
 
-use WS\Core\Entity\Domain;
-use Doctrine\ORM\QueryBuilder;
-use WS\Core\Entity\ActivityLog;
 use Doctrine\ORM\NoResultException;
-use Doctrine\Persistence\ManagerRegistry;
+use WS\Core\Entity\ActivityLog;
+use WS\Core\Entity\Domain;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method ActivityLog|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,13 +15,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method ActivityLog[]    findAll()
  * @method ActivityLog[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ActivityLogRepository extends ServiceEntityRepository
+class ActivityLogRepository extends EntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Domain::class);
-    }
-    
     protected function setFilters(array $filters, QueryBuilder &$qb): void
     {
         //Set filters

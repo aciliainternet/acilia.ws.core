@@ -19,7 +19,7 @@ class AdministratorService extends AbstractService implements ActivityLogInterfa
         return Administrator::class;
     }
 
-    public function getFormClass(): string
+    public function getFormClass(): ?string
     {
         return AdministratorType::class;
     }

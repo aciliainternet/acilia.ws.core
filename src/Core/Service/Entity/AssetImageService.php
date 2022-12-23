@@ -12,12 +12,20 @@ use Psr\Log\LoggerInterface;
 
 class AssetImageService implements FactoryCollectorInterface
 {
+    protected LoggerInterface $logger;
+    protected EntityManagerInterface $em;
+    protected ContextService $contextService;
+    protected AssetImageRepository $repository;
+
     public function __construct(
-        protected LoggerInterface $logger,
-        protected EntityManagerInterface $em,
-        protected ContextService $contextService,
-        protected AssetImageRepository $repository
+        LoggerInterface $logger,
+        EntityManagerInterface $em,
+        ContextService $contextService
     ) {
+        $this->logger = $logger;
+        $this->em = $em;
+        $this->repository = $this->em->getRepository(AssetImage::class);
+        $this->contextService = $contextService;
     }
 
     public function getSortFields(): array
@@ -30,7 +38,7 @@ class AssetImageService implements FactoryCollectorInterface
         return ['filename'];
     }
 
-    public function getAll(?string $search, int $page, ?int $limit, string $sort = '', string $dir = ''): array
+    public function getAll(?string $search, int $page, int $limit, string $sort = '', string $dir = ''): array
     {
         $offset = ($page - 1) * $limit;
 
@@ -47,7 +55,7 @@ class AssetImageService implements FactoryCollectorInterface
         $filter = ['visible' => true];
 
         try {
-            return $this->repository->getAll($this->contextService->getDomain(), $search, null, null, $orderBy, $limit, $offset);
+            return $this->repository->getAll($this->contextService->getDomain(), $search, $filter, $orderBy, $limit, $offset);
         } catch (\Exception $e) {
             $this->logger->error(sprintf('Error fetching image assets. Error %s', $e->getMessage()));
         }
@@ -59,7 +67,8 @@ class AssetImageService implements FactoryCollectorInterface
     {
         $assetImage = (new AssetImage())
             ->setFilename($this->sanitizeFilename($imageFile))
-            ->setMimeType((string) $imageFile->getMimeType());
+            ->setMimeType((string) $imageFile->getMimeType())
+        ;
 
         $assetImageInfo = getimagesize($imageFile->getPathname());
         if (false !== $assetImageInfo) {
@@ -94,7 +103,8 @@ class AssetImageService implements FactoryCollectorInterface
             ->setFilename($sourceAsset->getFilename())
             ->setMimeType($sourceAsset->getMimeType())
             ->setWidth($sourceAsset->getWidth())
-            ->setHeight($sourceAsset->getHeight());
+            ->setHeight($sourceAsset->getHeight())
+        ;
 
         try {
             // set asset image into entity

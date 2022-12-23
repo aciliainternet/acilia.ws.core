@@ -33,7 +33,6 @@ class AdministratorController extends AbstractController
     #[Security("is_granted('ROLE_CMS')", message: 'not_allowed')]
     public function profile(Request $request): Response
     {
-        /** @var object */
         $administrator = $this->getUser();
 
         $form = $this->createForm(
@@ -72,7 +71,7 @@ class AdministratorController extends AbstractController
 
         $this->addEvent(
             self::EVENT_EDIT_CREATE_FORM,
-            fn () => $this->createForm(
+            fn() => $this->createForm(
                 $this->getService()->getFormClass(),
                 $entity,
                 [
@@ -81,6 +80,7 @@ class AdministratorController extends AbstractController
                 ]
             )
         );
+
         return parent::edit($request, $id);
     }
 }

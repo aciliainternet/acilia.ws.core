@@ -2,31 +2,30 @@
 
 namespace WS\Core\Library\Maker;
 
-use Symfony\Bundle\MakerBundle\Str;
-use Symfony\Component\Routing\Route;
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Inflector\InflectorFactory;
-use Symfony\Component\Form\AbstractType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\MakerBundle\ConsoleStyle;
+use Symfony\Bundle\MakerBundle\DependencyBuilder;
+use Symfony\Bundle\MakerBundle\Doctrine\DoctrineHelper;
 use Symfony\Bundle\MakerBundle\Generator;
+use Symfony\Bundle\MakerBundle\InputConfiguration;
+use Symfony\Bundle\MakerBundle\Maker\AbstractMaker;
+use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Bundle\MakerBundle\Validator;
 use Symfony\Bundle\TwigBundle\TwigBundle;
-use Symfony\Component\Validator\Validation;
-use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Component\Console\Command\Command;
-use Doctrine\Persistence\Mapping\ClassMetadata;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Bundle\MakerBundle\DependencyBuilder;
-use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Symfony\Bundle\MakerBundle\InputConfiguration;
-use Symfony\Component\Console\Input\InputArgument;
-use WS\Core\Library\Asset\ImageRenditionInterface;
-use Symfony\Bundle\MakerBundle\Maker\AbstractMaker;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Security\Csrf\CsrfTokenManager;
-use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Bundle\MakerBundle\Doctrine\DoctrineHelper;
-use WS\Site\Library\Metadata\MetadataProviderInterface;
 use Symfony\Component\Console\Helper\SymfonyQuestionHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Component\Validator\Validation;
+use WS\Core\Library\Asset\ImageRenditionInterface;
+use WS\Site\Library\Metadata\MetadataProviderInterface;
 
 class MakeCrud extends AbstractMaker
 {
@@ -91,9 +90,6 @@ class MakeCrud extends AbstractMaker
         );
 
         $entityDoctrineDetails = $this->doctrineHelper->createDoctrineDetails($entityClassDetails->getFullName());
-        if($entityDoctrineDetails === null) {
-            return;
-        }
 
         $fieldTypeUseStatements = [];
         $formFields = [];
@@ -107,9 +103,7 @@ class MakeCrud extends AbstractMaker
         $publishingFields = false;
 
         $entityFormFields = $entityDoctrineDetails->getFormFields();
-        /**
-         * @var ClassMetadata
-         */
+
         $classMetadata = $this->doctrineHelper->getMetadata($entityClassDetails->getFullName());
         $associationFieldNames = $classMetadata->getAssociationNames();
 

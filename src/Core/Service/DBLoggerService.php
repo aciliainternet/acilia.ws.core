@@ -10,7 +10,7 @@ class DBLoggerService extends AbstractProcessingHandler
 {
     protected EntityManagerInterface $em;
 
-    public function __construct(EntityManagerInterface $em, int|string $level = Logger::DEBUG, bool $bubble = true)
+    public function __construct(EntityManagerInterface $em, int $level = Logger::DEBUG, bool $bubble = true)
     {
         $this->em = $em;
         parent::__construct($level, $bubble);

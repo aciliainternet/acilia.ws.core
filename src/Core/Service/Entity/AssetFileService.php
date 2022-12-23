@@ -12,12 +12,20 @@ use Psr\Log\LoggerInterface;
 
 class AssetFileService implements FactoryCollectorInterface
 {
+    protected LoggerInterface $logger;
+    protected EntityManagerInterface $em;
+    protected AssetFileRepository $repository;
+    protected ContextService $contextService;
+
     public function __construct(
-        protected LoggerInterface $logger,
-        protected EntityManagerInterface $em,
-        protected ContextService $contextService,
-        protected AssetFileRepository $repository
+        LoggerInterface $logger,
+        EntityManagerInterface $em,
+        ContextService $contextService
     ) {
+        $this->logger = $logger;
+        $this->em = $em;
+        $this->repository = $this->em->getRepository(AssetFile::class);
+        $this->contextService = $contextService;
     }
 
     public function getSortFields(): array
@@ -34,7 +42,8 @@ class AssetFileService implements FactoryCollectorInterface
     {
         $assetFile = (new AssetFile())
             ->setFilename($this->sanitizeFilename($fileFile))
-            ->setMimeType((string) $fileFile->getMimeType());
+            ->setMimeType((string) $fileFile->getMimeType())
+        ;
 
         if (null !== $entity && null !== $fileField) {
             $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));

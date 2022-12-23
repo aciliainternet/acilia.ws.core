@@ -19,7 +19,7 @@ class TranslationValue
     #[ORM\Column(name: 'value_id', type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\TranslationAttribute')]
+    #[ORM\ManyToOne(targetEntity: 'TranslationAttribute')]
     #[ORM\JoinColumn(name: 'value_attribute', referencedColumnName: 'attrib_id', nullable: false)]
     private TranslationAttribute $attribute;
 

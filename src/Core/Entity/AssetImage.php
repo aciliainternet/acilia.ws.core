@@ -91,24 +91,24 @@ class AssetImage
         return $this;
     }
 
-    public function getWidth(): int
+    public function getWidth(): ?int
     {
         return $this->width;
     }
 
-    public function setWidth(int $width): self
+    public function setWidth(?int $width): self
     {
         $this->width = $width;
 
         return $this;
     }
 
-    public function getHeight(): int
+    public function getHeight(): ?int
     {
         return $this->height;
     }
 
-    public function setHeight(int $height): self
+    public function setHeight(?int $height): self
     {
         $this->height = $height;
 
@@ -120,7 +120,7 @@ class AssetImage
         return $this->visible;
     }
 
-    public function setVisible(bool $visible): self
+    public function setVisible(?bool $visible): self
     {
         $this->visible = $visible;
 

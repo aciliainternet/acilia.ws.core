@@ -2,15 +2,14 @@
 
 namespace WS\Core\Twig\Extension;
 
-use Twig\TwigFilter;
-use Twig\Environment;
-use Twig\TwigFunction;
-use WS\Core\Library\Router\Router;
-use Twig\Extension\AbstractExtension;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use WS\Core\Library\Router\Router;
 
 class CRUDExtension extends AbstractExtension
 {
@@ -36,7 +35,6 @@ class CRUDExtension extends AbstractExtension
 
     public function getPath(string $name, array $parameters = [], bool $relative = false): string
     {
-        /** @var Request */
         $request = $this->requestStack->getCurrentRequest();
 
         if ($this->generator instanceof Router) {
@@ -62,22 +60,12 @@ class CRUDExtension extends AbstractExtension
     {
         $twigFilter = $environment->getFilter($filter);
         if ($twigFilter instanceof TwigFilter) {
-            if (!\is_callable($twigFilter->getCallable())) {
-                throw new \Exception('Method not found');
-            }
-
             $filteredValue = call_user_func_array($twigFilter->getCallable(), [$value, $options]);
 
             $safeContext = $twigFilter->getSafe(new \Twig\Node\Node());
             if (!is_array($safeContext) || !in_array('html', $safeContext)) {
-                if ($environment->getFilter('escape') === null) {
-                    throw new \Exception('Filter escape not found');
-                }
                 /** @var \Twig\TwigFilter $twigFilter */
                 $escapeFilter = $environment->getFilter('escape');
-                if (!\is_callable($escapeFilter->getCallable())) {
-                    throw new \Exception('Method not found');
-                }
                 $filteredValue = call_user_func($escapeFilter->getCallable(), $environment, $filteredValue);
             }
 

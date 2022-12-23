@@ -40,12 +40,13 @@ class Domain
     #[ORM\Column(name: 'domain_default', type: 'smallint', nullable: false)]
     private int $default = 0;
 
+
     public function __toString(): string
     {
         return $this->host;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

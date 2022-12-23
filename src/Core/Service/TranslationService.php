@@ -10,15 +10,24 @@ use Symfony\Component\Translation\MessageCatalogueInterface;
 
 class TranslationService
 {
+    protected array $config;
+    protected EntityManagerInterface $em;
+    protected TranslatorInterface $translator;
+    protected ContextService $contextService;
     protected ?array $translations = null;
+    protected array $sources;
 
     public function __construct(
-        protected array $config,
-        protected TranslatorInterface $translator,
-        protected EntityManagerInterface $em,
-        protected ContextService $contextService,
-        protected array $sources = []
+        array $config,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em,
+        ContextService $contextService
     ) {
+        $this->config = $config;
+        $this->em = $em;
+        $this->translator = $translator;
+        $this->contextService = $contextService;
+        $this->sources = [];
     }
 
     public function fillCatalogue(MessageCatalogueInterface $catalogue): void
@@ -30,9 +39,9 @@ class TranslationService
 
         if ($this->translations === null) {
             $sql = 'SELECT node_name, node_type, node_source, attrib_name, value_translation '
-                . 'FROM ws_translation_node JOIN ws_translation_attribute ON (node_id = attrib_node) '
-                . '  LEFT JOIN ws_translation_value ON (attrib_id = value_attribute AND (value_domain = :domain OR value_domain IS NULL)) '
-                . 'ORDER BY node_name, attrib_name';
+                 . 'FROM ws_translation_node JOIN ws_translation_attribute ON (node_id = attrib_node) '
+                 . '  LEFT JOIN ws_translation_value ON (attrib_id = value_attribute AND (value_domain = :domain OR value_domain IS NULL)) '
+                 . 'ORDER BY node_name, attrib_name';
 
             $conn = $this->em->getConnection();
             $stmt = $conn->prepare($sql);
@@ -41,7 +50,6 @@ class TranslationService
             ]);
 
             $this->translations = [];
-            /** @var array */
             $result = $result->fetchAllAssociative();
             foreach ($result as $row) {
                 $sourcePrefix = !empty($row['node_source']) ? ($row['node_source'] . '.') : '';
@@ -72,9 +80,9 @@ class TranslationService
         $translations = [];
 
         $sql = 'SELECT node_name, node_type, node_source, attrib_id, attrib_name, value_translation '
-            . 'FROM ws_translation_node JOIN ws_translation_attribute ON (node_id = attrib_node) '
-            . '  LEFT JOIN ws_translation_value ON (attrib_id = value_attribute AND (value_domain = :domain OR value_domain IS NULL)) '
-            . 'ORDER BY node_id, attrib_id';
+             . 'FROM ws_translation_node JOIN ws_translation_attribute ON (node_id = attrib_node) '
+             . '  LEFT JOIN ws_translation_value ON (attrib_id = value_attribute AND (value_domain = :domain OR value_domain IS NULL)) '
+             . 'ORDER BY node_id, attrib_id';
 
 
         $conn = $this->em->getConnection();
@@ -126,7 +134,7 @@ class TranslationService
                 if (empty($value) && $translationValue instanceof TranslationValue) {
                     $this->em->remove($translationValue);
 
-                    // If Value is not empty, create or update the translation
+                // If Value is not empty, create or update the translation
                 } elseif (!empty($value)) {
                     if (!$translationValue instanceof TranslationValue) {
                         $translationValue = new TranslationValue();
