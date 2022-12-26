@@ -28,7 +28,7 @@ abstract class AbstractService implements DBLoggerInterface
     /** @return class-string<object> */
     abstract public function getEntityClass(): string;
 
-    abstract public function getFormClass(): ?string;
+    abstract public function getFormClass(): string;
 
     abstract public function getSortFields(): array;
 

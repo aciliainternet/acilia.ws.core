@@ -330,6 +330,7 @@ class ImageService
     protected function executeRenderMethod(RenditionDefinition $definition, Image $image, array $options = null): Image
     {
         if (isset($this->renderMethods[$definition->getMethod()])) {
+            /** @var Image */
             return call_user_func_array($this->renderMethods[$definition->getMethod()], [$definition, $image, $options]);
         }
 

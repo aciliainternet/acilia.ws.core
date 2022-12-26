@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use WS\Core\Library\DataExport\DataExportInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Library\DataExport\Provider\CsvExportProvider;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -82,8 +83,12 @@ abstract class AbstractController extends BaseController
         return [];
     }
 
-    public function trans(string $id, array $parameters = array(), ?string $domain = null, ?string $locale = null): string
-    {
+    public function trans(
+        string $id,
+        array $parameters = array(),
+        ?string $domain = null,
+        ?string $locale = null
+    ): string {
         return $this->translator->trans($id, $parameters, $domain, $locale);
     }
 
@@ -118,12 +123,20 @@ abstract class AbstractController extends BaseController
 
         if ($classPath[0] === 'WS') {
             $controllerName = strtolower(str_replace('Controller', '', $classPath[4]));
-            $routePrefix = sprintf('@%s%s/%s/%s', $classPath[0], $classPath[1], strtolower($classPath[3]), $controllerName);
+            $routePrefix = sprintf(
+                '@%s%s/%s/%s',
+                $classPath[0],
+                $classPath[1],
+                strtolower($classPath[3]),
+                $controllerName
+            );
         }
 
         $templateFile = sprintf('%s/%s', $routePrefix, $template);
         if ($this->useCRUDTemplate($template)) {
-            if (!$this->container->get('twig')->getLoader()->exists($templateFile)) {
+            /** @var \Twig\Environment */
+            $twig = $this->container->get('twig');
+            if (!$twig->getLoader()->exists($templateFile)) {
                 $templateFile = sprintf('@WSCore/cms/crud/%s', $template);
             }
         }
@@ -144,25 +157,44 @@ abstract class AbstractController extends BaseController
         if ($this->getService()->getImageFields($entity)) {
             foreach ($this->getService()->getImageFields($entity) as $imageField) {
                 if (!empty($form->get($imageField)->get('asset')->getData())) {
+                    /** @var UploadedFile */
                     $imageFile = $form->get($imageField)->get('asset')->getData();
                     $options = [
                         'cropper' => $form->get($imageField)->get('cropper')->getData()
                     ];
 
-                    $assetImage = $this->imageService->handle($entity, $imageField, $imageFile, $options, $this->getService()->getImageEntityClass($entity));
+                    $assetImage = $this->imageService->handle(
+                        $entity,
+                        $imageField,
+                        $imageFile,
+                        $options,
+                        $this->getService()->getImageEntityClass($entity)
+                    );
                     if (isset($this->events[self::EVENT_IMAGE_HANDLE])) {
                         $this->events[self::EVENT_IMAGE_HANDLE]($entity, $imageField, $assetImage);
                     }
-                } elseif ($form->get($imageField)->has('asset_data') && is_numeric($form->get($imageField)->get('asset_data')->getData())) {
+                } elseif (
+                    $form->get($imageField)->has('asset_data') &&
+                    is_numeric($form->get($imageField)->get('asset_data')->getData())
+                ) {
                     $imageId = intval($form->get($imageField)->get('asset_data')->getData());
                     $options = [
                         'cropper' => $form->get($imageField)->get('cropper')->getData()
                     ];
-                    $assetImage = $this->imageService->copy($entity, $imageField, $imageId, $options, $this->getService()->getImageEntityClass($entity));
+                    $assetImage = $this->imageService->copy(
+                        $entity,
+                        $imageField,
+                        $imageId,
+                        $options,
+                        $this->getService()->getImageEntityClass($entity)
+                    );
                     if (isset($this->events[self::EVENT_IMAGE_HANDLE])) {
                         $this->events[self::EVENT_IMAGE_HANDLE]($entity, $imageField, $assetImage);
                     }
-                } elseif ($form->get($imageField)->has('asset_remove') && $form->get($imageField)->get('asset_remove')->getData() === 'remove') {
+                } elseif (
+                    $form->get($imageField)->has('asset_remove')
+                    && $form->get($imageField)->get('asset_remove')->getData() === 'remove'
+                ) {
                     $this->imageService->delete($entity, $imageField);
 
                     if (isset($this->events[self::EVENT_IMAGE_HANDLE])) {
@@ -179,10 +211,13 @@ abstract class AbstractController extends BaseController
     {
         foreach ($this->getService()->getFileFields($form, $entity) as $fileFieldName) {
             if (!empty($form->get($fileFieldName)->get('asset')->getData())) {
+                /** @var UploadedFile */
                 $fileField = $form->get($fileFieldName)->get('asset')->getData();
 
+                /** @var array */
+                $formFieldOptions = $form->get($fileFieldName)->getConfig()->getOptions();
                 $options = [
-                    'context' => $form->get($fileFieldName)->getConfig()->getOptions()['ws']['context'] ?? null
+                    'context' => $formFieldOptions['ws']['context'] ?? null
                 ];
 
                 $assetFile = $this->fileService->handle($fileField, $entity, $fileFieldName, $options);
@@ -246,18 +281,18 @@ abstract class AbstractController extends BaseController
     {
         $this->denyAccessUnlessAllowed('view');
 
-        $page = (int) $request->get('page', 1);
+        $page = intval($request->get('page', 1));
         if ($page < 1) {
             $page = 1;
         }
 
-        $limit = (int) $request->get('limit', $this->getLimit());
+        $limit = intval($request->get('limit', $this->getLimit()));
         if (!$limit) {
             $limit = $this->getLimit();
         }
 
         // Search simple
-        $search = (string) $request->get('f');
+        $search = strval($request->get('f'));
 
         // Filter extended
         $filterExtended = $this->getFilterExtendedForm();
@@ -267,6 +302,7 @@ abstract class AbstractController extends BaseController
         if ($filterExtended instanceof Form) {
             $filterExtended->handleRequest($request);
             if ($filterExtended->isSubmitted() && $filterExtended->isValid()) {
+                /** @var ?array */
                 $filterExtendedData = $filterExtended->getData();
             }
             $filterExtendedView = $filterExtended->createView();
@@ -276,7 +312,14 @@ abstract class AbstractController extends BaseController
         if (isset($this->events[self::EVENT_INDEX_FETCH_DATA])) {
             $data = $this->events[self::EVENT_INDEX_FETCH_DATA]();
         } else {
-            $data = $this->getService()->getAll($search, $filterExtendedData, $page, $limit, (string)$request->get('sort'), (string)$request->get('dir'));
+            $data = $this->getService()->getAll(
+                $search,
+                $filterExtendedData,
+                $page,
+                $limit,
+                strval($request->get('sort')),
+                strval($request->get('dir'))
+            );
         }
 
         // Calculate pagination
@@ -384,7 +427,9 @@ abstract class AbstractController extends BaseController
                         return $this->redirect($url);
                     }
 
-                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()]);
+                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', [
+                        'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
+                    ]);
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }
@@ -447,7 +492,9 @@ abstract class AbstractController extends BaseController
                         return $this->redirect($url);
                     }
 
-                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()]);
+                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', [
+                        'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
+                    ]);
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('edit_error', [], $this->getTranslatorPrefix()));
                 }
@@ -522,7 +569,7 @@ abstract class AbstractController extends BaseController
                 Response::HTTP_BAD_REQUEST
             );
         }
-
+        /** @var array */
         $params = json_decode((string) $request->getContent(), true);
         if (!isset($params['ids']) || empty($params['ids'])) {
             return $this->json(
@@ -555,7 +602,7 @@ abstract class AbstractController extends BaseController
         }
 
         // Search simple
-        $search = (string) $request->get('f');
+        $search = strval($request->get('f'));
 
         // Filter extended
         $filterExtended = $this->getFilterExtendedForm();
@@ -564,6 +611,7 @@ abstract class AbstractController extends BaseController
         if ($filterExtended instanceof Form) {
             $filterExtended->handleRequest($request);
             if ($filterExtended->isSubmitted() && $filterExtended->isValid()) {
+                /** @var ?array */
                 $filterExtendedData = $filterExtended->getData();
             }
         }
@@ -572,10 +620,15 @@ abstract class AbstractController extends BaseController
         if (isset($this->events[self::EVENT_EXPORT_FETCH_DATA])) {
             $data = $this->events[self::EVENT_EXPORT_FETCH_DATA]();
         } else {
-            $data = $service->getDataExport($search, $filterExtendedData, (string)$request->get('sort'), (string)$request->get('dir'));
+            $data = $service->getDataExport(
+                $search,
+                $filterExtendedData,
+                strval($request->get('sort')),
+                strval($request->get('dir'))
+            );
         }
 
-        $format = (string) strtolower($request->get('format', CsvExportProvider::EXPORT_FORMAT));
+        $format = strtolower(strval($request->get('format', CsvExportProvider::EXPORT_FORMAT)));
 
         $content = $this->dataExportService->export($data, $format);
         $headers = $this->dataExportService->headers($format);

@@ -15,6 +15,7 @@ use WS\Core\Entity\AssetFile;
 
 class AssetFileType extends AbstractType
 {
+    /** @param array<string, array<string, ?object>> $options */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['ws']['entity'] === null) {
@@ -50,6 +51,7 @@ class AssetFileType extends AbstractType
         $builder->add('asset_file', EntityType::class, $assetFileOptions);
     }
 
+    /** @param array<string, array<string, ?object>> $options */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [

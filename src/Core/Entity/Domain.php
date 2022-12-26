@@ -16,7 +16,7 @@ class Domain
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'domain_id', type: 'integer')]
-    protected ?int $id = null;
+    private ?int $id = null;
 
     #[ORM\Column(name: 'domain_host', type: 'string', length: 64, nullable: false)]
     private string $host;
@@ -46,7 +46,7 @@ class Domain
         return $this->host;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

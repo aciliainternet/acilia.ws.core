@@ -19,8 +19,6 @@ class AddCommand extends Command
 {
     public function __construct(protected DomainService $domainService)
     {
-        $this->domainService = $domainService;
-
         parent::__construct();
     }
 

@@ -22,6 +22,7 @@ use WS\Core\Library\Asset\ImageRenditionInterface;
 use Symfony\Bundle\MakerBundle\Maker\AbstractMaker;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
+use Symfony\Bundle\MakerBundle\Doctrine\EntityDetails;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Bundle\MakerBundle\Doctrine\DoctrineHelper;
 use WS\Site\Library\Metadata\MetadataProviderInterface;
@@ -30,11 +31,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class MakeCrud extends AbstractMaker
 {
-    private DoctrineHelper $doctrineHelper;
-
-    public function __construct(DoctrineHelper $doctrineHelper)
+    public function __construct(private DoctrineHelper $doctrineHelper)
     {
-        $this->doctrineHelper = $doctrineHelper;
     }
 
     public static function getCommandName(): string
@@ -51,9 +49,14 @@ class MakeCrud extends AbstractMaker
     {
         $command
             ->setDescription('Creates CRUD for Doctrine entity class')
-            ->addArgument('entity-class', InputArgument::REQUIRED,
-                sprintf('The class name of the entity to create CRUD (e.g. <fg=yellow>%s</>)',
-                    Str::asClassName(Str::getRandomTerm())))
+            ->addArgument(
+                'entity-class',
+                InputArgument::REQUIRED,
+                sprintf(
+                    'The class name of the entity to create CRUD (e.g. <fg=yellow>%s</>)',
+                    Str::asClassName(Str::getRandomTerm())
+                )
+            )
             ->addOption('interactive', 'i', InputOption::VALUE_NONE, 'Ask questions about generation of fields');
 
         $inputConfig->setArgumentAsNonInteractive('entity-class');
@@ -85,11 +88,14 @@ class MakeCrud extends AbstractMaker
         }
 
         $entityClassDetails = $generator->createClassNameDetails(
-            Validator::entityExists($input->getArgument('entity-class'),
-                $this->doctrineHelper->getEntitiesForAutocomplete()),
+            Validator::entityExists(
+                strval($input->getArgument('entity-class')),
+                $this->doctrineHelper->getEntitiesForAutocomplete()
+            ),
             'Entity\\'
         );
 
+        /** @var EntityDetails */
         $entityDoctrineDetails = $this->doctrineHelper->createDoctrineDetails($entityClassDetails->getFullName());
 
         $fieldTypeUseStatements = [];
@@ -169,7 +175,7 @@ class MakeCrud extends AbstractMaker
             $questionFilter = new ChoiceQuestion(
                 'Please select filterFields for repository (default all)',
                 $filterFields,
-                implode(',', range(0,(count($filterFields) - 1)))
+                implode(',', range(0, (count($filterFields) - 1)))
             );
             $questionFilter->setMultiselect(true);
 
@@ -226,15 +232,15 @@ class MakeCrud extends AbstractMaker
             $questionList = new ChoiceQuestion(
                 'Please select listFields for service (default all)',
                 $listFields,
-                implode(',', range(0,(count($listFields) - 1)))
+                implode(',', range(0, (count($listFields) - 1)))
             );
             $questionList->setMultiselect(true);
-            $listFields = $helper->ask($input, $io, $questionList);
+            $listFields = (array) $helper->ask($input, $io, $questionList);
 
             $questionSort = new ChoiceQuestion(
                 'Please select sortFields for service (default all)',
                 $listFields,
-                implode(',', range(0,(count($listFields) - 1)))
+                implode(',', range(0, (count($listFields) - 1)))
             );
             $questionSort->setMultiselect(true);
             $sortFields = $helper->ask($input, $io, $questionSort);
@@ -310,10 +316,15 @@ class MakeCrud extends AbstractMaker
         $entitySnakeCaseName = strtoupper($this->camelCaseToSnakeCase($entityClassDetails->getShortName()));
 
         $io->text([
-            sprintf('Next: Check your new CRUD by going to <fg=yellow>%s/</>',
-                Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())),
-            sprintf('Remember to add ROLE_%s_APP roles to <fg=yellow>%s/config/packages/security.yaml</>',
-                $entitySnakeCaseName, $generator->getRootDirectory())
+            sprintf(
+                'Next: Check your new CRUD by going to <fg=yellow>%s/</>',
+                Str::asRoutePath($controllerClassDetails->getRelativeNameWithoutSuffix())
+            ),
+            sprintf(
+                'Remember to add ROLE_%s_APP roles to <fg=yellow>%s/config/packages/security.yaml</>',
+                $entitySnakeCaseName,
+                $generator->getRootDirectory()
+            )
         ]);
 
         $io->listing([
@@ -326,17 +337,19 @@ class MakeCrud extends AbstractMaker
 
     private function camelCaseToSnakeCase(string $camelCase): string
     {
+        /** @var string */
+        $replace = preg_replace(
+            [
+                '#([A-Z][a-z]*)(\d+[A-Z][a-z]*\d+)#',
+                '#([A-Z]+\d*)([A-Z])#',
+                '#([a-z]+\d*)([A-Z])#',
+                '#([^_\d])([A-Z][a-z])#'
+            ],
+            '$1_$2',
+            $camelCase
+        );
         return strtolower(
-            preg_replace(
-                [
-                    '#([A-Z][a-z]*)(\d+[A-Z][a-z]*\d+)#',
-                    '#([A-Z]+\d*)([A-Z])#',
-                    '#([a-z]+\d*)([A-Z])#',
-                    '#([^_\d])([A-Z][a-z])#'
-                ],
-                '$1_$2',
-                $camelCase
-            )
+            $replace
         );
     }
 }

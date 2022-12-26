@@ -11,11 +11,9 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
     protected ?array $domains = null;
     protected ?array $aliases = null;
     protected ?array $aliasList = null;
-    protected DomainService $domainService;
 
-    public function __construct(DomainService $domainService)
+    public function __construct(protected DomainService $domainService)
     {
-        $this->domainService = $domainService;
     }
 
     protected function getDomains(): array

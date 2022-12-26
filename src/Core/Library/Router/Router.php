@@ -14,14 +14,12 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Router implements WarmableInterface, ServiceSubscriberInterface, RouterInterface
 {
-    private BaseRouter $router;
-    private string $defaultLocale;
     private RoutingLoader $loader;
 
-    public function __construct(BaseRouter $router, string $defaultLocale)
-    {
-        $this->defaultLocale = $defaultLocale;
-        $this->router = $router;
+    public function __construct(
+        private BaseRouter $router,
+        private string $defaultLocale
+    ) {
     }
 
     public function setLoader(RoutingLoader $loader): void
@@ -105,7 +103,7 @@ class Router implements WarmableInterface, ServiceSubscriberInterface, RouterInt
 
         $currentLocale = $this->getContext()->getParameter('_locale');
         if (null !== $currentLocale) {
-            return $currentLocale;
+            return strval($currentLocale);
         }
 
         return $this->defaultLocale;

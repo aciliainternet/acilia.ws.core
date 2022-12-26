@@ -29,10 +29,10 @@ class AssetImage
     private string $mimeType;
 
     #[ORM\Column(name: 'image_width', type: 'integer', nullable: true)]
-    private int $width;
+    private ?int $width;
 
     #[ORM\Column(name: 'image_height', type: 'integer', nullable: true)]
-    private int $height;
+    private ?int $height;
 
     #[ORM\Column(name: 'image_visible', type: 'boolean', nullable: false, options: ['default' => 1])]
     private bool $visible = true;
@@ -120,7 +120,7 @@ class AssetImage
         return $this->visible;
     }
 
-    public function setVisible(?bool $visible): self
+    public function setVisible(bool $visible): self
     {
         $this->visible = $visible;
 

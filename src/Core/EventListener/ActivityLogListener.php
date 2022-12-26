@@ -17,21 +17,12 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ActivityLogListener
 {
-    private LoggerInterface $logger;
-    private ContextService $contextService;
-    private ActivityLogService $activityLogService;
-    private TokenStorageInterface $tokenStorage;
-
     public function __construct(
-        LoggerInterface $logger,
-        ContextService $contextService,
-        ActivityLogService $activityLogService,
-        TokenStorageInterface $tokenStorage
+        private LoggerInterface $logger,
+        private ContextService $contextService,
+        private ActivityLogService $activityLogService,
+        private TokenStorageInterface $tokenStorage
     ) {
-        $this->logger = $logger;
-        $this->contextService = $contextService;
-        $this->activityLogService = $activityLogService;
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function preUpdate(PreUpdateEventArgs $args): void
@@ -43,7 +34,7 @@ class ActivityLogListener
         $entity = $args->getEntity();
         $entityName = get_class($entity);
 
-        if (! $this->activityLogService->isSupported($entityName)) {
+        if (!$this->activityLogService->isSupported($entityName)) {
             return;
         }
 
@@ -74,7 +65,7 @@ class ActivityLogListener
             // discard unneeded changed fields
             if ($entityService->getActivityLogFields() !== null) {
                 foreach ($changes as $field => $value) {
-                    if (! in_array($field, $entityService->getActivityLogFields())) {
+                    if (!in_array($field, $entityService->getActivityLogFields())) {
                         unset($changes[$field]);
                     }
                 }
@@ -104,7 +95,7 @@ class ActivityLogListener
         $entity = $args->getEntity();
         $entityName = get_class($entity);
 
-        if (! $this->activityLogService->isSupported($entityName)) {
+        if (!$this->activityLogService->isSupported($entityName)) {
             return;
         }
 
@@ -140,7 +131,7 @@ class ActivityLogListener
         $entity = $args->getEntity();
         $entityName = get_class($entity);
 
-        if (! $this->activityLogService->isSupported($entityName)) {
+        if (!$this->activityLogService->isSupported($entityName)) {
             return;
         }
 
@@ -178,7 +169,7 @@ class ActivityLogListener
         }
 
         $request = $event->getRequest();
-        if (strpos($request->attributes->get('_route'), 'ws_activity_log_index') === 0) {
+        if (strpos(strval($request->attributes->get('_route')), 'ws_activity_log_index') === 0) {
             throw new NotFoundHttpException();
         }
     }
@@ -195,7 +186,9 @@ class ActivityLogListener
     private function getDomainId(object $entity): ?int
     {
         if ($entity instanceof DomainDependantInterface) {
-            return $entity->getDomain()->getId();
+            if ($entity->getDomain() !== null) {
+                return $entity->getDomain()->getId();
+            }
         }
 
         if ($this->contextService->getDomain() instanceof Domain) {

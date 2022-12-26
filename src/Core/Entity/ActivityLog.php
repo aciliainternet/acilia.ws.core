@@ -17,7 +17,7 @@ class ActivityLog implements DomainDependantInterface
     #[ORM\Id]
     #[ORM\Column(type: 'integer', name: 'activity_log_id')]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    protected int $id;
+    private int $id;
 
     #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
     #[ORM\JoinColumn(name: 'activity_log_domain', referencedColumnName: 'domain_id', nullable: true)]
@@ -26,21 +26,21 @@ class ActivityLog implements DomainDependantInterface
     #[Assert\Length(max: 128)]
     #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 128, name: 'activity_log_model', nullable: false)]
-    protected string $model;
+    private string $model;
 
     #[Assert\NotBlank]
     #[ORM\Column(type: 'integer', name: 'activity_log_model_id', nullable: false)]
-    protected int $modelId;
+    private int $modelId;
 
     #[Assert\Length(max: 128)]
     #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 128, name: 'activity_log_action', nullable: false)]
-    protected string $action;
+    private string $action;
 
     #[ORM\Column(type: 'json', name: 'activity_log_changes', nullable: true)]
-    protected ?array $changes = null;
+    private array $changes;
 
-    protected ?array $parsedChanges = null;
+    private ?array $parsedChanges = null;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -123,12 +123,14 @@ class ActivityLog implements DomainDependantInterface
     {
         return $this->createdAt;
     }
+
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
+
     public function getCreatedBy(): ?string
     {
         return $this->createdBy;

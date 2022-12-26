@@ -12,13 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/activity-log', name: 'ws_activity_log_')]
 class ActivityLogController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-    protected ActivityLogService $service;
-
-    public function __construct(TranslatorInterface $translator, ActivityLogService $service)
-    {
-        $this->translator = $translator;
-        $this->service = $service;
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected ActivityLogService $service
+    ) {
     }
 
     #[Route(path: '/', name: 'index')]
@@ -28,12 +25,12 @@ class ActivityLogController extends AbstractController
             throw $this->createAccessDeniedException($this->translator->trans('not_allowed', [], 'ws_cms'));
         }
 
-        $page = (int) $request->get('page', 1);
+        $page = intval($request->get('page', 1));
         if ($page < 1) {
             $page = 1;
         }
 
-        $limit = (int) $request->get('limit', 20);
+        $limit = intval($request->get('limit', 20));
         if (!$limit) {
             $limit = 20;
         }
@@ -61,7 +58,7 @@ class ActivityLogController extends AbstractController
         $paginationData = [
             'currentPage' => $page,
             'url' => $request->get('_route'),
-            'nbPages' => ceil($data['total']/$limit),
+            'nbPages' => ceil($data['total'] / $limit),
             'currentCount' => count($data['data']),
             'totalCount' => $data['total'],
             'limit' => $limit

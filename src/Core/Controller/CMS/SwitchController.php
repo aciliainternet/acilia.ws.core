@@ -14,13 +14,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class SwitchController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-    protected DomainService $domainService;
-
-    public function __construct(TranslatorInterface $translator, DomainService $domainService)
-    {
-        $this->translator = $translator;
-        $this->domainService = $domainService;
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected DomainService $domainService
+    ) {
     }
 
     #[Route(path: '/switch-domain/{id}', name: 'ws_switch_domain', methods: ['GET'])]

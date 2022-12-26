@@ -13,13 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route(path: '/settings', name: 'ws_setting_')]
 class SettingController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-    protected SettingService $service;
-
-    public function __construct(TranslatorInterface $translator, SettingService $service)
-    {
-        $this->translator = $translator;
-        $this->service = $service;
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected SettingService $service
+    ) {
     }
 
     #[Route(path: '/{section}', name: 'index')]
@@ -63,13 +60,14 @@ class SettingController extends AbstractController
             throw $exception;
         }
 
+        /** @var array<string, string> */
         $options = json_decode((string) $request->getContent(), true);
         foreach ($options as $settingCode => $settingValue) {
             $this->service->save($section, $settingCode, $settingValue);
         }
 
         return $this->json(
-            ['msg'=> $this->translator->trans('save_success', [], 'ws_cms_setting')],
+            ['msg' => $this->translator->trans('save_success', [], 'ws_cms_setting')],
             Response::HTTP_OK
         );
     }

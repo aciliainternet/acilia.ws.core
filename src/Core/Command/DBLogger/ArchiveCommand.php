@@ -1,4 +1,5 @@
 <?php
+
 namespace WS\Core\Command\DBLogger;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,27 +19,24 @@ class ArchiveCommand extends Command
 
     public function __construct(private EntityManagerInterface $em)
     {
-        $this->em = $em;
-
         parent::__construct();
     }
 
     protected function configure(): void
     {
         $this->addOption(
-                'days',
-                'd',
-                InputOption::VALUE_REQUIRED,
-                sprintf('Number of days to preserve, default %s days', self::ARCHIVE_DAYS),
-                self::ARCHIVE_DAYS
-            )
+            'days',
+            'd',
+            InputOption::VALUE_REQUIRED,
+            sprintf('Number of days to preserve, default %s days', self::ARCHIVE_DAYS),
+            self::ARCHIVE_DAYS
+        )
             ->addOption(
                 'purge',
                 'p',
                 InputOption::VALUE_OPTIONAL,
                 'Number of days to preserve on the archive, purge older, default none'
-            )
-        ;
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -52,7 +50,11 @@ class ArchiveCommand extends Command
             }
 
             if ($days > $purge) {
-                throw new \Exception(sprintf('Purge days (%s) must be greater than Archive days (%s)', $purge, $days));
+                throw new \Exception(sprintf(
+                    'Purge days (%s) must be greater than Archive days (%s)',
+                    strval($purge),
+                    strval($days)
+                ));
             }
 
             // Calculate now

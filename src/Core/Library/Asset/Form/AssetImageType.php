@@ -32,6 +32,7 @@ class AssetImageType extends AbstractType
         $this->imageService = $imageService;
     }
 
+    /** @param array<string, array<string, ?object>> $options */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['ws']['entity'] === null) {
@@ -97,6 +98,7 @@ class AssetImageType extends AbstractType
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             $assetImage = $event->getForm()->get('asset_image');
+            /** @var array */
             $submittedData = $event->getData();
 
             if (!array_key_exists('asset_image', $submittedData) && $assetImage->getData() instanceof AssetImage) {
@@ -106,6 +108,7 @@ class AssetImageType extends AbstractType
         });
     }
 
+    /** @param array<string, array<string, ?object>> $options */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [

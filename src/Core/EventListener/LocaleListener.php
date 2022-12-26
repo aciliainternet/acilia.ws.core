@@ -10,11 +10,8 @@ class LocaleListener
 {
     public const SESSION_CMS_LOCALE = 'ws_cms_locale';
 
-    protected ContextService $contextService;
-
-    public function __construct(ContextService $contextService)
+    public function __construct(protected ContextService $contextService)
     {
-        $this->contextService = $contextService;
     }
 
     public function setupLocale(RequestEvent $event): void
@@ -23,11 +20,11 @@ class LocaleListener
             return;
         }
 
-        if (! $this->contextService->getDomain() instanceof Domain) {
+        if (!$this->contextService->getDomain() instanceof Domain) {
             return;
         }
 
-        if (! empty($this->contextService->getDomain()->getCulture())) {
+        if (!empty($this->contextService->getDomain()->getCulture())) {
             $locale =  sprintf(
                 '%s.UTF-8',
                 str_replace('-', '_', $this->contextService->getDomain()->getCulture())
@@ -38,7 +35,7 @@ class LocaleListener
             setlocale(LC_MONETARY, $locale);
         }
 
-        if (! empty($this->contextService->getDomain()->getTimezone())) {
+        if (!empty($this->contextService->getDomain()->getTimezone())) {
             date_default_timezone_set($this->contextService->getDomain()->getTimezone());
         }
 
@@ -47,8 +44,8 @@ class LocaleListener
             $session = $event->getRequest()->getSession();
 
             if ($session !== null && $session->has(self::SESSION_CMS_LOCALE)) {
-                $event->getRequest()->setLocale($session->get(self::SESSION_CMS_LOCALE));
-                $event->getRequest()->setDefaultLocale($session->get(self::SESSION_CMS_LOCALE));
+                $event->getRequest()->setLocale(strval($session->get(self::SESSION_CMS_LOCALE)));
+                $event->getRequest()->setDefaultLocale(strval($session->get(self::SESSION_CMS_LOCALE)));
             }
 
             return;

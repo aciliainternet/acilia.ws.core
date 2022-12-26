@@ -8,6 +8,7 @@ use WS\Core\Service\Entity\AssetImageService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -37,19 +38,19 @@ class AssetImageController extends AbstractController
     #[Security("is_granted('ROLE_CMS')", message: 'not_allowed')]
     public function list(Request $request): JsonResponse
     {
-        $filter = (string) $request->get('f');
+        $filter = strval($request->get('f'));
 
-        $page = (int) $request->get('page', 1);
+        $page = intval($request->get('page', 1));
         if ($page < 1) {
             $page = 1;
         }
 
-        $limit = (int) $request->get('limit', $this->getLimit());
+        $limit = intval($request->get('limit', $this->getLimit()));
         if (!$limit) {
             $limit = $this->getLimit();
         }
 
-        $data = $this->getService()->getAll($filter, $page, $limit, (string)$request->get('sort'), (string)$request->get('dir'));
+        $data = $this->getService()->getAll($filter, $page, $limit, strval($request->get('sort')), strval($request->get('dir')));
 
         $response = [];
         foreach ($data as $image) {
@@ -69,6 +70,7 @@ class AssetImageController extends AbstractController
     public function save(Request $request): JsonResponse
     {
         if ($request->files->has('asset')) {
+            /** @var UploadedFile */
             $imageFile = $request->files->get('asset');
 
             $assetImage = $this->imageService->handleStandalone($imageFile, ['cropper' => []]);
@@ -95,6 +97,7 @@ class AssetImageController extends AbstractController
         }
 
         try {
+            /** @var array */
             $params = json_decode(\strval($request->getContent()), true);
 
             $entity = $this->getService()->get($params['assetId']);

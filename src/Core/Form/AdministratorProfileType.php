@@ -17,16 +17,13 @@ use WS\Core\Entity\Administrator;
 
 class AdministratorProfileType extends AbstractType
 {
-    protected UserPasswordHasherInterface $passwordHashService;
-    protected TranslatorInterface $translator;
-
     /**
      * AdministratorProfileType constructor.
      */
-    public function __construct(UserPasswordHasherInterface $passwordHashService, TranslatorInterface $translator)
-    {
-        $this->passwordHashService = $passwordHashService;
-        $this->translator = $translator;
+    public function __construct(
+        protected UserPasswordHasherInterface $passwordHashService,
+        protected TranslatorInterface $translator
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -66,16 +63,16 @@ class AdministratorProfileType extends AbstractType
 
                 ],
                 'mapped' => false,
-            ])
-        ;
+            ]);
 
         $builder->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) {
+                /** @var Administrator */
                 $administrator = $event->getForm()->getData();
 
-                $currentPassword = $event->getForm()->get('password')->getData();
-                $newPassword = $event->getForm()->get('newPassword')->getData();
+                $currentPassword = strval($event->getForm()->get('password')->getData());
+                $newPassword = strval($event->getForm()->get('newPassword')->getData());
                 if (!empty($newPassword)) {
                     if (!$this->passwordHashService->isPasswordValid($administrator, $currentPassword)) {
                         $event->getForm()->addError(new FormError(
@@ -91,7 +88,7 @@ class AdministratorProfileType extends AbstractType
                         return;
                     }
 
-                    $newPassword = $this->passwordHashService->hashPassword($administrator, $newPassword);
+                    $newPassword = $this->passwordHashService->hashPassword($administrator, strval($newPassword));
                     $administrator->setPassword($newPassword);
                 }
             }

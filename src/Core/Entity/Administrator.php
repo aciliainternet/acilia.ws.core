@@ -23,49 +23,49 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'administrator_id', type: 'integer', nullable: false)]
-    protected int $id;
+    private int $id;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 128)]
     #[ORM\Column(name: 'administrator_name', type: 'string', length: 128, nullable: false)]
-    protected string $name;
+    private string $name;
 
     #[ORM\Column(name: 'administrator_salt', type: 'string', length: 32, nullable: false)]
-    protected string $salt;
+    private string $salt;
 
     #[ORM\Column(name: 'administrator_password', type: 'string', length: 128, nullable: false)]
-    protected string $password;
+    private string $password;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 127)]
     #[Assert\Email]
     #[ORM\Column(name: 'administrator_email', type: 'string', length: 127, unique: true, nullable: false)]
-    protected string $email;
+    private string $email;
 
     #[ORM\Column(name: 'administrator_active', type: 'boolean', nullable: false)]
-    protected ?bool $active = false;
+    private ?bool $active = false;
 
     #[ORM\Column(name: 'administrator_profile', type: 'string', length: 32, nullable: false)]
-    protected string $profile;
+    private string $profile;
 
     /**
      * @Gedmo\Timestampable(on="create")
      */
     #[ORM\Column(name: 'administrator_created_at', type: 'datetime', nullable: false)]
-    protected \DateTimeInterface $createdAt;
+    private \DateTimeInterface $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
      */
     #[ORM\Column(name: 'administrator_modified_at', type: 'datetime', nullable: false)]
-    protected \DateTimeInterface $modifiedAt;
+    private \DateTimeInterface $modifiedAt;
 
     /**
      * @Gedmo\Blameable(on="create")
      */
     #[Assert\Length(max: 128)]
     #[ORM\Column(name: 'administrator_created_by', type: 'string', length: 128, nullable: true)]
-    protected ?string $createdBy = null;
+    private ?string $createdBy = null;
 
     public function __construct()
     {
@@ -173,24 +173,24 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->active;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTimeInterface
+    public function getModifiedAt(): \DateTimeInterface
     {
         return $this->modifiedAt;
     }
 
-    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
 

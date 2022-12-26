@@ -12,11 +12,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(protected TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     #[Route(path: '/login', name: 'ws_cms_login')]
@@ -39,8 +36,8 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('@WSCore/cms/security/login.html.twig', [
-          'last_username' => $lastUsername,
-          'error' => $error,
+            'last_username' => $lastUsername,
+            'error' => $error,
         ]);
     }
 }

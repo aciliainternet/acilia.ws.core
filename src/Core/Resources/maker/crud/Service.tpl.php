@@ -25,7 +25,7 @@ class <?= $class_name ?> extends AbstractService<?php if (!empty($interface_fiel
         return <?= $entity_class_name ?>::class;
     }
 
-    public function getFormClass(): ?string
+    public function getFormClass(): string
     {
         return <?= $entity_type_name ?>::class;
     }

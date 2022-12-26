@@ -22,9 +22,6 @@ class AddDefaultCommand extends Command
         protected AdministratorService $administratorService,
         protected UserPasswordHasherInterface $passwordHasherService
     ) {
-        $this->administratorService = $administratorService;
-        $this->passwordHasherService = $passwordHasherService;
-
         parent::__construct();
     }
 

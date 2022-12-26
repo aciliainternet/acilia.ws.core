@@ -21,20 +21,14 @@ use Symfony\Component\Console\Command\Command;
 )]
 class CollectCommand extends Command
 {
-    private ParameterBagInterface $parameterBag;
-    private EntityManagerInterface $em;
-    private TranslationService $translationService;
     private EntityRepository $nodesRepository;
     private EntityRepository $attributesRepository;
 
     public function __construct(
-        ParameterBagInterface $parameterBag,
-        EntityManagerInterface $em,
-        TranslationService $translationService
+        private ParameterBagInterface $parameterBag,
+        private EntityManagerInterface $em,
+        private TranslationService $translationService
     ) {
-        $this->parameterBag = $parameterBag;
-        $this->em = $em;
-        $this->translationService = $translationService;
         $this->nodesRepository = $this->em->getRepository(TranslationNode::class);
         $this->attributesRepository = $this->em->getRepository(TranslationAttribute::class);
 
@@ -81,7 +75,7 @@ class CollectCommand extends Command
 
                 unset($matches);
 
-                $translationKeys = array_keys(Yaml::parse($file->getContents()));
+                $translationKeys = array_keys((array) Yaml::parse($file->getContents()));
                 foreach ($translationKeys as $key) {
                     if (!in_array($key, $candidateTranslations[$type])) {
                         $candidateTranslations[$type][] = $key;

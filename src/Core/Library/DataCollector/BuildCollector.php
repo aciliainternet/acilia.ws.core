@@ -11,14 +11,12 @@ use WS\Core\Service\ContextService;
 
 class BuildCollector extends DataCollector
 {
-    protected ParameterBagInterface $parameterBag;
-    protected ContextService $contextService;
     protected array $components = [];
 
-    public function __construct(ParameterBagInterface $parameterBag, ContextService $contextService)
-    {
-        $this->parameterBag = $parameterBag;
-        $this->contextService = $contextService;
+    public function __construct(
+        protected ParameterBagInterface $parameterBag,
+        protected ContextService $contextService
+    ) {
     }
 
     public function addComponent(object $component): void

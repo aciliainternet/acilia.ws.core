@@ -10,18 +10,11 @@ use Twig\Loader\FilesystemLoader;
 
 class TemplateListener
 {
-    protected Environment $twigEnvironment;
-    protected ParameterBagInterface $parameterBagInterface;
-    protected ContextService $contextService;
-
     public function __construct(
-        Environment $twigEnvironment,
-        ParameterBagInterface $parameterBagInterface,
-        ContextService $contextService
+        protected Environment $twigEnvironment,
+        protected ParameterBagInterface $parameterBagInterface,
+        protected ContextService $contextService
     ) {
-        $this->twigEnvironment = $twigEnvironment;
-        $this->parameterBagInterface = $parameterBagInterface;
-        $this->contextService = $contextService;
     }
 
     protected function getTwigLoader(): FilesystemLoader

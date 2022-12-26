@@ -72,6 +72,7 @@ class LayoutExtension extends AbstractExtension
 
     public function sidebarGetAsset(string $key): ?string
     {
+        /** @var ?string */
         return $this->sidebarService->assets->get($key);
     }
 
@@ -88,13 +89,13 @@ class LayoutExtension extends AbstractExtension
     ): string {
         if ($this->requestStack->getMainRequest() instanceof Request) {
             foreach ($routePrefix as $route) {
-                if (strpos($this->requestStack->getMainRequest()->get('_route'), $route) === 0) {
+                if (strpos(strval($this->requestStack->getMainRequest()->get('_route')), $route) === 0) {
                     if ($condition === false) {
                         return '';
                     }
 
                     if ($routeParameters) {
-                        $routeParams = $this->requestStack->getMainRequest()->get('_route_params');
+                        $routeParams = (array) $this->requestStack->getMainRequest()->get('_route_params');
 
                         foreach ($routeParameters as $k => $v) {
                             if (!isset($routeParams[$k]) || $routeParams[$k] != $v) {

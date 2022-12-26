@@ -33,6 +33,7 @@ class AdministratorController extends AbstractController
     #[Security("is_granted('ROLE_CMS')", message: 'not_allowed')]
     public function profile(Request $request): Response
     {
+        /** @var object */
         $administrator = $this->getUser();
 
         $form = $this->createForm(

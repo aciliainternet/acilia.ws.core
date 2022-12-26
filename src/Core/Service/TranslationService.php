@@ -53,7 +53,7 @@ class TranslationService
             $result = $result->fetchAllAssociative();
             foreach ($result as $row) {
                 $sourcePrefix = !empty($row['node_source']) ? ($row['node_source'] . '.') : '';
-                $id = sprintf('%s%s.%s', $sourcePrefix, $row['node_name'], $row['attrib_name']);
+                $id = sprintf('%s%s.%s', $sourcePrefix, strval($row['node_name']), strval($row['attrib_name']));
 
                 $this->translations[] = [
                     'id' => $id,

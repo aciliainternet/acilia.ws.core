@@ -40,7 +40,7 @@ class TranslationValue
 
     #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
     #[ORM\JoinColumn(name: 'value_domain', referencedColumnName: 'domain_id', nullable: false)]
-    protected Domain $domain;
+    private Domain $domain;
 
     public function getId(): ?int
     {

@@ -15,11 +15,8 @@ class DateTimePickerType extends AbstractType
         'data-default-hour' => '0'
     ];
 
-    protected TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(protected TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -16,18 +16,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 #[Security("is_granted('ROLE_WS_CORE_TRANSLATION')", message: 'not_allowed')]
 class TranslationController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-    protected ContextService $contextService;
-    protected TranslationService $translationService;
-
     public function __construct(
-        TranslatorInterface $translator,
-        ContextService $contextService,
-        TranslationService $translationService
+        protected TranslatorInterface $translator,
+        protected ContextService $contextService,
+        protected TranslationService $translationService
     ) {
-        $this->translator = $translator;
-        $this->translationService = $translationService;
-        $this->contextService = $contextService;
     }
 
     #[Route(path: '/', name: 'index')]
@@ -50,20 +43,20 @@ class TranslationController extends AbstractController
                 Response::HTTP_BAD_REQUEST
             );
         }
-
+        /** @var array */
         $translations = json_decode((string) $request->getContent(), true);
 
         try {
             $this->translationService->updateTranslations($translations);
             return $this->json(
-                ['msg'=> $this->translator->trans('save_success', [], 'ws_cms_translation')],
+                ['msg' => $this->translator->trans('save_success', [], 'ws_cms_translation')],
                 Response::HTTP_OK
             );
         } catch (\Exception $e) {
         }
 
         return $this->json(
-            ['msg'=> $this->translator->trans('save_error', [], 'ws_cms_translation')],
+            ['msg' => $this->translator->trans('save_error', [], 'ws_cms_translation')],
             Response::HTTP_BAD_REQUEST
         );
     }

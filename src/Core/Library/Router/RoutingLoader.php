@@ -42,8 +42,9 @@ class RoutingLoader extends Loader
         $routes = new RouteCollection();
 
         $type = 'annotation';
-        $resource = sprintf('%s/%s', $this->projectDir, $resource);
+        $resource = sprintf('%s/%s', $this->projectDir, strval($resource));
 
+        /** @var array */
         $importedRoutes = $this->import($resource, $type);
         foreach ($importedRoutes as $name => $route) {
             $routeOptions = $route->getOptions();

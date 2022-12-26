@@ -9,8 +9,12 @@ class NavbarDefinition
     protected ?array $route;
     protected array $options;
 
-    public function __construct(string $code, string $label, array $route = null, array $options = [])
-    {
+    public function __construct(
+        string $code,
+        string $label,
+        array $route = null,
+        array $options = []
+    ) {
         $this->code = $code;
         $this->label = $label;
         $this->route = $route;
