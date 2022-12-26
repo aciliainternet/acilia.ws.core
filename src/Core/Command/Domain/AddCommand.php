@@ -3,13 +3,13 @@
 namespace WS\Core\Command\Domain;
 
 use Symfony\Component\Console\Attribute\AsCommand;
-use WS\Core\Entity\Domain;
-use WS\Core\Service\DomainService;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use WS\Core\Entity\Domain;
+use WS\Core\Service\DomainService;
 
 #[AsCommand(
     name: 'ws:domain:add',

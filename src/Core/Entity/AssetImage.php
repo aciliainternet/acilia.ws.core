@@ -2,11 +2,11 @@
 
 namespace WS\Core\Entity;
 
-use WS\Core\Library\Traits\Entity\BlameableTrait;
-use WS\Core\Library\Traits\Entity\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use WS\Core\Library\Traits\Entity\BlameableTrait;
+use WS\Core\Library\Traits\Entity\TimestampableTrait;
 
 #[ORM\Entity(repositoryClass: 'WS\Core\Repository\AssetImageRepository')]
 #[ORM\Table(name: 'ws_asset_image')]

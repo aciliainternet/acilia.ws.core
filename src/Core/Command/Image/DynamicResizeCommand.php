@@ -3,11 +3,11 @@
 namespace WS\Core\Command\Image;
 
 use Symfony\Component\Console\Attribute\AsCommand;
-use WS\Core\Service\ImageService;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use WS\Core\Service\ImageService;
 
 #[AsCommand(
     name: 'ws:image:dynamic-resize',

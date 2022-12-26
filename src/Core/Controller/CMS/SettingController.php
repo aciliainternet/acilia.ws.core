@@ -2,13 +2,13 @@
 
 namespace WS\Core\Controller\CMS;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use WS\Core\Service\SettingService;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Service\SettingService;
 
 #[Route(path: '/settings', name: 'ws_setting_')]
 class SettingController extends AbstractController

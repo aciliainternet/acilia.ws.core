@@ -25,9 +25,9 @@ class AssetImageRepository extends AbstractRepository
 
     public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
-         if (isset($filter['visible'])) {
+        if (isset($filter['visible'])) {
             $qb
-                ->andWhere($qb->getRootAliases()[0]. '.visible = :visible')
+                ->andWhere($qb->getRootAliases()[0] . '.visible = :visible')
                 ->setParameter('visible', $filter['visible']);
         }
     }

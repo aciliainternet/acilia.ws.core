@@ -2,14 +2,14 @@
 
 namespace WS\Core\Controller\CMS;
 
-use WS\Core\Form\AdministratorProfileType;
-use WS\Core\Library\CRUD\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use WS\Core\Service\Entity\AdministratorService;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use WS\Core\Form\AdministratorProfileType;
+use WS\Core\Library\CRUD\AbstractController;
+use WS\Core\Service\Entity\AdministratorService;
 
 #[Route(path: '/administrator', name: 'ws_administrator_')]
 class AdministratorController extends AbstractController
@@ -72,7 +72,7 @@ class AdministratorController extends AbstractController
 
         $this->addEvent(
             self::EVENT_EDIT_CREATE_FORM,
-            fn() => $this->createForm(
+            fn () => $this->createForm(
                 $this->getService()->getFormClass(),
                 $entity,
                 [

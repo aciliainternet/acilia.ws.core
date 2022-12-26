@@ -2,16 +2,16 @@
 
 namespace WS\Core\Library\Navbar;
 
-use WS\Core\Service\NavbarService;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use WS\Core\Service\NavbarService;
 
 class NavbarCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG = 'ws.navbar_definition';
+    public const TAG = 'ws.navbar_definition';
 
     public function process(ContainerBuilder $container): void
     {

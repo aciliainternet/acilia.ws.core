@@ -2,15 +2,15 @@
 
 namespace WS\Core\Controller\CMS;
 
-use WS\Core\Service\ImageService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use WS\Core\Service\Entity\AssetImageService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use WS\Core\Service\Entity\AssetImageService;
+use WS\Core\Service\ImageService;
 
 #[Route(path: '/asset-image', name: 'ws_asset_image_')]
 class AssetImageController extends AbstractController
@@ -112,7 +112,8 @@ class AssetImageController extends AbstractController
 
             return $this->json(
                 ['msg' => 'Delete success'],
-                JsonResponse::HTTP_OK);
+                JsonResponse::HTTP_OK
+            );
         } catch (\Exception $e) {
             return $this->json([
                 'msg' => 'Asset Image deletion failed'

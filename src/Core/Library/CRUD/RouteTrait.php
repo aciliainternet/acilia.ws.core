@@ -4,7 +4,7 @@ namespace WS\Core\Library\CRUD;
 
 trait RouteTrait
 {
-    protected function getRouteNamePrefix() : string
+    protected function getRouteNamePrefix(): string
     {
         $controllerClass = get_class($this);
         $classPath = explode('\\', $controllerClass);

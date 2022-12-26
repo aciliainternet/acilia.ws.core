@@ -2,13 +2,13 @@
 
 namespace WS\Core\Service\Entity;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetImage;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
 use WS\Core\Repository\AssetImageRepository;
 use WS\Core\Service\ContextService;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 
 class AssetImageService implements FactoryCollectorInterface
 {

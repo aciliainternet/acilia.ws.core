@@ -3,8 +3,8 @@
 namespace WS\Core\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Library\Domain\DomainDependantTrait;
 

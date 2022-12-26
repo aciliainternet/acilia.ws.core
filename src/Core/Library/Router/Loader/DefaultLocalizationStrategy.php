@@ -2,9 +2,9 @@
 
 namespace WS\Core\Library\Router\Loader;
 
-use WS\Core\Service\DomainService;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
+use WS\Core\Service\DomainService;
 
 class DefaultLocalizationStrategy implements LocalizationStrategyInterface
 {

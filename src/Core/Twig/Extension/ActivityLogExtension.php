@@ -2,11 +2,11 @@
 
 namespace WS\Core\Twig\Extension;
 
-use WS\Core\Service\ActivityLogService;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 use Twig\TwigTest;
+use WS\Core\Service\ActivityLogService;
 
 class ActivityLogExtension extends AbstractExtension
 {
@@ -48,7 +48,7 @@ class ActivityLogExtension extends AbstractExtension
     {
         $classPath = explode('\\', $modelName);
 
-        return $classPath[count($classPath) -1];
+        return $classPath[count($classPath) - 1];
     }
 
     public function printActionClass(string $action): string

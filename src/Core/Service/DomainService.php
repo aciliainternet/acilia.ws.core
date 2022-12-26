@@ -2,9 +2,9 @@
 
 namespace WS\Core\Service;
 
-use WS\Core\Entity\Domain;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use WS\Core\Entity\Domain;
 use WS\Core\Repository\DomainRepository;
 
 class DomainService

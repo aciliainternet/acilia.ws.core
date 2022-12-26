@@ -2,8 +2,8 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetFile;
 use WS\Core\Service\Entity\AssetFileService;
 
@@ -98,7 +98,8 @@ class FileService
 
     protected function getFilePath(AssetFile $assetFile): string
     {
-        return sprintf('files/%d/%d/%s',
+        return sprintf(
+            'files/%d/%d/%s',
             floor($assetFile->getId() / 1000),
             $assetFile->getId(),
             $assetFile->getFilename()

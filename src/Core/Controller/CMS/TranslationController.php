@@ -2,15 +2,14 @@
 
 namespace WS\Core\Controller\CMS;
 
-use WS\Core\Service\ContextService;
-use WS\Core\Service\TranslationService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;    
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use WS\Core\Service\ContextService;
+use WS\Core\Service\TranslationService;
 
 #[Route(path: '/translation', name: 'ws_translation_')]
 #[IsGranted('ROLE_WS_CORE_TRANSLATION', message: 'not_allowed')]

@@ -3,27 +3,27 @@
 namespace WS\Core\Library\Asset\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Exception\InvalidConfigurationException;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use WS\Core\Entity\AssetImage;
 use WS\Core\Service\ImageService;
 
 class AssetImageType extends AbstractType
 {
-    const ASSET_IMAGE_DISPLAY_MODE_LIST = 'list';
-    const ASSET_IMAGE_DISPLAY_MODE_CROP = 'crop';
+    public const ASSET_IMAGE_DISPLAY_MODE_LIST = 'list';
+    public const ASSET_IMAGE_DISPLAY_MODE_CROP = 'crop';
 
-    const ASSET_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-    const ASSET_IMAGE_MAX_SIZE = '25M';
+    public const ASSET_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    public const ASSET_IMAGE_MAX_SIZE = '25M';
 
     protected ImageService $imageService;
 

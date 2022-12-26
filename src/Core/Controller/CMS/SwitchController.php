@@ -2,15 +2,15 @@
 
 namespace WS\Core\Controller\CMS;
 
-use WS\Core\Entity\Domain;
-use WS\Core\Service\DomainService;
-use WS\Core\Service\ContextService;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Entity\Domain;
+use WS\Core\Service\ContextService;
+use WS\Core\Service\DomainService;
 
 class SwitchController extends AbstractController
 {

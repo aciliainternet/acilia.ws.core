@@ -2,17 +2,17 @@
 
 namespace WS\Core\Library\Asset;
 
-use WS\Core\Service\ImageService;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use WS\Core\Service\ImageService;
 
 class ImageCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG_RENDITIONS = 'ws.image_renditions';
-    const TAG_CONSUMER = 'ws.image_consumer';
+    public const TAG_RENDITIONS = 'ws.image_renditions';
+    public const TAG_CONSUMER = 'ws.image_consumer';
 
     public function process(ContainerBuilder $container): void
     {

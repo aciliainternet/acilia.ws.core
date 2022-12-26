@@ -2,12 +2,12 @@
 
 namespace WS\Core\Controller\CMS;
 
-use Symfony\Contracts\Translation\TranslatorInterface;
-use WS\Core\Service\Entity\ActivityLogService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Service\Entity\ActivityLogService;
 
 #[Route(path: '/activity-log', name: 'ws_activity_log_')]
 class ActivityLogController extends AbstractController

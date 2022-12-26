@@ -2,38 +2,38 @@
 
 namespace WS\Core\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use WS\Core\Entity\Administrator;
-use WS\Core\Library\Asset\ImageConsumerInterface;
-use WS\Core\Library\DataExport\DataExportCompilerPass;
-use WS\Core\Library\DataExport\DataExportProviderInterface;
-use WS\Core\Library\CRUD\AbstractController;
-use WS\Core\Library\CRUD\CRUDCompilerPass;
-use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
-use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
-use WS\Core\Library\Navbar\NavbarCompilerPass;
-use WS\Core\Library\Navbar\NavbarDefinitionInterface;
-use WS\Core\Service\ActivityLogService;
 use WS\Core\Library\ActivityLog\ActivityLogCompilerPass;
 use WS\Core\Library\ActivityLog\ActivityLogInterface;
 use WS\Core\Library\Alert\AlertCompilerPass;
 use WS\Core\Library\Alert\AlertGathererInterface;
 use WS\Core\Library\Asset\ImageCompilerPass;
+use WS\Core\Library\Asset\ImageConsumerInterface;
+use WS\Core\Library\Asset\ImageRenditionInterface;
+use WS\Core\Library\CRUD\AbstractController;
+use WS\Core\Library\CRUD\CRUDCompilerPass;
 use WS\Core\Library\CRUD\RoleCalculatorTrait;
 use WS\Core\Library\CRUD\RoleLoaderTrait;
 use WS\Core\Library\Dashboard\DashboardWidgetCompilerPass;
+use WS\Core\Library\Dashboard\DashboardWidgetInterface;
+use WS\Core\Library\DataExport\DataExportCompilerPass;
+use WS\Core\Library\DataExport\DataExportProviderInterface;
+use WS\Core\Library\DBLogger\DBLoggerInterface;
+use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
+use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
+use WS\Core\Library\Navbar\NavbarCompilerPass;
+use WS\Core\Library\Navbar\NavbarDefinitionInterface;
 use WS\Core\Library\Setting\SettingCompilerPass;
+use WS\Core\Library\Setting\SettingDefinitionInterface;
 use WS\Core\Library\Sidebar\SidebarCompilerPass;
 use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
 use WS\Core\Library\Traits\DependencyInjection\AddRolesTrait;
-use WS\Core\Library\Asset\ImageRenditionInterface;
-use WS\Core\Library\Dashboard\DashboardWidgetInterface;
-use WS\Core\Library\DBLogger\DBLoggerInterface;
-use WS\Core\Library\Setting\SettingDefinitionInterface;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use WS\Core\Service\ActivityLogService;
 use WS\Core\Service\TranslationService;
 
 class WSCoreExtension extends Extension implements PrependExtensionInterface

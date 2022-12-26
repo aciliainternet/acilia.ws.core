@@ -17,7 +17,7 @@ class Group
         $this->options = array_merge([
             'description' => '',
             'translation_domain' => 'ws_cms_setting',
-            'order'  => 0
+            'order' => 0
         ], $options);
     }
 

@@ -3,10 +3,10 @@
 namespace WS\Core\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Translation\MessageCatalogueInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Entity\TranslationAttribute;
 use WS\Core\Entity\TranslationValue;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Translation\MessageCatalogueInterface;
 
 class TranslationService
 {
@@ -125,7 +125,6 @@ class TranslationService
         $repositoryValues = $this->em->getRepository(TranslationValue::class);
 
         foreach ($translations as $attributeId => $value) {
-
             $translationAttribute = $repositoryAttributes->find($attributeId);
             if ($translationAttribute instanceof TranslationAttribute) {
                 $translationValue = $repositoryValues->findOneBy(['domain' => $this->contextService->getDomain(), 'attribute' => $attributeId]);

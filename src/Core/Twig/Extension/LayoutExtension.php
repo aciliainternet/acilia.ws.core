@@ -7,10 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
-use WS\Core\Service\SidebarService;
-use WS\Core\Service\NavbarService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use WS\Core\Service\NavbarService;
+use WS\Core\Service\SidebarService;
 
 class LayoutExtension extends AbstractExtension
 {

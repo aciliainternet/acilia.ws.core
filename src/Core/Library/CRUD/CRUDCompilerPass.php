@@ -2,20 +2,20 @@
 
 namespace WS\Core\Library\CRUD;
 
-use WS\Core\Service\FileService;
-use WS\Core\Service\ImageService;
-use WS\Core\Service\DataExportService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Service\DataExportService;
+use WS\Core\Service\FileService;
+use WS\Core\Service\ImageService;
 
 class CRUDCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG = 'ws.crud_controller';
+    public const TAG = 'ws.crud_controller';
 
     public function process(ContainerBuilder $container): void
     {

@@ -8,9 +8,9 @@ use WS\Core\Entity\Setting;
 use WS\Core\Library\Alert\AlertGathererInterface;
 use WS\Core\Library\Alert\AlertMessage;
 use WS\Core\Library\Alert\GatherAlertsEvent;
-use WS\Core\Library\Setting\SettingDefinitionInterface;
 use WS\Core\Library\Setting\Definition\Section as SectionDefinition;
 use WS\Core\Library\Setting\Definition\Setting as SettingDefinition;
+use WS\Core\Library\Setting\SettingDefinitionInterface;
 
 class SettingService implements AlertGathererInterface
 {

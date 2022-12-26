@@ -2,11 +2,11 @@
 
 namespace WS\Core\EventListener;
 
-use WS\Core\Service\ContextService;
-use WS\Core\Service\TranslationService;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\Translation\DataCollectorTranslator;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Service\ContextService;
+use WS\Core\Service\TranslationService;
 
 class TranslationListener
 {

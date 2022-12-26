@@ -37,7 +37,7 @@ class FactoryCollectorService
         foreach ($collection as $className => $data) {
             $toCollect = [];
             foreach ($data as $objectId) {
-                if (! isset($this->objects[$className][$objectId])) {
+                if (!isset($this->objects[$className][$objectId])) {
                     $toCollect[] = $objectId;
                 } else {
                     $objects[$className][$objectId] = $this->objects[$className][$objectId];

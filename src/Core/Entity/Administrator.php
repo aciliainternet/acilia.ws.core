@@ -2,15 +2,15 @@
 
 namespace WS\Core\Entity;
 
-use WS\Core\Library\Traits\Entity\BlameableTrait;
-use WS\Core\Library\Traits\Entity\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use WS\Core\Library\Traits\Entity\BlameableTrait;
+use WS\Core\Library\Traits\Entity\TimestampableTrait;
 
 #[ORM\Entity(repositoryClass: 'WS\Core\Repository\AdministratorRepository')]
 #[UniqueEntity(fields: ['email'], message: 'ws.administrator.email_already_exists')]

@@ -2,9 +2,9 @@
 
 namespace WS\Core\EventListener;
 
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use WS\Core\Entity\Domain;
 use WS\Core\Service\ContextService;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class LocaleListener
 {
@@ -25,7 +25,7 @@ class LocaleListener
         }
 
         if (!empty($this->contextService->getDomain()->getCulture())) {
-            $locale =  sprintf(
+            $locale = sprintf(
                 '%s.UTF-8',
                 str_replace('-', '_', $this->contextService->getDomain()->getCulture())
             );

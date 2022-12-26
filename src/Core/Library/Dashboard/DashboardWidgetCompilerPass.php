@@ -2,14 +2,14 @@
 
 namespace WS\Core\Library\Dashboard;
 
-use WS\Core\Service\DashboardService;
-use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
+use WS\Core\Service\DashboardService;
 
 class DashboardWidgetCompilerPass implements CompilerPassInterface
 {
-    const TAG = 'ws.dashboard_widget';
+    public const TAG = 'ws.dashboard_widget';
 
     public function process(ContainerBuilder $container): void
     {

@@ -3,9 +3,9 @@
 namespace WS\Core\Library\DataCollector;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use WS\Core\Entity\Domain;
 use WS\Core\Service\ContextService;
 

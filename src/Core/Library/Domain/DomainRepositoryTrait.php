@@ -4,7 +4,6 @@ namespace WS\Core\Library\Domain;
 
 use Doctrine\ORM\QueryBuilder;
 use WS\Core\Entity\Domain;
-use WS\Core\Library\Domain\DomainDependantInterface;
 
 trait DomainRepositoryTrait
 {

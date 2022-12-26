@@ -2,6 +2,8 @@
 
 namespace WS\Core;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 use WS\Core\Library\ActivityLog\ActivityLogCompilerPass;
 use WS\Core\Library\Alert\AlertCompilerPass;
 use WS\Core\Library\Asset\ImageCompilerPass;
@@ -13,8 +15,6 @@ use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\Navbar\NavbarCompilerPass;
 use WS\Core\Library\Setting\SettingCompilerPass;
 use WS\Core\Library\Sidebar\SidebarCompilerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class WSCoreBundle extends Bundle
 {

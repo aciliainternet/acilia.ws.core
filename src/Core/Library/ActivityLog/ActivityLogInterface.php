@@ -4,9 +4,9 @@ namespace WS\Core\Library\ActivityLog;
 
 interface ActivityLogInterface
 {
-    const UPDATE = 'update';
-    const CREATE = 'create';
-    const DELETE = 'delete';
+    public const UPDATE = 'update';
+    public const CREATE = 'create';
+    public const DELETE = 'delete';
 
     public function getActivityLogSupported(): string;
 

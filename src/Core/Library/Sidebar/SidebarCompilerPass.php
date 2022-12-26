@@ -2,16 +2,16 @@
 
 namespace WS\Core\Library\Sidebar;
 
-use WS\Core\Service\SidebarService;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use WS\Core\Service\SidebarService;
 
 class SidebarCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG = 'ws.sidebar_definition';
+    public const TAG = 'ws.sidebar_definition';
 
     public function process(ContainerBuilder $container): void
     {

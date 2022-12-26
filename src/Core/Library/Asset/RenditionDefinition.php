@@ -4,8 +4,8 @@ namespace WS\Core\Library\Asset;
 
 class RenditionDefinition
 {
-    const METHOD_THUMB = 'thumb';
-    const METHOD_CROP = 'crop';
+    public const METHOD_THUMB = 'thumb';
+    public const METHOD_CROP = 'crop';
 
     protected string $class;
     protected string $field;

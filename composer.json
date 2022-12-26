@@ -30,7 +30,6 @@
         "symfony/validator": "6.2.*",
         "symfony/web-link": "6.2.*",
         "symfony/yaml": "6.2.*",
-        "symfony/maker-bundle": "^1.15",
         "stof/doctrine-extensions-bundle": "^1.7",
         "intervention/image": "^2.5",
         "erusev/parsedown": "^1.7"

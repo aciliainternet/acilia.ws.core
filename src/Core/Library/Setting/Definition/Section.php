@@ -18,8 +18,8 @@ class Section
             'description' => '',
             'translation_domain' => 'ws_cms_setting',
             'icon' => 'fa-cog',
-            'role'  => 'ROLE_WS_SITE',
-            'order'  => 0
+            'role' => 'ROLE_WS_SITE',
+            'order' => 0
         ], $options);
     }
 

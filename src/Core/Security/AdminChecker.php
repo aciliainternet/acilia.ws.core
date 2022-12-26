@@ -2,11 +2,11 @@
 
 namespace WS\Core\Security;
 
-use WS\Core\Entity\Administrator;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Entity\Administrator;
 
 class AdminChecker implements UserCheckerInterface
 {

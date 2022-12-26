@@ -2,11 +2,11 @@
 
 namespace WS\Core\EventListener;
 
-use WS\Core\Service\ContextService;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use WS\Core\Service\ContextService;
 
 class TemplateListener
 {

@@ -2,9 +2,9 @@
 
 namespace WS\Core\Library\DataCollector;
 
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 class DataCollectorCompilerPass implements CompilerPassInterface
 {

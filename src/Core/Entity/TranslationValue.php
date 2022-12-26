@@ -2,9 +2,9 @@
 
 namespace WS\Core\Entity;
 
-use WS\Core\Library\Traits\Entity\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use WS\Core\Library\Traits\Entity\TimestampableTrait;
 
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]

@@ -2,10 +2,10 @@
 
 namespace WS\Core\Twig\Extension;
 
-use WS\Core\Service\Entity\AdministratorService;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use WS\Core\Service\Entity\AdministratorService;
 
 class AdministratorExtension extends AbstractExtension
 {

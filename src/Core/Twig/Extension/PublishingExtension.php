@@ -3,8 +3,8 @@
 namespace WS\Core\Twig\Extension;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use WS\Core\Library\Publishing\PublishingEntityInterface;
 
 class PublishingExtension extends AbstractExtension

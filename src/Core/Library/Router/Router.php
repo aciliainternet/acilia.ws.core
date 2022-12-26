@@ -2,6 +2,8 @@
 
 namespace WS\Core\Library\Router;
 
+use Symfony\Bundle\FrameworkBundle\Routing\Router as BaseRouter;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -9,8 +11,6 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
-use Symfony\Bundle\FrameworkBundle\Routing\Router as BaseRouter;
-use Symfony\Component\Config\Loader\LoaderInterface;
 
 class Router implements WarmableInterface, ServiceSubscriberInterface, RouterInterface
 {

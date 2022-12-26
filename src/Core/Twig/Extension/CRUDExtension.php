@@ -2,15 +2,15 @@
 
 namespace WS\Core\Twig\Extension;
 
-use Twig\TwigFilter;
-use Twig\Environment;
-use Twig\TwigFunction;
-use WS\Core\Library\Router\Router;
-use Twig\Extension\AbstractExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
+use WS\Core\Library\Router\Router;
 
 class CRUDExtension extends AbstractExtension
 {
@@ -59,7 +59,7 @@ class CRUDExtension extends AbstractExtension
         /** @var TwigFilter */
         $twigFilter = $environment->getFilter($filter);
         if ($twigFilter instanceof TwigFilter) {
-            if(\is_callable($twigFilter->getCallable())){
+            if (\is_callable($twigFilter->getCallable())) {
                 /** @var ?string */
                 $filteredValue = call_user_func_array($twigFilter->getCallable(), [$value, $options]);
     
@@ -67,7 +67,7 @@ class CRUDExtension extends AbstractExtension
                 if (!is_array($safeContext) || !in_array('html', $safeContext)) {
                     /** @var TwigFilter */
                     $escapeFilter = $environment->getFilter('escape');
-                    if(\is_callable($escapeFilter->getCallable())){
+                    if (\is_callable($escapeFilter->getCallable())) {
                         /** @var ?string */
                         $filteredValue = call_user_func($escapeFilter->getCallable(), $environment, $filteredValue);
                     }

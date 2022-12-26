@@ -2,18 +2,18 @@
 
 namespace WS\Core\EventListener;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use WS\Core\Entity\Domain;
 use WS\Core\Library\ActivityLog\ActivityLogInterface;
 use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Service\ActivityLogService;
 use WS\Core\Service\ContextService;
-use Psr\Log\LoggerInterface;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ActivityLogListener
 {

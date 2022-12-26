@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\UniqueConstraint(columns: ['domain_host', 'domain_locale'])]
 class Domain
 {
-    const CANONICAL = 'canonical';
-    const ALIAS = 'alias';
-    const REDIRECT = 'redirect';
+    public const CANONICAL = 'canonical';
+    public const ALIAS = 'alias';
+    public const REDIRECT = 'redirect';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

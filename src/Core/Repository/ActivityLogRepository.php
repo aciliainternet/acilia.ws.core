@@ -2,13 +2,12 @@
 
 namespace WS\Core\Repository;
 
-use WS\Core\Entity\Domain;
-use Doctrine\ORM\QueryBuilder;
-use WS\Core\Entity\ActivityLog;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use WS\Core\Entity\ActivityLog;
+use WS\Core\Entity\Domain;
 
 /**
  * @method ActivityLog|null find($id, $lockMode = null, $lockVersion = null)

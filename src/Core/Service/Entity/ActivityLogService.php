@@ -62,7 +62,6 @@ class ActivityLogService
             // array value types
             if (\is_array($value[0]) && \is_array($value[1])) {
                 foreach ([...array_keys($value[0]), ...array_keys($value[1])] as $subKey) {
-
                     if (!$this->isFieldValid($subKey)) {
                         continue;
                     }

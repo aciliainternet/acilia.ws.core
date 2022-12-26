@@ -2,39 +2,39 @@
 
 namespace WS\Core\Library\CRUD;
 
-use Symfony\Component\Form\Form;
-use WS\Core\Service\FileService;
-use WS\Core\Service\ImageService;
-use Symfony\Component\Form\FormError;
-use WS\Core\Service\DataExportService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseController;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use WS\Core\Library\DataExport\DataExportInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use WS\Core\Library\DataExport\Provider\CsvExportProvider;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseController;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Library\DataExport\DataExportInterface;
+use WS\Core\Library\DataExport\Provider\CsvExportProvider;
+use WS\Core\Service\DataExportService;
+use WS\Core\Service\FileService;
+use WS\Core\Service\ImageService;
 
 abstract class AbstractController extends BaseController
 {
-    const EVENT_INDEX_FETCH_DATA = 'index.fetch_data';
-    const EVENT_INDEX_EXTRA_DATA = 'index.extra_data';
-    const EVENT_CREATE_NEW_ENTITY = 'create.new_entity';
-    const EVENT_CREATE_CREATE_FORM = 'create.create_form';
-    const EVENT_CREATE_EXTRA_DATA = 'create.extra_data';
-    const EVENT_EDIT_CREATE_FORM = 'edit.create_form';
-    const EVENT_EDIT_EXTRA_DATA = 'edit.extra_data';
-    const EVENT_EXPORT_FETCH_DATA = 'export.fetch.data';
-    const EVENT_IMAGE_HANDLE = 'image_handle';
-    const EVENT_FILE_HANDLE = 'file_handle';
+    public const EVENT_INDEX_FETCH_DATA = 'index.fetch_data';
+    public const EVENT_INDEX_EXTRA_DATA = 'index.extra_data';
+    public const EVENT_CREATE_NEW_ENTITY = 'create.new_entity';
+    public const EVENT_CREATE_CREATE_FORM = 'create.create_form';
+    public const EVENT_CREATE_EXTRA_DATA = 'create.extra_data';
+    public const EVENT_EDIT_CREATE_FORM = 'edit.create_form';
+    public const EVENT_EDIT_EXTRA_DATA = 'edit.extra_data';
+    public const EVENT_EXPORT_FETCH_DATA = 'export.fetch.data';
+    public const EVENT_IMAGE_HANDLE = 'image_handle';
+    public const EVENT_FILE_HANDLE = 'file_handle';
 
-    const DELETE_BATCH_ACTION = 'delete.batch_action';
+    public const DELETE_BATCH_ACTION = 'delete.batch_action';
 
     use RoleCalculatorTrait;
     use TranslatorTrait;
@@ -85,7 +85,7 @@ abstract class AbstractController extends BaseController
 
     public function trans(
         string $id,
-        array $parameters = array(),
+        array $parameters = [],
         ?string $domain = null,
         ?string $locale = null
     ): string {
