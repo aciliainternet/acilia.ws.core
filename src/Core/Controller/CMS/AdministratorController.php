@@ -3,12 +3,12 @@
 namespace WS\Core\Controller\CMS;
 
 use WS\Core\Form\AdministratorProfileType;
-use WS\Core\Service\Entity\AdministratorService;
 use WS\Core\Library\CRUD\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use WS\Core\Service\Entity\AdministratorService;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Route(path: '/administrator', name: 'ws_administrator_')]
@@ -30,7 +30,7 @@ class AdministratorController extends AbstractController
     }
 
     #[Route(path: '/profile', name: 'profile')]
-    #[Security("is_granted('ROLE_CMS')", message: 'not_allowed')]
+    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function profile(Request $request): Response
     {
         /** @var object */

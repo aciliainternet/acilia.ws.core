@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route(path: '/asset-image', name: 'ws_asset_image_')]
@@ -35,7 +35,7 @@ class AssetImageController extends AbstractController
     }
 
     #[Route(path: '/list', name: 'images')]
-    #[Security("is_granted('ROLE_CMS')", message: 'not_allowed')]
+    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function list(Request $request): JsonResponse
     {
         $filter = strval($request->get('f'));

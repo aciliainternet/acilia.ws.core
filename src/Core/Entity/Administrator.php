@@ -23,7 +23,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'administrator_id', type: 'integer', nullable: false)]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 128)]

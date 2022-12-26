@@ -3,14 +3,13 @@
 namespace WS\Core\Controller\CMS;
 
 use WS\Core\Entity\Domain;
-use WS\Core\Service\ContextService;
 use WS\Core\Service\DomainService;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use WS\Core\Service\ContextService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SwitchController extends AbstractController
 {
@@ -21,7 +20,7 @@ class SwitchController extends AbstractController
     }
 
     #[Route(path: '/switch-domain/{id}', name: 'ws_switch_domain', methods: ['GET'])]
-    #[Security("is_granted('ROLE_CMS')", message: 'not_allowed')]
+    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function switch(Request $request, string $id): Response
     {
         $domain = $this->domainService->get(intval($id));

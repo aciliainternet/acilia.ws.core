@@ -17,7 +17,7 @@ class ActivityLog implements DomainDependantInterface
     #[ORM\Id]
     #[ORM\Column(type: 'integer', name: 'activity_log_id')]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
     #[ORM\JoinColumn(name: 'activity_log_domain', referencedColumnName: 'domain_id', nullable: true)]
@@ -55,7 +55,7 @@ class ActivityLog implements DomainDependantInterface
     #[ORM\Column(name: 'activity_log_created_by', type: 'string', length: 128, nullable: true)]
     private ?string $createdBy = null;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
