@@ -86,7 +86,7 @@ class AssetImageController extends AbstractController
     }
 
     #[Route(path: '/soft-delete', name: 'soft_delete', methods: 'POST')]
-    #[Security("is_granted('ROLE_CMS')", message: 'not_allowed')]
+    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function delete(Request $request): JsonResponse
     {
         if (!$request->isXmlHttpRequest()) {
