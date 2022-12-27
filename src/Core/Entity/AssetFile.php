@@ -18,7 +18,7 @@ class AssetFile
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'file_id', type: 'integer')]
-    private ?int $id = null;
+    private ?int $id;
 
     #[Assert\Length(max: 128)]
     #[Assert\NotBlank]

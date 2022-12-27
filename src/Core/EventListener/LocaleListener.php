@@ -10,7 +10,7 @@ class LocaleListener
 {
     public const SESSION_CMS_LOCALE = 'ws_cms_locale';
 
-    public function __construct(protected ContextService $contextService)
+    public function __construct(private ContextService $contextService)
     {
     }
 

@@ -7,7 +7,7 @@ use WS\Core\Service\ContextService;
 
 class ResponseListener
 {
-    public function __construct(protected ContextService $contextService)
+    public function __construct(private ContextService $contextService)
     {
     }
 

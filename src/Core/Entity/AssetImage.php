@@ -18,7 +18,7 @@ class AssetImage
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'image_id', type: 'integer')]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\Column(name: 'image_filename', type: 'string', length: 128, nullable: false)]
     private string $filename;

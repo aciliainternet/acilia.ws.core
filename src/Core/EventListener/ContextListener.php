@@ -12,9 +12,9 @@ use WS\Core\Service\SettingService;
 class ContextListener
 {
     public function __construct(
-        protected ContextService $contextService,
-        protected DomainService $domainService,
-        protected SettingService $settingService
+        private ContextService $contextService,
+        private DomainService $domainService,
+        private SettingService $settingService
     ) {
     }
 

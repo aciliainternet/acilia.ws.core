@@ -17,7 +17,7 @@ class ActivityLog implements DomainDependantInterface
     #[ORM\Id]
     #[ORM\Column(type: 'integer', name: 'activity_log_id')]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
     #[ORM\JoinColumn(name: 'activity_log_domain', referencedColumnName: 'domain_id', nullable: true)]

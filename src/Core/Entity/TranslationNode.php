@@ -12,7 +12,7 @@ class TranslationNode
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'node_id', type: 'integer')]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\Column(name: 'node_name', type: 'string', length: 32, nullable: false)]
     private string $name;

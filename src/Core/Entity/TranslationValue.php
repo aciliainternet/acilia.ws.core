@@ -17,7 +17,7 @@ class TranslationValue
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'value_id', type: 'integer')]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\TranslationAttribute')]
     #[ORM\JoinColumn(name: 'value_attribute', referencedColumnName: 'attrib_id', nullable: false)]

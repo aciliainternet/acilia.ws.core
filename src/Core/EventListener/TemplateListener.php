@@ -11,9 +11,9 @@ use WS\Core\Service\ContextService;
 class TemplateListener
 {
     public function __construct(
-        protected Environment $twigEnvironment,
-        protected ParameterBagInterface $parameterBagInterface,
-        protected ContextService $contextService
+        private Environment $twigEnvironment,
+        private ParameterBagInterface $parameterBagInterface,
+        private ContextService $contextService
     ) {
     }
 

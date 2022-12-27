@@ -6,8 +6,6 @@ class DataExport
 {
     public function __construct(protected array $headers, protected array $data)
     {
-        $this->headers = $headers;
-        $this->data = $data;
     }
 
     public function getHeaders(): array

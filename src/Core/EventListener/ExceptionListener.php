@@ -12,9 +12,9 @@ use WS\Core\Service\ContextService;
 class ExceptionListener
 {
     public function __construct(
-        protected ContextService $contextService,
-        protected Environment $twigEnvironment,
-        protected ParameterBagInterface $parameterBag
+        private ContextService $contextService,
+        private Environment $twigEnvironment,
+        private ParameterBagInterface $parameterBag
     ) {
     }
 

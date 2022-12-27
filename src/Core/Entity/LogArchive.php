@@ -11,7 +11,7 @@ class LogArchive
     #[ORM\Column(name: 'log_id', type: 'integer', nullable: false)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
-    private ?int $id = null;
+    private ?int $id;
 
     #[ORM\Column(name: 'log_channel', type: 'string', length: 255, nullable: true)]
     private string $channel;
