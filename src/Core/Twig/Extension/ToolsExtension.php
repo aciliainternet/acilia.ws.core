@@ -14,21 +14,12 @@ use WS\Core\Service\SettingService;
 
 class ToolsExtension extends AbstractExtension
 {
-    protected ContextService $contextService;
-    protected AlertService $alertService;
-    protected SettingService $settingService;
-    protected DashboardService $dashboardService;
-
     public function __construct(
-        ContextService $contextService,
-        AlertService $alertService,
-        SettingService $settingService,
-        DashboardService $dashboardService
+        protected ContextService $contextService,
+        protected AlertService $alertService,
+        protected SettingService $settingService,
+        protected DashboardService $dashboardService
     ) {
-        $this->contextService = $contextService;
-        $this->alertService = $alertService;
-        $this->settingService = $settingService;
-        $this->dashboardService = $dashboardService;
     }
 
     public function getFunctions(): array

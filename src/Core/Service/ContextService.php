@@ -11,15 +11,13 @@ class ContextService
     public const SYMFONY = 'symfony';
     public const SESSION_DOMAIN = 'ws_domain_id';
 
-    protected bool $debug;
-    protected DomainService $domainService;
     protected string $context = '';
     protected ?Domain $domain = null;
 
-    public function __construct(bool $debug, DomainService $domainService)
-    {
-        $this->debug = $debug;
-        $this->domainService = $domainService;
+    public function __construct(
+        protected bool $debug,
+        protected DomainService $domainService
+    ) {
     }
 
     public function setContext(string $context): self

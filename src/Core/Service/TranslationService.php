@@ -10,23 +10,15 @@ use WS\Core\Entity\TranslationValue;
 
 class TranslationService
 {
-    protected array $config;
-    protected EntityManagerInterface $em;
-    protected TranslatorInterface $translator;
-    protected ContextService $contextService;
     protected ?array $translations = null;
     protected array $sources;
 
     public function __construct(
-        array $config,
-        TranslatorInterface $translator,
-        EntityManagerInterface $em,
-        ContextService $contextService
+        protected array $config,
+        protected TranslatorInterface $translator,
+        protected EntityManagerInterface $em,
+        protected ContextService $contextService
     ) {
-        $this->config = $config;
-        $this->em = $em;
-        $this->translator = $translator;
-        $this->contextService = $contextService;
         $this->sources = [];
     }
 

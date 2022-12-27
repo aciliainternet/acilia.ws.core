@@ -4,15 +4,13 @@ namespace WS\Core\Library\Setting\Definition;
 
 class Group
 {
-    protected string $code;
-    protected string $name;
     protected array $settings;
-    protected array $options;
 
-    public function __construct(string $code, string $name, array $options = [])
-    {
-        $this->code = $code;
-        $this->name = $name;
+    public function __construct(
+        protected string $code,
+        protected string $name,
+        protected array $options = []
+    ) {
         $this->settings = [];
         $this->options = array_merge([
             'description' => '',

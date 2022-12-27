@@ -17,18 +17,12 @@ class SettingService implements AlertGathererInterface
     /** @var SectionDefinition[] */
     protected array $settings = [];
     protected ?array $settingValues = null;
-    protected TranslatorInterface $translator;
-    protected EntityManagerInterface $em;
-    protected ContextService $contextService;
 
     public function __construct(
-        TranslatorInterface $translator,
-        EntityManagerInterface $em,
-        ContextService $contextService
+        protected TranslatorInterface $translator,
+        protected EntityManagerInterface $em,
+        protected ContextService $contextService
     ) {
-        $this->translator = $translator;
-        $this->em = $em;
-        $this->contextService = $contextService;
     }
 
     public function registerSettingDefinition(SettingDefinitionInterface $service): void
@@ -176,8 +170,7 @@ class SettingService implements AlertGathererInterface
             $setting
                 ->setName($settingCode)
                 ->setValue($value)
-                ->setDomain($domain)
-            ;
+                ->setDomain($domain);
 
             $this->em->persist($setting);
         }

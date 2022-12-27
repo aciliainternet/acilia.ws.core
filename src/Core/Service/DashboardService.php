@@ -7,12 +7,10 @@ use WS\Core\Library\Dashboard\DashboardWidgetInterface;
 
 class DashboardService
 {
-    protected Environment $twig;
     protected array $widgets = [];
 
-    public function __construct(Environment $twig)
+    public function __construct(protected Environment $twig)
     {
-        $this->twig = $twig;
     }
 
     public function addWidget(DashboardWidgetInterface $widget): void

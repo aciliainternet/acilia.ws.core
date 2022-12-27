@@ -14,21 +14,15 @@ use WS\Core\Service\Entity\AssetImageService;
 
 class ImageService
 {
-    protected LoggerInterface $logger;
-    protected AssetImageService $assetImageService;
-    protected StorageService $storageService;
     protected ImageManager $imageManager;
     protected array $renditions;
     protected array $renderMethods = [];
 
     public function __construct(
-        LoggerInterface $logger,
-        AssetImageService $assetImageService,
-        StorageService $storageService
+        protected LoggerInterface $logger,
+        protected AssetImageService $assetImageService,
+        protected StorageService $storageService
     ) {
-        $this->logger = $logger;
-        $this->assetImageService = $assetImageService;
-        $this->storageService = $storageService;
         $this->imageManager = new ImageManager(['driver' => 'imagick']);
 
         $this->registerRenderMethod(RenditionDefinition::METHOD_CROP, \Closure::fromCallable([$this, 'renderMethodCrop']));

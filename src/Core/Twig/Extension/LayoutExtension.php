@@ -14,21 +14,12 @@ use WS\Core\Service\SidebarService;
 
 class LayoutExtension extends AbstractExtension
 {
-    private RequestStack $requestStack;
-    private SidebarService $sidebarService;
-    private NavbarService $navbarService;
-    private ?AuthorizationCheckerInterface $securityChecker;
-
     public function __construct(
-        RequestStack $requestStack,
-        SidebarService $sidebarService,
-        NavbarService $navbarService,
-        ?AuthorizationCheckerInterface $securityChecker = null
+        private RequestStack $requestStack,
+        private SidebarService $sidebarService,
+        private NavbarService $navbarService,
+        private ?AuthorizationCheckerInterface $securityChecker = null
     ) {
-        $this->requestStack = $requestStack;
-        $this->sidebarService = $sidebarService;
-        $this->navbarService = $navbarService;
-        $this->securityChecker = $securityChecker;
     }
 
     public function getFunctions(): array

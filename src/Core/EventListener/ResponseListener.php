@@ -7,11 +7,8 @@ use WS\Core\Service\ContextService;
 
 class ResponseListener
 {
-    protected ContextService $contextService;
-
-    public function __construct(ContextService $contextService)
+    public function __construct(protected ContextService $contextService)
     {
-        $this->contextService = $contextService;
     }
 
     public function onResponse(ResponseEvent $event): void

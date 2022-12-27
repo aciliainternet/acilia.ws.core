@@ -9,13 +9,10 @@ use WS\Core\Service\Entity\AdministratorService;
 
 class AdministratorExtension extends AbstractExtension
 {
-    protected AdministratorService $administratorService;
-    protected TranslatorInterface $translator;
-
-    public function __construct(AdministratorService $administratorService, TranslatorInterface $translator)
-    {
-        $this->administratorService = $administratorService;
-        $this->translator = $translator;
+    public function __construct(
+        protected AdministratorService $administratorService,
+        protected TranslatorInterface $translator
+    ) {
     }
 
     public function getFilters(): array

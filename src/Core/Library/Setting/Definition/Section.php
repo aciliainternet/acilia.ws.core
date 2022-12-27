@@ -4,13 +4,13 @@ namespace WS\Core\Library\Setting\Definition;
 
 class Section
 {
-    protected string $code;
-    protected string $name;
-    protected array $options;
     protected array $groups;
 
-    public function __construct(string $code, string $name, array $options = [])
-    {
+    public function __construct(
+        protected string $code,
+        protected string $name,
+        protected array $options = []
+    ) {
         $this->code = $code;
         $this->name = $name;
         $this->groups = [];

@@ -9,18 +9,11 @@ use WS\Core\Service\Entity\AssetFileService;
 
 class FileService
 {
-    protected LoggerInterface $logger;
-    protected AssetFileService $assetFileService;
-    protected StorageService $storageService;
-
     public function __construct(
-        LoggerInterface $logger,
-        AssetFileService $assetFileService,
-        StorageService $storageService
+        protected LoggerInterface $logger,
+        protected AssetFileService $assetFileService,
+        protected StorageService $storageService
     ) {
-        $this->logger = $logger;
-        $this->assetFileService = $assetFileService;
-        $this->storageService = $storageService;
     }
 
     public function handle(UploadedFile $fileFile, object $entity, string $fileField, ?array $options = null): AssetFile
@@ -58,7 +51,7 @@ class FileService
 
         return $assetFile;
     }
-    
+
     public function delete(object $entity, string $fileField): void
     {
         $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));

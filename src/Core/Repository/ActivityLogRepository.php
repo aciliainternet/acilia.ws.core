@@ -5,6 +5,7 @@ namespace WS\Core\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use WS\Core\Entity\ActivityLog;
 use WS\Core\Entity\Domain;
@@ -22,7 +23,7 @@ class ActivityLogRepository extends ServiceEntityRepository
         parent::__construct($registry, ActivityLog::class);
     }
 
-    protected function setFilters(array $filters, QueryBuilder &$qb): void
+    protected function setFilters(array $filters, QueryBuilder $qb): void
     {
         //Set filters
         if (isset($filters['model_id'])) {
@@ -57,7 +58,7 @@ class ActivityLogRepository extends ServiceEntityRepository
             $qb->setFirstResult($offset);
             $qb->setMaxResults($limit);
         }
-
+        /** @var array */
         return $qb->getQuery()->execute();
     }
 
@@ -72,6 +73,7 @@ class ActivityLogRepository extends ServiceEntityRepository
         $this->setFilters($filters, $qb);
 
         try {
+            /** @var int */
             return $qb->getQuery()->getSingleScalarResult();
         } catch (NonUniqueResultException $e) {
             return 0;

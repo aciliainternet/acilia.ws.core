@@ -7,18 +7,15 @@ class SidebarDefinition
     public const SIDEBAR_CONTAINER = true;
     public const SIDEBAR_CONTENT = false;
 
-    protected string $code;
     protected array $container;
-    protected string $label;
-    protected ?array $route;
-    protected array $options;
     protected array $children;
 
-    public function __construct(string $code, string $label, array $route = null, array $options = [])
-    {
-        $this->code = $code;
-        $this->label = $label;
-        $this->route = $route;
+    public function __construct(
+        protected string $code,
+        protected string $label,
+        protected ?array $route = null,
+        protected array $options = []
+    ) {
         $this->children = [];
 
         $this->options = array_merge([

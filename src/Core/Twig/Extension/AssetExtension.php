@@ -9,11 +9,8 @@ use WS\Core\Service\ImageService;
 
 class AssetExtension extends AbstractExtension
 {
-    protected ImageService $imageService;
-
-    public function __construct(ImageService $imageService)
+    public function __construct(protected ImageService $imageService)
     {
-        $this->imageService = $imageService;
     }
 
     public function getFunctions(): array

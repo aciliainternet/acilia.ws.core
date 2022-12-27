@@ -11,18 +11,11 @@ use WS\Core\Service\ContextService;
 
 class ExceptionListener
 {
-    protected ContextService $contextService;
-    protected Environment $twigEnvironment;
-    protected ParameterBagInterface $parameterBag;
-
     public function __construct(
-        ContextService $contextService,
-        Environment $twigEnvironment,
-        ParameterBagInterface $parameterBag
+        protected ContextService $contextService,
+        protected Environment $twigEnvironment,
+        protected ParameterBagInterface $parameterBag
     ) {
-        $this->contextService = $contextService;
-        $this->twigEnvironment = $twigEnvironment;
-        $this->parameterBag = $parameterBag;
     }
 
     public function onException(ExceptionEvent $event): void

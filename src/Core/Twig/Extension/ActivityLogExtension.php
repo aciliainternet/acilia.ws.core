@@ -10,11 +10,8 @@ use WS\Core\Service\ActivityLogService;
 
 class ActivityLogExtension extends AbstractExtension
 {
-    private ActivityLogService $activityLogService;
-
-    public function __construct(ActivityLogService $activityLogService)
+    public function __construct(private ActivityLogService $activityLogService)
     {
-        $this->activityLogService = $activityLogService;
     }
 
     public function getFunctions(): array

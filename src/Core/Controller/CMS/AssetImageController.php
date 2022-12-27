@@ -15,13 +15,10 @@ use WS\Core\Service\ImageService;
 #[Route(path: '/asset-image', name: 'ws_asset_image_')]
 class AssetImageController extends AbstractController
 {
-    protected AssetImageService $service;
-    protected ImageService $imageService;
-
-    public function __construct(AssetImageService $service, ImageService $imageService)
-    {
-        $this->service = $service;
-        $this->imageService = $imageService;
+    public function __construct(
+        protected AssetImageService $service,
+        protected ImageService $imageService
+    ) {
     }
 
     protected function getService(): AssetImageService
