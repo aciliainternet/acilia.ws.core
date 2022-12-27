@@ -11,6 +11,7 @@
   "dependencies": {
     "@fontsource/ibm-plex-sans": "4.5.0",
     "choices.js": "9.0.1",
+    "core-js": "3.6.5",
     "cropperjs": "1.5.6",
     "dotenv": "8.2.0",
     "easymde": "^2.18.0",
@@ -22,6 +23,13 @@
     "eslint-config-airbnb-base": "14.1.0",
     "eslint-plugin-import": "2.20.2",
     "flatpickr": "4.5.2",
-    "sass": "1.35.2"
+    "rangeslider-pure": "0.4.11",
+    "sass": "1.35.2",
+    "smoothscroll-polyfill": "0.4.4",
+    "sweetalert": "2.1.2",
+    "tippy.js": "6.2.3",
+    "toastr": "2.1.4",
+    "vanilla-lazyload": "15.1.1",
+    "vanilla-picker": "2.10.1"
   }
 }
