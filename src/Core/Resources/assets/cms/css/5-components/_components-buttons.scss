@@ -80,6 +80,7 @@
         border-color: $btn-disabled-border-color;
         background: $btn-disabled-background-color;
         color: $btn-disabled-color;
+        pointer-events: none;
 
         &:hover,
         &:focus {
