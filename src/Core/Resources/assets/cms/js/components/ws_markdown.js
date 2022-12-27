@@ -76,7 +76,7 @@ function init() {
     }
 
     markDowns.forEach((elm) => {
-      editors.push({key: element, instance: createMarkdown(elm, cmsTranslations, getConfig())});
+      editors.push({key: elm, instance: createMarkdown(elm, cmsTranslations, getConfig())});
     });
 
     initMarkdownImage();
