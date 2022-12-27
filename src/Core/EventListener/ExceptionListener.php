@@ -3,26 +3,19 @@
 namespace WS\Core\EventListener;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use WS\Core\Service\ContextService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Twig\Environment;
+use WS\Core\Service\ContextService;
 
 class ExceptionListener
 {
-    protected ContextService $contextService;
-    protected Environment $twigEnvironment;
-    protected ParameterBagInterface $parameterBag;
-
     public function __construct(
-        ContextService $contextService,
-        Environment $twigEnvironment,
-        ParameterBagInterface $parameterBag
+        protected ContextService $contextService,
+        protected Environment $twigEnvironment,
+        protected ParameterBagInterface $parameterBag
     ) {
-        $this->contextService = $contextService;
-        $this->twigEnvironment = $twigEnvironment;
-        $this->parameterBag = $parameterBag;
     }
 
     public function onException(ExceptionEvent $event): void
@@ -37,7 +30,7 @@ class ExceptionListener
 
         // get the exception object from the received event
         $exception = $event->getThrowable();
-        if (! $exception instanceof HttpExceptionInterface) {
+        if (!$exception instanceof HttpExceptionInterface) {
             return;
         }
 

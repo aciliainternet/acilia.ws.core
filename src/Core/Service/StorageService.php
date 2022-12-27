@@ -14,7 +14,7 @@ class StorageService
     protected StorageDriverInterface $driver;
     protected array $storage;
 
-    public function __construct(ParameterBagInterface $parameterBag)
+    public function __construct(protected ParameterBagInterface $parameterBag)
     {
         $this->storage = [
             self::CONTEXT_PRIVATE => sprintf('%s/storage', \strval($parameterBag->get('kernel.project_dir'))),

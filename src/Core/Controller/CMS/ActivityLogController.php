@@ -2,42 +2,35 @@
 
 namespace WS\Core\Controller\CMS;
 
-use Symfony\Contracts\Translation\TranslatorInterface;
-use WS\Core\Service\Entity\ActivityLogService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Service\Entity\ActivityLogService;
 
-/**
- * @Route("/activity-log", name="ws_activity_log_")
- */
+#[Route(path: '/activity-log', name: 'ws_activity_log_')]
 class ActivityLogController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-    protected ActivityLogService $service;
-
-    public function __construct(TranslatorInterface $translator, ActivityLogService $service)
-    {
-        $this->translator = $translator;
-        $this->service = $service;
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected ActivityLogService $service
+    ) {
     }
 
-    /**
-     * @Route("/", name="index")
-     */
+    #[Route(path: '/', name: 'index')]
     public function index(Request $request): Response
     {
         if (!$this->isGranted('ROLE_WS_CORE_ACTIVITY_LOG')) {
             throw $this->createAccessDeniedException($this->translator->trans('not_allowed', [], 'ws_cms'));
         }
 
-        $page = (int) $request->get('page', 1);
+        $page = intval($request->get('page', 1));
         if ($page < 1) {
             $page = 1;
         }
 
-        $limit = (int) $request->get('limit', 20);
+        $limit = intval($request->get('limit', 20));
         if (!$limit) {
             $limit = 20;
         }
@@ -65,7 +58,7 @@ class ActivityLogController extends AbstractController
         $paginationData = [
             'currentPage' => $page,
             'url' => $request->get('_route'),
-            'nbPages' => ceil($data['total']/$limit),
+            'nbPages' => ceil($data['total'] / $limit),
             'currentCount' => count($data['data']),
             'totalCount' => $data['total'],
             'limit' => $limit

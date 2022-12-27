@@ -2,28 +2,25 @@
 
 namespace WS\Core\Library\CRUD;
 
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use WS\Core\Entity\Domain;
 use WS\Core\Library\Domain\DomainRepositoryTrait;
 use WS\Core\Service\ContextService;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
     use DomainRepositoryTrait;
 
-    protected ContextService $contextService;
-
-    public function __construct(ContextService $contextService, ManagerRegistry $registry)
+    public function __construct(protected ContextService $contextService, ManagerRegistry $registry)
     {
-        $this->contextService = $contextService;
-
         parent::__construct($registry, $this->getEntityClass());
     }
 
+    /** @return class-string<object> */
     abstract public function getEntityClass(): string;
 
     public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
@@ -31,13 +28,13 @@ abstract class AbstractRepository extends ServiceEntityRepository
     }
 
     public function getAll(
-        Domain $domain,
+        ?Domain $domain,
         ?string $search,
         ?array $filter,
         ?array $filtetrFields,
-        array $orderBy = null,
-        int $limit = null,
-        int $offset = null
+        ?array $orderBy = null,
+        ?int $limit = null,
+        ?int $offset = null
     ): array {
         $qb = $this->getAllQueryBuilder();
         $alias = $qb->getRootAliases()[0];
@@ -58,7 +55,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $this->processFilterExtended($qb, $filter);
 
         $this->setDomainRestriction($alias, $qb, $domain);
-
+        /** @var array */
         return $qb->getQuery()->execute();
     }
 
@@ -72,11 +69,11 @@ abstract class AbstractRepository extends ServiceEntityRepository
         if (null !== $domain) {
             $this->setDomainRestriction($alias, $qb, $domain);
         }
-
+        /** @var array */
         return $qb->getQuery()->execute();
     }
 
-    public function getAllCount(Domain $domain, ?string $search, ?array $filter, ?array $filtetrFields): int
+    public function getAllCount(?Domain $domain, ?string $search, ?array $filter, ?array $filtetrFields): int
     {
         $qb = $this->getAllCountQueryBuilder();
         $alias = $qb->getRootAliases()[0];
@@ -90,6 +87,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $this->setDomainRestriction($alias, $qb, $domain);
 
         try {
+            /** @var int */
             return $qb->getQuery()->getSingleScalarResult();
         } catch (NonUniqueResultException $e) {
             return 0;
@@ -106,9 +104,12 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
         $filterConditions = [];
         $filterParameters = [];
-        foreach ($filtetrFields as $field) {
-            $filterConditions[] = sprintf('%s LIKE :%s_filter', sprintf('%s.%s', $alias, $field), $field);
-            $filterParameters[sprintf('%s_filter', $field)] = sprintf('%%%s%%', $search);
+
+        if ($filtetrFields !== null) {
+            foreach ($filtetrFields as $field) {
+                $filterConditions[] = sprintf('%s LIKE :%s_filter', sprintf('%s.%s', $alias, $field), $field);
+                $filterParameters[sprintf('%s_filter', $field)] = sprintf('%%%s%%', $search);
+            }
         }
 
         if (count($filterConditions) > 0) {

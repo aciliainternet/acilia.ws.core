@@ -2,33 +2,33 @@
 
 namespace WS\Core\Library\CRUD;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormInterface;
 use WS\Core\Library\Asset\Form\AssetFileType;
 use WS\Core\Library\Asset\ImageRenditionInterface;
-use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
+use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Service\ContextService;
-use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 
 abstract class AbstractService implements DBLoggerInterface
 {
-    protected LoggerInterface $logger;
-    protected EntityManagerInterface $em;
-    protected ContextService $contextService;
     protected AbstractRepository $repository;
 
-    public function __construct(LoggerInterface $logger, EntityManagerInterface $em, ContextService $contextService)
-    {
-        $this->logger = $logger;
-        $this->em = $em;
-        $this->contextService = $contextService;
-        $this->repository = $this->em->getRepository($this->getEntityClass());
+    public function __construct(
+        protected LoggerInterface $logger,
+        protected EntityManagerInterface $em,
+        protected ContextService $contextService
+    ) {
+        /** @var AbstractRepository */
+        $repository = $this->em->getRepository($this->getEntityClass());
+        $this->repository = $repository;
     }
 
+    /** @return class-string<object> */
     abstract public function getEntityClass(): string;
 
-    abstract public function getFormClass(): ?string;
+    abstract public function getFormClass(): string;
 
     abstract public function getSortFields(): array;
 

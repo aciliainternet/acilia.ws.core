@@ -2,26 +2,23 @@
 
 namespace WS\Core\Twig\Extension;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 use WS\Core\Library\Router\Router;
 
 class CRUDExtension extends AbstractExtension
 {
-    private RequestStack $requestStack;
-    private UrlGeneratorInterface $generator;
-    private TranslatorInterface $translator;
-
-    public function __construct(RequestStack $requestStack, UrlGeneratorInterface $generator, TranslatorInterface $translator)
-    {
-        $this->requestStack = $requestStack;
-        $this->generator = $generator;
-        $this->translator = $translator;
+    public function __construct(
+        private RequestStack $requestStack,
+        private UrlGeneratorInterface $generator,
+        private TranslatorInterface $translator
+    ) {
     }
 
     public function getFunctions(): array
@@ -35,11 +32,12 @@ class CRUDExtension extends AbstractExtension
 
     public function getPath(string $name, array $parameters = [], bool $relative = false): string
     {
+        /** @var Request */
         $request = $this->requestStack->getCurrentRequest();
 
         if ($this->generator instanceof Router) {
             $parameters = array_merge(
-                $this->generator->getContextParams($name, $request->attributes->get('_route_params')),
+                $this->generator->getContextParams($name, (array) $request->attributes->get('_route_params')),
                 $parameters
             );
         }
@@ -58,18 +56,25 @@ class CRUDExtension extends AbstractExtension
 
     public function listFilter(Environment $environment, string $filter, array $options, string $value): ?string
     {
+        /** @var TwigFilter */
         $twigFilter = $environment->getFilter($filter);
         if ($twigFilter instanceof TwigFilter) {
-            $filteredValue = call_user_func_array($twigFilter->getCallable(), [$value, $options]);
-
-            $safeContext = $twigFilter->getSafe(new \Twig\Node\Node());
-            if (!is_array($safeContext) || !in_array('html', $safeContext)) {
-                /** @var \Twig\TwigFilter $twigFilter */
-                $escapeFilter = $environment->getFilter('escape');
-                $filteredValue = call_user_func($escapeFilter->getCallable(), $environment, $filteredValue);
+            if (\is_callable($twigFilter->getCallable())) {
+                /** @var ?string */
+                $filteredValue = call_user_func_array($twigFilter->getCallable(), [$value, $options]);
+    
+                $safeContext = $twigFilter->getSafe(new \Twig\Node\Node());
+                if (!is_array($safeContext) || !in_array('html', $safeContext)) {
+                    /** @var TwigFilter */
+                    $escapeFilter = $environment->getFilter('escape');
+                    if (\is_callable($escapeFilter->getCallable())) {
+                        /** @var ?string */
+                        $filteredValue = call_user_func($escapeFilter->getCallable(), $environment, $filteredValue);
+                    }
+                }
+    
+                return $filteredValue;
             }
-
-            return $filteredValue;
         }
 
         return $value;

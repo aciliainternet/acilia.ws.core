@@ -4,36 +4,19 @@ namespace WS\Core\Library\Asset;
 
 class RenditionDefinition
 {
-    const METHOD_THUMB = 'thumb';
-    const METHOD_CROP = 'crop';
-
-    protected string $class;
-    protected string $field;
-    protected string $name;
-    protected ?int $width;
-    protected ?int $height;
-    protected string $method;
-    protected ?array $subRenditions;
-    protected int $quality;
+    public const METHOD_THUMB = 'thumb';
+    public const METHOD_CROP = 'crop';
 
     public function __construct(
-        string $class,
-        string $field,
-        string $name,
-        ?int $width,
-        ?int $height,
-        string $method,
-        ?array $subRenditions = null,
-        int $quality = 90
+        protected string $class,
+        protected string $field,
+        protected string $name,
+        protected ?int $width,
+        protected ?int $height,
+        protected string $method,
+        protected ?array $subRenditions = null,
+        protected int $quality = 90
     ) {
-        $this->class = $class;
-        $this->field = $field;
-        $this->name = $name;
-        $this->width = $width;
-        $this->height = $height;
-        $this->method = $method;
-        $this->subRenditions = $subRenditions;
-        $this->quality = $quality;
     }
 
     public function getAspectRatio(): ?string

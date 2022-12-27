@@ -2,8 +2,8 @@
 
 namespace WS\Core\Twig\Tag\PageConfiguration;
 
-use Twig\TokenParser\AbstractTokenParser;
 use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
 
 class PageConfigurationTokenParser extends AbstractTokenParser
 {

@@ -2,31 +2,26 @@
 
 namespace WS\Core\Controller\CMS;
 
-use WS\Core\Entity\Domain;
-use WS\Core\Service\ContextService;
-use WS\Core\Service\DomainService;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Entity\Domain;
+use WS\Core\Service\ContextService;
+use WS\Core\Service\DomainService;
 
 class SwitchController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-    protected DomainService $domainService;
-
-    public function __construct(TranslatorInterface $translator, DomainService $domainService)
-    {
-        $this->translator = $translator;
-        $this->domainService = $domainService;
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected DomainService $domainService
+    ) {
     }
 
-    /**
-     * @Route("/switch-domain/{id}", name="ws_switch_domain", methods={"GET"})
-     * @Security("is_granted('ROLE_CMS')", message="not_allowed")
-     */
+    #[Route(path: '/switch-domain/{id}', name: 'ws_switch_domain', methods: ['GET'])]
+    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function switch(Request $request, string $id): Response
     {
         $domain = $this->domainService->get(intval($id));

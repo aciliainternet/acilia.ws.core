@@ -4,10 +4,7 @@ namespace WS\Core\Library\DataExport;
 
 class DataExport
 {
-    protected array $headers;
-    protected array $data;
-
-    public function __construct(array $headers, array $data)
+    public function __construct(protected array $headers, protected array $data)
     {
         $this->headers = $headers;
         $this->data = $data;

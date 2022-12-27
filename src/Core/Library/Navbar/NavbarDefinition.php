@@ -4,17 +4,12 @@ namespace WS\Core\Library\Navbar;
 
 class NavbarDefinition
 {
-    protected string $code;
-    protected string $label;
-    protected ?array $route;
-    protected array $options;
-
-    public function __construct(string $code, string $label, array $route = null, array $options = [])
-    {
-        $this->code = $code;
-        $this->label = $label;
-        $this->route = $route;
-
+    public function __construct(
+        protected string $code,
+        protected string $label,
+        protected ?array $route = null,
+        protected array $options = []
+    ) {
         $this->options = array_merge([
             'translation_domain' => 'cms',
             'icon' => 'fa-angle-right',

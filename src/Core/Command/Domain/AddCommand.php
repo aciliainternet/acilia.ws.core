@@ -2,30 +2,29 @@
 
 namespace WS\Core\Command\Domain;
 
-use WS\Core\Entity\Domain;
-use WS\Core\Service\DomainService;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use WS\Core\Entity\Domain;
+use WS\Core\Service\DomainService;
 
+#[AsCommand(
+    name: 'ws:domain:add',
+    description: 'Add a new Domain into WideStand',
+)]
 class AddCommand extends Command
 {
-    protected static $defaultName = 'ws:domain:add';
-    protected DomainService $domainService;
-
-    public function __construct(DomainService $domainService)
+    public function __construct(protected DomainService $domainService)
     {
-        $this->domainService = $domainService;
-
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this->setDescription('Add a new Domain into WideStand')
-            ->addArgument('host', InputArgument::REQUIRED, 'The hostname of the domain')
+        $this->addArgument('host', InputArgument::REQUIRED, 'The hostname of the domain')
             ->addArgument('locale', InputArgument::REQUIRED, 'The locale of the domain')
             ->addArgument('type', InputArgument::REQUIRED, 'The type of the domain')
             ->addArgument('culture', InputArgument::REQUIRED, 'The culture of the domain')

@@ -6,12 +6,12 @@ use WS\Core\Entity\Domain;
 
 trait DomainDependantTrait
 {
-    public function getDomain(): Domain
+    public function getDomain(): ?Domain
     {
         return $this->domain;
     }
 
-    public function setDomain(Domain $domain): DomainDependantInterface
+    public function setDomain(?Domain $domain): DomainDependantInterface
     {
         $this->domain = $domain;
 

@@ -4,21 +4,12 @@ namespace WS\Core\Library\Alert;
 
 class AlertMessage
 {
-    protected string $message;
-    protected ?string $iconClass;
-    protected ?string $routeName;
-    protected array $routeOptions;
-
     public function __construct(
-        string $message,
-        ?string $iconClass = null,
-        ?string $routeName = null,
-        array $routeOptions = []
+        protected string $message,
+        protected ?string $iconClass = null,
+        protected ?string $routeName = null,
+        protected array $routeOptions = []
     ) {
-        $this->message = $message;
-        $this->iconClass = $iconClass;
-        $this->routeName = $routeName;
-        $this->routeOptions = $routeOptions;
     }
 
     public function getMessage(): string

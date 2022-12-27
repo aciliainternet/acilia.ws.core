@@ -2,16 +2,16 @@
 
 namespace WS\Core\Library\Alert;
 
-use WS\Core\Service\AlertService;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use WS\Core\Service\AlertService;
 
 class AlertCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG = 'ws.alert_gatherer';
+    public const TAG = 'ws.alert_gatherer';
 
     public function process(ContainerBuilder $container): void
     {

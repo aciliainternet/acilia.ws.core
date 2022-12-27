@@ -2,47 +2,37 @@
 
 namespace WS\Core\Command\Translation;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 use WS\Core\Entity\TranslationAttribute;
 use WS\Core\Entity\TranslationNode;
 use WS\Core\Service\TranslationService;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Command\Command;
 
+#[AsCommand(
+    name: 'ws:translation:collect',
+    description: 'Collect the registered translations for the public site'
+)]
 class CollectCommand extends Command
 {
-    protected static $defaultName = 'ws:translation:collect';
-
-    private ParameterBagInterface $parameterBag;
-    private EntityManagerInterface $em;
-    private TranslationService $translationService;
     private EntityRepository $nodesRepository;
     private EntityRepository $attributesRepository;
 
     public function __construct(
-        ParameterBagInterface $parameterBag,
-        EntityManagerInterface $em,
-        TranslationService $translationService
+        private ParameterBagInterface $parameterBag,
+        private EntityManagerInterface $em,
+        private TranslationService $translationService
     ) {
-        $this->parameterBag = $parameterBag;
-        $this->em = $em;
-        $this->translationService = $translationService;
         $this->nodesRepository = $this->em->getRepository(TranslationNode::class);
         $this->attributesRepository = $this->em->getRepository(TranslationAttribute::class);
 
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this
-            ->setDescription('Collect the registered translations for the public site')
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -85,7 +75,7 @@ class CollectCommand extends Command
 
                 unset($matches);
 
-                $translationKeys = array_keys(Yaml::parse($file->getContents()));
+                $translationKeys = array_keys((array) Yaml::parse($file->getContents()));
                 foreach ($translationKeys as $key) {
                     if (!in_array($key, $candidateTranslations[$type])) {
                         $candidateTranslations[$type][] = $key;

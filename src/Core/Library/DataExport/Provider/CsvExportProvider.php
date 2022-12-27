@@ -7,7 +7,7 @@ use WS\Core\Library\DataExport\DataExportProviderInterface;
 
 class CsvExportProvider implements DataExportProviderInterface
 {
-    const EXPORT_FORMAT = 'csv';
+    public const EXPORT_FORMAT = 'csv';
 
     public function getFormat(): string
     {

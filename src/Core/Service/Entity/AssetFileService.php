@@ -2,30 +2,22 @@
 
 namespace WS\Core\Service\Entity;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetFile;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
 use WS\Core\Repository\AssetFileRepository;
 use WS\Core\Service\ContextService;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 
 class AssetFileService implements FactoryCollectorInterface
 {
-    protected LoggerInterface $logger;
-    protected EntityManagerInterface $em;
-    protected AssetFileRepository $repository;
-    protected ContextService $contextService;
-
     public function __construct(
-        LoggerInterface $logger,
-        EntityManagerInterface $em,
-        ContextService $contextService
+        protected LoggerInterface $logger,
+        protected EntityManagerInterface $em,
+        protected ContextService $contextService,
+        protected AssetFileRepository $repository
     ) {
-        $this->logger = $logger;
-        $this->em = $em;
-        $this->repository = $this->em->getRepository(AssetFile::class);
-        $this->contextService = $contextService;
     }
 
     public function getSortFields(): array
@@ -42,8 +34,7 @@ class AssetFileService implements FactoryCollectorInterface
     {
         $assetFile = (new AssetFile())
             ->setFilename($this->sanitizeFilename($fileFile))
-            ->setMimeType((string) $fileFile->getMimeType())
-        ;
+            ->setMimeType((string) $fileFile->getMimeType());
 
         if (null !== $entity && null !== $fileField) {
             $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));

@@ -3,17 +3,14 @@
 namespace WS\Core\Twig\Extension;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use WS\Core\Library\Publishing\PublishingEntityInterface;
 
 class PublishingExtension extends AbstractExtension
 {
-    protected TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(protected TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function getFilters(): array

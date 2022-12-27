@@ -7,28 +7,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
-use WS\Core\Service\SidebarService;
-use WS\Core\Service\NavbarService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use WS\Core\Service\NavbarService;
+use WS\Core\Service\SidebarService;
 
 class LayoutExtension extends AbstractExtension
 {
-    private RequestStack $requestStack;
-    private SidebarService $sidebarService;
-    private NavbarService $navbarService;
-    private ?AuthorizationCheckerInterface $securityChecker;
-
     public function __construct(
-        RequestStack $requestStack,
-        SidebarService $sidebarService,
-        NavbarService $navbarService,
-        ?AuthorizationCheckerInterface $securityChecker = null
+        private RequestStack $requestStack,
+        private SidebarService $sidebarService,
+        private NavbarService $navbarService,
+        private ?AuthorizationCheckerInterface $securityChecker = null
     ) {
-        $this->requestStack = $requestStack;
-        $this->sidebarService = $sidebarService;
-        $this->navbarService = $navbarService;
-        $this->securityChecker = $securityChecker;
     }
 
     public function getFunctions(): array
@@ -72,6 +63,7 @@ class LayoutExtension extends AbstractExtension
 
     public function sidebarGetAsset(string $key): ?string
     {
+        /** @var ?string */
         return $this->sidebarService->assets->get($key);
     }
 
@@ -88,13 +80,13 @@ class LayoutExtension extends AbstractExtension
     ): string {
         if ($this->requestStack->getMainRequest() instanceof Request) {
             foreach ($routePrefix as $route) {
-                if (strpos($this->requestStack->getMainRequest()->get('_route'), $route) === 0) {
+                if (strpos(strval($this->requestStack->getMainRequest()->get('_route')), $route) === 0) {
                     if ($condition === false) {
                         return '';
                     }
 
                     if ($routeParameters) {
-                        $routeParams = $this->requestStack->getMainRequest()->get('_route_params');
+                        $routeParams = (array) $this->requestStack->getMainRequest()->get('_route_params');
 
                         foreach ($routeParameters as $k => $v) {
                             if (!isset($routeParams[$k]) || $routeParams[$k] != $v) {

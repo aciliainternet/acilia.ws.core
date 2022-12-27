@@ -2,12 +2,13 @@
 
 namespace WS\Core\Repository;
 
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 use WS\Core\Entity\ActivityLog;
 use WS\Core\Entity\Domain;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method ActivityLog|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,9 +16,14 @@ use Doctrine\ORM\QueryBuilder;
  * @method ActivityLog[]    findAll()
  * @method ActivityLog[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ActivityLogRepository extends EntityRepository
+class ActivityLogRepository extends ServiceEntityRepository
 {
-    protected function setFilters(array $filters, QueryBuilder &$qb): void
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, ActivityLog::class);
+    }
+
+    protected function setFilters(array $filters, QueryBuilder $qb): void
     {
         //Set filters
         if (isset($filters['model_id'])) {
@@ -52,7 +58,7 @@ class ActivityLogRepository extends EntityRepository
             $qb->setFirstResult($offset);
             $qb->setMaxResults($limit);
         }
-
+        /** @var array */
         return $qb->getQuery()->execute();
     }
 
@@ -67,6 +73,7 @@ class ActivityLogRepository extends EntityRepository
         $this->setFilters($filters, $qb);
 
         try {
+            /** @var int */
             return $qb->getQuery()->getSingleScalarResult();
         } catch (NonUniqueResultException $e) {
             return 0;

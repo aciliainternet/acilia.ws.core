@@ -2,26 +2,23 @@
 
 namespace WS\Core\Controller\CMS;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use WS\Core\Service\Entity\AssetImageService;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use WS\Core\Service\ImageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use WS\Core\Service\Entity\AssetImageService;
+use WS\Core\Service\ImageService;
 
-/**
- * @Route("/asset-image", name="ws_asset_image_")
- */
+#[Route(path: '/asset-image', name: 'ws_asset_image_')]
 class AssetImageController extends AbstractController
 {
-    protected AssetImageService $service;
-    protected ImageService $imageService;
-
-    public function __construct(AssetImageService $service, ImageService $imageService)
-    {
-        $this->service = $service;
-        $this->imageService = $imageService;
+    public function __construct(
+        protected AssetImageService $service,
+        protected ImageService $imageService
+    ) {
     }
 
     protected function getService(): AssetImageService
@@ -34,25 +31,23 @@ class AssetImageController extends AbstractController
         return 20;
     }
 
-    /**
-     * @Route("/list", name="images")
-     * @Security("is_granted('ROLE_CMS')", message="not_allowed")
-     */
+    #[Route(path: '/list', name: 'images')]
+    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function list(Request $request): JsonResponse
     {
-        $filter = (string) $request->get('f');
+        $filter = strval($request->get('f'));
 
-        $page = (int) $request->get('page', 1);
+        $page = intval($request->get('page', 1));
         if ($page < 1) {
             $page = 1;
         }
 
-        $limit = (int) $request->get('limit', $this->getLimit());
+        $limit = intval($request->get('limit', $this->getLimit()));
         if (!$limit) {
             $limit = $this->getLimit();
         }
 
-        $data = $this->getService()->getAll($filter, $page, $limit, (string)$request->get('sort'), (string)$request->get('dir'));
+        $data = $this->getService()->getAll($filter, $page, $limit, strval($request->get('sort')), strval($request->get('dir')));
 
         $response = [];
         foreach ($data as $image) {
@@ -68,12 +63,11 @@ class AssetImageController extends AbstractController
         return new JsonResponse($response);
     }
 
-    /**
-     * @Route("/_save_asset_image", name="save_asset_image", methods="POST")
-     */
+    #[Route(path: '/_save_asset_image', name: 'save_asset_image', methods: 'POST')]
     public function save(Request $request): JsonResponse
     {
         if ($request->files->has('asset')) {
+            /** @var UploadedFile */
             $imageFile = $request->files->get('asset');
 
             $assetImage = $this->imageService->handleStandalone($imageFile, ['cropper' => []]);
@@ -85,13 +79,11 @@ class AssetImageController extends AbstractController
             ]);
         }
 
-        return new JsonResponse(['msg' => 'No asset found'], 500);
+        return new JsonResponse(['msg' => 'No asset found'], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
-    /**
-     * @Route ("/soft-delete", name="soft_delete", methods="POST")
-     * @Security("is_granted('ROLE_CMS')", message="not_allowed")
-     */
+    #[Route(path: '/soft-delete', name: 'soft_delete', methods: 'POST')]
+    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function delete(Request $request): JsonResponse
     {
         if (!$request->isXmlHttpRequest()) {
@@ -102,6 +94,7 @@ class AssetImageController extends AbstractController
         }
 
         try {
+            /** @var array */
             $params = json_decode(\strval($request->getContent()), true);
 
             $entity = $this->getService()->get($params['assetId']);
@@ -116,7 +109,8 @@ class AssetImageController extends AbstractController
 
             return $this->json(
                 ['msg' => 'Delete success'],
-                JsonResponse::HTTP_OK);
+                JsonResponse::HTTP_OK
+            );
         } catch (\Exception $e) {
             return $this->json([
                 'msg' => 'Asset Image deletion failed'

@@ -2,19 +2,16 @@
 
 namespace WS\Core\Twig\Extension;
 
-use WS\Core\Service\ActivityLogService;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 use Twig\TwigTest;
+use WS\Core\Service\ActivityLogService;
 
 class ActivityLogExtension extends AbstractExtension
 {
-    private ActivityLogService $activityLogService;
-
-    public function __construct(ActivityLogService $activityLogService)
+    public function __construct(private ActivityLogService $activityLogService)
     {
-        $this->activityLogService = $activityLogService;
     }
 
     public function getFunctions(): array
@@ -48,7 +45,7 @@ class ActivityLogExtension extends AbstractExtension
     {
         $classPath = explode('\\', $modelName);
 
-        return $classPath[count($classPath) -1];
+        return $classPath[count($classPath) - 1];
     }
 
     public function printActionClass(string $action): string

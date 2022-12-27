@@ -2,65 +2,54 @@
 
 namespace WS\Core\Entity;
 
-use WS\Core\Library\Traits\Entity\BlameableTrait;
-use WS\Core\Library\Traits\Entity\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use WS\Core\Library\Traits\Entity\BlameableTrait;
+use WS\Core\Library\Traits\Entity\TimestampableTrait;
 
-/**
- * @ORM\Entity(repositoryClass="WS\Core\Repository\AssetFileRepository")
- * @ORM\Table(name="ws_asset_file")
- */
+#[ORM\Entity(repositoryClass: 'WS\Core\Repository\AssetFileRepository')]
+#[ORM\Table(name: 'ws_asset_file')]
 class AssetFile
 {
     use BlameableTrait;
     use TimestampableTrait;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="file_id", type="integer")
-     */
-    private int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'file_id', type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @Assert\Length(max=128)
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(name="file_filename", type="string", length=128, nullable=false)
-     */
+    #[Assert\Length(max: 128)]
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'file_filename', type: 'string', length: 128, nullable: false)]
     private string $filename;
 
-    /**
-     * @Assert\Length(max=128)
-     * @Assert\NotBlank()
-     *
-     * @ORM\Column(name="file_mime_type", type="string", length=128, nullable=false)
-     */
+    #[Assert\Length(max: 128)]
+    #[Assert\NotBlank]
+    #[ORM\Column(name: 'file_mime_type', type: 'string', length: 128, nullable: false)]
     private string $mimeType;
 
     /**
      * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(name="file_created_at", type="datetime", nullable=false)
      */
+    #[ORM\Column(name: 'file_created_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="file_modified_at", type="datetime", nullable=false)
      */
+    #[ORM\Column(name: 'file_modified_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $modifiedAt;
 
     /**
-     * @Assert\Length(max=128)
-     *
      * @Gedmo\Blameable(on="create")
-     * @ORM\Column(name="file_created_by", type="string", length=128, nullable=true)
      */
+    #[Assert\Length(max: 128)]
+    #[ORM\Column(name: 'file_created_by', type: 'string', length: 128, nullable: true)]
     private string $createdBy;
 
-    public function __toString() : string
+    public function __toString(): string
     {
         return \strval($this->id);
     }

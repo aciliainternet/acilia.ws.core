@@ -4,11 +4,11 @@ namespace WS\Core\Library\Publishing;
 
 interface PublishingEntityInterface
 {
-    const STATUS_PUBLISHED = 'published';
-    const STATUS_UNPUBLISHED = 'unpublished';
-    const STATUS_DRAFT = 'draft';
+    public const STATUS_PUBLISHED = 'published';
+    public const STATUS_UNPUBLISHED = 'unpublished';
+    public const STATUS_DRAFT = 'draft';
 
-    const FILTER_STATUS = 'ws_cms_publishing_status';
+    public const FILTER_STATUS = 'ws_cms_publishing_status';
 
     public function getPublishStatus(): ?string;
 

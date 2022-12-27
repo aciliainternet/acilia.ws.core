@@ -2,9 +2,9 @@
 
 namespace WS\Core\Twig\Tag\PageConfiguration;
 
-use Twig\Node\Node;
 use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Node;
 
 class PageConfigurationNode extends Node
 {

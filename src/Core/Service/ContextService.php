@@ -6,20 +6,18 @@ use WS\Core\Entity\Domain;
 
 class ContextService
 {
-    const CMS = 'cms';
-    const SITE = 'site';
-    const SYMFONY = 'symfony';
-    const SESSION_DOMAIN = 'ws_domain_id';
+    public const CMS = 'cms';
+    public const SITE = 'site';
+    public const SYMFONY = 'symfony';
+    public const SESSION_DOMAIN = 'ws_domain_id';
 
-    protected bool $debug;
-    protected DomainService $domainService;
     protected string $context = '';
     protected ?Domain $domain = null;
 
-    public function __construct(bool $debug, DomainService $domainService)
-    {
-        $this->debug = $debug;
-        $this->domainService = $domainService;
+    public function __construct(
+        protected bool $debug,
+        protected DomainService $domainService
+    ) {
     }
 
     public function setContext(string $context): self
@@ -59,7 +57,7 @@ class ContextService
 
     public function getDomainByLocale(string $locale, string $type = Domain::CANONICAL): ?Domain
     {
-        $domains = \array_filter($this->getDomains(), fn($d) => $d->getType() === $type && $locale === $d->getLocale());
+        $domains = \array_filter($this->getDomains(), fn ($d) => $d->getType() === $type && $locale === $d->getLocale());
 
         return \array_shift($domains);
     }
@@ -81,6 +79,6 @@ class ContextService
 
     public function getTemplatesBase(): string
     {
-        return $this->context === self::CMS ? 'cms': 'site';
+        return $this->context === self::CMS ? 'cms' : 'site';
     }
 }

@@ -19,6 +19,9 @@ class DomainRepository extends ServiceEntityRepository
         parent::__construct($registry, Domain::class);
     }
 
+    /**
+     * @return array
+     */
     public function getAll(): array
     {
         $alias = 'd';
@@ -30,6 +33,7 @@ class DomainRepository extends ServiceEntityRepository
         // order by default domain
         $qb->orderBy(sprintf('%s.default', $alias), 'DESC');
 
+        /** @var array */
         return $qb->getQuery()->execute();
     }
 }

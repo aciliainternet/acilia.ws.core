@@ -2,35 +2,27 @@
 
 namespace WS\Core\Command\Administrator;
 
-use WS\Core\Entity\Administrator;
-use WS\Core\Service\Entity\AdministratorService;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use WS\Core\Entity\Administrator;
+use WS\Core\Service\Entity\AdministratorService;
 
+#[AsCommand(
+    name: 'ws:administrator:add-default',
+    description: 'Populate the default Administrator for the App',
+    hidden: true
+)]
 class AddDefaultCommand extends Command
 {
-    protected static $defaultName = 'ws:administrator:add-default';
-    protected AdministratorService $administratorService;
-    protected UserPasswordHasherInterface $passwordHasherService;
-
     public function __construct(
-        AdministratorService $administratorService,
-        UserPasswordHasherInterface $passwordHasherService
+        protected AdministratorService $administratorService,
+        protected UserPasswordHasherInterface $passwordHasherService
     ) {
-        $this->administratorService = $administratorService;
-        $this->passwordHasherService = $passwordHasherService;
-
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this->setDescription('Populate the default Administrator for the App')
-            ->setHidden(true)
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

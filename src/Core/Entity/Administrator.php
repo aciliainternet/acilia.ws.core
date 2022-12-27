@@ -2,95 +2,70 @@
 
 namespace WS\Core\Entity;
 
-use WS\Core\Library\Traits\Entity\BlameableTrait;
-use WS\Core\Library\Traits\Entity\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use WS\Core\Library\Traits\Entity\BlameableTrait;
+use WS\Core\Library\Traits\Entity\TimestampableTrait;
 
-/**
- * @ORM\Entity(repositoryClass="WS\Core\Repository\AdministratorRepository")
- * @ORM\Table(name="ws_administrator")
- * @UniqueEntity(
- *     fields={"email"},
- *     message="ws.administrator.email_already_exists"
- * )
- */
+#[ORM\Entity(repositoryClass: 'WS\Core\Repository\AdministratorRepository')]
+#[UniqueEntity(fields: ['email'], message: 'ws.administrator.email_already_exists')]
+#[ORM\Table(name: 'ws_administrator')]
 class Administrator implements UserInterface, PasswordAuthenticatedUserInterface, LegacyPasswordAuthenticatedUserInterface
 {
     use BlameableTrait;
     use TimestampableTrait;
 
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     *
-     * @ORM\Column(name="administrator_id", type="integer", nullable=false)
-     */
-    protected int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'administrator_id', type: 'integer', nullable: false)]
+    private ?int $id = null;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=128)
-     *
-     * @ORM\Column(name="administrator_name", type="string", length=128, nullable=false)
-     */
-    protected string $name;
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 128)]
+    #[ORM\Column(name: 'administrator_name', type: 'string', length: 128, nullable: false)]
+    private string $name;
 
-    /**
-     * @ORM\Column(name="administrator_salt", type="string", length=32, nullable=false)
-     */
-    protected string $salt;
+    #[ORM\Column(name: 'administrator_salt', type: 'string', length: 32, nullable: false)]
+    private string $salt;
 
-    /**
-     * @ORM\Column(name="administrator_password", type="string", length=128, nullable=false)
-     */
-    protected string $password;
+    #[ORM\Column(name: 'administrator_password', type: 'string', length: 128, nullable: false)]
+    private string $password;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=127)
-     * @Assert\Email()
-     *
-     * @ORM\Column(name="administrator_email", type="string", length=127, unique=true, nullable=false)
-     */
-    protected string $email;
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 127)]
+    #[Assert\Email]
+    #[ORM\Column(name: 'administrator_email', type: 'string', length: 127, unique: true, nullable: false)]
+    private string $email;
 
-    /**
-     * @ORM\Column(name="administrator_active", type="boolean", nullable=false)
-     */
-    protected ?bool $active = false;
+    #[ORM\Column(name: 'administrator_active', type: 'boolean', nullable: false)]
+    private ?bool $active = false;
 
-    /**
-    * @ORM\Column(name="administrator_profile", type="string", length=32, nullable=false)
-    */
-    protected string $profile;
+    #[ORM\Column(name: 'administrator_profile', type: 'string', length: 32, nullable: false)]
+    private string $profile;
 
     /**
      * @Gedmo\Timestampable(on="create")
-     *
-     * @ORM\Column(name="administrator_created_at", type="datetime", nullable=false)
      */
-    protected \DateTimeInterface $createdAt;
+    #[ORM\Column(name: 'administrator_created_at', type: 'datetime', nullable: false)]
+    private \DateTimeInterface $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
-     *
-     * @ORM\Column(name="administrator_modified_at", type="datetime", nullable=false)
      */
-    protected \DateTimeInterface $modifiedAt;
+    #[ORM\Column(name: 'administrator_modified_at', type: 'datetime', nullable: false)]
+    private \DateTimeInterface $modifiedAt;
 
     /**
-     * @Assert\Length(max=128)
      * @Gedmo\Blameable(on="create")
-     *
-     * @ORM\Column(name="administrator_created_by", type="string", length=128, nullable=true)
      */
-    protected ?string $createdBy = null;
+    #[Assert\Length(max: 128)]
+    #[ORM\Column(name: 'administrator_created_by', type: 'string', length: 128, nullable: true)]
+    private ?string $createdBy = null;
 
     public function __construct()
     {
@@ -198,24 +173,24 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->active;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTimeInterface
+    public function getModifiedAt(): \DateTimeInterface
     {
         return $this->modifiedAt;
     }
 
-    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
 

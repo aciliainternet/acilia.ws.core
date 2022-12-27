@@ -2,20 +2,18 @@
 
 namespace WS\Core\Library\Router\Loader;
 
-use WS\Core\Service\DomainService;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
+use WS\Core\Service\DomainService;
 
 class DefaultLocalizationStrategy implements LocalizationStrategyInterface
 {
     protected ?array $domains = null;
     protected ?array $aliases = null;
     protected ?array $aliasList = null;
-    protected DomainService $domainService;
 
-    public function __construct(DomainService $domainService)
+    public function __construct(protected DomainService $domainService)
     {
-        $this->domainService = $domainService;
     }
 
     protected function getDomains(): array

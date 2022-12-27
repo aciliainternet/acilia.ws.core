@@ -33,7 +33,7 @@ class RoutingLoader extends Loader
         return $this->localizationStrategy->getParameters($context);
     }
 
-    public function load($resource, string $type = null): RouteCollection
+    public function load(mixed $resource, string $type = null): RouteCollection
     {
         if (true === $this->isLoaded) {
             throw new \RuntimeException(sprintf('Do not add the "%s" loader twice', $type));
@@ -42,8 +42,9 @@ class RoutingLoader extends Loader
         $routes = new RouteCollection();
 
         $type = 'annotation';
-        $resource = sprintf('%s/%s', $this->projectDir, $resource);
+        $resource = sprintf('%s/%s', $this->projectDir, strval($resource));
 
+        /** @var array */
         $importedRoutes = $this->import($resource, $type);
         foreach ($importedRoutes as $name => $route) {
             $routeOptions = $route->getOptions();

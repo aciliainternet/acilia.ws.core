@@ -2,23 +2,20 @@
 
 namespace WS\Core\Service;
 
-use WS\Core\Entity\Domain;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use WS\Core\Entity\Domain;
 use WS\Core\Repository\DomainRepository;
 
 class DomainService
 {
-    protected DomainRepository $repository;
-    protected LoggerInterface $logger;
-    protected EntityManagerInterface $em;
     protected ?array $domains = null;
 
-    public function __construct(LoggerInterface $logger, EntityManagerInterface $em)
-    {
-        $this->logger = $logger;
-        $this->em = $em;
-        $this->repository = $this->em->getRepository(Domain::class);
+    public function __construct(
+        protected LoggerInterface $logger,
+        protected EntityManagerInterface $em,
+        protected DomainRepository $repository
+    ) {
     }
 
     public function getDomains(): array
@@ -95,7 +92,7 @@ class DomainService
             }
         }
 
-        usort($canonicals, fn(Domain $d1, Domain $d2) => strcmp($d1->getHost(), $d2->getHost()));
+        usort($canonicals, fn (Domain $d1, Domain $d2) => strcmp($d1->getHost(), $d2->getHost()));
 
         return $canonicals;
     }
@@ -115,7 +112,7 @@ class DomainService
             }
         }
 
-        usort($aliases, fn(Domain $d1, Domain $d2) => strcmp($d1->getHost(), $d2->getHost()));
+        usort($aliases, fn (Domain $d1, Domain $d2) => strcmp($d1->getHost(), $d2->getHost()));
 
         return $aliases;
     }

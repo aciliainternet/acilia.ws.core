@@ -2,18 +2,15 @@
 
 namespace WS\Core\Twig\Extension;
 
-use WS\Core\Entity\AssetImage;
-use WS\Core\Service\ImageService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use WS\Core\Entity\AssetImage;
+use WS\Core\Service\ImageService;
 
 class AssetExtension extends AbstractExtension
 {
-    protected ImageService $imageService;
-
-    public function __construct(ImageService $imageService)
+    public function __construct(protected ImageService $imageService)
     {
-        $this->imageService = $imageService;
     }
 
     public function getFunctions(): array

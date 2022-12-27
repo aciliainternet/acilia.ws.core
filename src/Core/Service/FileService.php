@@ -2,25 +2,18 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetFile;
 use WS\Core\Service\Entity\AssetFileService;
 
 class FileService
 {
-    protected LoggerInterface $logger;
-    protected AssetFileService $assetFileService;
-    protected StorageService $storageService;
-
     public function __construct(
-        LoggerInterface $logger,
-        AssetFileService $assetFileService,
-        StorageService $storageService
+        protected LoggerInterface $logger,
+        protected AssetFileService $assetFileService,
+        protected StorageService $storageService
     ) {
-        $this->logger = $logger;
-        $this->assetFileService = $assetFileService;
-        $this->storageService = $storageService;
     }
 
     public function handle(UploadedFile $fileFile, object $entity, string $fileField, ?array $options = null): AssetFile
@@ -58,7 +51,7 @@ class FileService
 
         return $assetFile;
     }
-    
+
     public function delete(object $entity, string $fileField): void
     {
         $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));
@@ -116,7 +109,8 @@ class FileService
 
     protected function getFilePath(AssetFile $assetFile): string
     {
-        return sprintf('files/%d/%d/%s',
+        return sprintf(
+            'files/%d/%d/%s',
             floor($assetFile->getId() / 1000),
             $assetFile->getId(),
             $assetFile->getFilename()

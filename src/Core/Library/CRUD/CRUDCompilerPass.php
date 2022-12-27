@@ -2,19 +2,20 @@
 
 namespace WS\Core\Library\CRUD;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Service\DataExportService;
 use WS\Core\Service\FileService;
 use WS\Core\Service\ImageService;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 class CRUDCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG = 'ws.crud_controller';
+    public const TAG = 'ws.crud_controller';
 
     public function process(ContainerBuilder $container): void
     {
@@ -41,6 +42,12 @@ class CRUDCompilerPass implements CompilerPassInterface
         if ($container->has(DataExportService::class)) {
             $dataExportServiceDefinition = $container->findDefinition(DataExportService::class);
         }
+        
+        // Get EntityManagerInterface Definition
+        $entityManagerServiceDefinition = null;
+        if ($container->has(EntityManagerInterface::class)) {
+            $entityManagerServiceDefinition = $container->findDefinition(EntityManagerInterface::class);
+        }
 
         // Get all tagged CRUD Controllers
         $taggedServices = $this->findAndSortTaggedServices(self::TAG, $container);
@@ -66,6 +73,11 @@ class CRUDCompilerPass implements CompilerPassInterface
             // Link DataExport Service
             if ($dataExportServiceDefinition) {
                 $definition->addMethodCall('setDataExportService', [$dataExportServiceDefinition]);
+            }
+            
+            // Link EntityManagerInterface Service
+            if ($entityManagerServiceDefinition) {
+                $definition->addMethodCall('setDoctrine', [$entityManagerServiceDefinition]);
             }
         }
     }

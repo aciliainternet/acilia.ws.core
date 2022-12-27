@@ -5,16 +5,17 @@ namespace WS\Core\Library\Asset\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Exception\InvalidConfigurationException;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use WS\Core\Entity\AssetFile;
 
 class AssetFileType extends AbstractType
 {
+    /** @param array<string, array<string, ?object>> $options */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['ws']['entity'] === null) {
@@ -45,11 +46,13 @@ class AssetFileType extends AbstractType
                     $assetFileOptions['data'] = $asset;
                 }
             }
-        } catch (\Exception $e) {}
+        } catch (\Exception $e) {
+        }
 
         $builder->add('asset_file', EntityType::class, $assetFileOptions);
     }
 
+    /** @param array<string, array<string, ?object>> $options */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [

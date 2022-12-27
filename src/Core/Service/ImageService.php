@@ -2,12 +2,11 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Image;
 use Intervention\Image\Constraint;
+use Intervention\Image\Image;
+use Intervention\Image\ImageManager;
 use Psr\Log\LoggerInterface;
-use RuntimeException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetImage;
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\Asset\RenditionDefinition;
@@ -15,22 +14,16 @@ use WS\Core\Service\Entity\AssetImageService;
 
 class ImageService
 {
-    protected LoggerInterface $logger;
-    protected AssetImageService $assetImageService;
-    protected StorageService $storageService;
     protected ImageManager $imageManager;
     protected array $renditions;
     protected array $renderMethods = [];
 
     public function __construct(
-        LoggerInterface $logger,
-        AssetImageService $assetImageService,
-        StorageService $storageService
+        protected LoggerInterface $logger,
+        protected AssetImageService $assetImageService,
+        protected StorageService $storageService
     ) {
-        $this->logger = $logger;
-        $this->assetImageService = $assetImageService;
-        $this->storageService = $storageService;
-        $this->imageManager = new ImageManager(array('driver' => 'imagick'));
+        $this->imageManager = new ImageManager(['driver' => 'imagick']);
 
         $this->registerRenderMethod(RenditionDefinition::METHOD_CROP, \Closure::fromCallable([$this, 'renderMethodCrop']));
         $this->registerRenderMethod(RenditionDefinition::METHOD_THUMB, \Closure::fromCallable([$this, 'renderMethodThumb']));
@@ -179,7 +172,7 @@ class ImageService
         return $assetImage;
     }
 
-    public function handleStandalone(UploadedFile $imageFile, array $options = null) : AssetImage
+    public function handleStandalone(UploadedFile $imageFile, array $options = null): AssetImage
     {
         $imageFileContent = file_get_contents($imageFile->getPathname());
         if (false === $imageFileContent) {
@@ -208,7 +201,6 @@ class ImageService
         array $options = null,
         ?string $entityClass = null
     ): ?AssetImage {
-
         $sourceAssetImage = $this->assetImageService->get($assetId);
         if ($sourceAssetImage === null) {
             return null;
@@ -292,7 +284,6 @@ class ImageService
         RenditionDefinition $definition,
         array $options = null
     ): void {
-
         $imageContent = $this->storageService->get($this->getFilePath($assetImage, 'original'), StorageService::CONTEXT_PUBLIC);
 
         $image = $this->imageManager->make($imageContent);
@@ -330,6 +321,7 @@ class ImageService
     protected function executeRenderMethod(RenditionDefinition $definition, Image $image, array $options = null): Image
     {
         if (isset($this->renderMethods[$definition->getMethod()])) {
+            /** @var Image */
             return call_user_func_array($this->renderMethods[$definition->getMethod()], [$definition, $image, $options]);
         }
 
@@ -415,7 +407,7 @@ class ImageService
     {
         $exifMetadata = @exif_read_data($imageFile);
         if (is_array($exifMetadata) && isset($exifMetadata['Orientation'])) {
-            switch($exifMetadata['Orientation']) {
+            switch ($exifMetadata['Orientation']) {
                 case 8:
                     $this->imageManager->make($imageFile->getPathname())
                         ->rotate(90)

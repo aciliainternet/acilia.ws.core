@@ -4,33 +4,24 @@ namespace WS\Core\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="ws_setting", uniqueConstraints={@ORM\UniqueConstraint(columns={"setting_domain", "setting_name"})})
- */
+#[ORM\Entity]
+#[ORM\Table(name: 'ws_setting')]
+#[ORM\UniqueConstraint(columns: ['setting_domain', 'setting_name'])]
 class Setting
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(name="setting_id", type="integer")
-     */
-    protected int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'setting_id', type: 'integer')]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(name="setting_name", type="string", length=128, nullable=false)
-     */
+    #[ORM\Column(name: 'setting_name', type: 'string', length: 128, nullable: false)]
     private string $name;
 
-    /**
-     * @ORM\Column(name="setting_value", type="text", nullable=true)
-     */
+    #[ORM\Column(name: 'setting_value', type: 'text', nullable: true)]
     private ?string $value = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="WS\Core\Entity\Domain")
-     * @ORM\JoinColumn(name="setting_domain", referencedColumnName="domain_id", nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
+    #[ORM\JoinColumn(name: 'setting_domain', referencedColumnName: 'domain_id', nullable: false)]
     private Domain $domain;
 
     public function getId(): ?int

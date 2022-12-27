@@ -21,15 +21,10 @@ use WS\Core\Service\Entity\AdministratorService;
 
 class AdministratorType extends AbstractType
 {
-    protected AdministratorService $administratorService;
-    protected UserPasswordHasherInterface $passwordHashService;
-
     public function __construct(
-        AdministratorService $administratorService,
-        UserPasswordHasherInterface $passwordHashService
+        protected AdministratorService $administratorService,
+        protected UserPasswordHasherInterface $passwordHashService
     ) {
-        $this->administratorService = $administratorService;
-        $this->passwordHashService = $passwordHashService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -77,8 +72,7 @@ class AdministratorType extends AbstractType
                 'row_attr' => [
                     'class' => 'l-form__item--medium',
                 ],
-            ])
-        ;
+            ]);
 
         $builder->addEventListener(
             FormEvents::POST_SUBMIT,
@@ -86,7 +80,7 @@ class AdministratorType extends AbstractType
                 /** @var Administrator $administrator */
                 $administrator = $event->getForm()->getData();
 
-                $newPassword = $event->getForm()->get('password')->getData();
+                $newPassword = strval($event->getForm()->get('password')->getData());
                 if (!empty($newPassword)) {
                     $newPassword = $this->passwordHashService->hashPassword($administrator, $newPassword);
                     $administrator->setPassword($newPassword);

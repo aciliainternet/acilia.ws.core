@@ -2,18 +2,16 @@
 
 namespace WS\Core\Controller\CMS;
 
-use WS\Core\Form\AdministratorProfileType;
-use WS\Core\Service\Entity\AdministratorService;
-use WS\Core\Library\CRUD\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use WS\Core\Form\AdministratorProfileType;
+use WS\Core\Library\CRUD\AbstractController;
+use WS\Core\Service\Entity\AdministratorService;
 
-/**
- * @Route("/administrator", name="ws_administrator_")
- */
+#[Route(path: '/administrator', name: 'ws_administrator_')]
 class AdministratorController extends AbstractController
 {
     public function __construct(AdministratorService $service)
@@ -31,12 +29,11 @@ class AdministratorController extends AbstractController
         return 'ws_cms_administrator';
     }
 
-    /**
-     * @Route("/profile", name="profile")
-     * @Security("is_granted('ROLE_CMS')", message="not_allowed")
-     */
+    #[Route(path: '/profile', name: 'profile')]
+    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function profile(Request $request): Response
     {
+        /** @var object */
         $administrator = $this->getUser();
 
         $form = $this->createForm(
@@ -62,12 +59,10 @@ class AdministratorController extends AbstractController
             }
         }
 
-        return $this->render('@WSCore/cms/administrator/profile.html.twig', ['form' => $form->createView()]);
+        return $this->render('@WSCore/cms/administrator/profile.html.twig', ['form' => $form]);
     }
 
-    /**
-     * @Route ("/edit/{id}", name="edit")
-     */
+    #[Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, int $id): Response
     {
         $entity = $this->getService()->get($id);
@@ -77,7 +72,7 @@ class AdministratorController extends AbstractController
 
         $this->addEvent(
             self::EVENT_EDIT_CREATE_FORM,
-            fn() => $this->createForm(
+            fn () => $this->createForm(
                 $this->getService()->getFormClass(),
                 $entity,
                 [

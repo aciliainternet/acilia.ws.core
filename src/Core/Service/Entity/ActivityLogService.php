@@ -12,23 +12,13 @@ use WS\Core\Service\ContextService;
 
 class ActivityLogService
 {
-    protected LoggerInterface $logger;
-    protected EntityManagerInterface $em;
-    protected ContextService $contextService;
-    protected ActivityLogRepository $repository;
-    protected ActivityLogRegistry $activityLogRegistry;
-
     public function __construct(
-        LoggerInterface $logger,
-        EntityManagerInterface $em,
-        ContextService $contextService,
-        ActivityLogRegistry $activityLogRegistry
+        protected LoggerInterface $logger,
+        protected EntityManagerInterface $em,
+        protected ContextService $contextService,
+        protected ActivityLogRegistry $activityLogRegistry,
+        protected ActivityLogRepository $repository
     ) {
-        $this->logger = $logger;
-        $this->em = $em;
-        $this->contextService = $contextService;
-        $this->repository = $this->em->getRepository(ActivityLog::class);
-        $this->activityLogRegistry = $activityLogRegistry;
     }
 
     public function getAll(array $filters, int $page, int $limit): array
@@ -63,7 +53,7 @@ class ActivityLogService
             }
 
             // base value types
-            if (! is_array($value[0]) && ! is_array($value[1])) {
+            if (!is_array($value[0]) && !is_array($value[1])) {
                 $result[$key] = new ActivityLogChanges($this->parseKeyName($key), $value[0], $value[1]);
 
                 break;
@@ -71,13 +61,12 @@ class ActivityLogService
 
             // array value types
             if (\is_array($value[0]) && \is_array($value[1])) {
-                foreach([...array_keys($value[0]), ...array_keys($value[1])] as $subKey) {
-
-                    if (! $this->isFieldValid($subKey)) {
+                foreach ([...array_keys($value[0]), ...array_keys($value[1])] as $subKey) {
+                    if (!$this->isFieldValid($subKey)) {
                         continue;
                     }
 
-                    if (! $this->isFieldChanged($subKey, $value[0], $value[1])) {
+                    if (!$this->isFieldChanged($subKey, $value[0], $value[1])) {
                         continue;
                     }
 
@@ -108,7 +97,7 @@ class ActivityLogService
     public function getModels(): array
     {
         return array_map(
-            function($item) {
+            function ($item) {
                 return ['model' => $item];
             },
             $this->activityLogRegistry->getServices()
@@ -126,11 +115,11 @@ class ActivityLogService
             return false;
         }
 
-        if (! isset($before[$key]) && $after[$key] === null) {
+        if (!isset($before[$key]) && $after[$key] === null) {
             return false;
         }
 
-        if (! isset($after[$key]) && $before[$key] === null) {
+        if (!isset($after[$key]) && $before[$key] === null) {
             return false;
         }
 
@@ -146,5 +135,4 @@ class ActivityLogService
 
         return true;
     }
-
 }

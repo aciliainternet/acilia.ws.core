@@ -2,6 +2,8 @@
 
 namespace WS\Core\Twig\Extension;
 
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 use WS\Core\Entity\Domain;
 use WS\Core\Library\CRUD\AbstractController;
 use WS\Core\Library\Dashboard\DashboardWidgetInterface;
@@ -9,26 +11,15 @@ use WS\Core\Service\AlertService;
 use WS\Core\Service\ContextService;
 use WS\Core\Service\DashboardService;
 use WS\Core\Service\SettingService;
-use Twig\TwigFunction;
-use Twig\Extension\AbstractExtension;
 
 class ToolsExtension extends AbstractExtension
 {
-    protected ContextService $contextService;
-    protected AlertService $alertService;
-    protected SettingService $settingService;
-    protected DashboardService $dashboardService;
-
     public function __construct(
-        ContextService $contextService,
-        AlertService $alertService,
-        SettingService $settingService,
-        DashboardService $dashboardService
+        protected ContextService $contextService,
+        protected AlertService $alertService,
+        protected SettingService $settingService,
+        protected DashboardService $dashboardService
     ) {
-        $this->contextService = $contextService;
-        $this->alertService = $alertService;
-        $this->settingService = $settingService;
-        $this->dashboardService = $dashboardService;
     }
 
     public function getFunctions(): array

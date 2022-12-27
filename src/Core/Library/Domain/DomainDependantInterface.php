@@ -6,7 +6,7 @@ use WS\Core\Entity\Domain;
 
 interface DomainDependantInterface
 {
-    public function getDomain(): Domain;
+    public function getDomain(): ?Domain;
 
-    public function setDomain(Domain $domain): DomainDependantInterface;
+    public function setDomain(?Domain $domain): DomainDependantInterface;
 }

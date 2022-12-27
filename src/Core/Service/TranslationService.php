@@ -3,30 +3,22 @@
 namespace WS\Core\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Translation\MessageCatalogueInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Entity\TranslationAttribute;
 use WS\Core\Entity\TranslationValue;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Translation\MessageCatalogueInterface;
 
 class TranslationService
 {
-    protected array $config;
-    protected EntityManagerInterface $em;
-    protected TranslatorInterface $translator;
-    protected ContextService $contextService;
     protected ?array $translations = null;
     protected array $sources;
 
     public function __construct(
-        array $config,
-        TranslatorInterface $translator,
-        EntityManagerInterface $em,
-        ContextService $contextService
+        protected array $config,
+        protected TranslatorInterface $translator,
+        protected EntityManagerInterface $em,
+        protected ContextService $contextService
     ) {
-        $this->config = $config;
-        $this->em = $em;
-        $this->translator = $translator;
-        $this->contextService = $contextService;
         $this->sources = [];
     }
 
@@ -53,7 +45,7 @@ class TranslationService
             $result = $result->fetchAllAssociative();
             foreach ($result as $row) {
                 $sourcePrefix = !empty($row['node_source']) ? ($row['node_source'] . '.') : '';
-                $id = sprintf('%s%s.%s', $sourcePrefix, $row['node_name'], $row['attrib_name']);
+                $id = sprintf('%s%s.%s', $sourcePrefix, strval($row['node_name']), strval($row['attrib_name']));
 
                 $this->translations[] = [
                     'id' => $id,
@@ -125,7 +117,6 @@ class TranslationService
         $repositoryValues = $this->em->getRepository(TranslationValue::class);
 
         foreach ($translations as $attributeId => $value) {
-
             $translationAttribute = $repositoryAttributes->find($attributeId);
             if ($translationAttribute instanceof TranslationAttribute) {
                 $translationValue = $repositoryValues->findOneBy(['domain' => $this->contextService->getDomain(), 'attribute' => $attributeId]);

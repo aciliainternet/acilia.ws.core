@@ -12,8 +12,8 @@ use WS\Core\Library\CRUD\AbstractRepository;
  * @method AssetImage|null findOneBy(array $criteria, array $orderBy = null)
  * @method AssetImage[]    findAll()
  * @method AssetImage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- * @method AssetImage[]    getAvailableByIds(Domain $domain, array $ids): array
- * @method AssetImage[]    getAll(Domain $domain, ?string $search, ?array $filter, array $orderBy = null, int $limit = null, int $offset = null)
+ * @method AssetImage[]    getAvailableByIds(?Domain $domain, array $ids): array
+ * @method AssetImage[]    getAll(?Domain $domain, ?string $search, ?array $filter, ?array $filtetrFields, array $orderBy = null, int $limit = null, int $offset = null)
  */
 
 class AssetImageRepository extends AbstractRepository
@@ -25,9 +25,9 @@ class AssetImageRepository extends AbstractRepository
 
     public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
-         if (isset($filter['visible'])) {
+        if (isset($filter['visible'])) {
             $qb
-                ->andWhere($qb->getRootAliases()[0]. '.visible = :visible')
+                ->andWhere($qb->getRootAliases()[0] . '.visible = :visible')
                 ->setParameter('visible', $filter['visible']);
         }
     }

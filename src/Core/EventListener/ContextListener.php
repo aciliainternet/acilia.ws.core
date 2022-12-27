@@ -11,18 +11,11 @@ use WS\Core\Service\SettingService;
 
 class ContextListener
 {
-    protected ContextService $contextService;
-    protected DomainService $domainService;
-    protected SettingService $settingService;
-
     public function __construct(
-        ContextService $contextService,
-        DomainService $domainService,
-        SettingService $settingService
+        protected ContextService $contextService,
+        protected DomainService $domainService,
+        protected SettingService $settingService
     ) {
-        $this->contextService = $contextService;
-        $this->domainService = $domainService;
-        $this->settingService = $settingService;
     }
 
     public function setupDomain(RequestEvent $event): void
@@ -52,6 +45,7 @@ class ContextListener
         // Load Domain from Session for the CMS
         if ($this->contextService->isCMS()) {
             if ($session !== null && $session->has(ContextService::SESSION_DOMAIN)) {
+                /** @var int */
                 $domainId = $session->get(ContextService::SESSION_DOMAIN);
 
                 $domain = $this->domainService->get($domainId);
@@ -70,7 +64,9 @@ class ContextListener
 
         // If symfony context use default domain
         if (!$this->contextService->isCMS() && !$this->contextService->isSite()) {
-            $this->contextService->setDomain(\array_shift($domains));
+            /** @var \WS\Core\Entity\Domain */
+            $domain = \array_shift($domains);
+            $this->contextService->setDomain($domain);
             return;
         }
 
@@ -103,8 +99,8 @@ class ContextListener
                 foreach ($domains as $d) {
                     if (preg_match(
                         sprintf('#^/%s/|^/%s$#i', $d->getLocale(), $d->getLocale()),
-                        $event->getRequest()->getPathInfo())
-                    ) {
+                        $event->getRequest()->getPathInfo()
+                    )) {
                         $domain = $d;
                         break;
                     }
@@ -112,6 +108,7 @@ class ContextListener
 
                 if ($domain === null) {
                     // use the default domain
+                    /** @var Domain $domain */
                     $domain = \array_shift($domains);
                 }
 
@@ -120,7 +117,6 @@ class ContextListener
                 if ($domain->getLocale() !== null) {
                     $event->getRequest()->setLocale($domain->getLocale());
                 }
-
             }
         }
     }

@@ -2,28 +2,27 @@
 
 namespace WS\Core\Command\Image;
 
-use WS\Core\Service\ImageService;
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use WS\Core\Service\ImageService;
 
+#[AsCommand(
+    name: 'ws:image:dynamic-resize',
+    description: 'Resize a missing image dynamically on-the-fly',
+)]
 class DynamicResizeCommand extends Command
 {
-    protected static $defaultName = 'ws:image:dynamic-resize';
-    protected ImageService $imageService;
-
-    public function __construct(ImageService $imageService)
+    public function __construct(protected ImageService $imageService)
     {
-        $this->imageService = $imageService;
-
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this->setDescription('Resize a missing image dynamically on-the-fly')
-            ->addArgument('image', InputArgument::REQUIRED, 'The image wanted')
+        $this->addArgument('image', InputArgument::REQUIRED, 'The image wanted')
         ;
     }
 
@@ -44,7 +43,7 @@ class DynamicResizeCommand extends Command
             $originalFile = sprintf('/%d/%d/%s/%s', $matches[1], $matches[2], $matches[3], $matches[6]);
 
             try {
-                $newImage = $this->imageService->dynamicResize($requestedFile, $originalFile, $matches[4], $matches[5]);
+                $newImage = $this->imageService->dynamicResize($requestedFile, $originalFile, intval($matches[4]), intval($matches[5]));
                 header(sprintf('Content-Type: %s', $newImage->mime()));
                 header('x-rendered-by: ws-dynamic-resize');
                 echo $newImage->encode(null, 75);

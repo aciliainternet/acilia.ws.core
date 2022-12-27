@@ -4,7 +4,7 @@ namespace WS\Core\Library\CRUD;
 
 trait TranslatorTrait
 {
-    protected function getTranslatorPrefix() : string
+    protected function getTranslatorPrefix(): string
     {
         $controllerClass = get_class($this);
         $classPath = explode('\\', $controllerClass);

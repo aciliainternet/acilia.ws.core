@@ -2,16 +2,16 @@
 
 namespace WS\Core\Library\DataExport;
 
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use WS\Core\Service\DataExportService;
 
 class DataExportCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG = 'ws.data_export';
+    public const TAG = 'ws.data_export';
 
     public function process(ContainerBuilder $container): void
     {

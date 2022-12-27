@@ -8,11 +8,11 @@ use Monolog\Logger;
 
 class DBLoggerService extends AbstractProcessingHandler
 {
-    protected EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em, int $level = Logger::DEBUG, bool $bubble = true)
-    {
-        $this->em = $em;
+    public function __construct(
+        protected EntityManagerInterface $em,
+        int | string $level = Logger::DEBUG,
+        bool $bubble = true
+    ) {
         parent::__construct($level, $bubble);
     }
 

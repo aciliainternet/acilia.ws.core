@@ -2,31 +2,24 @@
 
 namespace WS\Core\Controller\CMS;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use WS\Core\Service\SettingService;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use WS\Core\Service\SettingService;
 
-/**
- * @Route("/settings", name="ws_setting_")
- */
+#[Route(path: '/settings', name: 'ws_setting_')]
 class SettingController extends AbstractController
 {
-    protected TranslatorInterface $translator;
-    protected SettingService $service;
-
-    public function __construct(TranslatorInterface $translator, SettingService $service)
-    {
-        $this->translator = $translator;
-        $this->service = $service;
+    public function __construct(
+        protected TranslatorInterface $translator,
+        protected SettingService $service
+    ) {
     }
 
-    /**
-     * @Route("/{section}", name="index")
-     */
+    #[Route(path: '/{section}', name: 'index')]
     public function index(string $section): Response
     {
         $section = $this->service->getSection($section);
@@ -44,9 +37,7 @@ class SettingController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{section}/save", name="save", methods={"POST"})
-     */
+    #[Route(path: '/{section}/save', name: 'save', methods: ['POST'])]
     public function save(Request $request, string $section): Response
     {
         if (!$request->isXmlHttpRequest()) {
@@ -69,13 +60,14 @@ class SettingController extends AbstractController
             throw $exception;
         }
 
+        /** @var array<string, string> */
         $options = json_decode((string) $request->getContent(), true);
         foreach ($options as $settingCode => $settingValue) {
             $this->service->save($section, $settingCode, $settingValue);
         }
 
         return $this->json(
-            ['msg'=> $this->translator->trans('save_success', [], 'ws_cms_setting')],
+            ['msg' => $this->translator->trans('save_success', [], 'ws_cms_setting')],
             Response::HTTP_OK
         );
     }

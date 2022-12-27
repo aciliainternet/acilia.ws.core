@@ -2,17 +2,15 @@
 
 namespace WS\Core\Service;
 
-use WS\Core\Library\Dashboard\DashboardWidgetInterface;
 use Twig\Environment;
+use WS\Core\Library\Dashboard\DashboardWidgetInterface;
 
 class DashboardService
 {
-    protected Environment $twig;
     protected array $widgets = [];
 
-    public function __construct(Environment $twig)
+    public function __construct(protected Environment $twig)
     {
-        $this->twig = $twig;
     }
 
     public function addWidget(DashboardWidgetInterface $widget): void
@@ -33,7 +31,7 @@ class DashboardService
     {
         $widgets = $this->widgets;
 
-        usort($widgets, fn(DashboardWidgetInterface $a, DashboardWidgetInterface $b) => ($a->getOrder() < $b->getOrder()) ? -1 : (($a->getOrder() > $b->getOrder()) ? 1 : 0));
+        usort($widgets, fn (DashboardWidgetInterface $a, DashboardWidgetInterface $b) => ($a->getOrder() < $b->getOrder()) ? -1 : (($a->getOrder() > $b->getOrder()) ? 1 : 0));
 
         return $widgets;
     }

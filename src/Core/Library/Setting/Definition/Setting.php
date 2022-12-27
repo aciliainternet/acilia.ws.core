@@ -4,17 +4,14 @@ namespace WS\Core\Library\Setting\Definition;
 
 class Setting
 {
-    protected string $code;
-    protected string $name;
-    protected string $type;
     protected ?string $value;
-    protected array $options;
 
-    public function __construct(string $code, string $name, string $type, array $options = [])
-    {
-        $this->code = $code;
-        $this->name = $name;
-        $this->type = $type;
+    public function __construct(
+        protected string $code,
+        protected string $name,
+        protected string $type,
+        protected array $options = []
+    ) {
         $this->value = null;
 
         $this->options = array_merge([

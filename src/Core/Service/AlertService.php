@@ -2,8 +2,8 @@
 
 namespace WS\Core\Service;
 
-use WS\Core\Library\Alert\GatherAlertsEvent;
 use WS\Core\Library\Alert\AlertGathererInterface;
+use WS\Core\Library\Alert\GatherAlertsEvent;
 
 class AlertService
 {
