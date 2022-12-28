@@ -50,7 +50,7 @@ function getConfig() {
             editor.codemirror.replaceSelection(`![${file.name}](${file.path})`);
           });
         },
-        className: 'fa fa-document',
+        className: 'fa fa-file',
         title: 'Insert File',
       },
     ],
