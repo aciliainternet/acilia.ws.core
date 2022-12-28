@@ -3,7 +3,7 @@
 @use '../0-settings/_settings-inputs' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 
-.ws-img-markdown__new-upload {
+.ws-img-markdown__new-upload, .ws-file-markdown__new-upload {
     display: none;
 }
 
