@@ -5,7 +5,7 @@ function getFile(file) {
     const httpRequest = new XMLHttpRequest();
     const formData = new FormData();
     formData.append('asset', file);
-    httpRequest.open('POST', window.cmsSettings.ws_cms_components.markdown_asset_image.endpoint);
+    httpRequest.open('POST', window.cmsSettings.ws_cms_components.markdown_asset_file.endpoint);
     httpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     httpRequest.send(formData);
     httpRequest.onreadystatechange = () => {
@@ -37,11 +37,14 @@ function handleFile() {
 }
 
 function init() {
-  if (document.querySelector('[data-component="ws_markdown_file"]')) {
-    document.querySelector('[data-component="ws_markdown_file"]').addEventListener('change', (event) => {
-      getFile(event.currentTarget.files[0]).then((file) => { newFile = file; });
-    });
+  const fileElement = document.querySelector('[data-component="ws_markdown_file"]');
+  if (fileElement === null) {
+    return;
   }
+
+  fileElement.addEventListener('change', (event) => {
+    getFile(event.currentTarget.files[0]).then((file) => { newFile = file; });
+  });
 }
 
 export {
