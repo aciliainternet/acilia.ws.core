@@ -14,7 +14,7 @@ class MarkdownType extends AbstractType
     {
         $view->vars = array_replace($view->vars, [
             'ws_attr' => ['data-component' => 'ws_markdown'],
-            'ws' => ['plugin' => ['image' => true] ]
+            'ws' => ['plugin' => ['image' => true, 'file' => true] ]
         ]);
     }
 
@@ -22,7 +22,7 @@ class MarkdownType extends AbstractType
     {
         $resolver->setDefaults([
             'ws' => [
-                'plugin' => ['image' => true]
+                'plugin' => ['image' => true, 'file' => true]
             ]
         ]);
     }
