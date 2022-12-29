@@ -9,28 +9,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use WS\Core\Service\FileService;
 use WS\Core\Service\StorageService;
 
-/**
- * @Route("/asset-file", name="ws_asset_file_")
- */
+#[Route(path: '/asset-file', name: 'ws_asset_file_')]
 class AssetFileController extends AbstractController
 {
-    protected FileService $service;
-    
-    public function __construct(FileService $service)
+    public function __construct(protected FileService $service)
     {
-        $this->service = $service;
     }
 
-    /**
-     * @Route("/_save_asset_file", name="save_asset_file", methods="POST")
-     */
+    #[Route(path: '/_save_asset_file', name: 'save_asset_file', methods: 'POST')]
     public function save(Request $request): JsonResponse
     {
         if ($request->files->has('asset')) {
             $file = $request->files->get('asset');
 
-            $assetFile = $this->service->handleStandalone($file, [ 
-                'context' => StorageService::CONTEXT_PUBLIC 
+            $assetFile = $this->service->handleStandalone($file, [
+                'context' => StorageService::CONTEXT_PUBLIC
             ]);
 
             return new JsonResponse([
