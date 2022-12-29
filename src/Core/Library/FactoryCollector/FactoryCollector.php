@@ -6,11 +6,10 @@ use WS\Core\Service\FactoryCollectorService;
 
 class FactoryCollector
 {
-    protected array $collect;
-
-    public function __construct(protected FactoryCollectorService $factoryService)
-    {
-        $this->collect = [];
+    public function __construct(
+        protected FactoryCollectorService $factoryService,
+        protected array $collect = []
+    ) {
     }
 
     public function add(string $className, array $data): void

@@ -7,8 +7,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Library\Domain\DomainDependantTrait;
+use WS\Core\Repository\ActivityLogRepository;
 
-#[ORM\Entity(repositoryClass: 'WS\Core\Repository\ActivityLogRepository')]
+#[ORM\Entity(repositoryClass: ActivityLogRepository::class)]
 #[ORM\Table(name: 'ws_activity_log', options: ['collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'engine' => 'InnoDB'])]
 class ActivityLog implements DomainDependantInterface
 {
@@ -19,7 +20,7 @@ class ActivityLog implements DomainDependantInterface
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id;
 
-    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
+    #[ORM\ManyToOne(targetEntity: Domain::class)]
     #[ORM\JoinColumn(name: 'activity_log_domain', referencedColumnName: 'domain_id', nullable: true)]
     private ?Domain $domain = null;
 
@@ -42,17 +43,13 @@ class ActivityLog implements DomainDependantInterface
 
     private ?array $parsedChanges = null;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     */
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(name: 'activity_log_created_at', type: 'datetime')]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @Gedmo\Blameable(on="create")
-     */
     #[Assert\Length(max: 128)]
     #[ORM\Column(name: 'activity_log_created_by', type: 'string', length: 128, nullable: true)]
+    #[Gedmo\Blameable(on: 'create')]
     private ?string $createdBy = null;
 
     public function getId(): ?int

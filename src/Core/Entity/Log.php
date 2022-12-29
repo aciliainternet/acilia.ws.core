@@ -25,91 +25,47 @@ class Log
     #[ORM\Column(name: 'log_datetime', type: 'datetime', nullable: false)]
     private \DateTime $datetime;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * Set channel
-     *
-     * @param  string $channel
-     * @return self
-     */
-    public function setChannel($channel): self
+    public function setChannel(string $channel): self
     {
         $this->channel = $channel;
 
         return $this;
     }
 
-    /**
-     * Get channel
-     *
-     * @return string
-     */
-    public function getChannel(): ?string
+    public function getChannel(): string
     {
         return $this->channel;
     }
 
-    /**
-     * Set level
-     *
-     * @param  string $level
-     * @return self
-     */
-    public function setLevel($level): self
+    public function setLevel(string $level): self
     {
         $this->level = $level;
 
         return $this;
     }
 
-    /**
-     * Get level
-     *
-     * @return string
-     */
-    public function getLevel(): ?string
+    public function getLevel(): string
     {
         return $this->level;
     }
 
-    /**
-     * Set message
-     *
-     * @param  string $message
-     * @return self
-     */
-    public function setMessage($message): self
+    public function setMessage(string $message): self
     {
         $this->message = $message;
 
         return $this;
     }
 
-    /**
-     * Get message
-     *
-     * @return string
-     */
-    public function getMessage(): ?string
+    public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * Set datetime
-     *
-     * @param  \DateTime $datetime
-     * @return self
-     */
     public function setDatetime(\DateTime $datetime): self
     {
         $this->datetime = $datetime;
@@ -117,12 +73,7 @@ class Log
         return $this;
     }
 
-    /**
-     * Get datetime
-     *
-     * @return \DateTime
-     */
-    public function getDatetime(): ?\DateTime
+    public function getDatetime(): \DateTime
     {
         return $this->datetime;
     }

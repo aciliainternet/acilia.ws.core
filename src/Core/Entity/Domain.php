@@ -3,8 +3,9 @@
 namespace WS\Core\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use WS\Core\Repository\DomainRepository;
 
-#[ORM\Entity(repositoryClass: 'WS\Core\Repository\DomainRepository')]
+#[ORM\Entity(repositoryClass: DomainRepository::class)]
 #[ORM\Table(name: 'ws_domain')]
 #[ORM\UniqueConstraint(columns: ['domain_host', 'domain_locale'])]
 class Domain
@@ -33,7 +34,7 @@ class Domain
     #[ORM\Column(name: 'domain_type', type: 'string', length: 12, nullable: false)]
     private string $type;
 
-    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
+    #[ORM\ManyToOne(targetEntity: Domain::class)]
     #[ORM\JoinColumn(name: 'domain_parent', referencedColumnName: 'domain_id', nullable: true)]
     private ?Domain $parent = null;
 

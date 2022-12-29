@@ -5,6 +5,7 @@ namespace WS\Core\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -15,6 +16,7 @@ use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Service\ActivityLogService;
 use WS\Core\Service\ContextService;
 
+#[AsEventListener(event: ControllerEvent::class, method: 'onController', priority: 121)]
 class ActivityLogListener
 {
     public function __construct(
@@ -31,7 +33,7 @@ class ActivityLogListener
             return;
         }
 
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
         $entityName = get_class($entity);
 
         if (!$this->activityLogService->isSupported($entityName)) {
@@ -72,7 +74,7 @@ class ActivityLogListener
             }
 
             // save the editorial activity log
-            $args->getEntityManager()->getConnection()->insert('ws_activity_log', [
+            $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::UPDATE,
                 'activity_log_model' => $entityName,
                 'activity_log_model_id' => $entity->getId(),
@@ -92,7 +94,7 @@ class ActivityLogListener
             return;
         }
 
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
         $entityName = get_class($entity);
 
         if (!$this->activityLogService->isSupported($entityName)) {
@@ -108,7 +110,7 @@ class ActivityLogListener
             $activityLogDate = new \DateTime();
 
             // save the editorial activity log
-            $args->getEntityManager()->getConnection()->insert('ws_activity_log', [
+            $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::CREATE,
                 'activity_log_model' => $entityName,
                 'activity_log_model_id' => $entity->getId(),
@@ -128,7 +130,7 @@ class ActivityLogListener
             return;
         }
 
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
         $entityName = get_class($entity);
 
         if (!$this->activityLogService->isSupported($entityName)) {
@@ -144,7 +146,7 @@ class ActivityLogListener
             $activityLogDate = new \DateTime();
 
             // save the editorial activity log
-            $args->getEntityManager()->getConnection()->insert('ws_activity_log', [
+            $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::DELETE,
                 'activity_log_model' => $entityName,
                 'activity_log_model_id' => $entity->getId(),

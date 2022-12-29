@@ -28,40 +28,14 @@ services:
         tags:
             - { name: ws.component }
 
-    # Listeners
-    WS\Core\EventListener\ContextListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: setupDomain, priority: 127 }
-
-    WS\Core\EventListener\TemplateListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: setupTemplate, priority: 126 }
-
-    WS\Core\EventListener\ExceptionListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception, method: onException, priority: 124 }
-
-    WS\Core\EventListener\LocaleListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: setupLocale, priority: 99 }
-
-    WS\Core\EventListener\TranslationListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onRequest, priority: 90 }
-
-    WS\Core\EventListener\ResponseListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.response, method: onResponse, priority: -512 }
-
     # Data Collector
     WS\Core\Library\DataCollector\BuildCollector:
         tags:
             - { name: data_collector, template: '@WSCore/data_collector/build.html.twig', id: 'ws.build_collector' }
-
+    
     # Activity Log Subscriber
     WS\Core\EventListener\ActivityLogListener:
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: preRemove }
-            - { name: kernel.event_listener, event: kernel.controller, method: onController, priority: 121 }

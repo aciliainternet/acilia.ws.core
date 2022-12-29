@@ -20,7 +20,7 @@ class Setting
     #[ORM\Column(name: 'setting_value', type: 'text', nullable: true)]
     private ?string $value = null;
 
-    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
+    #[ORM\ManyToOne(targetEntity: Domain::class)]
     #[ORM\JoinColumn(name: 'setting_domain', referencedColumnName: 'domain_id', nullable: false)]
     private Domain $domain;
 

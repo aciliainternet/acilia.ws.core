@@ -2,12 +2,14 @@
 
 namespace WS\Core\EventListener;
 
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\Translation\DataCollectorTranslator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Service\ContextService;
 use WS\Core\Service\TranslationService;
 
+#[AsEventListener(event: RequestEvent::class, method: 'onRequest', priority: 90)]
 class TranslationListener
 {
     public function __construct(
