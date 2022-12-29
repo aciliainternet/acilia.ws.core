@@ -47,7 +47,7 @@ function getConfig() {
         action: function addFile(editor) {
           document.querySelector('[data-component="ws_markdown_file"]').click();
           handleFile().then((file) => {
-            editor.codemirror.replaceSelection(`![${file.name}](${file.path})`);
+            editor.codemirror.replaceSelection(`[${file.name}](${file.path})`);
           });
         },
         className: 'fa fa-file',
