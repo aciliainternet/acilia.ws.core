@@ -2,6 +2,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EasyMDE from 'easymde';
 import { init as initMarkdownImage, handleImage } from './ws_markdown/ws_markdown_image';
+import { init as initMarkdownFile, handleFile } from './ws_markdown/ws_markdown_file';
 
 const editors = [];
 
@@ -41,6 +42,17 @@ function getConfig() {
         className: 'fa fa-image',
         title: 'Insert Image',
       },
+      {
+        name: 'Insert File',
+        action: function addFile(editor) {
+          document.querySelector('[data-component="ws_markdown_file"]').click();
+          handleFile().then((file) => {
+            editor.codemirror.replaceSelection(`[${file.name}](${file.path})`);
+          });
+        },
+        className: 'fa fa-file',
+        title: 'Insert File',
+      },
     ],
   };
 }
@@ -76,10 +88,11 @@ function init() {
     }
 
     markDowns.forEach((elm) => {
-      editors.push({key: elm, instance: createMarkdown(elm, cmsTranslations, getConfig())});
+      editors.push({ key: elm, instance: createMarkdown(elm, cmsTranslations, getConfig()) });
     });
 
     initMarkdownImage();
+    initMarkdownFile();
   }
 }
 

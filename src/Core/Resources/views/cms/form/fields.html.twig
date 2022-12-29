@@ -50,6 +50,9 @@
         {% if form.vars.ws.plugin.image %}
             <input type="file" spellcheck="true" name="markdown-image" id="markdown-image-{{id}}" class="ws-img-markdown__new-upload" data-component="ws_markdown_image">
         {% endif %}
+        {% if form.vars.ws.plugin.file %}
+            <input type="file" spellcheck="true" name="markdown-file" id="markdown-file-{{id}}" class="ws-file-markdown__new-upload" data-component="ws_markdown_file">
+        {% endif %}
     {% endif %}
 {%- endblock textarea_widget -%}
 
