@@ -29,7 +29,7 @@ class ImageCompilerPass implements CompilerPassInterface
 
         $taggedServices = $this->findAndSortTaggedServices(self::TAG_CONSUMER, $container);
         foreach ($taggedServices as $taggedService) {
-            $consumer = $container->findDefinition($taggedService);
+            $consumer = $container->findDefinition(strval($taggedService));
             $consumer->addMethodCall('setImageService', [$definition]);
         }
     }

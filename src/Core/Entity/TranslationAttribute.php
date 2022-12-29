@@ -18,22 +18,18 @@ class TranslationAttribute
     #[ORM\Column(name: 'attrib_id', type: 'integer')]
     private ?int $id;
 
-    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\TranslationNode')]
+    #[ORM\ManyToOne(targetEntity: TranslationNode::class)]
     #[ORM\JoinColumn(name: 'attrib_node', referencedColumnName: 'node_id', nullable: false)]
     private TranslationNode $node;
 
     #[ORM\Column(name: 'attrib_name', type: 'string', length: 64, nullable: false)]
     private string $name;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     */
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(name: 'attrib_created_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @Gedmo\Timestampable(on="update")
-     */
+    #[Gedmo\Timestampable]
     #[ORM\Column(name: 'attrib_modified_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $modifiedAt;
 

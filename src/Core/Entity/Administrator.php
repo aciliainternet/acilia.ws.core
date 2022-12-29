@@ -11,8 +11,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use WS\Core\Library\Traits\Entity\BlameableTrait;
 use WS\Core\Library\Traits\Entity\TimestampableTrait;
+use WS\Core\Repository\AdministratorRepository;
 
-#[ORM\Entity(repositoryClass: 'WS\Core\Repository\AdministratorRepository')]
+#[ORM\Entity(repositoryClass: AdministratorRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'ws.administrator.email_already_exists')]
 #[ORM\Table(name: 'ws_administrator')]
 class Administrator implements UserInterface, PasswordAuthenticatedUserInterface, LegacyPasswordAuthenticatedUserInterface
@@ -48,21 +49,15 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'administrator_profile', type: 'string', length: 32, nullable: false)]
     private string $profile;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     */
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(name: 'administrator_created_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @Gedmo\Timestampable(on="update")
-     */
+    #[Gedmo\Timestampable]
     #[ORM\Column(name: 'administrator_modified_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $modifiedAt;
 
-    /**
-     * @Gedmo\Blameable(on="create")
-     */
+    #[Gedmo\Blameable(on: 'create')]
     #[Assert\Length(max: 128)]
     #[ORM\Column(name: 'administrator_created_by', type: 'string', length: 128, nullable: true)]
     private ?string $createdBy = null;

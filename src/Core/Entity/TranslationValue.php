@@ -19,26 +19,22 @@ class TranslationValue
     #[ORM\Column(name: 'value_id', type: 'integer')]
     private ?int $id;
 
-    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\TranslationAttribute')]
+    #[ORM\ManyToOne(targetEntity: TranslationAttribute::class)]
     #[ORM\JoinColumn(name: 'value_attribute', referencedColumnName: 'attrib_id', nullable: false)]
     private TranslationAttribute $attribute;
 
     #[ORM\Column(name: 'value_translation', type: 'text', nullable: true)]
     private ?string $translation = null;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     */
+    #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(name: 'value_created_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @Gedmo\Timestampable(on="update")
-     */
+    #[Gedmo\Timestampable]
     #[ORM\Column(name: 'value_modified_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $modifiedAt;
 
-    #[ORM\ManyToOne(targetEntity: 'WS\Core\Entity\Domain')]
+    #[ORM\ManyToOne(targetEntity: Domain::class)]
     #[ORM\JoinColumn(name: 'value_domain', referencedColumnName: 'domain_id', nullable: false)]
     private Domain $domain;
 

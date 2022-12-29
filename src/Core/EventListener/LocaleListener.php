@@ -2,10 +2,12 @@
 
 namespace WS\Core\EventListener;
 
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use WS\Core\Entity\Domain;
 use WS\Core\Service\ContextService;
 
+#[AsEventListener(event: RequestEvent::class, method: 'setupLocale', priority: 99)]
 class LocaleListener
 {
     public const SESSION_CMS_LOCALE = 'ws_cms_locale';

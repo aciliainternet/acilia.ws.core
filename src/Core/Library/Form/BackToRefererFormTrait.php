@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 trait BackToRefererFormTrait
 {
-    protected function addRefererField(FormBuilderInterface $builder, ?Request $request)
+    protected function addRefererField(FormBuilderInterface $builder, ?Request $request): void
     {
         if ($request instanceof Request && $request->headers->has('referer')) {
             $builder->add('referer', HiddenType::class, [

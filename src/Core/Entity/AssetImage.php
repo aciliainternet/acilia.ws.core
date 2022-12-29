@@ -7,8 +7,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use WS\Core\Library\Traits\Entity\BlameableTrait;
 use WS\Core\Library\Traits\Entity\TimestampableTrait;
+use WS\Core\Repository\AssetImageRepository;
 
-#[ORM\Entity(repositoryClass: 'WS\Core\Repository\AssetImageRepository')]
+#[ORM\Entity(repositoryClass: AssetImageRepository::class)]
 #[ORM\Table(name: 'ws_asset_image')]
 class AssetImage
 {
@@ -37,22 +38,16 @@ class AssetImage
     #[ORM\Column(name: 'image_visible', type: 'boolean', nullable: false, options: ['default' => 1])]
     private bool $visible = true;
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     */
+    #[Gedmo\Timestampable(on: 'create')]
     #[Assert\Type('DateTime')]
     #[ORM\Column(name: 'image_created_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $createdAt;
 
-    /**
-     * @Gedmo\Timestampable(on="update")
-     */
+    #[Gedmo\Timestampable]
     #[ORM\Column(name: 'image_modified_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $modifiedAt;
 
-    /**
-     * @Gedmo\Blameable(on="create")
-     */
+    #[Gedmo\Blameable(on: 'create')]
     #[Assert\Length(max: 128)]
     #[ORM\Column(name: 'image_created_by', type: 'string', length: 128, nullable: true)]
     private ?string $createdBy = null;

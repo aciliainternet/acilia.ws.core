@@ -2,6 +2,7 @@
 
 namespace WS\Core\EventListener;
 
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use WS\Core\Entity\Domain;
@@ -9,6 +10,7 @@ use WS\Core\Service\ContextService;
 use WS\Core\Service\DomainService;
 use WS\Core\Service\SettingService;
 
+#[AsEventListener(event: RequestEvent::class, method: 'setupDomain', priority: 127)]
 class ContextListener
 {
     public function __construct(

@@ -3,11 +3,13 @@
 namespace WS\Core\EventListener;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use WS\Core\Service\ContextService;
 
+#[AsEventListener(event: RequestEvent::class, method: 'setupTemplate', priority: 126)]
 class TemplateListener
 {
     public function __construct(

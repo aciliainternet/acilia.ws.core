@@ -2,9 +2,11 @@
 
 namespace WS\Core\EventListener;
 
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use WS\Core\Service\ContextService;
 
+#[AsEventListener(event: ResponseEvent::class, method: 'onResponse', priority: -512)]
 class ResponseListener
 {
     public function __construct(private ContextService $contextService)
