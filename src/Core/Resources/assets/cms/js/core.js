@@ -9,7 +9,7 @@ import { init as moduleNotifications } from './modules/a_notifications';
 
 // components
 import componentSlug from './components/ws_slug';
-import componentSelect from './components/ws_select';
+// import componentSelect from './components/ws_select';
 import componentMarkdown from './components/ws_markdown';
 import componentDatePicker from './components/ws_datePicker';
 import componentInputMultiple from './components/ws_input_multiple';
@@ -29,6 +29,9 @@ import translationCntrl from './controllers/translation';
 import sidebarCntrl from './controllers/sidebar';
 import tabsCntrl from './controllers/tabs';
 
+// stimulus
+import '../ts/stimulus_bootstrap.ts';
+
 tabsCntrl();
 sidebarCntrl();
 moduleNotifications();
@@ -36,7 +39,7 @@ componentMarkdown();
 componentDatePicker();
 componentInputMultiple();
 componentSlug();
-componentSelect();
+// componentSelect();
 componentWidgetListModal();
 componentAssetsImage();
 componentAssets();
