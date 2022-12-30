@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use WS\Core\Entity\Domain;
-use WS\Core\Service\DomainService;
+use WS\Core\Service\DomainInterface;
 
 #[AsCommand(
     name: 'ws:domain:add',
@@ -17,7 +17,7 @@ use WS\Core\Service\DomainService;
 )]
 class AddCommand extends Command
 {
-    public function __construct(protected DomainService $domainService)
+    public function __construct(protected DomainInterface $domainInterface)
     {
         parent::__construct();
     }
@@ -71,7 +71,7 @@ class AddCommand extends Command
                 ->setTimezone($timezone)
             ;
 
-            $this->domainService->create($domain);
+            $this->domainInterface->create($domain);
 
             $io->success(sprintf('You have created a new domain: %s (%s)', $domain->getHost(), $domain->getLocale()));
 

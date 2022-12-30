@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
 use WS\Core\Entity\Domain;
 use WS\Core\Repository\DomainRepository;
 
-class DomainService
+final class DomainService implements DomainInterface
 {
     protected ?array $domains = null;
 
@@ -60,9 +60,6 @@ class DomainService
         return $this->repository->find($id);
     }
 
-    /**
-     * @return Domain[]
-     */
     public function getByHost(string $host): array
     {
         $domains = $this->getDomains();

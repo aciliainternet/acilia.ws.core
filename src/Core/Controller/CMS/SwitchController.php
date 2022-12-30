@@ -10,13 +10,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Entity\Domain;
 use WS\Core\Service\ContextService;
-use WS\Core\Service\DomainService;
+use WS\Core\Service\DomainInterface;
 
 class SwitchController extends AbstractController
 {
     public function __construct(
         protected TranslatorInterface $translator,
-        protected DomainService $domainService
+        protected DomainInterface $domainInterface
     ) {
     }
 
@@ -24,7 +24,7 @@ class SwitchController extends AbstractController
     #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function switch(Request $request, string $id): Response
     {
-        $domain = $this->domainService->get(intval($id));
+        $domain = $this->domainInterface->get(intval($id));
         if ($domain instanceof Domain) {
             $session = $request->getSession();
             if ($session !== null) {
