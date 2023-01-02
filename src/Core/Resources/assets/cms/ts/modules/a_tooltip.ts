@@ -1,7 +1,7 @@
-import tippy from 'tippy.js';
+import tippy, { MultipleTargets, Props} from 'tippy.js';
 
-function init(elems, config) {
-  tippy(elems, config);
+function init(elements: MultipleTargets, config: Partial<Props>) {
+  tippy(elements, config);
 }
 
 export default init;
