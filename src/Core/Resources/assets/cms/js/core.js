@@ -8,7 +8,6 @@ import './modules/filter';
 import { init as moduleNotifications } from './modules/a_notifications';
 
 // components
-import componentSlug from './components/ws_slug';
 import componentMarkdown from './components/ws_markdown';
 import componentDatePicker from './components/ws_datePicker';
 import componentInputMultiple from './components/ws_input_multiple';
@@ -37,7 +36,6 @@ moduleNotifications();
 componentMarkdown();
 componentDatePicker();
 componentInputMultiple();
-componentSlug();
 componentWidgetListModal();
 componentAssetsImage();
 componentAssets();
