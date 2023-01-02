@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 /* eslint-disable no-underscore-dangle */
-import aSelect, { aSelectType, Item } from '../../js/modules/a_select';
+import aSelect, { aSelectType, Item } from '../modules/a_select';
 import { SelectTranslations } from '../interfaces/translations';
 
 let selectTranslations: SelectTranslations | null = null;

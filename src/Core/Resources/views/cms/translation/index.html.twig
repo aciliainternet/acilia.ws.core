@@ -12,7 +12,7 @@
 } %}
 
 {% block content %}
-    <div class="container" data-page="translation">
+    <div class="container" data-controller="module-translation-sidebar translation">
         <div class="row">
             <div class="col-lg-9">
                 <div class="c-form c-form--medium">
@@ -22,7 +22,11 @@
                         </div>
                         <p class="u-text-small u-mb-30">{{ 'disclaimer'|trans({ '%host%': domain.host, '%language%': ("language.#{domain.locale}"|trans({}, 'ws_cms'))}, 'ws_cms_translation')|raw }}</p>
                         {% for node in translations %}
-                            <div class="l-form__wrapper-row u-mb-30 js-block" data-menu-link={{ "block-#{node.name}" }}>
+                            <div 
+                                class="l-form__wrapper-row u-mb-30" 
+                                data-menu-link={{ "block-#{node.name}" }}
+                                data-module-translation-sidebar-target="block"
+                            >
                                 <h5 class="u-h5 u-font-bold u-mb-30">
                                     {{ "#{node.source}translation.#{node.name}.name"|trans({}, node.type, domain.locale) }}
                                     <small class="c-field__message d-block u-mt-5 u-font-normal">
@@ -40,7 +44,8 @@
                                             </label>
                                             <textarea
                                                     rows="1"
-                                                    class="c-input c-input--textarea-small ws-translation-attribute"
+                                                    class="c-input c-input--textarea-small"
+                                                    data-translation-target="attribute"
                                                     name="{{ attribute.id }}"
                                                     placeholder=""
                                                     title="{{ "#{node.source}#{node.name}.#{attribute.name}"|trans({}, node.type, domain.locale) }}"
@@ -68,14 +73,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 u-hidden-down@desktop" data-component="translation-sidebar">
+            <div class="col-lg-3 u-hidden-down@desktop">
                 <div class="c-toc">
                     <nav>
                         <ul>
                             {% for node in translations %}
                                 <li class="c-toc__item">
                                     <button
-                                        class="c-toc__link js-toc-link {{ loop.first ? 'is-active' }}"
+                                        data-module-translation-sidebar-target="tocLink"
+                                        class="c-toc__link {{ loop.first ? 'is-active' }}"
                                         data-menu-link={{ "block-#{node.name}" }}
                                     >
                                         {{ "#{node.source}translation.#{node.name}.name"|trans({}, node.type, domain.locale) }}
@@ -85,7 +91,11 @@
                         </ul>
                     </nav>
                     <div class="c-divider u-mv-small"></div>
-                    <button class="c-btn c-btn--info" data-save-url="{{ path('ws_translation_save') }}" id="ws-translation-save">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                    <button 
+                        class="c-btn c-btn--info" 
+                        data-translation-target="save" 
+                        data-save-url="{{ path('ws_translation_save') }}" 
+                    >{{ 'save'|trans({}, 'ws_cms') }}</button>
                 </div>
             </div>
         </div>
