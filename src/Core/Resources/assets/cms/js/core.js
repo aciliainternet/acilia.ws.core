@@ -9,7 +9,6 @@ import { init as moduleNotifications } from './modules/a_notifications';
 
 // components
 import componentSlug from './components/ws_slug';
-// import componentSelect from './components/ws_select';
 import componentMarkdown from './components/ws_markdown';
 import componentDatePicker from './components/ws_datePicker';
 import componentInputMultiple from './components/ws_input_multiple';
@@ -39,7 +38,6 @@ componentMarkdown();
 componentDatePicker();
 componentInputMultiple();
 componentSlug();
-// componentSelect();
 componentWidgetListModal();
 componentAssetsImage();
 componentAssets();

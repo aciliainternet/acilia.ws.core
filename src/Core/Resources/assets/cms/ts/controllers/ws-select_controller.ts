@@ -1,6 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
 /* eslint-disable no-underscore-dangle */
-import aSelect, { aSelectType } from '../../js/modules/a_select';
+import aSelect, { aSelectType, Item } from '../../js/modules/a_select';
 import { SelectTranslations } from '../interfaces/translations';
 
 let selectTranslations: SelectTranslations | null = null;
@@ -56,8 +56,8 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     }
   }
 
-  populateChoices(choices: aSelectType, items) {
-    const toRemove = choices._currentState.items.filter((item) => item.active);
+  populateChoices(choices: aSelectType, items: Item[]) {
+    const toRemove = choices._currentState.items.filter((item) => item.active).map(item => item.id);
     const toKeep = items.filter((item) => !toRemove.includes(item.id));
 
     choices.setChoices(toKeep, 'value', 'label', true);
@@ -66,7 +66,7 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
   async lookup(choices: aSelectType, apiUrl: string) {
     // show temporary loading option
     choices.clearChoices();
-    choices.setChoices([{ value: 0, label: selectTranslations?.loading }, 'value', 'label', true]);
+    choices.setChoices([{ value: 0, label: selectTranslations?.loading }], 'value', 'label', true);
 
     const query = choices.input.value;
 
@@ -110,7 +110,7 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
       }
 
       fetchLookupTimeout = window.setTimeout(
-        () => this.lookup(choices, elm.dataset.lookup),
+        () => this.lookup(choices, elm.dataset.lookup || ''),
         fetchLookupDelay
       );
     });
