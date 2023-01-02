@@ -35,6 +35,7 @@ export default class extends Controller {
     this.onScroll = this.onScroll.bind(this);
     window.addEventListener('scroll', this.onScroll);
 
+    this.goToBlock = this.goToBlock.bind(this);
     this.tocLinkTargets.forEach((link) => {
       link.addEventListener('click', this.goToBlock);
     });
