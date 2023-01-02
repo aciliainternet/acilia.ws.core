@@ -30,7 +30,7 @@ trait PublishingFormTrait
                 'required' => $required,
                 'attr' => [
                     'placeholder' => 'publishing.publishStatus.placeholder',
-                    'data-component' => 'ws_select',
+                    'data-controller' => 'ws-select',
                 ],
             ])
         ;

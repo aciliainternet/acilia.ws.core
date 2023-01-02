@@ -83,7 +83,7 @@
     {%- endif -%}
 
     {% set attr = attr|merge({ 'class': 'c-select ' ~ attr.class|default('') }) %}
-    <select {{ block('widget_attributes') }} data-component="ws_select" {% if multiple %} multiple="multiple"{% endif %}>
+    <select {{ block('widget_attributes') }} data-controller="ws-select" {% if multiple %} multiple="multiple"{% endif %}>
         {%- if attr.placeholder|default('') is not empty -%}
             <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ attr.placeholder != '' ? (translation_domain is same as(false) ? attr.placeholder : attr.placeholder|trans({}, translation_domain)) }}</option>
         {%- endif -%}
