@@ -17,12 +17,10 @@ import componentToggleChoice from './components/ws_toggle_choice';
 // controllers
 import settingsCntrl from './controllers/settings';
 import sidebarCntrl from './controllers/sidebar';
-import tabsCntrl from './controllers/tabs';
 
 // stimulus
 import '../ts/stimulus_bootstrap.ts';
 
-tabsCntrl();
 sidebarCntrl();
 componentMarkdown();
 componentDatePicker();

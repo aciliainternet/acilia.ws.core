@@ -7,6 +7,7 @@ import WSSelect from './controllers/ws-select_controller';
 import WSSlug from './controllers/ws-slug_controller';
 import Translation from './controllers/translation_controller';
 import WSTooltip from './controllers/ws-tooltip_controller';
+import WSTabs from './controllers/ws-tabs_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
 const stimulus = Application.start();
@@ -18,3 +19,4 @@ stimulus.register('ws-select', WSSelect);
 stimulus.register('ws-slug', WSSlug);
 stimulus.register('translation', Translation);
 stimulus.register('ws-tooltip', WSTooltip);
+stimulus.register('ws-tabs', WSTabs);
