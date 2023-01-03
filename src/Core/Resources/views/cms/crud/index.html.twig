@@ -242,7 +242,10 @@
                                             {% block crud_table_body_row_action %}{% endblock %}
 
                                             {% if is_granted(view_roles['delete']) %}
-                                                <button class="c-btn c-btn--secondary c-btn--delete">
+                                                <button 
+                                                    class="c-btn c-btn--secondary c-btn--delete"
+                                                    data-action="click->module-generic-delete#remove"
+                                                >
                                                     <i class="fal fa-trash-alt u-mr-5"></i>
                                                     {{ 'delete'|trans({}, 'ws_cms') }}
                                                 </button>

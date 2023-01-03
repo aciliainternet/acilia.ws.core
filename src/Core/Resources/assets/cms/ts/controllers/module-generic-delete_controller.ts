@@ -92,13 +92,11 @@ export default class extends Controller {
       return;
     }
 
-    const { title, message, id } = (event.currentTarget as HTMLElement).dataset;
-
     showAlert({
       icon: 'warning',
       dangerMode: true,
-      title,
-      text: message,
+      title: this.titleValue,
+      text: this.messageValue,
       buttons: {
         cancel: {
           text: window.cmsTranslations.cancel,
@@ -106,7 +104,7 @@ export default class extends Controller {
         },
         confirm: {
           text: window.cmsTranslations.delete.confirm,
-          value: id,
+          value: this.idValue,
           closeModal: false,
         },
       },
