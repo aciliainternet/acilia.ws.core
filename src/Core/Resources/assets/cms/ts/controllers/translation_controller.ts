@@ -56,7 +56,7 @@ export default class extends Controller {
         showError(JSON.parse(body).msg);
       }
     } catch (e) {
-      showError('An error occurred while saving translations.');
+      showError(window.cmsTranslations.error);
     }
   }
 }
