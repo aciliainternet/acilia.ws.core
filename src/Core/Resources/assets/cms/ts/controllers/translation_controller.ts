@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { showError, showSuccess } from '../../js/modules/a_notifications';
+import { showError, showSuccess } from '../modules/a_notifications';
 
 export default class extends Controller {
   static targets = ['save', 'attribute'];

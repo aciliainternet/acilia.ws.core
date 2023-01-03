@@ -1,7 +1,7 @@
 import { init as initACropper, getCropperInstance, crop } from '../../modules/a_cropper';
 import { show as showLoader, hide as hideLoader } from '../ws_loader';
 import { hide as hideMessage, show as showMessage } from './ui_messages';
-import { showError as showErrorNotification } from '../../modules/a_notifications';
+import { showError as showErrorNotification } from '../../../ts/modules/a_notifications';
 import checkImagesSizes from './imageSizeValidator';
 
 const cropperIgnoreClasses = ':not(.cropper-u-hidden):not(.cropper-hidden)';

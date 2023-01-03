@@ -1,9 +1,6 @@
 // Polyfills... because EDGE 15.
 import 'core-js/features/dom-collections/for-each';
 
-// modules
-import { init as moduleNotifications } from './modules/a_notifications';
-
 // components
 import componentMarkdown from './components/ws_markdown';
 import componentDatePicker from './components/ws_datePicker';
@@ -27,7 +24,6 @@ import '../ts/stimulus_bootstrap.ts';
 
 tabsCntrl();
 sidebarCntrl();
-moduleNotifications();
 componentMarkdown();
 componentDatePicker();
 componentInputMultiple();

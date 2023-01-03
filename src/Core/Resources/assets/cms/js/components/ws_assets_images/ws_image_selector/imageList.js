@@ -3,7 +3,7 @@ import { init as lazyLoadInit, update as lazyLoadUpdate } from '../../../modules
 import { initCropper as showCropper } from '../ui_cropper';
 import { show as showLoader, hide as hideLoader } from '../../ws_loader';
 import { show as showMessage } from '../ui_messages';
-import { showError as showErrorNotification } from '../../../modules/a_notifications';
+import { showError as showErrorNotification } from '../../../../ts/modules/a_notifications';
 import checkImagesSizes from '../imageSizeValidator';
 
 let imageListContainer = null;

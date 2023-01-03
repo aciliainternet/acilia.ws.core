@@ -1,4 +1,4 @@
-import { showError as showErrorNotification } from '../../modules/a_notifications';
+import { showError as showErrorNotification } from '../../../ts/modules/a_notifications';
 
 function getStylesByType(type) {
   return {

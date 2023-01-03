@@ -1,4 +1,4 @@
-import { showError, showSuccess } from '../modules/a_notifications';
+import { showError, showSuccess } from '../../ts/modules/a_notifications';
 
 function onSaveSettings(event) {
   const xhr = event.currentTarget;
