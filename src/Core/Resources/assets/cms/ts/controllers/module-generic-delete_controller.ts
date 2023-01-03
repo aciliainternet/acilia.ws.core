@@ -48,7 +48,11 @@ export default class extends Controller {
     });
   }
 
-  async sendDeletePost() {
+  async sendDeletePost(value: boolean | number) {
+    if (!value) {
+      return;
+    }
+
     try {
       const response = await fetch(this.urlValue, {
         method: 'POST',
@@ -87,11 +91,7 @@ export default class extends Controller {
     }
   }
 
-  remove(event: MouseEvent) {
-    if (!event.currentTarget) {
-      return;
-    }
-
+  remove() {
     showAlert({
       icon: 'warning',
       dangerMode: true,
@@ -101,6 +101,7 @@ export default class extends Controller {
         cancel: {
           text: window.cmsTranslations.cancel,
           closeModal: true,
+          value: false,
         },
         confirm: {
           text: window.cmsTranslations.delete.confirm,
@@ -108,8 +109,8 @@ export default class extends Controller {
           closeModal: false,
         },
       },
-    }, () => {
-      this.sendDeletePost();
+    }, (value: boolean | number) => {
+      this.sendDeletePost(value);
     });
   }
 }
