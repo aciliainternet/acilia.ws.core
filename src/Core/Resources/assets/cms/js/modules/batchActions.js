@@ -1,4 +1,4 @@
-import showAlert from './a_alert';
+import showAlert from '../../ts/modules/a_alert';
 
 function manageActionsSelector(show) {
   const selector = document.querySelector('.js-batchActions');

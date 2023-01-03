@@ -187,7 +187,14 @@
                         {% block crud_table_body %}
                             <tbody>
                             {% for entity in data %}
-                                <tr class="c-table__row js-genericDelete_wrapper" data-id="{{ entity.id }}">
+                                <tr 
+                                    class="c-table__row" 
+                                    data-controller="module-generic-delete" 
+                                    data-module-generic-delete-id-value="{{ entity.id }}"
+                                    data-module-generic-delete-url-value="{{ path("#{route_prefix}_delete", { 'id': entity.id }) }}"
+                                    data-module-generic-delete-title-value="{{ 'title'|trans([], trans_prefix) }}"
+                                    data-module-generic-delete-message-value="{{ 'delete_warning'|trans([], trans_prefix) }}"
+                                >
                                     {% if batch_actions is not empty %}
                                         <td class="c-table__cell">
                                             <div class="c-choice c-choice--checkbox">
@@ -235,13 +242,7 @@
                                             {% block crud_table_body_row_action %}{% endblock %}
 
                                             {% if is_granted(view_roles['delete']) %}
-                                                <button
-                                                        class="c-btn c-btn--secondary c-btn--delete js-genericDelete"
-                                                        data-id="{{ entity.id }}"
-                                                        data-url="{{ path("#{route_prefix}_delete", { 'id': entity.id }) }}"
-                                                        data-title="{{ 'title'|trans([], trans_prefix) }}"
-                                                        data-message="{{ 'delete_warning'|trans([], trans_prefix) }}"
-                                                >
+                                                <button class="c-btn c-btn--secondary c-btn--delete">
                                                     <i class="fal fa-trash-alt u-mr-5"></i>
                                                     {{ 'delete'|trans({}, 'ws_cms') }}
                                                 </button>

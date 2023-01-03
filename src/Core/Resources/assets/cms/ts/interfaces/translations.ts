@@ -11,4 +11,7 @@ export interface CMSComponentTranslations {
 
 export interface CMSTranslations {
   ws_cms_components: CMSComponentTranslations;
+  cancel: string;
+  delete: { confirm: string; };
+  error: string;
 }
