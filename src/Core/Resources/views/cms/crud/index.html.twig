@@ -138,7 +138,9 @@
                                                     type="checkbox"
                                                     id="checkbox-batch"
                                                     name="checkboxes"
-                                                    class="c-choice__input js-batchAll"
+                                                    class="c-choice__input"
+                                                    data-module-batch-actions-target="allInput"
+                                                    data-action="click->module-batch-actions#handleAll"
                                             >
                                             <label class="c-choice__label c-choice__label--batch" for="checkbox-batch"></label>
                                         </div>
@@ -199,10 +201,12 @@
                                         <td class="c-table__cell">
                                             <div class="c-choice c-choice--checkbox">
                                                 <input
-                                                        class="c-choice__input js-batchItem"
+                                                        class="c-choice__input"
                                                         id="checkbox-item-{{ entity.id }}"
                                                         name="checkboxes"
                                                         type="checkbox"
+                                                        data-module-batch-actions-target="itemInput"
+                                                        data-action="change->module-batch-actions#handleItem"
                                                 >
                                                 <label
                                                         class="c-choice__label c-choice__label--batch"
