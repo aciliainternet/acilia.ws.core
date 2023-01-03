@@ -2,7 +2,6 @@
 import 'core-js/features/dom-collections/for-each';
 
 // modules
-import './modules/filter';
 import { init as moduleNotifications } from './modules/a_notifications';
 
 // components
