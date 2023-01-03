@@ -101,6 +101,7 @@ export default class extends Controller {
         cancel: {
           text: window.cmsTranslations.cancel,
           closeModal: true,
+          visible: true,
           value: false,
         },
         confirm: {
