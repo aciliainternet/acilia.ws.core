@@ -12,6 +12,7 @@ import flatpickr from 'flatpickr';
 
 function aDatePicker(elm = null, options = null) {
   let datepicker = null;
+  const value = elm.value ?? null;
   if (elm && options) {
     if (options.locale === 'es' || options.locale === 'ES') {
       options.locale = Spanish;
@@ -20,6 +21,11 @@ function aDatePicker(elm = null, options = null) {
   } else if (elm) {
     datepicker = flatpickr(elm);
   }
+
+  if (value && typeof datepicker.setDate === "function") {
+    datepicker.setDate(value);
+  }
+
   return datepicker;
 }
 
