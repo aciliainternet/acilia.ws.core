@@ -4,6 +4,7 @@ import ModuleGenericDelete from './controllers/module-generic-delete_controller'
 import ModuleBatchActions from './controllers/module-batch-actions_controller';
 import ModuleFilter from './controllers/module-filter_controller';
 import Settings from './controllers/settings_controller';
+import Sidebar from './controllers/sidebar_controller';
 import WSSelect from './controllers/ws-select_controller';
 import WSSlug from './controllers/ws-slug_controller';
 import Translation from './controllers/translation_controller';
@@ -17,6 +18,7 @@ stimulus.register('module-generic-delete', ModuleGenericDelete);
 stimulus.register('module-batch-actions', ModuleBatchActions);
 stimulus.register('module-filter', ModuleFilter);
 stimulus.register('settings', Settings);
+stimulus.register('sidebar', Sidebar);
 stimulus.register('ws-select', WSSelect);
 stimulus.register('ws-slug', WSSlug);
 stimulus.register('translation', Translation);

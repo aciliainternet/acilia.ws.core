@@ -14,13 +14,9 @@ import componentDropdown from './components/ws_dropdown';
 import componentTableCollapse from './components/ws_table_collapse';
 import componentToggleChoice from './components/ws_toggle_choice';
 
-// controllers
-import sidebarCntrl from './controllers/sidebar';
-
 // stimulus
 import '../ts/stimulus_bootstrap.ts';
 
-sidebarCntrl();
 componentMarkdown();
 componentDatePicker();
 componentInputMultiple();
