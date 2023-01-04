@@ -16,9 +16,13 @@
 } %}
 
 {% block content %}
-    <div class="container" data-page="settings">
+    <div class="container">
         <div class="c-form">
-            <div class="c-form__content-full">
+            <div 
+                class="c-form__content-full" 
+                data-settings-save-url-value="{{ path('ws_setting_save', { 'section': section.code }) }}" 
+                data-controller="settings"
+            >
                 <div class="u-flex u-mr-auto">
                     <h2 class="c-form__title u-h2 u-mr-10 u-mb-10">{{ 'title'|trans({}, 'ws_cms_setting') }}</h2>
                 </div>
@@ -41,7 +45,10 @@
                 {% endfor %}
                 <small class="c-field__message u-mt-5"><i class="fa fa-info-circle"></i>{{ 'required'|trans({}, 'ws_cms_setting')|raw }}</small>
                 <div class="c-divider u-mv-small"></div>
-                <button class="c-btn c-btn--info" data-save-url="{{ path('ws_setting_save', { 'section': section.code }) }}" id="ws-settings-save">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                <button 
+                    class="c-btn c-btn--info" 
+                    data-settings-target="saveBtn"
+                >{{ 'save'|trans({}, 'ws_cms') }}</button>
             </div>
         </div>
     </div>

@@ -15,7 +15,6 @@ import componentTableCollapse from './components/ws_table_collapse';
 import componentToggleChoice from './components/ws_toggle_choice';
 
 // controllers
-import settingsCntrl from './controllers/settings';
 import sidebarCntrl from './controllers/sidebar';
 
 // stimulus
@@ -33,7 +32,3 @@ componentRangeSlider();
 componentDropdown();
 componentTableCollapse();
 componentToggleChoice();
-
-if (document.querySelector('[data-page="settings"]')) {
-  settingsCntrl();
-}
