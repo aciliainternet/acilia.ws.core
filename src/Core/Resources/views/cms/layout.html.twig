@@ -1,7 +1,7 @@
 {% extends('@WSCore/cms/base.html.twig') %}
 
 {% block body %}
-    <div class="o-page__sidebar" data-controller="sidebar" data-action="click->sidebar#toggleSidebar">
+    <div class="o-page__sidebar" data-sidebar-target="sidebar" data-action="click->sidebar#toggleSidebar">
         <aside class="c-sidebar c-sidebar--light">
             {{ include('@WSCore/cms/general/nav_profile.html.twig', with_context = false) }}
             {{ include('@WSCore/cms/general/sidebar.html.twig', with_context = false) }}

@@ -1,6 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
+  static targets = ['sidebar'];
+
+  declare sidebarTarget: HTMLElement;
+
   connect() {
     // if a subnav is active, we can't set the subnav class in the html using twig
     // then we have to open the subnav using js
@@ -15,6 +19,7 @@ export default class extends Controller {
   }
 
   menuAction(event: MouseEvent) {
+    event.stopPropagation();
     const target = event.target as HTMLLIElement | null;
     if (target?.closest('.js-submenu-children')) {
       return true;
@@ -31,7 +36,8 @@ export default class extends Controller {
     return true;
   }
 
-  toggleSidebar() {
-    this.element.classList.toggle('is-visible');
+  toggleSidebar(event: MouseEvent) {
+    this.sidebarTarget.classList.toggle('is-visible');
+    event.stopPropagation();
   }
 }
