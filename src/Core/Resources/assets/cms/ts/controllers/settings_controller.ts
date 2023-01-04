@@ -12,10 +12,6 @@ export default class extends Controller {
   declare optionTargets: Array<HTMLSelectElement | HTMLInputElement>;
   declare saveBtnTarget: HTMLInputElement;
 
-  connect() {
-    this.saveBtnTarget.addEventListener('click', this.saveSettings);
-  }
-
   async saveSettings() {
     const settings = {};
 

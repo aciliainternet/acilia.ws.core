@@ -3,7 +3,7 @@ import ModuleTranslationSidebar from './controllers/module-translation-sidebar_c
 import ModuleGenericDelete from './controllers/module-generic-delete_controller';
 import ModuleBatchActions from './controllers/module-batch-actions_controller';
 import ModuleFilter from './controllers/module-filter_controller';
-import settings from './controllers/settings_controller';
+import Settings from './controllers/settings_controller';
 import WSSelect from './controllers/ws-select_controller';
 import WSSlug from './controllers/ws-slug_controller';
 import Translation from './controllers/translation_controller';
@@ -16,7 +16,7 @@ stimulus.register('module-translation-sidebar', ModuleTranslationSidebar);
 stimulus.register('module-generic-delete', ModuleGenericDelete);
 stimulus.register('module-batch-actions', ModuleBatchActions);
 stimulus.register('module-filter', ModuleFilter);
-stimulus.register('settings', settings);
+stimulus.register('settings', Settings);
 stimulus.register('ws-select', WSSelect);
 stimulus.register('ws-slug', WSSlug);
 stimulus.register('translation', Translation);
