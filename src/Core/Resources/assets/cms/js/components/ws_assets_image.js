@@ -1,6 +1,6 @@
 import initModalImageSelector from './ws_assets_images/ui_image_selector';
 import { init as initCropper } from './ws_assets_images/ui_cropper';
-import Modal from '../modules/a_modal';
+import Modal from '../../ts/modules/a_modal';
 
 const modal = new Modal({
   autoOpen: false,
