@@ -10,7 +10,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DateTimePickerType extends AbstractType
 {
     public const DATE_TIME_PICKER_ATTR = [
-        'data-component' => 'ws_datepicker',
+        'data-controller' => 'ws-datepicker',
         'data-format' => 'date_hour',
         'data-default-hour' => '0'
     ];

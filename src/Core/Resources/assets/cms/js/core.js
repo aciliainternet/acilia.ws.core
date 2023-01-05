@@ -3,7 +3,6 @@ import 'core-js/features/dom-collections/for-each';
 
 // components
 import componentMarkdown from './components/ws_markdown';
-import componentDatePicker from './components/ws_datePicker';
 import componentInputMultiple from './components/ws_input_multiple';
 import componentWidgetListModal from './components/ws_widget_list_modal';
 import componentAssetsImage from './components/ws_assets_image';
@@ -18,7 +17,6 @@ import componentToggleChoice from './components/ws_toggle_choice';
 import '../ts/stimulus_bootstrap.ts';
 
 componentMarkdown();
-componentDatePicker();
 componentInputMultiple();
 componentWidgetListModal();
 componentAssetsImage();
