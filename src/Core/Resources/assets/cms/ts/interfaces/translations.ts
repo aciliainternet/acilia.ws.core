@@ -5,8 +5,15 @@ export interface SelectTranslations {
   item_select: string;
 }
 
+export interface InputMultipleTranslations {
+  add_item: string;
+  unique_item: string;
+  invalid_item: string;
+};
+
 export interface CMSComponentTranslations {
   select: SelectTranslations;
+  input_multiple: InputMultipleTranslations;
 }
 
 export interface CMSBatchActionsTranslations {
