@@ -1,5 +1,5 @@
 {% if has_alerts() %}
-    <div class="c-dropdown dropdown u-mr-20 u-hidden-down@mobile" data-toggle="dropdown-alerts" data-component="ws_dropdown">
+    <div class="c-dropdown dropdown u-mr-20 u-hidden-down@mobile" data-controller="ws-dropdown" data-action="click->ws-dropdown#toggleDropdown">
         <a
             href="#"
             id="alertDropdownButton"
@@ -15,7 +15,8 @@
         </a>
 
         <div
-            class="c-dropdown__menu c-dropdown__menu--large dropdown-menu dropdown-menu-right dropdown-alerts"
+            class="c-dropdown__menu c-dropdown__menu--large dropdown-menu dropdown-menu-right"
+            data-ws-dropdown-target="toggle"
             aria-labelledby="alertDropdownButton"
         >
             {% for alert in get_alerts() %}

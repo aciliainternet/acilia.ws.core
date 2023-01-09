@@ -1,6 +1,6 @@
 {% set domains = get_domains() %}
 {% if domains|length > 1 %}
-    <div class="c-dropdown dropdown u-mr-20" data-toggle="dropdown-language" data-component="ws_dropdown">
+    <div class="c-dropdown dropdown u-mr-20" data-controller="ws-dropdown" data-action="click->ws-dropdown#toggleDropdown">
         <a id="languageDropdownButton" href="#" class="c-notification u-mr-0 u-flex u-align-items-center dropdown-toggle" aria-haspopup="true" aria-expanded="false">
             <span class="c-notification__icon u-pr-5">
                 <i class="fal fa-globe-europe"></i>
@@ -12,7 +12,8 @@
         </a>
 
         <div
-            class="c-dropdown__menu c-dropdown__menu--medium dropdown-menu dropdown-language"
+            class="c-dropdown__menu c-dropdown__menu--medium dropdown-menu"
+            data-ws-dropdown-target="toggle"
             aria-labelledby="languageDropdownButton"
         >
             {% for domain in domains %}

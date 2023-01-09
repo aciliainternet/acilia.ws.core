@@ -15,6 +15,7 @@ import WSInputMultiple from './controllers/ws-input-multiple_controller';
 import WSWidgetListModal from './controllers/ws-widget-list-modal_controller';
 import WSColorPicker from './controllers/ws-color-picker_controller';
 import WSRangeSlider from './controllers/ws-range-slider_controller';
+import WSDropdown from './controllers/ws-dropdown_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
 const stimulus = Application.start();
@@ -34,3 +35,4 @@ stimulus.register('ws-input-multiple', WSInputMultiple);
 stimulus.register('ws-widget-list-modal', WSWidgetListModal);
 stimulus.register('ws-color-picker', WSColorPicker);
 stimulus.register('ws-range-slider', WSRangeSlider);
+stimulus.register('ws-dropdown', WSDropdown);

@@ -70,7 +70,11 @@
                             {% endif %}
 
                             {% if view_export %}
-                                <div class="c-dropdown dropdown u-hidden@md--down" data-toggle="dropdown-export" data-component="ws_dropdown">
+                                <div 
+                                    class="c-dropdown dropdown u-hidden@md--down" 
+                                    data-controller="ws-dropdown" 
+                                    data-action="click->ws-dropdown#toggleDropdown"
+                                >
                                     <button class="c-btn c-btn--secondary has-dropdown dropdown-toggle"
                                             type="button"
                                             id="ExportDropdownButton"
@@ -79,7 +83,11 @@
                                             {{ 'export'|trans({}, 'ws_cms') }}
                                     </button>
                                     {% block crud_export_formats %}
-                                        <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
+                                        <div 
+                                            class="c-dropdown__menu dropdown-menu" 
+                                            data-ws-dropdown-target="toggle"
+                                            aria-labelledby="ExportDropdownButton"
+                                        >
                                             <a  class="c-dropdown__item dropdown-item"
                                                 href="{{ path("#{route_prefix}_export", app.request.query.all) }}">
                                                 <i class="fal fa-file-csv u-pr-5"></i> {{ 'export.csv'|trans({}, 'ws_cms') }}

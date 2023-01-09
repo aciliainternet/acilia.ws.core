@@ -1,4 +1,4 @@
-<div class="c-dropdown dropdown" data-toggle="dropdown-profile" data-component="ws_dropdown">
+<div class="c-dropdown dropdown" data-controller="ws-dropdown" data-action="click->ws-dropdown#toggleDropdown">
     <a
         class="c-avatar c-avatar--xsmall has-dropdown dropdown-toggle"
         href="#"
@@ -11,7 +11,11 @@
         {{ source('@WSCore/cms/icons/arrow.svg') }}
     </a>
 
-    <div class="c-dropdown__menu dropdown-menu dropdown-menu-right dropdown-profile" aria-labelledby="dropdwonMenuAvatar">
+    <div 
+        class="c-dropdown__menu dropdown-menu dropdown-menu-right" 
+        data-ws-dropdown-target="toggle"
+        aria-labelledby="dropdwonMenuAvatar"
+    >
         <a class="c-dropdown__item dropdown-item" href="{{ path('ws_administrator_profile') }}">
             <i class="fal fa-id-card u-mr-10"></i>{{ 'view_profile'|trans({}, 'ws_cms') }}
         </a>
