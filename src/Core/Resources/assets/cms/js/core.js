@@ -5,7 +5,6 @@ import 'core-js/features/dom-collections/for-each';
 import componentMarkdown from './components/ws_markdown';
 import componentAssetsImage from './components/ws_assets_image';
 import componentAssets from './components/ws_assets';
-import componentTableCollapse from './components/ws_table_collapse';
 import componentToggleChoice from './components/ws_toggle_choice';
 
 // stimulus
@@ -14,5 +13,4 @@ import '../ts/stimulus_bootstrap.ts';
 componentMarkdown();
 componentAssetsImage();
 componentAssets();
-componentTableCollapse();
 componentToggleChoice();

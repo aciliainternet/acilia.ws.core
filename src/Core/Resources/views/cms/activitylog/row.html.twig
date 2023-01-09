@@ -1,5 +1,10 @@
 {% if entity.action == constant('WS\\Core\\Library\\ActivityLog\\ActivityLogInterface::UPDATE') %}
-<tr class="c-table__row ws-table-collapse" data-toggle="collapseRow{{ entity.id }}">
+<tr 
+    class="c-table__row ws-table-collapse" 
+    data-controller="ws-table-collapse" 
+    data-ws-table-collapse-row-id-value="collapseRow{{ entity.id }}" 
+    data-action="click->ws-table-collapse#toggleRow"
+>
     <td class="c-table__cell">
         <span class="c-table__toggle">
             {{ entity.model|ws_activity_log_model }}

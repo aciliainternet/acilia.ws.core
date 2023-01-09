@@ -16,6 +16,7 @@ import WSWidgetListModal from './controllers/ws-widget-list-modal_controller';
 import WSColorPicker from './controllers/ws-color-picker_controller';
 import WSRangeSlider from './controllers/ws-range-slider_controller';
 import WSDropdown from './controllers/ws-dropdown_controller';
+import WSTableCollapse from './controllers/ws-table-collapse_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
 const stimulus = Application.start();
@@ -36,3 +37,4 @@ stimulus.register('ws-widget-list-modal', WSWidgetListModal);
 stimulus.register('ws-color-picker', WSColorPicker);
 stimulus.register('ws-range-slider', WSRangeSlider);
 stimulus.register('ws-dropdown', WSDropdown);
+stimulus.register('ws-table-collapse', WSTableCollapse);
