@@ -789,7 +789,7 @@
 
 {%- block ws_range_slider_widget -%}
     <div class="col-sm-10">
-        <input type="range" data-component="ws_range-slider" data-min="0" data-max="100" data-step="1" {% if value is defined %} value="{{ value }}"{% endif %}/>
+        <input type="range" data-controller="ws-range-slider" data-ws-range-slider-min-value="0" data-ws-range-slider-max-value="100" data-ws-range-slider-step-value="1" {% if value is defined %} value="{{ value }}"{% endif %}/>
     </div>
 {%- endblock ws_range_slider_widget -%}
 
