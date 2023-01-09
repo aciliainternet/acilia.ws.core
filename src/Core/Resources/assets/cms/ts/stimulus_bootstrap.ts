@@ -13,6 +13,7 @@ import WSTabs from './controllers/ws-tabs_controller';
 import WSDatePicker from './controllers/ws-date-picker_controller';
 import WSInputMultiple from './controllers/ws-input-multiple_controller';
 import WSWidgetListModal from './controllers/ws-widget-list-modal_controller';
+import WSColorPicker from './controllers/ws-color-picker_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
 const stimulus = Application.start();
@@ -30,3 +31,4 @@ stimulus.register('ws-tabs', WSTabs);
 stimulus.register('ws-datepicker', WSDatePicker);
 stimulus.register('ws-input-multiple', WSInputMultiple);
 stimulus.register('ws-widget-list-modal', WSWidgetListModal);
+stimulus.register('ws-color-picker', WSColorPicker);
