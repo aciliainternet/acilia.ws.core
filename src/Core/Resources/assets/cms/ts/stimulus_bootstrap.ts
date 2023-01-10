@@ -19,6 +19,9 @@ import WSDropdown from './controllers/ws-dropdown_controller';
 import WSTableCollapse from './controllers/ws-table-collapse_controller';
 import WSToggleChoice from './controllers/ws-toggle-choice_controller';
 import WSAsset from './controllers/ws-asset_controller';
+import WSMarkdown from './controllers/ws-markdown_controller';
+import WSMarkdownFile from './controllers/ws_markdown/ws-markdown-file_controller';
+import WSMarkdownImage from './controllers/ws_markdown/ws-markdown-image_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
 const stimulus = Application.start();
@@ -42,3 +45,6 @@ stimulus.register('ws-dropdown', WSDropdown);
 stimulus.register('ws-table-collapse', WSTableCollapse);
 stimulus.register('ws-toggle-choice', WSToggleChoice);
 stimulus.register('ws-asset', WSAsset);
+stimulus.register('ws-markdown', WSMarkdown);
+stimulus.register('ws-markdown-file', WSMarkdownFile);
+stimulus.register('ws-markdown-image', WSMarkdownImage);

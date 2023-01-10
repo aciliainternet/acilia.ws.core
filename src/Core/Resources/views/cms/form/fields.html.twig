@@ -48,10 +48,26 @@
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
     {% if form.vars.ws is defined %}
         {% if form.vars.ws.plugin.image %}
-            <input type="file" spellcheck="true" name="markdown-image" id="markdown-image-{{id}}" class="ws-img-markdown__new-upload" data-component="ws_markdown_image">
+            <input 
+                type="file"
+                spellcheck="true" 
+                name="markdown-image" 
+                id="markdown-image-{{id}}" 
+                class="ws-img-markdown__new-upload" 
+                data-ws-markdown-target="imagePlugin" 
+                data-controller="ws-markdown-image"
+            >
         {% endif %}
         {% if form.vars.ws.plugin.file %}
-            <input type="file" spellcheck="true" name="markdown-file" id="markdown-file-{{id}}" class="ws-file-markdown__new-upload" data-component="ws_markdown_file">
+            <input 
+                type="file" 
+                spellcheck="true" 
+                name="markdown-file" 
+                id="markdown-file-{{id}}" 
+                class="ws-file-markdown__new-upload" 
+                data-ws-markdown-target="filePlugin" 
+                data-controller="ws-markdown-file"
+            >
         {% endif %}
     {% endif %}
 {%- endblock textarea_widget -%}

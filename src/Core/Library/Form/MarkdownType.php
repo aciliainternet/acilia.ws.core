@@ -13,7 +13,7 @@ class MarkdownType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
-            'ws_attr' => ['data-component' => 'ws_markdown'],
+            'ws_attr' => ['data-controller' => 'ws-markdown'],
             'ws' => ['plugin' => ['image' => true, 'file' => true] ]
         ]);
     }

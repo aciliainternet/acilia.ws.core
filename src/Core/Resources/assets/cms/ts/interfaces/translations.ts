@@ -11,9 +11,14 @@ export interface InputMultipleTranslations {
   invalid_item: string;
 };
 
+export interface MarkdownTranslations {
+  autosave: string;
+}
+
 export interface CMSComponentTranslations {
   select: SelectTranslations;
   input_multiple: InputMultipleTranslations;
+  markdown: MarkdownTranslations;
 }
 
 export interface CMSBatchActionsTranslations {
