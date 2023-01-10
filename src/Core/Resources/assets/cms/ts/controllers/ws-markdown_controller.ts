@@ -14,8 +14,9 @@ interface EditorInstance {
 const editors: EditorInstance[] = [];
  
 export default class extends Controller<HTMLElement> { 
-  static targets = ['filePlugin', 'imagePlugin'];
+  static targets = ['textarea', 'filePlugin', 'imagePlugin'];
 
+  declare textareaTarget: HTMLTextAreaElement;
   declare filePluginTarget: HTMLElement;
   declare imagePluginTarget: HTMLElement;
 
@@ -27,8 +28,8 @@ export default class extends Controller<HTMLElement> {
     }
 
     editors.push({
-      key: this.element,
-      instance: this.createMarkdown(this.element, cmsTranslations, this.getConfig()),
+      key: this.textareaTarget,
+      instance: this.createMarkdown(this.textareaTarget, cmsTranslations, this.getConfig()),
     });
   }
 

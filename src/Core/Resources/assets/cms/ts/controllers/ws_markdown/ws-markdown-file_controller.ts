@@ -3,11 +3,10 @@ import { FileResponse } from '../../interfaces/markdown';
 
 let newFile: FileResponse | null = null;
 
-export default class extends Controller {
-  async onChange(event: InputEvent) {
-    const target = event.currentTarget as HTMLInputElement;
-    if (target.files && target.files.length) {
-      newFile = await this.getFile(target.files[0]);
+export default class extends Controller<HTMLInputElement> {
+  async onChange() {
+    if (this.element.files && this.element.files.length) {
+      newFile = await this.getFile(this.element.files[0]);
     }
   }
 

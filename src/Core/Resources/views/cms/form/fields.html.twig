@@ -45,6 +45,10 @@
 
 {%- block textarea_widget -%}
     {% set attr = attr|merge({ 'class': 'c-input ' ~ attr.class|default('') }) %}
+    {% if form.vars.ws is defined %}
+        <div data-controller="ws-markdown">
+    {% endif %}
+
     <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
     {% if form.vars.ws is defined %}
         {% if form.vars.ws.plugin.image %}
@@ -56,6 +60,7 @@
                 class="ws-img-markdown__new-upload" 
                 data-ws-markdown-target="imagePlugin" 
                 data-controller="ws-markdown-image"
+                data-action="change->ws-markdown-image#onChange"
             >
         {% endif %}
         {% if form.vars.ws.plugin.file %}
@@ -67,8 +72,13 @@
                 class="ws-file-markdown__new-upload" 
                 data-ws-markdown-target="filePlugin" 
                 data-controller="ws-markdown-file"
+                data-action="change->ws-markdown-file#onChange"
             >
         {% endif %}
+    {% endif %}
+
+    {% if form.vars.ws is defined %}
+        </div>
     {% endif %}
 {%- endblock textarea_widget -%}
 
