@@ -16,7 +16,7 @@ class ContextService
 
     public function __construct(
         protected bool $debug,
-        protected DomainService $domainService
+        protected DomainInterface $domainInterface
     ) {
     }
 
@@ -52,7 +52,7 @@ class ContextService
      */
     public function getDomains(): array
     {
-        return $this->domainService->getCanonicals();
+        return $this->domainInterface->getCanonicals();
     }
 
     public function getDomainByLocale(string $locale, string $type = Domain::CANONICAL): ?Domain

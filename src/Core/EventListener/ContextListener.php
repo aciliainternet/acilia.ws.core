@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use WS\Core\Entity\Domain;
 use WS\Core\Service\ContextService;
-use WS\Core\Service\DomainService;
+use WS\Core\Service\DomainInterface;
 use WS\Core\Service\SettingService;
 
 #[AsEventListener(event: RequestEvent::class, method: 'setupDomain', priority: 127)]
@@ -15,7 +15,7 @@ class ContextListener
 {
     public function __construct(
         private ContextService $contextService,
-        private DomainService $domainService,
+        private DomainInterface $domainInterface,
         private SettingService $settingService
     ) {
     }
@@ -50,7 +50,7 @@ class ContextListener
                 /** @var int */
                 $domainId = $session->get(ContextService::SESSION_DOMAIN);
 
-                $domain = $this->domainService->get($domainId);
+                $domain = $this->domainInterface->get($domainId);
                 if ($domain instanceof Domain) {
                     $this->contextService->setDomain($domain);
                     $this->settingService->loadSettings();
@@ -62,7 +62,7 @@ class ContextListener
         }
 
         // Detect domains by host
-        $domains = $this->domainService->getByHost($event->getRequest()->getHost());
+        $domains = $this->domainInterface->getByHost($event->getRequest()->getHost());
 
         // If symfony context use default domain
         if (!$this->contextService->isCMS() && !$this->contextService->isSite()) {
