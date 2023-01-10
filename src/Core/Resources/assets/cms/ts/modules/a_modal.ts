@@ -127,7 +127,7 @@ export default class AModal {
         }
       
         closeButtonElement.addEventListener('click', () => {
-          self.close();
+          this.close();
         }, false);
       }
     }
