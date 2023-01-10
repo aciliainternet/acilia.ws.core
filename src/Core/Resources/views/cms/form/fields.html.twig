@@ -517,17 +517,17 @@
 {%- endblock ws_attributes -%}
 
 {%- block ws_asset_file_widget -%}
-    <div class="c-asset-upload" data-id="{{ id }}">
-        {# input to indicate if we are gonna to delete the asset image #}
-        {{ form_widget(form.children.asset_remove) }}
+    <div class="c-asset-upload" data-controller="ws-asset">
+        {# input to indicate if we are gonna to delete the asset file #}
+        {{ form_widget(form.children.asset_remove, { attr: { 'data-ws-asset-target': 'removeField' }}) }}
 
         <div class="c-asset-upload__wrapper">
             {% if form.children.asset_file.vars.data != null %}
-                <span class="c-asset-upload__asset" data-id="{{ id }}_link">
+                <span class="c-asset-upload__asset" data-ws-asset-target="linkField">
                     {{ form.children.asset_file.vars.data.filename }}
                 </span>
             {% endif %}
-            <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}" data-id-asset-component="{{ id }}">
+            <div class="c-asset-upload__asset {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}" data-ws-asset-target="formUpload">
                 {# show file input field #}
                 {{ form_widget(form.children.asset) }}
                 {{ form_errors(form.children.asset) }}
@@ -535,15 +535,17 @@
             {% if form.children.asset_file.vars.data != null %}
                 <div class="c-btn-upload-image-container">
                     <button
-                        class="c-btn c-btn--secondary c-btn--upload-image js-delete-asset"
+                        class="c-btn c-btn--secondary c-btn--upload-image"
                         type="button"
-                        data-id-asset-component="{{ id }}">
+                        data-action="click->ws-asset#deleteAsset"
+                    >
                         {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
                     </button>
                     <button
-                        class="c-btn c-btn--secondary js-delete-asset"
+                        class="c-btn c-btn--secondary"
                         type="button"
-                        data-id-asset-component="{{ id }}">
+                        data-action="click->ws-asset#deleteAsset"
+                    >
                         <i class="fal fa-trash-alt"></i>
                     </button>
                 </div>

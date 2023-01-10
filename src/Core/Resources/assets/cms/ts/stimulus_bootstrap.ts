@@ -18,6 +18,7 @@ import WSRangeSlider from './controllers/ws-range-slider_controller';
 import WSDropdown from './controllers/ws-dropdown_controller';
 import WSTableCollapse from './controllers/ws-table-collapse_controller';
 import WSToggleChoice from './controllers/ws-toggle-choice_controller';
+import WSAsset from './controllers/ws-asset_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
 const stimulus = Application.start();
@@ -40,3 +41,4 @@ stimulus.register('ws-range-slider', WSRangeSlider);
 stimulus.register('ws-dropdown', WSDropdown);
 stimulus.register('ws-table-collapse', WSTableCollapse);
 stimulus.register('ws-toggle-choice', WSToggleChoice);
+stimulus.register('ws-asset', WSAsset);
