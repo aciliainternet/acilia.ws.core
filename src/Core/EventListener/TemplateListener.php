@@ -7,7 +7,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: RequestEvent::class, method: 'setupTemplate', priority: 126)]
 class TemplateListener
@@ -15,7 +15,7 @@ class TemplateListener
     public function __construct(
         private Environment $twigEnvironment,
         private ParameterBagInterface $parameterBagInterface,
-        private ContextService $contextService
+        private ContextInterface $context
     ) {
     }
 
@@ -33,7 +33,7 @@ class TemplateListener
             return;
         }
 
-        if (!($this->contextService->isCMS() || $this->contextService->isSite())) {
+        if (!($this->context->isCMS() || $this->context->isSite())) {
             return;
         }
 
@@ -43,7 +43,7 @@ class TemplateListener
         $newPath = sprintf(
             '%s/templates/%s',
             \strval($this->parameterBagInterface->get('kernel.project_dir')),
-            $this->contextService->getTemplatesBase()
+            $this->context->getTemplatesBase()
         );
         array_unshift($twigPaths, $newPath);
 

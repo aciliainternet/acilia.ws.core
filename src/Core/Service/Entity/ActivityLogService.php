@@ -8,14 +8,14 @@ use WS\Core\Entity\ActivityLog;
 use WS\Core\Library\ActivityLog\ActivityLogChanges;
 use WS\Core\Repository\ActivityLogRepository;
 use WS\Core\Service\ActivityLogService as ActivityLogRegistry;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 
 class ActivityLogService
 {
     public function __construct(
         protected LoggerInterface $logger,
         protected EntityManagerInterface $em,
-        protected ContextService $contextService,
+        protected ContextInterface $context,
         protected ActivityLogRegistry $activityLogRegistry,
         protected ActivityLogRepository $repository
     ) {
@@ -24,9 +24,9 @@ class ActivityLogService
     public function getAll(array $filters, int $page, int $limit): array
     {
         /** @var ActivityLog[] */
-        $entities = $this->repository->getAll($this->contextService->getDomain(), $filters, $limit, ($page - 1) * $limit);
+        $entities = $this->repository->getAll($this->context->getDomain(), $filters, $limit, ($page - 1) * $limit);
 
-        $total = $this->repository->getAllCount($this->contextService->getDomain(), $filters);
+        $total = $this->repository->getAllCount($this->context->getDomain(), $filters);
 
         /** @var ActivityLog $log */
         foreach ($entities as $log) {

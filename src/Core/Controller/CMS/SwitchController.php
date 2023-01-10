@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 use WS\Core\Service\DomainInterface;
 
 class SwitchController extends AbstractController
@@ -30,7 +30,7 @@ class SwitchController extends AbstractController
 
         $session = $request->getSession();
         if ($session !== null) {
-            $session->set(ContextService::SESSION_DOMAIN, $domain->getId());
+            $session->set(ContextInterface::SESSION_DOMAIN, $domain->getId());
 
             $this->addFlash('cms_success', $this->translator->trans(
                 'domain_switched',

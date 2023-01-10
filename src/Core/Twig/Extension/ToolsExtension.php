@@ -8,14 +8,14 @@ use WS\Core\Entity\Domain;
 use WS\Core\Library\CRUD\AbstractController;
 use WS\Core\Library\Dashboard\DashboardWidgetInterface;
 use WS\Core\Service\AlertService;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 use WS\Core\Service\DashboardService;
 use WS\Core\Service\SettingService;
 
 class ToolsExtension extends AbstractExtension
 {
     public function __construct(
-        protected ContextService $contextService,
+        protected ContextInterface $context,
         protected AlertService $alertService,
         protected SettingService $settingService,
         protected DashboardService $dashboardService
@@ -43,17 +43,17 @@ class ToolsExtension extends AbstractExtension
 
     public function getCurrentDomain(): ?Domain
     {
-        return $this->contextService->getDomain();
+        return $this->context->getDomain();
     }
 
     public function getDomains(): array
     {
-        return $this->contextService->getDomains();
+        return $this->context->getDomains();
     }
 
     public function getLocaleDomain(string $locale): ?Domain
     {
-        foreach ($this->contextService->getDomains() as $domain) {
+        foreach ($this->context->getDomains() as $domain) {
             if ($domain->getLocale() === $locale) {
                 return $domain;
             }
@@ -64,7 +64,7 @@ class ToolsExtension extends AbstractExtension
 
     public function hasLocaleDomain(string $locale): bool
     {
-        foreach ($this->contextService->getDomains() as $domain) {
+        foreach ($this->context->getDomains() as $domain) {
             if ($domain->getLocale() === $locale) {
                 return true;
             }
@@ -96,7 +96,7 @@ class ToolsExtension extends AbstractExtension
 
     public function getFormTheme(): string
     {
-        if ($this->contextService->isCMS()) {
+        if ($this->context->isCMS()) {
             return '@WSCore/cms/form/fields.html.twig';
         }
 

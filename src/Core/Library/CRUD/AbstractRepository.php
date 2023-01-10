@@ -9,13 +9,12 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use WS\Core\Entity\Domain;
 use WS\Core\Library\Domain\DomainRepositoryTrait;
-use WS\Core\Service\ContextService;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
     use DomainRepositoryTrait;
 
-    public function __construct(protected ContextService $contextService, ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, $this->getEntityClass());
     }

@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetFile;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
 use WS\Core\Repository\AssetFileRepository;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 
 class AssetFileService implements FactoryCollectorInterface
 {
     public function __construct(
         protected LoggerInterface $logger,
         protected EntityManagerInterface $em,
-        protected ContextService $contextService,
+        protected ContextInterface $context,
         protected AssetFileRepository $repository
     ) {
     }
@@ -76,7 +76,7 @@ class AssetFileService implements FactoryCollectorInterface
         $result = [];
 
         try {
-            $data = $this->repository->getAvailableByIds($this->contextService->getDomain(), $ids);
+            $data = $this->repository->getAvailableByIds($this->context->getDomain(), $ids);
             foreach ($data as $entity) {
                 $result[$entity->getId()] = $entity;
             }

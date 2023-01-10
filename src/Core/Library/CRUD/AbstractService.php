@@ -9,7 +9,7 @@ use WS\Core\Library\Asset\Form\AssetFileType;
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\Domain\DomainDependantInterface;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 
 abstract class AbstractService implements DBLoggerInterface
 {
@@ -18,7 +18,7 @@ abstract class AbstractService implements DBLoggerInterface
     public function __construct(
         protected LoggerInterface $logger,
         protected EntityManagerInterface $em,
-        protected ContextService $contextService
+        protected ContextInterface $context
     ) {
         /** @var AbstractRepository */
         $repository = $this->em->getRepository($this->getEntityClass());
@@ -110,8 +110,8 @@ abstract class AbstractService implements DBLoggerInterface
 
         $filterFields = $this->getFilterFields();
 
-        $entities = $this->repository->getAll($this->contextService->getDomain(), $search, $filter, $filterFields, $orderBy, $limit, ($page - 1) * $limit);
-        $total = $this->repository->getAllCount($this->contextService->getDomain(), $search, $filter, $filterFields);
+        $entities = $this->repository->getAll($this->context->getDomain(), $search, $filter, $filterFields, $orderBy, $limit, ($page - 1) * $limit);
+        $total = $this->repository->getAllCount($this->context->getDomain(), $search, $filter, $filterFields);
 
         return ['total' => $total, 'data' => $entities];
     }
@@ -128,7 +128,7 @@ abstract class AbstractService implements DBLoggerInterface
 
         try {
             if ($entity instanceof DomainDependantInterface) {
-                $entity->setDomain($this->contextService->getDomain());
+                $entity->setDomain($this->context->getDomain());
             }
 
             $this->em->persist($entity);

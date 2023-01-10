@@ -4,13 +4,8 @@ namespace WS\Core\Service;
 
 use WS\Core\Entity\Domain;
 
-class ContextService
+final class ContextService implements ContextInterface
 {
-    public const CMS = 'cms';
-    public const SITE = 'site';
-    public const SYMFONY = 'symfony';
-    public const SESSION_DOMAIN = 'ws_domain_id';
-
     protected string $context = '';
     protected ?Domain $domain = null;
 
@@ -62,16 +57,16 @@ class ContextService
 
     public function isCMS(): bool
     {
-        return $this->context === self::CMS;
+        return $this->context === ContextInterface::CMS;
     }
 
     public function isSite(): bool
     {
-        return $this->context === self::SITE;
+        return $this->context === ContextInterface::SITE;
     }
 
     public function getTemplatesBase(): string
     {
-        return $this->context === self::CMS ? 'cms' : 'site';
+        return $this->context === ContextInterface::CMS ? 'cms' : 'site';
     }
 }

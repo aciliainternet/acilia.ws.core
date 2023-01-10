@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use WS\Core\Entity\Domain;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 use WS\Core\Service\DomainInterface;
 use WS\Core\Service\SettingService;
 
@@ -14,7 +14,7 @@ use WS\Core\Service\SettingService;
 class ContextListener
 {
     public function __construct(
-        private ContextService $contextService,
+        private ContextInterface $context,
         private DomainInterface $domainService,
         private SettingService $settingService
     ) {
@@ -23,7 +23,7 @@ class ContextListener
     public function setupDomain(RequestEvent $event): void
     {
         if (!$event->isMainRequest()) {
-            $domain = $this->contextService->getDomain();
+            $domain = $this->context->getDomain();
             if ($domain !== null && $domain->getLocale() !== null) {
                 $event->getRequest()->setLocale($domain->getLocale());
             }
@@ -37,22 +37,22 @@ class ContextListener
         // Setup App Context
         $path = $event->getRequest()->getPathInfo();
         if (strpos($path, '/cms') === 0) {
-            $this->contextService->setContext(ContextService::CMS);
+            $this->context->setContext(ContextInterface::CMS);
         } elseif (strpos($path, '/_wdt') === 0 || strpos($path, '/_profiler') === 0) {
-            $this->contextService->setContext(ContextService::SYMFONY);
+            $this->context->setContext(ContextInterface::SYMFONY);
         } else {
-            $this->contextService->setContext(ContextService::SITE);
+            $this->context->setContext(ContextInterface::SITE);
         }
 
         // Load Domain from Session for the CMS
-        if ($this->contextService->isCMS()) {
-            if ($session !== null && $session->has(ContextService::SESSION_DOMAIN)) {
+        if ($this->context->isCMS()) {
+            if ($session !== null && $session->has(ContextInterface::SESSION_DOMAIN)) {
                 /** @var int */
-                $domainId = $session->get(ContextService::SESSION_DOMAIN);
+                $domainId = $session->get(ContextInterface::SESSION_DOMAIN);
 
                 $domain = $this->domainService->get($domainId);
                 if ($domain instanceof Domain) {
-                    $this->contextService->setDomain($domain);
+                    $this->context->setDomain($domain);
                     $this->settingService->loadSettings();
                     return;
                 } else {
@@ -65,22 +65,22 @@ class ContextListener
         $domains = $this->domainService->getByHost($event->getRequest()->getHost());
 
         // If symfony context use default domain
-        if (!$this->contextService->isCMS() && !$this->contextService->isSite()) {
+        if (!$this->context->isCMS() && !$this->context->isSite()) {
             /** @var \WS\Core\Entity\Domain */
             $domain = \array_shift($domains);
-            $this->contextService->setDomain($domain);
+            $this->context->setDomain($domain);
             return;
         }
 
         if (count($domains) == 1) {
             /** @var Domain $domain */
             $domain = $domains[0];
-            $this->contextService->setDomain($domain);
+            $this->context->setDomain($domain);
             $this->settingService->loadSettings();
 
-            if ($this->contextService->isCMS() && $event->getRequest()->getSession() instanceof SessionInterface) {
+            if ($this->context->isCMS() && $event->getRequest()->getSession() instanceof SessionInterface) {
                 if ($session !== null) {
-                    $session->set(ContextService::SESSION_DOMAIN, $domain->getId());
+                    $session->set(ContextInterface::SESSION_DOMAIN, $domain->getId());
                 }
             } else {
                 if ($domain->getLocale() !== null) {
@@ -89,12 +89,12 @@ class ContextListener
             }
         } else {
             // Domain is locale dependant
-            if ($this->contextService->isCMS()) {
+            if ($this->context->isCMS()) {
                 $domain = $domains[0];
-                $this->contextService->setDomain($domain);
+                $this->context->setDomain($domain);
 
                 if ($session !== null) {
-                    $session->set(ContextService::SESSION_DOMAIN, $domain->getId());
+                    $session->set(ContextInterface::SESSION_DOMAIN, $domain->getId());
                 }
             } else {
                 $domain = null;
@@ -114,7 +114,7 @@ class ContextListener
                     $domain = \array_shift($domains);
                 }
 
-                $this->contextService->setDomain($domain);
+                $this->context->setDomain($domain);
                 $this->settingService->loadSettings();
                 if ($domain->getLocale() !== null) {
                     $event->getRequest()->setLocale($domain->getLocale());

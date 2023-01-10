@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetImage;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
 use WS\Core\Repository\AssetImageRepository;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 
 class AssetImageService implements FactoryCollectorInterface
 {
     public function __construct(
         protected LoggerInterface $logger,
         protected EntityManagerInterface $em,
-        protected ContextService $contextService,
+        protected ContextInterface $context,
         protected AssetImageRepository $repository
     ) {
     }
@@ -47,7 +47,7 @@ class AssetImageService implements FactoryCollectorInterface
         $filter = ['visible' => true];
 
         try {
-            return $this->repository->getAll($this->contextService->getDomain(), $search, $filter, null, $orderBy, $limit, $offset);
+            return $this->repository->getAll($this->context->getDomain(), $search, $filter, null, $orderBy, $limit, $offset);
         } catch (\Exception $e) {
             $this->logger->error(sprintf('Error fetching image assets. Error %s', $e->getMessage()));
         }
@@ -181,7 +181,7 @@ class AssetImageService implements FactoryCollectorInterface
         $result = [];
 
         try {
-            $data = $this->repository->getAvailableByIds($this->contextService->getDomain(), $ids);
+            $data = $this->repository->getAvailableByIds($this->context->getDomain(), $ids);
             foreach ($data as $entity) {
                 $result[$entity->getId()] = $entity;
             }

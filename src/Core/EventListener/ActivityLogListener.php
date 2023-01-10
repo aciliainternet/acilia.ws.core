@@ -14,14 +14,14 @@ use WS\Core\Entity\Domain;
 use WS\Core\Library\ActivityLog\ActivityLogInterface;
 use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Service\ActivityLogService;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: ControllerEvent::class, method: 'onController', priority: 121)]
 class ActivityLogListener
 {
     public function __construct(
         private LoggerInterface $logger,
-        private ContextService $contextService,
+        private ContextInterface $context,
         private ActivityLogService $activityLogService,
         private TokenStorageInterface $tokenStorage
     ) {
@@ -193,8 +193,8 @@ class ActivityLogListener
             }
         }
 
-        if ($this->contextService->getDomain() instanceof Domain) {
-            return $this->contextService->getDomain()->getId();
+        if ($this->context->getDomain() instanceof Domain) {
+            return $this->context->getDomain()->getId();
         }
 
         return null;

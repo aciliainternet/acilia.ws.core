@@ -8,13 +8,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Twig\Environment;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: ExceptionEvent::class, method: 'onException', priority: 124)]
 class ExceptionListener
 {
     public function __construct(
-        private ContextService $contextService,
+        private ContextInterface $context,
         private Environment $twigEnvironment,
         private ParameterBagInterface $parameterBag
     ) {
@@ -46,7 +46,7 @@ class ExceptionListener
             // define the template to show
             $template = sprintf(
                 '@WSCore/%s/errors/error%s.html.twig',
-                $this->contextService->getTemplatesBase(),
+                $this->context->getTemplatesBase(),
                 $code
             );
 
