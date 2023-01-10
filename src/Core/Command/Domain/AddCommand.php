@@ -17,7 +17,7 @@ use WS\Core\Service\DomainInterface;
 )]
 class AddCommand extends Command
 {
-    public function __construct(protected DomainInterface $domainInterface)
+    public function __construct(protected DomainInterface $domainService)
     {
         parent::__construct();
     }
@@ -62,24 +62,22 @@ class AddCommand extends Command
                 $timezone = $timezone[0];
             }
 
-            $domain = new Domain();
-            $domain
+            $domain = (new Domain())
                 ->setHost($host)
                 ->setLocale($locale)
                 ->setType($type)
                 ->setCulture($culture)
-                ->setTimezone($timezone)
-            ;
+                ->setTimezone($timezone);
 
-            $this->domainInterface->create($domain);
+            $this->domainService->create($domain);
 
-            $io->success(sprintf('You have created a new domain: %s (%s)', $domain->getHost(), $domain->getLocale()));
+            $io->success(sprintf('You have created a new domain: %s (%s)', $host, $locale));
 
-            return 0;
+            return Command::SUCCESS;
         } catch (\Exception $e) {
             $io->error($e->getMessage());
 
-            return 2;
+            return Command::FAILURE;
         }
     }
 }

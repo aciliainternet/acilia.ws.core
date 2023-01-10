@@ -15,7 +15,7 @@ class ContextListener
 {
     public function __construct(
         private ContextService $contextService,
-        private DomainInterface $domainInterface,
+        private DomainInterface $domainService,
         private SettingService $settingService
     ) {
     }
@@ -50,7 +50,7 @@ class ContextListener
                 /** @var int */
                 $domainId = $session->get(ContextService::SESSION_DOMAIN);
 
-                $domain = $this->domainInterface->get($domainId);
+                $domain = $this->domainService->get($domainId);
                 if ($domain instanceof Domain) {
                     $this->contextService->setDomain($domain);
                     $this->settingService->loadSettings();
@@ -62,7 +62,7 @@ class ContextListener
         }
 
         // Detect domains by host
-        $domains = $this->domainInterface->getByHost($event->getRequest()->getHost());
+        $domains = $this->domainService->getByHost($event->getRequest()->getHost());
 
         // If symfony context use default domain
         if (!$this->contextService->isCMS() && !$this->contextService->isSite()) {

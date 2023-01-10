@@ -14,10 +14,8 @@ class ContextService
     protected string $context = '';
     protected ?Domain $domain = null;
 
-    public function __construct(
-        protected bool $debug,
-        protected DomainInterface $domainInterface
-    ) {
+    public function __construct(protected DomainInterface $domainService)
+    {
     }
 
     public function setContext(string $context): self
@@ -52,7 +50,7 @@ class ContextService
      */
     public function getDomains(): array
     {
-        return $this->domainInterface->getCanonicals();
+        return $this->domainService->getCanonicals();
     }
 
     public function getDomainByLocale(string $locale, string $type = Domain::CANONICAL): ?Domain
@@ -60,11 +58,6 @@ class ContextService
         $domains = \array_filter($this->getDomains(), fn ($d) => $d->getType() === $type && $locale === $d->getLocale());
 
         return \array_shift($domains);
-    }
-
-    public function isDebug(): bool
-    {
-        return $this->debug;
     }
 
     public function isCMS(): bool

@@ -12,7 +12,7 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
     protected ?array $aliases = null;
     protected ?array $aliasList = null;
 
-    public function __construct(protected DomainInterface $domainInterface)
+    public function __construct(protected DomainInterface $domainService)
     {
     }
 
@@ -20,7 +20,7 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
     {
         if ($this->domains === null) {
             try {
-                $domains = $this->domainInterface->getCanonicals();
+                $domains = $this->domainService->getCanonicals();
             } catch (\Exception $e) {
                 $domains = [];
             }
@@ -36,7 +36,7 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
     protected function getAliases(): array
     {
         if ($this->aliases === null) {
-            $domains = $this->domainInterface->getAliases();
+            $domains = $this->domainService->getAliases();
 
             $this->aliases = [];
             foreach ($domains as $domain) {
@@ -56,7 +56,7 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
     protected function getAliasList(): array
     {
         if ($this->aliasList === null) {
-            $domains = $this->domainInterface->getAliases();
+            $domains = $this->domainService->getAliases();
 
             $this->aliasList = [];
             foreach ($domains as $domain) {
