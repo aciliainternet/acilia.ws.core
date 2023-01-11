@@ -23,10 +23,6 @@ export default class extends Controller {
     // document.querySelectorAll('.js-open-modal').forEach((element) => {
     //   element.addEventListener('click', handleBehaviour);
     // });
-
-    // document.querySelectorAll('.js-delete-asset-image').forEach((element) => {
-    //   element.addEventListener('click', deleteAssetImage);
-    // });
   }
 
   deleteAssetImage() {
@@ -37,9 +33,24 @@ export default class extends Controller {
     this.placeholderTarget.classList.remove('u-hidden');
     this.changeImageTarget.classList.add('u-hidden');
     this.uploadNewImageTarget.classList.remove('u-hidden');
-    // document.querySelector(`.js-open-modal.js-not-on-preview[data-id-asset-component="${idAssetComponent}_asset"]`)
-    //    .classList.remove('u-hidden');
   }
+
+  openModal() {
+    // const assetImageElement = document.querySelector(
+    //   `#${event.currentTarget.dataset.idAssetComponent}[data-component="ws_cropper"]`,
+    // );
+  
+    // if (assetImageElement.dataset.displayMode === 'list'
+    //   && document.querySelector('.js-image-selector-modal').offsetWidth === 0
+    //   && document.querySelector('.js-image-selector-modal').offsetHeight === 0) {
+    //   event.preventDefault();
+    //   initModalImageSelector(assetImageElement, modal);
+    // } else if (assetImageElement.dataset.displayMode === 'crop') {
+    //   initCropper(assetImageElement, modal);
+    //   assetImageElement.click();
+    // }
+  }
+
 }
 
 const modal = new Modal({
@@ -57,18 +68,3 @@ const modal = new Modal({
     }
   },
 });
-
-function handleBehaviour(event) {
-  const assetImageElement = document.querySelector(
-    `#${event.currentTarget.dataset.idAssetComponent}[data-component="ws_cropper"]`,
-  );
-  if (assetImageElement.dataset.displayMode === 'list'
-    && document.querySelector('.js-image-selector-modal').offsetWidth === 0
-    && document.querySelector('.js-image-selector-modal').offsetHeight === 0) {
-    event.preventDefault();
-    initModalImageSelector(assetImageElement, modal);
-  } else if (assetImageElement.dataset.displayMode === 'crop') {
-    initCropper(assetImageElement, modal);
-    assetImageElement.click();
-  }
-}
