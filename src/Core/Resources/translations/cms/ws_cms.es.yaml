@@ -24,6 +24,8 @@ back: Atrás
 confirm: Confirmar
 error: ¡Error!
 actions: Acciones
+fields.id.label: Id
+fields.entity.label: Título
 date_hour_format: "d/m/Y H:i:s"
 date_format: "d/m/Y"
 datePicker_date_hour: "d/m/Y H:i:S"

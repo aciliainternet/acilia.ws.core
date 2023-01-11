@@ -2,9 +2,9 @@
 
 namespace WS\Core\Controller\CMS;
 
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use WS\Core\Form\AdministratorProfileType;
@@ -62,26 +62,15 @@ class AdministratorController extends AbstractController
         return $this->render('@WSCore/cms/administrator/profile.html.twig', ['form' => $form]);
     }
 
-    #[Route(path: '/edit/{id}', name: 'edit')]
-    public function edit(Request $request, int $id): Response
+    protected function editEntityForm(object $entity): FormInterface
     {
-        $entity = $this->getService()->get($id);
-        if ($entity === null || get_class($entity) !== $this->getService()->getEntityClass()) {
-            throw new NotFoundHttpException(sprintf($this->trans('not_found', [], $this->getTranslatorPrefix()), $id));
-        }
-
-        $this->addEvent(
-            self::EVENT_EDIT_CREATE_FORM,
-            fn () => $this->createForm(
-                $this->getService()->getFormClass(),
-                $entity,
-                [
-                    'edit' => true,
-                    'translation_domain' => $this->getTranslatorPrefix()
-                ]
-            )
+        return $this->createForm(
+            $this->getService()->getFormClass(),
+            $entity,
+            [
+                'edit' => true,
+                'translation_domain' => $this->getTranslatorPrefix()
+            ]
         );
-
-        return parent::edit($request, $id);
     }
 }

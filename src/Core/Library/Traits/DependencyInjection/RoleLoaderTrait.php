@@ -1,6 +1,6 @@
 <?php
 
-namespace WS\Core\Library\CRUD;
+namespace WS\Core\Library\Traits\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

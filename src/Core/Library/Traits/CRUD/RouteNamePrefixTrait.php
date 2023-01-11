@@ -1,8 +1,8 @@
 <?php
 
-namespace WS\Core\Library\CRUD;
+namespace WS\Core\Library\Traits\CRUD;
 
-trait RouteTrait
+trait RouteNamePrefixTrait
 {
     protected function getRouteNamePrefix(): string
     {

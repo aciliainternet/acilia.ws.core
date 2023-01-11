@@ -24,6 +24,8 @@ back: Back
 confirm: Confirm
 error: Error!
 actions: Actions
+fields.id.label: Id
+fields.entity.label: Title
 date_hour_format: "m/d/Y h:i A"
 date_format: "m/d/Y"
 datePicker_date_hour: "d/m/Y H:i:S"

@@ -1,6 +1,6 @@
 <?php
 
-namespace WS\Core\Library\CRUD;
+namespace WS\Core\Library\Traits\CRUD;
 
 trait RoleCalculatorTrait
 {

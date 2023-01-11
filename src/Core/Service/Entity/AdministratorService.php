@@ -2,8 +2,6 @@
 
 namespace WS\Core\Service\Entity;
 
-use WS\Core\Entity\Administrator;
-use WS\Core\Form\AdministratorType;
 use WS\Core\Library\ActivityLog\ActivityLogInterface;
 use WS\Core\Library\ActivityLog\ActivityLogTrait;
 use WS\Core\Library\CRUD\AbstractService;
@@ -13,16 +11,6 @@ class AdministratorService extends AbstractService implements ActivityLogInterfa
     use ActivityLogTrait;
 
     protected array $roles = [];
-
-    public function getEntityClass(): string
-    {
-        return Administrator::class;
-    }
-
-    public function getFormClass(): string
-    {
-        return AdministratorType::class;
-    }
 
     public function getSortFields(): array
     {

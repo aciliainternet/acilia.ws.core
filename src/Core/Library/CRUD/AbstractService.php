@@ -25,15 +25,48 @@ abstract class AbstractService implements DBLoggerInterface
         $this->repository = $repository;
     }
 
-    /** @return class-string<object> */
-    abstract public function getEntityClass(): string;
+    public function getEntityClass(): string
+    {
+        $serviceClass = get_class($this);
+        $classPath = explode('\\', $serviceClass);
 
-    abstract public function getFormClass(): string;
+        $serviceNamespacePrefix = $classPath[0];
+        if ($serviceNamespacePrefix === 'WS') {
+            $serviceClassname = str_replace('Service', '', $classPath[4]);
+            return sprintf('WS\Core\Entity\%s', $serviceClassname);
+
+        } elseif ($serviceNamespacePrefix === 'App') {
+            $serviceClassname = str_replace('Service', '', $classPath[3]);
+            return sprintf('App\Entity\%s', $serviceClassname);
+
+        } else {
+            throw new \Exception(sprintf('Unable to find class for Service: %s', $serviceClass));
+        }
+    }
+
+    public function getFormClass(): string
+    {
+        $serviceClass = get_class($this);
+        $classPath = explode('\\', $serviceClass);
+
+        $serviceNamespacePrefix = $classPath[0];
+        if ($serviceNamespacePrefix === 'WS') {
+            $serviceClassname = str_replace('Service', '', $classPath[4]);
+            return sprintf('WS\Core\Form\%sType', $serviceClassname);
+
+        } elseif ($serviceNamespacePrefix === 'App') {
+            $serviceClassname = str_replace('Service', '', $classPath[3]);
+            return sprintf('App\Form\CMS\%sType', $serviceClassname);
+
+        } else {
+            throw new \Exception(sprintf('Unable to find form for Service: %s', $serviceClass));
+        }
+    }
 
     abstract public function getSortFields(): array;
 
     abstract public function getListFields(): array;
-
+    
     abstract public function getFilterFields(): array;
 
     public function getImageEntityClass(object $entity): ?string
@@ -77,9 +110,14 @@ abstract class AbstractService implements DBLoggerInterface
             $ref = new \ReflectionClass($this->getEntityClass());
 
             return $ref->newInstance();
-        } catch (\ReflectionException $e) {
+        } catch (\ReflectionException) {
             return null;
         }
+    }
+
+    public function get(int $id): ?object
+    {
+        return $this->repository->find($id);
     }
 
     public function getAll(
@@ -165,11 +203,6 @@ abstract class AbstractService implements DBLoggerInterface
 
             throw $e;
         }
-    }
-
-    public function get(int $id): ?object
-    {
-        return $this->repository->findOneBy(['id' => $id]);
     }
 
     public function delete(object $entity): void

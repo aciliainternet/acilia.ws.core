@@ -17,8 +17,6 @@ use WS\Core\Library\Asset\ImageConsumerInterface;
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\CRUD\AbstractController;
 use WS\Core\Library\CRUD\CRUDCompilerPass;
-use WS\Core\Library\CRUD\RoleCalculatorTrait;
-use WS\Core\Library\CRUD\RoleLoaderTrait;
 use WS\Core\Library\Dashboard\DashboardWidgetCompilerPass;
 use WS\Core\Library\Dashboard\DashboardWidgetInterface;
 use WS\Core\Library\DataExport\DataExportCompilerPass;
@@ -32,7 +30,9 @@ use WS\Core\Library\Setting\SettingCompilerPass;
 use WS\Core\Library\Setting\SettingDefinitionInterface;
 use WS\Core\Library\Sidebar\SidebarCompilerPass;
 use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
-use WS\Core\Library\Traits\DependencyInjection\AddRolesTrait;
+use WS\Core\Library\Traits\CRUD\RoleCalculatorTrait;
+use WS\Core\Library\Traits\DependencyInjection\RoleAdderTrait;
+use WS\Core\Library\Traits\DependencyInjection\RoleLoaderTrait;
 use WS\Core\Service\ActivityLogService;
 use WS\Core\Service\TranslationService;
 
@@ -40,7 +40,7 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 {
     use RoleCalculatorTrait;
     use RoleLoaderTrait;
-    use AddRolesTrait;
+    use RoleAdderTrait;
 
     public function load(array $configs, ContainerBuilder $container): void
     {

@@ -62,7 +62,7 @@ class CRUDExtension extends AbstractExtension
             if (\is_callable($twigFilter->getCallable())) {
                 /** @var ?string */
                 $filteredValue = call_user_func_array($twigFilter->getCallable(), [$value, $options]);
-    
+
                 $safeContext = $twigFilter->getSafe(new \Twig\Node\Node());
                 if (!is_array($safeContext) || !in_array('html', $safeContext)) {
                     /** @var TwigFilter */
@@ -72,7 +72,7 @@ class CRUDExtension extends AbstractExtension
                         $filteredValue = call_user_func($escapeFilter->getCallable(), $environment, $filteredValue);
                     }
                 }
-    
+
                 return $filteredValue;
             }
         }

@@ -4,7 +4,7 @@ namespace WS\Core\Library\Traits\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-trait AddRolesTrait
+trait RoleAdderTrait
 {
     public function addRoles(ContainerBuilder $container, array $roles): void
     {

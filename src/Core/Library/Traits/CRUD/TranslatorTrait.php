@@ -1,6 +1,6 @@
 <?php
 
-namespace WS\Core\Library\CRUD;
+namespace WS\Core\Library\Traits\CRUD;
 
 trait TranslatorTrait
 {
@@ -25,5 +25,14 @@ trait TranslatorTrait
         }
 
         return strtolower($prefix);
+    }
+
+    protected function trans(
+        string $id,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): string {
+        return $this->translator->trans($id, $parameters, $domain, $locale);
     }
 }
