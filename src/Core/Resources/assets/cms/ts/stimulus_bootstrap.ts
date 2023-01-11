@@ -22,6 +22,7 @@ import WSAsset from './controllers/ws-asset_controller';
 import WSMarkdown from './controllers/ws-markdown_controller';
 import WSMarkdownFile from './controllers/ws_markdown/ws-markdown-file_controller';
 import WSMarkdownImage from './controllers/ws_markdown/ws-markdown-image_controller';
+import WSAssetImage from './controllers/ws-asset-image_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
 const stimulus = Application.start();
@@ -48,3 +49,4 @@ stimulus.register('ws-asset', WSAsset);
 stimulus.register('ws-markdown', WSMarkdown);
 stimulus.register('ws-markdown-file', WSMarkdownFile);
 stimulus.register('ws-markdown-image', WSMarkdownImage);
+stimulus.register('ws-asset-image', WSAssetImage);

@@ -582,55 +582,67 @@
 
 {%- block ws_asset_image_widget -%}
     {# show image thumbnail if exists #}
-    <div class="c-img-upload u-mb-20" data-id="{{ id }}">
-        <div class="c-img-upload__wrapper-img">
-            <figure
-                class="c-img-upload__figure js-open-modal js-not-on-preview }}"
-                data-id-asset-component="{{ form.children.asset.vars.id }}"
-            />
-                {% if form.children.asset_image.vars.data == null %}
-                    <i class="c-img-upload__figure-img fal fa-cloud-upload"></i>
-                {% endif %}
-                {% if form.children.asset_image.vars.data != null %}
-                    <img
-                        class="c-img-upload__img"
-                        src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', '300x300') }}">
-                {% endif %}
-            </figure>
+    <div data-controller="ws-asset-image">
+        <div class="c-img-upload u-mb-20">
+            {# input to indicate if we are gonna to delete the asset image #}
+            {{ form_widget(form.children.asset_remove, { attr: { 'data-ws-asset-image-target': 'removeField' }}) }}
+
+            <div class="c-img-upload__wrapper-img">
+                <figure
+                    class="c-img-upload__figure js-open-modal js-not-on-preview"
+                    data-id-asset-component="{{ form.children.asset.vars.id }}"
+                />
+                    <i 
+                        class="c-img-upload__figure-img fal fa-cloud-upload {% if form.children.asset_image.vars.data != null %}u-hidden{% endif %}"
+                        data-ws-asset-image-target="placeholder"
+                    ></i>
+
+                    {% if form.children.asset_image.vars.data != null %}
+                        <img
+                            class="c-img-upload__img"
+                            data-ws-asset-image-target="image"
+                            src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', '300x300') }}"
+                        >
+                    {% endif %}
+                </figure>
+            </div>
         </div>
-    </div>
-    <div class="c-btn-upload-image-container {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
-        <button
-            class="c-btn c-btn--secondary c-btn--upload-image js-open-modal"
+        <div class="c-btn-upload-image-container {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}" data-ws-asset-image-target="changeImage">
+            <button
+                class="c-btn c-btn--secondary c-btn--upload-image js-open-modal"
+                type="button"
+                data-id-asset-component="{{ form.children.asset.vars.id }}"
+                data-ws-asset-target="formUpload"
+            >
+                {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
+            </button>
+            <button
+                class="c-btn c-btn--secondary"
+                type="button"
+                data-id-asset-component="{{ id }}"
+                data-action="click->ws-asset-image#deleteAssetImage"
+            >
+                <i class="fal fa-trash-alt"></i>
+            </button>
+        </div>
+
+        {# show file input field #}
+        {{ form_widget(form.children.asset) }}
+
+        <button 
             type="button"
-            data-id-asset-component="{{ form.children.asset.vars.id }}">
-            {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
-        </button>
-        <button
-            class="c-btn c-btn--secondary js-delete-asset-image"
-            type="button"
-            data-id-asset-component="{{ id }}">
-            <i class="fal fa-trash-alt"></i>
+            class="c-btn c-btn--brand c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
+            data-id-asset-component="{{ form.children.asset.vars.id }}"
+            data-ws-asset-image-target="uploadNewImage"
+        >
+            {{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}
         </button>
     </div>
-
-    {# show file input field #}
-    {{ form_widget(form.children.asset) }}
-
-    <button
-        type="button"
-        class="c-btn c-btn--brand c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
-        data-id-asset-component="{{ form.children.asset.vars.id }}">
-        {{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}
-    </button>
-
+    
     {# show aspect ratios and minimums #}
     {% for cropper in form.children.cropper %}
         {{ form_widget(cropper) }}
     {% endfor %}
-
-    {# input to indicate if we are gonna to delete the asset image #}
-    {{ form_widget(form.children.asset_remove) }}
 
     {# show cropper modal #}
     <div class="ws-cropper_modal" data-id="{{ form.children.asset.vars.id }}" style="display:none" data-cropp-index="0">

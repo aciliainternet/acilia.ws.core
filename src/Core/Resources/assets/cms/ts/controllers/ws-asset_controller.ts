@@ -6,6 +6,7 @@ export default class extends Controller {
   declare removeFieldTarget: HTMLInputElement;
   declare hasLinkFieldTarget: boolean;
   declare linkFieldTarget: HTMLElement;
+  declare hasFormUploadTarget: boolean;
   declare formUploadTarget: HTMLElement;
 
   deleteAsset() {
@@ -15,6 +16,8 @@ export default class extends Controller {
       this.linkFieldTarget.classList.add('u-hidden');
     }
     
-    this.formUploadTarget.classList.remove('u-hidden');
+    if (this.hasFormUploadTarget) {
+      this.formUploadTarget.classList.remove('u-hidden');
+    }
   }
 }

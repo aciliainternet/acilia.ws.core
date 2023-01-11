@@ -10,7 +10,7 @@ dotenv.config();
 function generateManifest(entry) {
   const manifestKeysMap = {
     'core.scss': 'core.css',
-    'core.js': 'core.js',
+    'core.ts': 'core.js',
   };
 
   const manifestEntry = entry;
@@ -24,7 +24,7 @@ const isWatch = process.argv.includes('--watch');
 const isDev = isWatch || process.env.APP_ENV === 'dev';
 const entryPoints = [
   'src/Core/Resources/assets/cms/css/core.scss',
-  'src/Core/Resources/assets/cms/js/core.js',
+  'src/Core/Resources/assets/cms/ts/core.ts',
 ];
 
 build({
