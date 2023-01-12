@@ -65,7 +65,7 @@ class AdministratorController extends AbstractController
     protected function editEntityForm(object $entity): FormInterface
     {
         return $this->createForm(
-            $this->getService()->getFormClass(),
+            $this->getFormClass(),
             $entity,
             [
                 'edit' => true,

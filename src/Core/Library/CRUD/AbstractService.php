@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormInterface;
 use WS\Core\Library\Asset\Form\AssetFileType;
-use WS\Core\Library\Asset\ImageRenditionInterface;
+use WS\Core\Library\Asset\Form\AssetImageType;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\Domain\DomainDependantInterface;
 use WS\Core\Service\ContextInterface;
@@ -44,29 +44,10 @@ abstract class AbstractService implements DBLoggerInterface
         }
     }
 
-    public function getFormClass(): string
-    {
-        $serviceClass = get_class($this);
-        $classPath = explode('\\', $serviceClass);
-
-        $serviceNamespacePrefix = $classPath[0];
-        if ($serviceNamespacePrefix === 'WS') {
-            $serviceClassname = str_replace('Service', '', $classPath[4]);
-            return sprintf('WS\Core\Form\%sType', $serviceClassname);
-
-        } elseif ($serviceNamespacePrefix === 'App') {
-            $serviceClassname = str_replace('Service', '', $classPath[3]);
-            return sprintf('App\Form\CMS\%sType', $serviceClassname);
-
-        } else {
-            throw new \Exception(sprintf('Unable to find form for Service: %s', $serviceClass));
-        }
-    }
-
     abstract public function getSortFields(): array;
 
     abstract public function getListFields(): array;
-    
+
     abstract public function getFilterFields(): array;
 
     public function getImageEntityClass(object $entity): ?string
@@ -74,17 +55,17 @@ abstract class AbstractService implements DBLoggerInterface
         return null;
     }
 
-    public function getImageFields(object $entity): array
+    public function getImageFields(FormInterface $form, object $entity): array
     {
         $images = [];
 
-        if ($this instanceof ImageRenditionInterface) {
-            foreach ($this->getRenditionDefinitions() as $rendition) {
-                $images[$rendition->getField()] = $rendition->getField();
+        foreach ($form as $field) {
+            if ($field->getConfig()->getType()->getInnerType() instanceof AssetImageType) {
+                $images[] = (string) $field->getPropertyPath();
             }
         }
 
-        return array_keys($images);
+        return $images;
     }
 
     public function getFileFields(FormInterface $form, object $entity): array
