@@ -21,10 +21,6 @@ abstract class AbstractRepository extends ServiceEntityRepository
         parent::__construct($registry, $this->getEntityClass());
     }
 
-    public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
-    {
-    }
-
     public function getAll(
         ?Domain $domain,
         ?string $search,
@@ -57,20 +53,6 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getAvailableByIds(?Domain $domain = null, array $ids = []): array
-    {
-        $alias = 't';
-        $qb = $this->createQueryBuilder($alias)
-            ->where(sprintf('%s.id IN (:ids)', $alias))
-            ->setParameter('ids', $ids);
-
-        if (null !== $domain) {
-            $this->setDomainRestriction($alias, $qb, $domain);
-        }
-        /** @var array */
-        return $qb->getQuery()->execute();
-    }
-
     public function getAllCount(?Domain $domain, ?string $search, ?array $filter, ?array $filtetrFields): int
     {
         $qb = $this->getAllCountQueryBuilder();
@@ -92,6 +74,44 @@ abstract class AbstractRepository extends ServiceEntityRepository
         } catch (NoResultException $e) {
             return 0;
         }
+    }
+
+    public function getAvailableByIds(?Domain $domain = null, array $ids = []): array
+    {
+        $alias = 't';
+        $qb = $this->createQueryBuilder($alias)
+            ->where(sprintf('%s.id IN (:ids)', $alias))
+            ->setParameter('ids', $ids);
+
+        if (null !== $domain) {
+            $this->setDomainRestriction($alias, $qb, $domain);
+        }
+        /** @var array */
+        return $qb->getQuery()->execute();
+    }
+
+    public function batchDelete(array $ids): void
+    {
+        $alias = 't';
+
+        $qb = $this->createQueryBuilder($alias)
+            ->delete($this->getEntityClass(), $alias)
+            ->where(sprintf('%s.id IN (:ids)', $alias))
+            ->setParameter('ids', $ids);
+
+        $qb->getQuery()->execute();
+    }
+
+    protected function getAllQueryBuilder(): QueryBuilder
+    {
+        $alias = 't';
+        return $this->createQueryBuilder($alias);
+    }
+
+    protected function getAllCountQueryBuilder(): QueryBuilder
+    {
+        $alias = 't';
+        return $this->createQueryBuilder($alias);
     }
 
     protected function setFilter(string $alias, QueryBuilder $qb, ?string $search, ?array $filtetrFields): void
@@ -118,35 +138,8 @@ abstract class AbstractRepository extends ServiceEntityRepository
         }
     }
 
-    protected function setFilters(string $alias, QueryBuilder $qb, array $filters): void
+    protected function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
-        foreach ($filters as $field => $value) {
-            $qb->andWhere(sprintf('%s LIKE :%s_filter', sprintf('%s.%s', $alias, $field), $field));
-            $qb->setParameter(sprintf('%s_filter', $field), sprintf('%%%s%%', $value));
-        }
     }
 
-    public function batchDelete(array $ids): void
-    {
-        $alias = 't';
-
-        $qb = $this->createQueryBuilder($alias)
-            ->delete($this->getEntityClass(), $alias)
-            ->where(sprintf('%s.id IN (:ids)', $alias))
-            ->setParameter('ids', $ids);
-
-        $qb->getQuery()->execute();
-    }
-
-    protected function getAllQueryBuilder(): QueryBuilder
-    {
-        $alias = 't';
-        return $this->createQueryBuilder($alias);
-    }
-
-    protected function getAllCountQueryBuilder(): QueryBuilder
-    {
-        $alias = 't';
-        return $this->createQueryBuilder($alias);
-    }
 }

@@ -2,8 +2,6 @@
 
 namespace WS\Core\Library\CRUD;
 
-use ReflectionClass;
-use ReflectionProperty;
 use Psr\Log\LoggerInterface;
 use WS\Core\Service\ContextInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,12 +32,11 @@ abstract class AbstractService implements DBLoggerInterface
 
     abstract public function getSortFields(): array;
 
-
     public function getListFields(): array
     {
-        $reflClass = new ReflectionClass($this->getEntityClass());
+        $reflClass = new \ReflectionClass($this->getEntityClass());
 
-        $properties = (new ArrayCollection($reflClass->getProperties()))->filter(function (ReflectionProperty $p) {
+        $properties = (new ArrayCollection($reflClass->getProperties()))->filter(function (\ReflectionProperty $p) {
             return count($p->getAttributes(ListField::class)) > 0;
         });
 
@@ -47,6 +44,7 @@ abstract class AbstractService implements DBLoggerInterface
         $order = count($properties);
         foreach ($properties as $property) {
             $attribute = $property->getAttributes(ListField::class)[0];
+
             $field = array_merge(['name' => $property->getName()], $attribute->getArguments());
             if (!isset($field['order'])) {
                 $field['order'] = $order++;

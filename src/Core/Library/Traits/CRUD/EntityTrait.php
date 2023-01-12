@@ -9,17 +9,21 @@ trait EntityTrait
         $className = get_class($this);
         $classPath = explode('\\', $className);
 
-        if ($classPath[0] === 'WS') {
-            $classname = str_replace(['Service', 'Repository'], '', $classPath[4]);
-            return sprintf('WS\Core\Entity\%s', $classname);
+        if ($classPath[0] === 'WS' && $classPath[2] === 'Service') {
+            $shortClassName = str_replace('Service', '', $classPath[4]);
+            return sprintf('WS\Core\Entity\%s', $shortClassName);
+
+        } elseif ($classPath[0] === 'WS' && $classPath[2] === 'Repository') {
+            $shortClassName = str_replace('Repository', '', $classPath[3]);
+            return sprintf('WS\Core\Entity\%s', $shortClassName);
 
         } elseif ($classPath[0] === 'App' && $classPath[1] === 'Service') {
-            $classname = str_replace('Service', '', $classPath[3]);
-            return sprintf('App\Entity\%s', $classname);
-            
+            $shortClassName = str_replace('Service', '', $classPath[3]);
+            return sprintf('App\Entity\%s', $shortClassName);
+
         } elseif ($classPath[0] === 'App' && $classPath[1] === 'Repository') {
-            $classname = str_replace('Repository', '', $classPath[2]);
-            return sprintf('App\Entity\%s', $classname);
+            $shortClassName = str_replace('Repository', '', $classPath[2]);
+            return sprintf('App\Entity\%s', $shortClassName);
 
         } else {
             throw new \Exception('Unable to find class Entity');

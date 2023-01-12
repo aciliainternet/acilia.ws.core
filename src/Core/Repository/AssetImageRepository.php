@@ -15,15 +15,9 @@ use WS\Core\Library\CRUD\AbstractRepository;
  * @method AssetImage[]    getAvailableByIds(?Domain $domain, array $ids): array
  * @method AssetImage[]    getAll(?Domain $domain, ?string $search, ?array $filter, ?array $filtetrFields, array $orderBy = null, int $limit = null, int $offset = null)
  */
-
 class AssetImageRepository extends AbstractRepository
 {
-    public function getEntityClass(): string
-    {
-        return AssetImage::class;
-    }
-
-    public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
+    protected function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
         if (isset($filter['visible'])) {
             $qb
