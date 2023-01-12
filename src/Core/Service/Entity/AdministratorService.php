@@ -12,16 +12,6 @@ class AdministratorService extends AbstractService implements ActivityLogInterfa
 
     protected array $roles = [];
 
-    public function getSortFields(): array
-    {
-        return ['name'];
-    }
-
-    public function getFilterFields(): array
-    {
-        return ['name', 'email'];
-    }
-
     public function addRoles(array $roles): void
     {
         foreach ($roles as $role) {

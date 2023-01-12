@@ -27,7 +27,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'administrator_id', type: 'integer', nullable: false)]
     private ?int $id;
 
-    #[WS\ListField]
+    #[WS\ListField, WS\SortField, WS\FilterField]
     #[Assert\NotBlank]
     #[Assert\Length(max: 128)]
     #[ORM\Column(name: 'administrator_name', type: 'string', length: 128, nullable: false)]
@@ -39,7 +39,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'administrator_password', type: 'string', length: 128, nullable: false)]
     private string $password;
 
-    #[WS\ListField]
+    #[WS\ListField, WS\FilterField]
     #[Assert\NotBlank]
     #[Assert\Length(max: 127)]
     #[Assert\Email]

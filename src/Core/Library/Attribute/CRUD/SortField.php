@@ -5,10 +5,10 @@ namespace WS\Core\Library\Attribute\CRUD;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 class SortField
 {
-    public string $order;
+    public string $dir;
 
-    public function getOrder(): string
+    public function getDir(): string
     {
-        return $this->order;
+        return $this->dir;
     }
 }

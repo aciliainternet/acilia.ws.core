@@ -29,5 +29,4 @@ trait EntityTrait
             throw new \Exception('Unable to find class Entity');
         }
     }
-
 }
