@@ -9,10 +9,13 @@ use WS\Core\Library\Asset\Form\AssetFileType;
 use WS\Core\Library\Asset\Form\AssetImageType;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\Domain\DomainDependantInterface;
+use WS\Core\Library\Traits\CRUD\EntityTrait;
 use WS\Core\Service\ContextInterface;
 
 abstract class AbstractService implements DBLoggerInterface
 {
+    use EntityTrait;
+
     protected AbstractRepository $repository;
 
     public function __construct(
@@ -23,25 +26,6 @@ abstract class AbstractService implements DBLoggerInterface
         /** @var AbstractRepository */
         $repository = $this->em->getRepository($this->getEntityClass());
         $this->repository = $repository;
-    }
-
-    public function getEntityClass(): string
-    {
-        $serviceClass = get_class($this);
-        $classPath = explode('\\', $serviceClass);
-
-        $serviceNamespacePrefix = $classPath[0];
-        if ($serviceNamespacePrefix === 'WS') {
-            $serviceClassname = str_replace('Service', '', $classPath[4]);
-            return sprintf('WS\Core\Entity\%s', $serviceClassname);
-
-        } elseif ($serviceNamespacePrefix === 'App') {
-            $serviceClassname = str_replace('Service', '', $classPath[3]);
-            return sprintf('App\Entity\%s', $serviceClassname);
-
-        } else {
-            throw new \Exception(sprintf('Unable to find class for Service: %s', $serviceClass));
-        }
     }
 
     abstract public function getSortFields(): array;
