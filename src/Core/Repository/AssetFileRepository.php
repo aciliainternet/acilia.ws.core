@@ -13,11 +13,6 @@ use WS\Core\Library\CRUD\AbstractRepository;
  * @method AssetFile[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  * @method AssetFile[]    getAvailableByIds(?Domain $domain, array $ids): array
  */
-
 class AssetFileRepository extends AbstractRepository
 {
-    public function getEntityClass(): string
-    {
-        return AssetFile::class;
-    }
 }

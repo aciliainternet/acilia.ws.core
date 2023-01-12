@@ -13,8 +13,4 @@ use WS\Core\Library\CRUD\AbstractRepository;
  */
 class AdministratorRepository extends AbstractRepository
 {
-    public function getEntityClass(): string
-    {
-        return Administrator::class;
-    }
 }
