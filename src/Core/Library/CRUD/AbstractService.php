@@ -2,15 +2,19 @@
 
 namespace WS\Core\Library\CRUD;
 
-use Doctrine\ORM\EntityManagerInterface;
+use ReflectionClass;
+use ReflectionProperty;
 use Psr\Log\LoggerInterface;
+use WS\Core\Service\ContextInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
+use WS\Core\Library\Traits\CRUD\EntityTrait;
 use WS\Core\Library\Asset\Form\AssetFileType;
+use WS\Core\Library\Attribute\CRUD\ListField;
 use WS\Core\Library\Asset\Form\AssetImageType;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use WS\Core\Library\Domain\DomainDependantInterface;
-use WS\Core\Library\Traits\CRUD\EntityTrait;
-use WS\Core\Service\ContextInterface;
 
 abstract class AbstractService implements DBLoggerInterface
 {
@@ -30,7 +34,33 @@ abstract class AbstractService implements DBLoggerInterface
 
     abstract public function getSortFields(): array;
 
-    abstract public function getListFields(): array;
+
+    public function getListFields(): array
+    {
+        $reflClass = new ReflectionClass($this->getEntityClass());
+
+        $properties = (new ArrayCollection($reflClass->getProperties()))->filter(function (ReflectionProperty $p) {
+            return count($p->getAttributes(ListField::class)) > 0;
+        });
+
+        $fields = [];
+        $order = count($properties);
+        foreach ($properties as $property) {
+            $attribute = $property->getAttributes(ListField::class)[0];
+            $field = array_merge(['name' => $property->getName()], $attribute->getArguments());
+            if (!isset($field['order'])) {
+                $field['order'] = $order++;
+            }
+            $fields[] = $field;
+        }
+
+        usort($fields, function($a, $b) {
+            return $a['order'] <=> $b['order'];
+        });
+
+        return $fields;
+    }
+
 
     abstract public function getFilterFields(): array;
 
