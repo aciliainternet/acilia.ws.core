@@ -32,6 +32,12 @@ trait TemplateTrait
                 strtolower($classPath[3]),
                 $controllerName
             );
+        } elseif ($classPath[0] === 'App') {
+            $controllerName = strtolower(str_replace('Controller', '', $classPath[3]));
+            $routePrefix = sprintf(
+                'cms/%s',
+                $controllerName
+            );
         }
 
         $templateFile = sprintf('%s/%s', $routePrefix, $template);
