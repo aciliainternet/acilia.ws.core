@@ -9,18 +9,17 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use WS\Core\Entity\Domain;
 use WS\Core\Library\Domain\DomainRepositoryTrait;
+use WS\Core\Library\Traits\CRUD\EntityTrait;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
+    use EntityTrait;
     use DomainRepositoryTrait;
 
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, $this->getEntityClass());
     }
-
-    /** @return class-string<object> */
-    abstract public function getEntityClass(): string;
 
     public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
