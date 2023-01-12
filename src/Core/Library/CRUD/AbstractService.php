@@ -34,9 +34,9 @@ abstract class AbstractService implements DBLoggerInterface
 
     public function getSortFields(): array
     {
-        $reflClass = new ReflectionClass($this->getEntityClass());
+        $reflClass = new \ReflectionClass($this->getEntityClass());
 
-        $properties = (new ArrayCollection($reflClass->getProperties()))->filter(function (ReflectionProperty $p) {
+        $properties = (new ArrayCollection($reflClass->getProperties()))->filter(function (\ReflectionProperty $p) {
             return count($p->getAttributes(SortField::class)) > 0;
         });
         $fields = [];
@@ -80,9 +80,9 @@ abstract class AbstractService implements DBLoggerInterface
 
     public function getFilterFields(): array
     {
-        $reflClass = new ReflectionClass($this->getEntityClass());
+        $reflClass = new \ReflectionClass($this->getEntityClass());
 
-        $properties = (new ArrayCollection($reflClass->getProperties()))->filter(function (ReflectionProperty $p) {
+        $properties = (new ArrayCollection($reflClass->getProperties()))->filter(function (\ReflectionProperty $p) {
             return count($p->getAttributes(FilterField::class)) > 0;
         });
 
