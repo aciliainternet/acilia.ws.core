@@ -3,12 +3,9 @@
 namespace WS\Core\Library\Attribute\CRUD;
 
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
-class SortField
+final class SortField
 {
-    public string $dir;
-
-    public function getDir(): string
+    public function __construct(public string $dir = 'ASC')
     {
-        return $this->dir;
     }
 }
