@@ -2,6 +2,9 @@
 
 namespace WS\Core\Library\Traits\CRUD;
 
+/**
+ * @method class-string<object> getEntityClass()
+ */
 trait EntityTrait
 {
     public function getEntityClass(): string

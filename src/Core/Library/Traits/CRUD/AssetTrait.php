@@ -11,7 +11,7 @@ trait AssetTrait
 {
     protected function handleImages(FormInterface $form, object $entity): void
     {
-        foreach ($this->getService()->getImageFields($entity) as $imageField) {
+        foreach ($this->getService()->getImageFields($form, $entity) as $imageField) {
             if (!empty($form->get($imageField)->get('asset')->getData())) {
                 /** @var UploadedFile */
                 $imageFile = $form->get($imageField)->get('asset')->getData();

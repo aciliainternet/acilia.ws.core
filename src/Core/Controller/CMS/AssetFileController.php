@@ -3,6 +3,7 @@
 namespace WS\Core\Controller\CMS;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +21,7 @@ class AssetFileController extends AbstractController
     public function save(Request $request): JsonResponse
     {
         if ($request->files->has('asset')) {
+            /** @var UploadedFile */
             $file = $request->files->get('asset');
 
             $assetFile = $this->service->handleStandalone($file, [

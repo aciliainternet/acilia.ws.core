@@ -228,11 +228,11 @@ abstract class AbstractController extends BaseController
                     if ($form->has('saveAndBack')) {
                         $submitButton = $form->get('saveAndBack');
                         if ($submitButton instanceof SubmitButton && $submitButton->isClicked()) {
-                            $url = $form->has('referer')
-                                ? $form->get('referer')->getData()
-                                : $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
+                            if ($form->has('referer')) {
+                                return $this->redirect(\strval($form->get('referer')->getData()));
+                            }
 
-                            return $this->redirect($url);
+                            return $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
                         }
                     }
 
@@ -293,11 +293,11 @@ abstract class AbstractController extends BaseController
                     if ($form->has('saveAndBack')) {
                         $submitButton = $form->get('saveAndBack');
                         if ($submitButton instanceof SubmitButton && $submitButton->isClicked()) {
-                            $url = $form->has('referer')
-                                ? $form->get('referer')->getData()
-                                : $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
+                            if ($form->has('referer')) {
+                                return $this->redirect(\strval($form->get('referer')->getData()));
+                            }
 
-                            return $this->redirect($url);
+                            return $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
                         }
                     }
 
