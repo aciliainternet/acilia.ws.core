@@ -19,8 +19,6 @@ use WS\Core\Library\CRUD\AbstractController;
 use WS\Core\Library\CRUD\CRUDCompilerPass;
 use WS\Core\Library\Dashboard\DashboardWidgetCompilerPass;
 use WS\Core\Library\Dashboard\DashboardWidgetInterface;
-use WS\Core\Library\DataExport\DataExportCompilerPass;
-use WS\Core\Library\DataExport\DataExportProviderInterface;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
@@ -94,9 +92,6 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 
         // Tag Navbars Definitions
         $container->registerForAutoconfiguration(NavbarDefinitionInterface::class)->addTag(NavbarCompilerPass::TAG);
-
-        // Tag Data Exporters
-        $container->registerForAutoconfiguration(DataExportProviderInterface::class)->addTag(DataExportCompilerPass::TAG);
 
         // Tag CRUD Controllers
         $container->registerForAutoconfiguration(AbstractController::class)->addTag(CRUDCompilerPass::TAG);

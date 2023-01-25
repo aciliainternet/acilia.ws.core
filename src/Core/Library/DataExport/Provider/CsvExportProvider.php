@@ -9,7 +9,7 @@ class CsvExportProvider implements DataExportProviderInterface
 {
     public const EXPORT_FORMAT = 'csv';
 
-    public function getFormat(): string
+    public static function getFormat(): string
     {
         return self::EXPORT_FORMAT;
     }

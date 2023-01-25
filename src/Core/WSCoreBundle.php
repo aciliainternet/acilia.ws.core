@@ -10,7 +10,6 @@ use WS\Core\Library\Asset\ImageCompilerPass;
 use WS\Core\Library\CRUD\CRUDCompilerPass;
 use WS\Core\Library\Dashboard\DashboardWidgetCompilerPass;
 use WS\Core\Library\DataCollector\DataCollectorCompilerPass;
-use WS\Core\Library\DataExport\DataExportCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\Navbar\NavbarCompilerPass;
 use WS\Core\Library\Setting\SettingCompilerPass;
@@ -30,7 +29,6 @@ class WSCoreBundle extends Bundle
         $container->addCompilerPass(new FactoryCollectorCompilerPass());
         $container->addCompilerPass(new ActivityLogCompilerPass());
         $container->addCompilerPass(new DashboardWidgetCompilerPass());
-        $container->addCompilerPass(new DataExportCompilerPass());
         $container->addCompilerPass(new CRUDCompilerPass());
         $container->addCompilerPass(new DataCollectorCompilerPass());
     }

@@ -2,9 +2,12 @@
 
 namespace WS\Core\Library\DataExport;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+
+#[AutoconfigureTag()]
 interface DataExportProviderInterface
 {
-    public function getFormat(): string;
+    public static function getFormat(): string;
 
     public function export(DataExport $data): string;
 
