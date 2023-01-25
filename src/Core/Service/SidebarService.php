@@ -2,8 +2,8 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\DependencyInjection\Argument\ServiceLocator;
 use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 use WS\Core\Library\Sidebar\SidebarDefinition;
 use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
 
