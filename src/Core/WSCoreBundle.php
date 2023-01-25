@@ -8,7 +8,6 @@ use WS\Core\Library\ActivityLog\ActivityLogCompilerPass;
 use WS\Core\Library\Alert\AlertCompilerPass;
 use WS\Core\Library\Asset\ImageCompilerPass;
 use WS\Core\Library\CRUD\CRUDCompilerPass;
-use WS\Core\Library\Dashboard\DashboardWidgetCompilerPass;
 use WS\Core\Library\DataCollector\DataCollectorCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\Navbar\NavbarCompilerPass;
@@ -28,7 +27,6 @@ class WSCoreBundle extends Bundle
         $container->addCompilerPass(new NavbarCompilerPass());
         $container->addCompilerPass(new FactoryCollectorCompilerPass());
         $container->addCompilerPass(new ActivityLogCompilerPass());
-        $container->addCompilerPass(new DashboardWidgetCompilerPass());
         $container->addCompilerPass(new CRUDCompilerPass());
         $container->addCompilerPass(new DataCollectorCompilerPass());
     }

@@ -134,8 +134,8 @@ class ToolsExtension extends AbstractExtension
         return $this->dashboardService->getWidgets();
     }
 
-    public function renderDashboardWidget(DashboardWidgetInterface $widget): string
+    public function renderDashboardWidget(string $widget): string
     {
-        return $this->dashboardService->render($widget->getId());
+        return $this->dashboardService->render($widget);
     }
 }

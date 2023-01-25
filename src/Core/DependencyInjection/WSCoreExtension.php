@@ -17,8 +17,6 @@ use WS\Core\Library\Asset\ImageConsumerInterface;
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\CRUD\AbstractController;
 use WS\Core\Library\CRUD\CRUDCompilerPass;
-use WS\Core\Library\Dashboard\DashboardWidgetCompilerPass;
-use WS\Core\Library\Dashboard\DashboardWidgetInterface;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
@@ -65,9 +63,6 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 
         // Tag with DB Channel to all DBLoggerInterface services
         $container->registerForAutoconfiguration(DBLoggerInterface::class)->addTag('monolog.logger', ['channel' => 'db']);
-
-        // Tag Dashboard Widgets
-        $container->registerForAutoconfiguration(DashboardWidgetInterface::class)->addTag(DashboardWidgetCompilerPass::TAG);
 
         // Tag Setting Providers
         $container->registerForAutoconfiguration(SettingDefinitionInterface::class)->addTag(SettingCompilerPass::TAG);
