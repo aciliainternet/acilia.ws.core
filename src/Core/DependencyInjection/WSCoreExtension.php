@@ -10,8 +10,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use WS\Core\Entity\Administrator;
 use WS\Core\Library\ActivityLog\ActivityLogCompilerPass;
 use WS\Core\Library\ActivityLog\ActivityLogInterface;
-use WS\Core\Library\Alert\AlertCompilerPass;
-use WS\Core\Library\Alert\AlertGathererInterface;
 use WS\Core\Library\Asset\ImageCompilerPass;
 use WS\Core\Library\Asset\ImageConsumerInterface;
 use WS\Core\Library\Asset\ImageRenditionInterface;
@@ -78,12 +76,6 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 
         // Tag Activity Logs
         $container->registerForAutoconfiguration(ActivityLogInterface::class)->addTag(ActivityLogCompilerPass::TAG);
-
-        // Tag Alert Gatherers
-        $container->registerForAutoconfiguration(AlertGathererInterface::class)->addTag(AlertCompilerPass::TAG);
-
-        // Tag Sidebars Definitions
-        $container->registerForAutoconfiguration(SidebarDefinitionInterface::class)->addTag(SidebarCompilerPass::TAG);
 
         // Tag Navbars Definitions
         $container->registerForAutoconfiguration(NavbarDefinitionInterface::class)->addTag(NavbarCompilerPass::TAG);

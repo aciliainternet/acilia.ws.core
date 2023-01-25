@@ -2,17 +2,19 @@
 
 namespace WS\Core\Service;
 
+use Symfony\Component\DependencyInjection\Argument\ServiceLocator;
+use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
 use WS\Core\Library\Alert\AlertGathererInterface;
 use WS\Core\Library\Alert\GatherAlertsEvent;
 
 class AlertService
 {
-    protected array $gatherers = [];
     protected ?array $alerts = null;
 
-    public function addGatherer(AlertGathererInterface $gatherer): void
-    {
-        $this->gatherers[] = $gatherer;
+    public function __construct(
+        #[TaggedLocator(AlertGathererInterface::class)]
+        private ServiceLocator $gatherers
+    ) {
     }
 
     public function getAlerts(): array
@@ -20,7 +22,6 @@ class AlertService
         if ($this->alerts === null) {
             $event = new GatherAlertsEvent();
 
-            /** @var AlertGathererInterface $gatherer */
             foreach ($this->gatherers as $gatherer) {
                 $gatherer->gatherAlerts($event);
             }

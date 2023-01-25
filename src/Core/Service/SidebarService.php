@@ -2,24 +2,20 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\DependencyInjection\Argument\ServiceLocator;
+use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
 use WS\Core\Library\Sidebar\SidebarDefinition;
 use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
 
 class SidebarService
 {
-    protected array $services = [];
-    protected ?array $sidebar = null;
-    public ParameterBag $assets;
+    private ?array $sidebar = null;
+    private ?array $assets = null;
 
-    public function __construct()
-    {
-        $this->assets = new ParameterBag();
-    }
-
-    public function registerSidebarDefinition(SidebarDefinitionInterface $service): void
-    {
-        $this->services[] = $service;
+    public function __construct(
+        #[TaggedLocator(SidebarDefinitionInterface::class, defaultPriorityMethod: 'getPriority')]
+        private ServiceLocator $services,
+    ) {
     }
 
     public function getSidebarDefinition(string $containerCode, ?string $contentCode = null): ?SidebarDefinition
@@ -110,15 +106,35 @@ class SidebarService
         return $sidebar;
     }
 
-    protected function loadSidebarDefinitions(): void
+    public function getAsset(string $key): mixed
+    {
+        // load sidebar assets
+        $this->loadSidebarAssets();
+
+        return isset($this->assets[$key]) ? $this->assets[$key] : null;
+    }
+
+    private function loadSidebarDefinitions(): void
     {
         if ($this->sidebar === null) {
             $this->sidebar = [];
-            foreach ($this->services as $service) {
-                foreach ($service->getSidebarDefinition() as $definition) {
+            foreach ($this->services->getProvidedServices() as $service) {
+                foreach ($this->services->get($service)->getSidebarDefinition() as $definition) {
                     if ($definition instanceof SidebarDefinition) {
                         $this->sidebar[$definition->getCode()] = $definition;
                     }
+                }
+            }
+        }
+    }
+
+    private function loadSidebarAssets(): void
+    {
+        if ($this->assets === null) {
+            $this->assets = [];
+            foreach ($this->services->getProvidedServices() as $service) {
+                foreach ($this->services->get($service)->getSidebarAssets() as $asset) {
+                    $this->assets[$asset['key']] = $asset['value'];
                 }
             }
         }
