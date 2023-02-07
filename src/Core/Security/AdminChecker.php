@@ -55,7 +55,7 @@ class AdminChecker implements UserCheckerInterface
     {
         $recaptchaKey = $this->settingService->get('recaptcha_key');
         $recaptchaSecret = $this->settingService->get('recaptcha_secret_key');
-        if ($recaptchaSecret !== null && $recaptchaSecret !== null) {
+        if ($recaptchaKey !== null && $recaptchaSecret !== null) {
             $gRecaptchaResponse = $request->get('g-recaptcha-response');
             return $this->recaptchaService->verify($gRecaptchaResponse);
         }

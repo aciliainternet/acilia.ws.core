@@ -26,6 +26,7 @@
 
                 {% set recaptcha_key = get_setting('recaptcha_key') %}
                 {% if recaptcha_key is not null %}
+                    <script src="https://www.google.com/recaptcha/api.js"></script>
                     <button class="g-recaptcha c-btn c-btn--info c-btn--fullwidth u-mb-small" data-sitekey="{{ get_setting('recaptcha_key') }}" data-callback='onSubmit' data-action='submit' {#type="submit"#}>{{ 'login.button'|trans({}, 'ws_cms') }}</button>
                 {% else %}
                     <button class="c-btn c-btn--info c-btn--fullwidth u-mb-small" type="submit">{{ 'login.button'|trans({}, 'ws_cms') }}</button>
