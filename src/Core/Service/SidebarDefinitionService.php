@@ -20,7 +20,7 @@ class SidebarDefinitionService implements SidebarDefinitionInterface
     {
         // Set Default Logo
         return [
-            ['key' => 'logo', 'value' => '/cms/images/logo-acilia.svg']
+            ['key' => 'logo', 'value' => '/cms/images/logo-sngular.svg']
         ];
     }
 

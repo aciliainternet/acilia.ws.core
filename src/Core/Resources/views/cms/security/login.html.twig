@@ -15,13 +15,13 @@
 
             <form class="c-card__body" action="{{ path('ws_cms_login') }}" method="post" role="form" accept-charset="UTF-8">
                 <div class="c-field u-mb-small">
-                    <label class="c-field__label" for="username">{{ 'login.email'|trans({}, 'ws_cms') }}</label> 
-                    <input class="c-input" type="email" id="username" placeholder="{{ 'login.email'|trans({}, 'ws_cms') }}" name="_username" value="{{ last_username }}"> 
+                    <label class="c-field__label" for="username">{{ 'login.email'|trans({}, 'ws_cms') }}</label>
+                    <input class="c-input" type="email" id="username" placeholder="{{ 'login.email'|trans({}, 'ws_cms') }}" name="_username" value="{{ last_username }}">
                 </div>
 
                 <div class="c-field u-mb-small">
-                    <label class="c-field__label" for="password">{{ 'login.password'|trans({}, 'ws_cms') }}</label> 
-                    <input class="c-input" type="password" id="password" placeholder="{{ 'login.password'|trans({}, 'ws_cms') }}" name="_password"> 
+                    <label class="c-field__label" for="password">{{ 'login.password'|trans({}, 'ws_cms') }}</label>
+                    <input class="c-input" type="password" id="password" placeholder="{{ 'login.password'|trans({}, 'ws_cms') }}" name="_password">
                 </div>
 
                 <button class="c-btn c-btn--info c-btn--fullwidth u-mb-small" type="submit">{{ 'login.button'|trans({}, 'ws_cms') }}</button>
@@ -31,14 +31,16 @@
                 {% if error %}
                     <div class="c-alert c-alert--border-danger u-align-items-center u-mv-10"><i class="fal fa-exclamation-triangle u-pr-5"></i>{{ error.message }}</div>
                 {% endif %}
-                <p class="u-text-xsmall u-text-center"> WideStand &copy; Acilia Software {{ 'now'|date('Y') }}</p>
+                <p class="u-text-xsmall u-text-center"> WideStand &copy; Sngular {{ 'now'|date('Y') }}</p>
             </form>
         </div>
 
-    {#     <div class="o-line">
+        {#
+        <div class="o-line">
             <a class="u-text-mute u-text-small" href="register.html">Don’t have an account yet? Get Started</a>
             <a class="u-text-mute u-text-small" href="forgot-password.html">Forgot Password?</a>
-        </div> #}
+        </div>
+        #}
     </div>
 {% endblock %}
 

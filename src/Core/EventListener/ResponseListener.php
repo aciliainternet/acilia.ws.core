@@ -28,7 +28,7 @@ class ResponseListener
         }
 
         // Generic tweaks
-        $event->getResponse()->headers->set('X-Powered-By', 'WideStand by Acilia');
+        $event->getResponse()->headers->set('X-Powered-By', 'WideStand by Sngular');
 
         // Security headers
         $event->getResponse()->headers->set('X-Content-Type-Options', 'nosniff');

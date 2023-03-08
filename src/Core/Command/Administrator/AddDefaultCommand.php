@@ -31,9 +31,9 @@ class AddDefaultCommand extends Command
 
         try {
             $administrator = new Administrator();
-            $administrator->setName('Acilia');
+            $administrator->setName('Widestand Admin');
             $administrator->setActive(true);
-            $administrator->setEmail('info@acilia.es');
+            $administrator->setEmail('admin@widestand');
             $administrator->setProfile('ROLE_ADMINISTRATOR');
             $administrator->setPassword($this->passwordHasherService->hashPassword($administrator, 'uMZuPuAP2n3y66DT'));
 
