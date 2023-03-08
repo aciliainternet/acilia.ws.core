@@ -37,13 +37,15 @@
 
             <div class="c-divider u-mv-small"></div>
 
-            <div>
-                <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
-                {% if form.saveAndBack is defined %}
-                    {{ saveAndBackField|raw }}
-                {% endif %}
-                <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
-            </div>
+            {% block crud_show_action %}
+                <div>
+                    <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                    {% if form.saveAndBack is defined %}
+                        {{ saveAndBackField|raw }}
+                    {% endif %}
+                    <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+                </div>
+            {% endblock %}
 
             {{ form_end(form, {'render_rest': false}) }}
         </div>
