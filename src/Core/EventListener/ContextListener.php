@@ -91,7 +91,9 @@ class ContextListener
             // Domain is locale dependant
             if ($this->context->isCMS()) {
                 $domain = $domains[0];
+
                 $this->context->setDomain($domain);
+                $this->settingService->loadSettings();
 
                 if ($session !== null) {
                     $session->set(ContextInterface::SESSION_DOMAIN, $domain->getId());
