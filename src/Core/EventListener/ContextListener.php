@@ -94,7 +94,7 @@ class ContextListener
             if ($this->contextService->isCMS()) {
                 $domain = $domains[0];
                 $this->contextService->setDomain($domain);
-
+                $this->settingService->loadSettings();
                 if ($session !== null) {
                     $session->set(ContextService::SESSION_DOMAIN, $domain->getId());
                 }
