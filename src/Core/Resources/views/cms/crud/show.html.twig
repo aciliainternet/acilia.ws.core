@@ -6,7 +6,7 @@
     'breadcrumbs': [
         {
             'name': 'title'|trans({}, trans_prefix),
-            'path': ws_cms_path("#{route_prefix}_index"),
+            'path': path("#{route_prefix}_index"),
             'main': true
         },
         {
@@ -19,7 +19,7 @@
     {{ form_start(form) }}
 
     <div class="container">
-        <div class="c-form">
+        <div class="c-form" {% block crud_show_form_attributes %}{% endblock crud_show_form_attributes %}>
 
             {% block crud_show_title %}
                 <div class="u-flex u-mr-auto">
@@ -30,17 +30,22 @@
             {% if form.saveAndBack is defined %}
                 {% set saveAndBackField = form_widget(form.saveAndBack) %}
             {% endif %}
-            {{ form_widget(form) }}
+
+            {% block crud_show_content %}
+                {{ form_widget(form) }}
+            {% endblock %}
 
             <div class="c-divider u-mv-small"></div>
 
-            <div>
-                <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
-                {% if form.saveAndBack is defined %}
-                    {{ saveAndBackField|raw }}
-                {% endif %}
-                <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
-            </div>
+            {% block crud_show_action %}
+                <div>
+                    <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                    {% if form.saveAndBack is defined %}
+                        {{ saveAndBackField|raw }}
+                    {% endif %}
+                    <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+                </div>
+            {% endblock %}
 
             {{ form_end(form, {'render_rest': false}) }}
         </div>
