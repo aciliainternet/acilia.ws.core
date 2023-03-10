@@ -1,4 +1,37 @@
-import { aDatePicker } from '../modules/a_datePicker';
+import { aDatePicker, getADatePickerInstance } from '../modules/a_datePicker';
+
+/**
+ * Adds an x to erase the contents of the input element
+ *
+ * @param {HTMLInputElement} elm
+ */
+function addEraseButton(elm) {
+  const button = document.createElement('button');
+
+  button.className = 'choices__button ws_delete';
+  button.innerHTML = 'Remove Item';
+
+  if (elm.value === '') {
+    button.classList.add('hidden');
+  }
+
+  elm.insertAdjacentElement('afterend', button);
+
+  getADatePickerInstance(elm).config.onChange.push((selectedDates, dateStr) => {
+    if (selectedDates.length > 0) {
+      button.classList.remove('hidden');
+    } else {
+      button.classList.add('hidden');
+    }
+  });
+
+  button.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    /* eslint-disable no-param-reassign */
+    elm.value = '';
+    button.classList.add('hidden');
+  });
+}
 
 function init() {
   const { cmsSettings } = window;
@@ -29,6 +62,7 @@ function init() {
         options.defaultHour = defaultHour;
       }
       aDatePicker(elm, options);
+      addEraseButton(elm);
     }
   });
 }
