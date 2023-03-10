@@ -1,0 +1,22 @@
+.choices__button.ws_delete {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==);
+    padding: 0;
+    background-size: 8px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -10px;
+    margin-right: 25px;
+    height: 20px;
+    width: 20px;
+    border-radius: 10em;
+    opacity: .5;
+
+    &:hover {
+        opacity: 1;
+    } 
+
+    &.hidden {
+        display: none;
+    }
+}
