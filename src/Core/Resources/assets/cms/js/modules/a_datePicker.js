@@ -24,7 +24,11 @@ function aDatePicker(elm = null, options = null) {
 }
 
 function getADatePickerInstance(selector) {
-  return document.querySelector(selector)._flatpickr;
+  if (typeof selector === 'string') {
+    return document.querySelector(selector)._flatpickr;
+  }
+
+  return selector._flatpickr;
 }
 
 export {
