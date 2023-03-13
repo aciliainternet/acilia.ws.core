@@ -20,7 +20,7 @@ class SidebarDefinitionService implements SidebarDefinitionInterface
     {
         // Set Default Logo
         return [
-            ['key' => 'logo', 'value' => '/cms/images/logo-sngular.svg']
+            ['key' => 'logo', 'value' => '/bundles/wscore/images/logo-sngular.svg']
         ];
     }
 
