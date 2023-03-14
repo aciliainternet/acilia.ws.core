@@ -1,5 +1,11 @@
 import { Controller } from '@hotwired/stimulus';
-import { DatePickerOptions, DatePickerLocale, aDatePicker, getADatePickerInstance } from '../modules/a_datePicker';
+import {
+  DatePickerOptions,
+  DatePickerLocale,
+  HTMLPickrElement,
+  aDatePicker,
+  getADatePickerInstance
+} from '../modules/a_datePicker';
 
 export default class extends Controller<HTMLInputElement> {
   connect() {
@@ -52,7 +58,7 @@ export default class extends Controller<HTMLInputElement> {
 
     this.element.insertAdjacentElement('afterend', button);
 
-    getADatePickerInstance(this.element).config.onChange.push((selectedDates, dateStr) => {
+    getADatePickerInstance(this.element as HTMLPickrElement).config.onChange.push((selectedDates, dateStr) => {
       if (selectedDates.length > 0) {
         button.classList.remove('hidden');
       } else {
