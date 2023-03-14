@@ -1,5 +1,5 @@
 import getNewElements from './getNewElements';
-import { init as lazyLoadInit, update as lazyLoadUpdate } from '../../../modules/a_lazyload';
+import { init as lazyLoadInit, update as lazyLoadUpdate } from '../../../../ts/modules/a_lazyload';
 import { initCropper as showCropper } from '../ui_cropper';
 import { show as showLoader, hide as hideLoader } from '../../ws_loader';
 import { show as showMessage } from '../ui_messages';

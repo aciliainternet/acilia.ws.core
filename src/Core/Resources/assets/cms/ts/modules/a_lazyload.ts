@@ -2,13 +2,11 @@
 import LazyLoad from 'vanilla-lazyload';
 
 const threshold = 500;
-const throttle = 5;
 
-let imgLazyLoad = null;
+let imgLazyLoad: typeof LazyLoad | null = null;
 
 function initLazyLoad() {
   imgLazyLoad = new LazyLoad({
-    throttle,
     threshold,
     class_loaded: 'lazy-loaded',
     elements_selector: 'img[data-a-lazy]',
@@ -16,6 +14,10 @@ function initLazyLoad() {
 }
 
 function update() {
+  if (imgLazyLoad === null) {
+    return;
+  }
+
   imgLazyLoad.update();
 }
 
