@@ -58,13 +58,13 @@ class LayoutExtension extends AbstractExtension
 
     public function sidebarHasAsset(string $key): bool
     {
-        return $this->sidebarService->assets->has($key);
+        return null !== $this->sidebarService->getAsset($key);
     }
 
     public function sidebarGetAsset(string $key): ?string
     {
         /** @var ?string */
-        return $this->sidebarService->assets->get($key);
+        return $this->sidebarService->getAsset($key);
     }
 
     public function getNavbar(): array

@@ -42,7 +42,7 @@ class CRUDCompilerPass implements CompilerPassInterface
         if ($container->has(DataExportService::class)) {
             $dataExportServiceDefinition = $container->findDefinition(DataExportService::class);
         }
-        
+
         // Get EntityManagerInterface Definition
         $entityManagerServiceDefinition = null;
         if ($container->has(EntityManagerInterface::class)) {
@@ -74,7 +74,7 @@ class CRUDCompilerPass implements CompilerPassInterface
             if ($dataExportServiceDefinition) {
                 $definition->addMethodCall('setDataExportService', [$dataExportServiceDefinition]);
             }
-            
+
             // Link EntityManagerInterface Service
             if ($entityManagerServiceDefinition) {
                 $definition->addMethodCall('setDoctrine', [$entityManagerServiceDefinition]);

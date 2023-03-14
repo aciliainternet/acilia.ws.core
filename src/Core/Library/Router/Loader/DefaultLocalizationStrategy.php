@@ -4,7 +4,7 @@ namespace WS\Core\Library\Router\Loader;
 
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
-use WS\Core\Service\DomainService;
+use WS\Core\Service\DomainInterface;
 
 class DefaultLocalizationStrategy implements LocalizationStrategyInterface
 {
@@ -12,7 +12,7 @@ class DefaultLocalizationStrategy implements LocalizationStrategyInterface
     protected ?array $aliases = null;
     protected ?array $aliasList = null;
 
-    public function __construct(protected DomainService $domainService)
+    public function __construct(protected DomainInterface $domainService)
     {
     }
 

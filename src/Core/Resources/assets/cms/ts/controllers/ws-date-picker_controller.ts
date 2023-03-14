@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
-import { DatePickerOptions, DatePickerLocale, aDatePicker } from '../modules/a_datePicker';
+import { DatePickerOptions, DatePickerLocale, aDatePicker, getADatePickerInstance } from '../modules/a_datePicker';
 
-export default class extends Controller<HTMLElement> {
+export default class extends Controller<HTMLInputElement> {
   connect() {
     const { cmsSettings } = window;
     if (cmsSettings === undefined || cmsSettings === null) {
@@ -33,6 +33,38 @@ export default class extends Controller<HTMLElement> {
         options.defaultHour = Number(defaultHour);
       }
       aDatePicker(this.element, options);
+      this.addEraseButton();
     }
+  }
+
+  /**
+   * Adds an x to erase the contents of the input element
+   */
+  addEraseButton() {
+    const button = document.createElement('button');
+
+    button.className = 'choices__button ws_delete';
+    button.innerHTML = 'Remove Item';
+
+    if (this.element.value === '') {
+      button.classList.add('hidden');
+    }
+
+    this.element.insertAdjacentElement('afterend', button);
+
+    getADatePickerInstance(this.element).config.onChange.push((selectedDates, dateStr) => {
+      if (selectedDates.length > 0) {
+        button.classList.remove('hidden');
+      } else {
+        button.classList.add('hidden');
+      }
+    });
+
+    button.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      /* eslint-disable no-param-reassign */
+      this.element.value = '';
+      button.classList.add('hidden');
+    });
   }
 }

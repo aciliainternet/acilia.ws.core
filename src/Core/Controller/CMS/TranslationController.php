@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 use WS\Core\Service\TranslationService;
 
 #[Route(path: '/translation', name: 'ws_translation_')]
@@ -17,7 +17,7 @@ class TranslationController extends AbstractController
 {
     public function __construct(
         protected TranslatorInterface $translator,
-        protected ContextService $contextService,
+        protected ContextInterface $context,
         protected TranslationService $translationService
     ) {
     }
@@ -28,7 +28,7 @@ class TranslationController extends AbstractController
         $translations = $this->translationService->getForCMS();
 
         return $this->render('@WSCore/cms/translation/index.html.twig', [
-            'domain' => $this->contextService->getDomain(),
+            'domain' => $this->context->getDomain(),
             'translations' => $translations
         ]);
     }

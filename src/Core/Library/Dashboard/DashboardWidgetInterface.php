@@ -2,11 +2,14 @@
 
 namespace WS\Core\Library\Dashboard;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+
+#[AutoconfigureTag()]
 interface DashboardWidgetInterface
 {
-    public function getId(): string;
+    public static function getId(): string;
 
-    public function getOrder(): int;
+    public static function getPriority(): int;
 
     public function getTemplate(): string;
 

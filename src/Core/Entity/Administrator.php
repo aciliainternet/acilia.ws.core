@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use WS\Core\Library\Traits\Entity\BlameableTrait;
 use WS\Core\Library\Traits\Entity\TimestampableTrait;
 use WS\Core\Repository\AdministratorRepository;
+use WS\Core\Library\Attribute\CRUD as WS;
 
 #[ORM\Entity(repositoryClass: AdministratorRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'ws.administrator.email_already_exists')]
@@ -26,6 +27,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'administrator_id', type: 'integer', nullable: false)]
     private ?int $id;
 
+    #[WS\ListField, WS\SortField, WS\FilterField]
     #[Assert\NotBlank]
     #[Assert\Length(max: 128)]
     #[ORM\Column(name: 'administrator_name', type: 'string', length: 128, nullable: false)]
@@ -37,6 +39,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'administrator_password', type: 'string', length: 128, nullable: false)]
     private string $password;
 
+    #[WS\ListField, WS\FilterField]
     #[Assert\NotBlank]
     #[Assert\Length(max: 127)]
     #[Assert\Email]
@@ -46,9 +49,11 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: 'administrator_active', type: 'boolean', nullable: false)]
     private ?bool $active = false;
 
+    #[WS\ListField(filter: 'ws_cms_administrator_profile')]
     #[ORM\Column(name: 'administrator_profile', type: 'string', length: 32, nullable: false)]
     private string $profile;
 
+    #[WS\ListField(isDate: true)]
     #[Gedmo\Timestampable(on: 'create')]
     #[ORM\Column(name: 'administrator_created_at', type: 'datetime', nullable: false)]
     private \DateTimeInterface $createdAt;

@@ -2,69 +2,34 @@
 
 namespace WS\Core\Library\CRUD;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Form\FormInterface;
-use WS\Core\Library\Asset\Form\AssetFileType;
-use WS\Core\Library\Asset\ImageRenditionInterface;
+use WS\Core\Service\ContextInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use WS\Core\Library\Traits\CRUD\EntityTrait;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\Domain\DomainDependantInterface;
-use WS\Core\Service\ContextService;
+use WS\Core\Library\Traits\CRUD\FieldsTrait;
 
 abstract class AbstractService implements DBLoggerInterface
 {
+    use EntityTrait;
+    use FieldsTrait;
+
     protected AbstractRepository $repository;
 
     public function __construct(
         protected LoggerInterface $logger,
         protected EntityManagerInterface $em,
-        protected ContextService $contextService
+        protected ContextInterface $context
     ) {
         /** @var AbstractRepository */
         $repository = $this->em->getRepository($this->getEntityClass());
         $this->repository = $repository;
     }
 
-    /** @return class-string<object> */
-    abstract public function getEntityClass(): string;
-
-    abstract public function getFormClass(): string;
-
-    abstract public function getSortFields(): array;
-
-    abstract public function getListFields(): array;
-
-    abstract public function getFilterFields(): array;
-
     public function getImageEntityClass(object $entity): ?string
     {
         return null;
-    }
-
-    public function getImageFields(object $entity): array
-    {
-        $images = [];
-
-        if ($this instanceof ImageRenditionInterface) {
-            foreach ($this->getRenditionDefinitions() as $rendition) {
-                $images[$rendition->getField()] = $rendition->getField();
-            }
-        }
-
-        return array_keys($images);
-    }
-
-    public function getFileFields(FormInterface $form, object $entity): array
-    {
-        $files = [];
-
-        foreach ($form as $field) {
-            if ($field->getConfig()->getType()->getInnerType() instanceof AssetFileType) {
-                $files[] = (string) $field->getPropertyPath();
-            }
-        }
-
-        return $files;
     }
 
     public function getEntity(): ?object
@@ -77,9 +42,14 @@ abstract class AbstractService implements DBLoggerInterface
             $ref = new \ReflectionClass($this->getEntityClass());
 
             return $ref->newInstance();
-        } catch (\ReflectionException $e) {
+        } catch (\ReflectionException) {
             return null;
         }
+    }
+
+    public function get(int $id): ?object
+    {
+        return $this->repository->find($id);
     }
 
     public function getAll(
@@ -110,8 +80,8 @@ abstract class AbstractService implements DBLoggerInterface
 
         $filterFields = $this->getFilterFields();
 
-        $entities = $this->repository->getAll($this->contextService->getDomain(), $search, $filter, $filterFields, $orderBy, $limit, ($page - 1) * $limit);
-        $total = $this->repository->getAllCount($this->contextService->getDomain(), $search, $filter, $filterFields);
+        $entities = $this->repository->getAll($this->context->getDomain(), $search, $filter, $filterFields, $orderBy, $limit, ($page - 1) * $limit);
+        $total = $this->repository->getAllCount($this->context->getDomain(), $search, $filter, $filterFields);
 
         return ['total' => $total, 'data' => $entities];
     }
@@ -128,7 +98,7 @@ abstract class AbstractService implements DBLoggerInterface
 
         try {
             if ($entity instanceof DomainDependantInterface) {
-                $entity->setDomain($this->contextService->getDomain());
+                $entity->setDomain($this->context->getDomain());
             }
 
             $this->em->persist($entity);
@@ -165,11 +135,6 @@ abstract class AbstractService implements DBLoggerInterface
 
             throw $e;
         }
-    }
-
-    public function get(int $id): ?object
-    {
-        return $this->repository->findOneBy(['id' => $id]);
     }
 
     public function delete(object $entity): void

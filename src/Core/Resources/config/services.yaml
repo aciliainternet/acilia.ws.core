@@ -14,11 +14,6 @@ services:
         resource: '../../Controller/*'
         tags: ['controller.service_arguments']
 
-    WS\Core\Service\ContextService:
-        public: true
-        arguments:
-            $debug: '%kernel.debug%'
-
     # Tag Services (WS Core Services must have 1024 priority)
     WS\Core\Service\SidebarDefinitionService:
         tags:
@@ -32,7 +27,7 @@ services:
     WS\Core\Library\DataCollector\BuildCollector:
         tags:
             - { name: data_collector, template: '@WSCore/data_collector/build.html.twig', id: 'ws.build_collector' }
-    
+
     # Activity Log Subscriber
     WS\Core\EventListener\ActivityLogListener:
         tags:

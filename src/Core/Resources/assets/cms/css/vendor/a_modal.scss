@@ -49,11 +49,6 @@
 
   &.a-open {
     opacity: 1;
-
-    &.acilia-anchored {
-      top: 20px;
-      transform: translate(-50%, 0);
-    }
   }
 
   &.fade-and-drop {
@@ -65,10 +60,6 @@
     &.a-open {
       top: 50%;
       transition: 500ms top 500ms ease;
-
-      .acilia-anchored {
-        transition: 500ms top 500ms ease;
-      }
     }
   }
 

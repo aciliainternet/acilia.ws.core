@@ -29,8 +29,14 @@ function aDatePicker(elm: string | NodeList | HTMLElement | null = null, options
   return datepicker;
 }
 
-function getADatePickerInstance(selector: string) {
-  return (document.querySelector(selector) as any)?._flatpickr as Instance;
+type HTMLPickrElement = HTMLElement & { _flatpickr: Instance };
+
+function getADatePickerInstance(selector: string | HTMLPickrElement) {
+  if (typeof selector === 'string') {
+    return (document.querySelector<HTMLPickrElement>(selector))?._flatpickr as Instance;
+  }
+
+  return selector._flatpickr;
 }
 
 export {

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use WS\Core\Entity\Domain;
-use WS\Core\Service\ContextService;
+use WS\Core\Service\ContextInterface;
 
 class BuildCollector extends DataCollector
 {
@@ -15,7 +15,7 @@ class BuildCollector extends DataCollector
 
     public function __construct(
         protected ParameterBagInterface $parameterBag,
-        protected ContextService $contextService
+        protected ContextInterface $context
     ) {
     }
 
@@ -38,7 +38,7 @@ class BuildCollector extends DataCollector
 
         $this->data = [
             'build' => $build,
-            'domain' => $this->contextService->getDomain(),
+            'domain' => $this->context->getDomain(),
             'components' => $components
         ];
     }

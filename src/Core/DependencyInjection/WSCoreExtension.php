@@ -10,19 +10,11 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use WS\Core\Entity\Administrator;
 use WS\Core\Library\ActivityLog\ActivityLogCompilerPass;
 use WS\Core\Library\ActivityLog\ActivityLogInterface;
-use WS\Core\Library\Alert\AlertCompilerPass;
-use WS\Core\Library\Alert\AlertGathererInterface;
 use WS\Core\Library\Asset\ImageCompilerPass;
 use WS\Core\Library\Asset\ImageConsumerInterface;
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\CRUD\AbstractController;
 use WS\Core\Library\CRUD\CRUDCompilerPass;
-use WS\Core\Library\CRUD\RoleCalculatorTrait;
-use WS\Core\Library\CRUD\RoleLoaderTrait;
-use WS\Core\Library\Dashboard\DashboardWidgetCompilerPass;
-use WS\Core\Library\Dashboard\DashboardWidgetInterface;
-use WS\Core\Library\DataExport\DataExportCompilerPass;
-use WS\Core\Library\DataExport\DataExportProviderInterface;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
@@ -32,7 +24,9 @@ use WS\Core\Library\Setting\SettingCompilerPass;
 use WS\Core\Library\Setting\SettingDefinitionInterface;
 use WS\Core\Library\Sidebar\SidebarCompilerPass;
 use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
-use WS\Core\Library\Traits\DependencyInjection\AddRolesTrait;
+use WS\Core\Library\Traits\CRUD\RoleCalculatorTrait;
+use WS\Core\Library\Traits\DependencyInjection\RoleAdderTrait;
+use WS\Core\Library\Traits\DependencyInjection\RoleLoaderTrait;
 use WS\Core\Service\ActivityLogService;
 use WS\Core\Service\TranslationService;
 
@@ -40,7 +34,7 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 {
     use RoleCalculatorTrait;
     use RoleLoaderTrait;
-    use AddRolesTrait;
+    use RoleAdderTrait;
 
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -68,9 +62,6 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         // Tag with DB Channel to all DBLoggerInterface services
         $container->registerForAutoconfiguration(DBLoggerInterface::class)->addTag('monolog.logger', ['channel' => 'db']);
 
-        // Tag Dashboard Widgets
-        $container->registerForAutoconfiguration(DashboardWidgetInterface::class)->addTag(DashboardWidgetCompilerPass::TAG);
-
         // Tag Setting Providers
         $container->registerForAutoconfiguration(SettingDefinitionInterface::class)->addTag(SettingCompilerPass::TAG);
 
@@ -86,17 +77,8 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         // Tag Activity Logs
         $container->registerForAutoconfiguration(ActivityLogInterface::class)->addTag(ActivityLogCompilerPass::TAG);
 
-        // Tag Alert Gatherers
-        $container->registerForAutoconfiguration(AlertGathererInterface::class)->addTag(AlertCompilerPass::TAG);
-
-        // Tag Sidebars Definitions
-        $container->registerForAutoconfiguration(SidebarDefinitionInterface::class)->addTag(SidebarCompilerPass::TAG);
-
         // Tag Navbars Definitions
         $container->registerForAutoconfiguration(NavbarDefinitionInterface::class)->addTag(NavbarCompilerPass::TAG);
-
-        // Tag Data Exporters
-        $container->registerForAutoconfiguration(DataExportProviderInterface::class)->addTag(DataExportCompilerPass::TAG);
 
         // Tag CRUD Controllers
         $container->registerForAutoconfiguration(AbstractController::class)->addTag(CRUDCompilerPass::TAG);

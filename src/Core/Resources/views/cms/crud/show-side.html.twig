@@ -14,17 +14,19 @@
         <div class="u-flex">
             <div class="c-form__content c-form__content-aside-full">
                 {% block crud_show_side_content %}
-                {% endblock crud_show_side_content %}
+                {% endblock %}
 
                 <div class="c-divider u-mv-small"></div>
 
-                <div>
-                    <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
-                    {% if form.saveAndBack is defined %}
-                        {{ form_widget(form.saveAndBack) }}
-                    {% endif %}
-                    <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
-                </div>
+                {% block crud_show_action %}
+                    <div>
+                        <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                        {% if form.saveAndBack is defined %}
+                            {{ form_widget(form.saveAndBack) }}
+                        {% endif %}
+                        <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+                    </div>
+                {% endblock %}
             </div>
 
             <div class="c-form__sidebar">
@@ -32,7 +34,7 @@
                     {{ include('@WSCore/cms/form/publishing.html.twig', { 'form': form }, with_context = false) }}
                     {{ include('@WSCore/cms/form/metadata.html.twig', { 'form': form }, with_context = false) }}
                     {{ form_row(form.image) }}
-                {% endblock crud_show_side_sidebar %}
+                {% endblock %}
             </div>
 
             {{ form_end(form) }}

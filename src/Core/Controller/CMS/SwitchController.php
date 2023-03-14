@@ -8,15 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use WS\Core\Entity\Domain;
-use WS\Core\Service\ContextService;
-use WS\Core\Service\DomainService;
+use WS\Core\Service\ContextInterface;
+use WS\Core\Service\DomainInterface;
 
 class SwitchController extends AbstractController
 {
     public function __construct(
         protected TranslatorInterface $translator,
-        protected DomainService $domainService
+        protected DomainInterface $domainService
     ) {
     }
 
@@ -25,24 +24,24 @@ class SwitchController extends AbstractController
     public function switch(Request $request, string $id): Response
     {
         $domain = $this->domainService->get(intval($id));
-        if ($domain instanceof Domain) {
-            $session = $request->getSession();
-            if ($session !== null) {
-                $session->set(ContextService::SESSION_DOMAIN, $domain->getId());
-
-                $this->addFlash('cms_success', $this->translator->trans(
-                    'domain_switched',
-                    [
-                        '%domain%' => $domain->getHost(),
-                        '%locale%' => $domain->getLocale(),
-                    ],
-                    'ws_cms'
-                ));
-
-                return $this->redirectToRoute('ws_dashboard');
-            }
+        if (null === $domain) {
+            throw $this->createNotFoundException();
         }
 
-        throw $this->createNotFoundException();
+        $session = $request->getSession();
+        if ($session !== null) {
+            $session->set(ContextInterface::SESSION_DOMAIN, $domain->getId());
+
+            $this->addFlash('cms_success', $this->translator->trans(
+                'domain_switched',
+                [
+                    '%domain%' => $domain->getHost(),
+                    '%locale%' => $domain->getLocale(),
+                ],
+                'ws_cms'
+            ));
+
+            return $this->redirectToRoute('ws_dashboard');
+        }
     }
 }

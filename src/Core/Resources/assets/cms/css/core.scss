@@ -3,6 +3,9 @@
 @use 'fontawesome/light';
 @use 'fontawesome/regular';
 @use 'fontawesome/solid';
+@use 'fontawesome/sharp-regular';
+@use 'fontawesome/sharp-solid';
+@use 'fontawesome/thin';
 @use 'vendor/a_datePicker';
 @use 'vendor/a_select';
 @use 'vendor/ws_image_selector';
@@ -57,6 +60,7 @@
 @use '5-components/_components-card';
 @use '5-components/_components-choice';
 @use '5-components/_components-choices';
+@use '5-components/components-datepicker-extras';
 @use '5-components/_components-divider';
 @use '5-components/_components-dropdown';
 @use '5-components/_components-feed';

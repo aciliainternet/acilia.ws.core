@@ -8,38 +8,6 @@
 
 {% block content %}
     <div class="container">
-        {# TODO integrar para Aciliacorpo #}
-{#         <div class="row">
-            <div class="col-sm-12 col-lg-4">
-                <div class="c-card u-p-medium u-text-center u-mb-medium">
-                    {{ source('@WSCore/cms/icons/edit.svg') }}
-                    <h4 class="u-h6 u-font-medium u-mb-small">
-                        Accede rapidamente a la creación de un nuevo articulo.
-                    </h4>
-                    <a class="c-btn c-btn--brand" href="#">Nuevo Articulo</a>
-                </div>
-            </div>
-
-            <div class="col-sm-12 col-lg-4">
-                <div class="c-card u-p-medium u-text-center u-mb-medium">
-                    {{ source('@WSCore/cms/icons/project.svg') }}
-                    <h4 class="u-h6 u-font-medium u-mb-small">
-                        Añade un nuevo proyecto en el portafolio de Nuestros proyectos.
-                    </h4>
-                    <a class="c-btn c-btn--brand" href="#">Nuevo Proyecto</a>
-                </div>
-            </div>
-
-            <div class="col-sm-12 col-lg-4">
-                <div class="c-card u-p-medium u-text-center u-mb-medium">
-                    {{ source('@WSCore/cms/icons/jobs.svg') }}
-                    <h4 class="u-h6 u-font-medium u-mb-small">
-                        Añade una nueva oferta de trabajo para la sección "Buscamos talento".
-                    </h4>
-                    <a class="c-btn c-btn--brand" href="#">Nuevo Oferta</a>
-                </div>
-            </div>
-        </div> #}
         <div class="row">
             {% for widget in get_dashboard_widgets() %}
                 {{ render_dashboard_widget(widget) }}

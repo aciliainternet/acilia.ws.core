@@ -7,12 +7,21 @@ use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
 
 class SidebarDefinitionService implements SidebarDefinitionInterface
 {
-    public function __construct(
-        protected SettingService $settingService,
-        protected SidebarService $sidebarService
-    ) {
+    public function __construct(protected SettingService $settingService)
+    {
+    }
+
+    public static function getPriority(): int
+    {
+        return \PHP_INT_MAX;
+    }
+
+    public function getSidebarAssets(): array
+    {
         // Set Default Logo
-        $this->sidebarService->assets->set('logo', '/cms/images/logo-acilia.svg');
+        return [
+            ['key' => 'logo', 'value' => '/bundles/wscore/images/logo-sngular.svg']
+        ];
     }
 
     public function getSidebarDefinition(): array

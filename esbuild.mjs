@@ -3,7 +3,8 @@ import * as dotenv from 'dotenv';
 import { build } from 'esbuild';
 import manifestPlugin from 'esbuild-plugin-manifest';
 import { sassPlugin } from 'esbuild-sass-plugin';
-import { copy } from 'esbuild-plugin-copy';
+import { cleanPlugin } from 'esbuild-clean-plugin';
+import copy from 'esbuild-copy-files-plugin';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ const entryPoints = [
 
 build({
   entryPoints,
+  metafile: true,
   bundle: true,
   minify: !isDev,
   sourcemap: isDev,
@@ -50,6 +52,9 @@ build({
   },
   assetNames: '[dir]/[name]',
   plugins: [
+    cleanPlugin({
+      initialCleanPatterns: ['**/*'],
+    }),
     {
       name: 'resolveFonts',
       setup(bld) {
@@ -66,24 +71,17 @@ build({
       generate: generateManifest,
     }),
     copy({
-      assets: [
-        {
-          from: ['src/Core/Resources/assets/cms/images/**/*'],
-          to: ['./images'],
-          keepStructure: true,
-        },
-        {
-          from: ['src/Core/Resources/assets/cms/fonts/**/*'],
-          to: ['./fonts'],
-          keepStructure: true,
-        },
-        {
-          from: ['node_modules/@fontsource/ibm-plex-sans/files/**/*'],
-          to: ['./fonts'],
-          keepStructure: true,
-        },
+      source: './src/Core/Resources/assets/cms/images',
+      target: './src/Core/Resources/public/images',
+      copyWithFolder: false,
+    }),
+    copy({
+      source: [
+        './src/Core/Resources/assets/cms/fonts',
+        './node_modules/@fontsource/ibm-plex-sans/files',
       ],
-      once: true,
+      target: './src/Core/Resources/public/fonts',
+      copyWithFolder: false,
     }),
   ],
 });

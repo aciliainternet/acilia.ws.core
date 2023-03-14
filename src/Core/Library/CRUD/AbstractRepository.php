@@ -9,22 +9,16 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use WS\Core\Entity\Domain;
 use WS\Core\Library\Domain\DomainRepositoryTrait;
-use WS\Core\Service\ContextService;
+use WS\Core\Library\Traits\CRUD\EntityTrait;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
+    use EntityTrait;
     use DomainRepositoryTrait;
 
-    public function __construct(protected ContextService $contextService, ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, $this->getEntityClass());
-    }
-
-    /** @return class-string<object> */
-    abstract public function getEntityClass(): string;
-
-    public function processFilterExtended(QueryBuilder $qb, ?array $filter): void
-    {
     }
 
     public function getAll(
@@ -59,20 +53,6 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return $qb->getQuery()->execute();
     }
 
-    public function getAvailableByIds(?Domain $domain = null, array $ids = []): array
-    {
-        $alias = 't';
-        $qb = $this->createQueryBuilder($alias)
-            ->where(sprintf('%s.id IN (:ids)', $alias))
-            ->setParameter('ids', $ids);
-
-        if (null !== $domain) {
-            $this->setDomainRestriction($alias, $qb, $domain);
-        }
-        /** @var array */
-        return $qb->getQuery()->execute();
-    }
-
     public function getAllCount(?Domain $domain, ?string $search, ?array $filter, ?array $filtetrFields): int
     {
         $qb = $this->getAllCountQueryBuilder();
@@ -94,6 +74,44 @@ abstract class AbstractRepository extends ServiceEntityRepository
         } catch (NoResultException $e) {
             return 0;
         }
+    }
+
+    public function getAvailableByIds(?Domain $domain = null, array $ids = []): array
+    {
+        $alias = 't';
+        $qb = $this->createQueryBuilder($alias)
+            ->where(sprintf('%s.id IN (:ids)', $alias))
+            ->setParameter('ids', $ids);
+
+        if (null !== $domain) {
+            $this->setDomainRestriction($alias, $qb, $domain);
+        }
+        /** @var array */
+        return $qb->getQuery()->execute();
+    }
+
+    public function batchDelete(array $ids): void
+    {
+        $alias = 't';
+
+        $qb = $this->createQueryBuilder($alias)
+            ->delete($this->getEntityClass(), $alias)
+            ->where(sprintf('%s.id IN (:ids)', $alias))
+            ->setParameter('ids', $ids);
+
+        $qb->getQuery()->execute();
+    }
+
+    protected function getAllQueryBuilder(): QueryBuilder
+    {
+        $alias = 't';
+        return $this->createQueryBuilder($alias);
+    }
+
+    protected function getAllCountQueryBuilder(): QueryBuilder
+    {
+        $alias = 't';
+        return $this->createQueryBuilder($alias);
     }
 
     protected function setFilter(string $alias, QueryBuilder $qb, ?string $search, ?array $filtetrFields): void
@@ -120,35 +138,8 @@ abstract class AbstractRepository extends ServiceEntityRepository
         }
     }
 
-    protected function setFilters(string $alias, QueryBuilder $qb, array $filters): void
+    protected function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
-        foreach ($filters as $field => $value) {
-            $qb->andWhere(sprintf('%s LIKE :%s_filter', sprintf('%s.%s', $alias, $field), $field));
-            $qb->setParameter(sprintf('%s_filter', $field), sprintf('%%%s%%', $value));
-        }
     }
 
-    public function batchDelete(array $ids): void
-    {
-        $alias = 't';
-
-        $qb = $this->createQueryBuilder($alias)
-            ->delete($this->getEntityClass(), $alias)
-            ->where(sprintf('%s.id IN (:ids)', $alias))
-            ->setParameter('ids', $ids);
-
-        $qb->getQuery()->execute();
-    }
-
-    protected function getAllQueryBuilder(): QueryBuilder
-    {
-        $alias = 't';
-        return $this->createQueryBuilder($alias);
-    }
-
-    protected function getAllCountQueryBuilder(): QueryBuilder
-    {
-        $alias = 't';
-        return $this->createQueryBuilder($alias);
-    }
 }

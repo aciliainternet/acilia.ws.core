@@ -21,7 +21,7 @@ class SettingService implements AlertGathererInterface
     public function __construct(
         protected TranslatorInterface $translator,
         protected EntityManagerInterface $em,
-        protected ContextService $contextService
+        protected ContextInterface $context
     ) {
     }
 
@@ -132,7 +132,7 @@ class SettingService implements AlertGathererInterface
 
     public function save(SectionDefinition $section, string $settingCode, string $value): void
     {
-        $domain = $this->contextService->getDomain();
+        $domain = $this->context->getDomain();
         if (null === $domain) {
             throw new \RuntimeException('Domain not available.');
         }
@@ -160,7 +160,7 @@ class SettingService implements AlertGathererInterface
 
         $setting = $this->em->getRepository(Setting::class)->findOneBy([
             'name' => $settingCode,
-            'domain' => $this->contextService->getDomain()
+            'domain' => $this->context->getDomain()
         ]);
 
         if ($setting instanceof Setting) {
@@ -185,7 +185,7 @@ class SettingService implements AlertGathererInterface
 
     public function loadSettings(): void
     {
-        $domain = $this->contextService->getDomain();
+        $domain = $this->context->getDomain();
         if (null === $domain) {
             throw new \RuntimeException('Domain not available.');
         }

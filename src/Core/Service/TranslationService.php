@@ -17,14 +17,14 @@ class TranslationService
         protected array $config,
         protected TranslatorInterface $translator,
         protected EntityManagerInterface $em,
-        protected ContextService $contextService
+        protected ContextInterface $context
     ) {
         $this->sources = [];
     }
 
     public function fillCatalogue(MessageCatalogueInterface $catalogue): void
     {
-        $domain = $this->contextService->getDomain();
+        $domain = $this->context->getDomain();
         if (null === $domain) {
             throw new \RuntimeException('Domain not available.');
         }
@@ -64,7 +64,7 @@ class TranslationService
 
     public function getForCMS(): array
     {
-        $domain = $this->contextService->getDomain();
+        $domain = $this->context->getDomain();
         if (null === $domain) {
             throw new \RuntimeException('Domain not available.');
         }
@@ -108,7 +108,7 @@ class TranslationService
 
     public function updateTranslations(array $translations): void
     {
-        $domain = $this->contextService->getDomain();
+        $domain = $this->context->getDomain();
         if (null === $domain) {
             throw new \RuntimeException('Domain not available.');
         }
@@ -119,7 +119,7 @@ class TranslationService
         foreach ($translations as $attributeId => $value) {
             $translationAttribute = $repositoryAttributes->find($attributeId);
             if ($translationAttribute instanceof TranslationAttribute) {
-                $translationValue = $repositoryValues->findOneBy(['domain' => $this->contextService->getDomain(), 'attribute' => $attributeId]);
+                $translationValue = $repositoryValues->findOneBy(['domain' => $this->context->getDomain(), 'attribute' => $attributeId]);
 
                 // If the Translated Value is empty and the Value exists, delete it
                 if (empty($value) && $translationValue instanceof TranslationValue) {
