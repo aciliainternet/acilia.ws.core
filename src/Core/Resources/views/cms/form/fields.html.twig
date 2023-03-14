@@ -591,6 +591,7 @@
                 <figure
                     class="c-img-upload__figure js-open-modal js-not-on-preview"
                     data-id-asset-component="{{ form.children.asset.vars.id }}"
+                    data-action="click->ws-asset-image#openModal"
                 />
                     <i 
                         class="c-img-upload__figure-img fal fa-cloud-upload {% if form.children.asset_image.vars.data != null %}u-hidden{% endif %}"
@@ -613,6 +614,7 @@
                 type="button"
                 data-id-asset-component="{{ form.children.asset.vars.id }}"
                 data-ws-asset-target="formUpload"
+                data-action="click->ws-asset-image#openModal"
             >
                 {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
             </button>
@@ -634,6 +636,7 @@
             class="c-btn c-btn--brand c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
             data-id-asset-component="{{ form.children.asset.vars.id }}"
             data-ws-asset-image-target="uploadNewImage"
+            data-action="click->ws-asset-image#openModal"
         >
             {{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}
         </button>
