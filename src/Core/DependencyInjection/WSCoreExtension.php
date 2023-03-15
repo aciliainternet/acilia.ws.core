@@ -49,6 +49,7 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         $this->addRoles($container, [
             'ROLE_WS_CORE' => [
                 'ROLE_WS_CORE_ADMINISTRATOR',
+                'ROLE_WS_CORE_PROFILE',
                 'ROLE_WS_CORE_TRANSLATION',
                 'ROLE_WS_CORE_ACTIVITY_LOG',
                 'ROLE_WS_CORE_SETTINGS'

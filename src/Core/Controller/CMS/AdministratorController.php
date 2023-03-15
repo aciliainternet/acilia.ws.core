@@ -30,7 +30,7 @@ class AdministratorController extends AbstractController
     }
 
     #[Route(path: '/profile', name: 'profile')]
-    #[IsGranted('ROLE_CMS', message: 'not_allowed')]
+    #[IsGranted('ROLE_WS_CORE_PROFILE', message: 'not_allowed')]
     public function profile(Request $request): Response
     {
         /** @var object */
