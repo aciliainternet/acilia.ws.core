@@ -18,12 +18,8 @@ use WS\Core\Library\CRUD\CRUDCompilerPass;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
-use WS\Core\Library\Navbar\NavbarCompilerPass;
-use WS\Core\Library\Navbar\NavbarDefinitionInterface;
 use WS\Core\Library\Setting\SettingCompilerPass;
 use WS\Core\Library\Setting\SettingDefinitionInterface;
-use WS\Core\Library\Sidebar\SidebarCompilerPass;
-use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
 use WS\Core\Library\Traits\CRUD\RoleCalculatorTrait;
 use WS\Core\Library\Traits\DependencyInjection\RoleAdderTrait;
 use WS\Core\Library\Traits\DependencyInjection\RoleLoaderTrait;
@@ -76,9 +72,6 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 
         // Tag Activity Logs
         $container->registerForAutoconfiguration(ActivityLogInterface::class)->addTag(ActivityLogCompilerPass::TAG);
-
-        // Tag Navbars Definitions
-        $container->registerForAutoconfiguration(NavbarDefinitionInterface::class)->addTag(NavbarCompilerPass::TAG);
 
         // Tag CRUD Controllers
         $container->registerForAutoconfiguration(AbstractController::class)->addTag(CRUDCompilerPass::TAG);

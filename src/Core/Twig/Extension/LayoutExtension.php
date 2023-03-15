@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use WS\Core\Service\NavbarService;
 use WS\Core\Service\SidebarService;
 
 class LayoutExtension extends AbstractExtension
@@ -17,7 +16,6 @@ class LayoutExtension extends AbstractExtension
     public function __construct(
         private RequestStack $requestStack,
         private SidebarService $sidebarService,
-        private NavbarService $navbarService,
         private ?AuthorizationCheckerInterface $securityChecker = null
     ) {
     }
@@ -29,7 +27,6 @@ class LayoutExtension extends AbstractExtension
             new TwigFunction('ws_cms_sidebar_is_granted', [$this, 'sidebarIsGranted']),
             new TwigFunction('ws_cms_sidebar_has_asset', [$this, 'sidebarHasAsset']),
             new TwigFunction('ws_cms_sidebar_get_asset', [$this, 'sidebarGetAsset']),
-            new TwigFunction('ws_cms_navbar_get', [$this, 'getNavbar']),
             new TwigFunction('ws_cms_in_route', [$this, 'checkIfInRoute'], ['is_safe' => ['html']]),
         ];
     }
@@ -65,11 +62,6 @@ class LayoutExtension extends AbstractExtension
     {
         /** @var ?string */
         return $this->sidebarService->getAsset($key);
-    }
-
-    public function getNavbar(): array
-    {
-        return $this->navbarService->getNavbar();
     }
 
     public function checkIfInRoute(
