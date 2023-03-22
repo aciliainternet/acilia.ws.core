@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 use WS\Core\Entity\AssetImage;
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\Asset\RenditionDefinition;
+use WS\Core\Library\Storage\StorageDriverInterface;
 use WS\Core\Service\Entity\AssetImageService;
 
 class ImageService
@@ -145,12 +146,17 @@ class ImageService
     {
         $this->processImageMetadata($imageFile);
 
-        $assetImage = $this->assetImageService->createFromUploadedFile($imageFile, $entity, $imageField);
+        $assetImage = $this->assetImageService->createFromUploadedFile(
+            $imageFile,
+            $entity,
+            $imageField,
+            $this->storageService->getStorageMetadata()
+        );
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
             file_get_contents($imageFile->getPathname()),
-            StorageService::CONTEXT_PUBLIC
+            StorageDriverInterface::CONTEXT_PUBLIC
         );
 
         if ($entityClass === null) {
@@ -169,12 +175,17 @@ class ImageService
     {
         $this->processImageMetadata($imageFile);
 
-        $assetImage = $this->assetImageService->createFromUploadedFile($imageFile);
+        $assetImage = $this->assetImageService->createFromUploadedFile(
+            $imageFile,
+            null,
+            null,
+            $this->storageService->getStorageMetadata()
+        );
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
             file_get_contents($imageFile->getPathname()),
-            StorageService::CONTEXT_PUBLIC
+            StorageDriverInterface::CONTEXT_PUBLIC
         );
 
         $this->createRendition($assetImage, new RenditionDefinition('', '', 'thumb', 300, 300, RenditionDefinition::METHOD_THUMB, ['80x80', '150x150']), $options);
@@ -199,9 +210,9 @@ class ImageService
             $this->getFilePath($assetImage, 'original'),
             $this->storageService->get(
                 $this->getFilePath($sourceAssetImage, 'original'),
-                StorageService::CONTEXT_PUBLIC
+                StorageDriverInterface::CONTEXT_PUBLIC
             ),
-            StorageService::CONTEXT_PUBLIC
+            StorageDriverInterface::CONTEXT_PUBLIC
         );
 
         /** @var RenditionDefinition $definition */
@@ -232,10 +243,11 @@ class ImageService
 
     public function dynamicResize($requestedFile, $originalFile, $width, $height) : Image
     {
-        $originalContent = $this->storageService->get(sprintf('images/%s', $originalFile), StorageService::CONTEXT_PUBLIC);
+        $originalContent = $this->storageService->get(sprintf('images/%s', $originalFile), StorageDriverInterface::CONTEXT_PUBLIC);
         $originalImage = $this->imageManager->make($originalContent);
         $originalImage->fit($width, $height);
-        $this->storageService->save(sprintf('images/%s', $requestedFile), $originalImage->encode(null, 90), StorageService::CONTEXT_PUBLIC);
+
+        $this->storageService->save(sprintf('images/%s', $requestedFile), $originalImage->encode(null, 90), StorageDriverInterface::CONTEXT_PUBLIC);
 
         return $originalImage;
     }
@@ -251,12 +263,12 @@ class ImageService
 
     protected function createRendition(AssetImage $assetImage, RenditionDefinition $definition, array $options = null)
     {
-        $imageContent = $this->storageService->get($this->getFilePath($assetImage, 'original'), StorageService::CONTEXT_PUBLIC);
+        $imageContent = $this->storageService->get($this->getFilePath($assetImage, 'original'), StorageDriverInterface::CONTEXT_PUBLIC);
         $image = $this->imageManager->make($imageContent);
 
         $image = $this->executeRenderMethod($definition, $image, $options);
 
-        $this->storageService->save($this->getFilePath($assetImage, $definition->getName()), $image->encode(null, $definition->getQuality()), StorageService::CONTEXT_PUBLIC);
+        $this->storageService->save($this->getFilePath($assetImage, $definition->getName()), $image->encode(null, $definition->getQuality()), StorageDriverInterface::CONTEXT_PUBLIC);
 
         foreach ($definition->getSubRenditions() as $subRendition) {
             list($subRenditionWidth, $subRenditionHeight) = explode('x', $subRendition, 2);
@@ -276,7 +288,7 @@ class ImageService
             $this->storageService->save(
                 $this->getFilePath($assetImage, $definition->getName(), $subRendition),
                 $subRenditionImage->encode(null, $definition->getQuality()),
-                StorageService::CONTEXT_PUBLIC
+                StorageDriverInterface::CONTEXT_PUBLIC
             );
         }
     }

@@ -36,6 +36,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use WS\Core\Library\Storage\StorageCompilerPass;
+use WS\Core\Library\Storage\StorageDriverInterface;
 use WS\Core\Service\TranslationService;
 
 class WSCoreExtension extends Extension implements PrependExtensionInterface
@@ -105,6 +107,9 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 
         // Tag Navigation Providers
         $container->registerForAutoconfiguration(NavigationProviderInterface::class)->addTag(NavigationCompilerPass::TAG);
+
+        // Tag StorageDriver Definitions
+        $container->registerForAutoconfiguration(StorageDriverInterface::class)->addTag(StorageCompilerPass::TAG);
 
         // Configure services
         $configuration = new Configuration();
