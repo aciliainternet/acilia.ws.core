@@ -5,6 +5,7 @@ namespace WS\Core\Service;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Psr\Log\LoggerInterface;
 use WS\Core\Entity\AssetFile;
+use WS\Core\Library\Storage\StorageDriverInterface;
 use WS\Core\Service\Entity\AssetFileService;
 
 class FileService
@@ -27,7 +28,7 @@ class FileService
         $this->storageService->save(
             $this->getFilePath($assetFile),
             file_get_contents($fileFile->getPathname()),
-            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         );
 
         return $assetFile;
@@ -40,12 +41,17 @@ class FileService
             throw new \RuntimeException('File cannot be read');
         }
 
-        $assetFile = $this->assetFileService->createFromUploadedFile($fileFile);
+        $assetFile = $this->assetFileService->createFromUploadedFile(
+            $fileFile,
+            null,
+            null,
+            $this->storageService->getStorageMetadata()
+        );
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
             $fileFileContent,
-            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         );
 
         return $assetFile;
@@ -68,7 +74,7 @@ class FileService
     {
         if (!$this->storageService->exists(
             $this->getFilePath($originalAssetFile),
-            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         )) {
             $this->logger->error(sprintf(
                 'Error copying AssetFile. File "%s" not found.',
@@ -83,7 +89,7 @@ class FileService
         $this->storageService->save(
             $this->getFilePath($assetFile),
             file_get_contents($this->storageService->getPrivateUrl($this->getFilePath($originalAssetFile))),
-            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         );
 
         return $assetFile;

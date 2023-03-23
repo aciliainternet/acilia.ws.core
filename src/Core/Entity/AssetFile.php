@@ -41,6 +41,11 @@ class AssetFile
     private string $mimeType;
 
     /**
+     * @ORM\Column(name="file_storage_metadata", type="json", nullable=true)
+     */
+    private $storageMetadata;
+
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="file_created_at", type="datetime", nullable=false)
      */
@@ -90,6 +95,18 @@ class AssetFile
     public function setMimeType(string $mimeType): self
     {
         $this->mimeType = $mimeType;
+
+        return $this;
+    }
+
+    public function getStorageMetadata(): ?array
+    {
+        return $this->storageMetadata;
+    }
+
+    public function setStorageMetadata(?array $storageMetadata): self
+    {
+        $this->storageMetadata = $storageMetadata;
 
         return $this;
     }

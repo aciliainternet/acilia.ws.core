@@ -38,7 +38,7 @@ class AssetFileService implements FactoryCollectorInterface
         $assetFile = (new AssetFile())
             ->setFilename($this->sanitizeFilename($fileFile))
             ->setMimeType((string) $fileFile->getMimeType())
-        ;
+            ->setStorageMetadata($storageMetadata);
 
         $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));
         if (method_exists($entity, $fieldSetter)) {

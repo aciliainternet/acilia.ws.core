@@ -37,9 +37,9 @@ class LocalDriver implements StorageDriverInterface
         }
 
         $this->storageContext = [
-            self::CONTEXT_PRIVATE => $contextPrivate,
-            self::CONTEXT_PUBLIC => $contextPublic,
-            self::CONTEXT_URL => $contextUrl,
+            StorageDriverInterface::CONTEXT_PRIVATE => $contextPrivate,
+            StorageDriverInterface::CONTEXT_PUBLIC => $contextPublic,
+            StorageDriverInterface::CONTEXT_URL => $contextUrl,
         ];
     }
 
