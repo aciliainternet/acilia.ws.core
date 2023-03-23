@@ -23,7 +23,12 @@ class FileService
 
     public function handle(UploadedFile $fileFile, $entity, string $fileField, ?array $options = null): AssetFile
     {
-        $assetFile = $this->assetFileService->createFromUploadedFile($fileFile, $entity, $fileField);
+        $assetFile = $this->assetFileService->createFromUploadedFile(
+            $fileFile,
+            $entity,
+            $fileField,
+            $this->storageService->getStorageMetadata()
+        );
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
@@ -74,7 +79,8 @@ class FileService
     {
         if (!$this->storageService->exists(
             $this->getFilePath($originalAssetFile),
-            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE,
+            $originalAssetFile->getStorageMetadata()
         )) {
             $this->logger->error(sprintf(
                 'Error copying AssetFile. File "%s" not found.',
@@ -97,7 +103,10 @@ class FileService
 
     public function getFileUrl(AssetFile $assetFile): string
     {
-        return $this->storageService->getPublicUrl($this->getFilePath($assetFile));
+        return $this->storageService->getPublicUrl(
+            $this->getFilePath($assetFile),
+            $assetFile->getStorageMetadata()
+        );
     }
 
     public function getFilePrivate(AssetFile $assetFile): string

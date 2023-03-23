@@ -59,7 +59,7 @@ class LocalDriver implements StorageDriverInterface
         file_put_contents($finalFile, $content);
     }
 
-    public function get(string $filePath, string $context): string
+    public function get(string $filePath, string $context, array $options): string
     {
         $finalFile = sprintf('%s/%s', $this->storageContext[$context], $filePath);
         if (!file_exists($finalFile) || !is_readable($finalFile)) {
@@ -74,12 +74,12 @@ class LocalDriver implements StorageDriverInterface
         return $finalFileContent;
     }
 
-    public function exists(string $filePath, string $context): bool
+    public function exists(string $filePath, string $context, array $options): bool
     {
         return \file_exists(sprintf('%s/%s', $this->storageContext[$context], $filePath));
     }
 
-    public function getPublicUrl(string $filePath): string
+    public function getPublicUrl(string $filePath, array $options): string
     {
         return sprintf('%s/%s', $this->storageContext[self::CONTEXT_URL], $filePath);
     }

@@ -43,19 +43,19 @@ class StorageService
         $this->getDriver($this->driverName)->save($filePath, $content, $context);
     }
 
-    public function get(string $filePath, string $context): string
+    public function get(string $filePath, string $context, array $options = []): string
     {
-        return $this->getDriver($this->driverName)->get($filePath, $context);
+        return $this->getDriver($this->driverName)->get($filePath, $context, $options);
     }
 
-    public function exists(string $filePath, string $context): bool
+    public function exists(string $filePath, string $context, array $options = []): bool
     {
-        return $this->getDriver($this->driverName)->exists($filePath, $context);
+        return $this->getDriver($this->driverName)->exists($filePath, $context, $options);
     }
 
-    public function getPublicUrl(string $filePath): string
+    public function getPublicUrl(string $filePath, array $options = []): string
     {
-        return $this->getDriver($this->driverName)->getPublicUrl($filePath);
+        return $this->getDriver($this->driverName)->getPublicUrl($filePath, $options);
     }
 
     public function getPrivateUrl(string $filePath): string

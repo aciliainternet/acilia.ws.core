@@ -16,11 +16,11 @@ interface StorageDriverInterface
 
     public function save(string $filePath, string $content, string $context): void;
 
-    public function get(string $filePath, string $context): string;
+    public function get(string $filePath, string $context, array $options): string;
 
-    public function exists(string $filePath, string $context): bool;
+    public function exists(string $filePath, string $context, array $options): bool;
 
-    public function getPublicUrl(string $filePath): string;
+    public function getPublicUrl(string $filePath, array $options): string;
 
     public function getPrivateUrl(string $filePath): string;
 

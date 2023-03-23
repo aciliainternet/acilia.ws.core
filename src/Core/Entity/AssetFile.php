@@ -43,7 +43,7 @@ class AssetFile
     /**
      * @ORM\Column(name="file_storage_metadata", type="json", nullable=true)
      */
-    private $storageMetadata;
+    private $storageMetadata = [];
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -99,12 +99,12 @@ class AssetFile
         return $this;
     }
 
-    public function getStorageMetadata(): ?array
+    public function getStorageMetadata(): array
     {
         return $this->storageMetadata;
     }
 
-    public function setStorageMetadata(?array $storageMetadata): self
+    public function setStorageMetadata(array $storageMetadata): self
     {
         $this->storageMetadata = $storageMetadata;
 

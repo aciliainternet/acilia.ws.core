@@ -238,7 +238,7 @@ class ImageService
 
     public function getImageUrl(AssetImage $image, $rendition, $subRendition = null) : string
     {
-        return $this->storageService->getPublicUrl($this->getFilePath($image, $rendition, $subRendition));
+        return $this->storageService->getPublicUrl($this->getFilePath($image, $rendition, $subRendition), $image->getStorageMetadata());
     }
 
     public function dynamicResize($requestedFile, $originalFile, $width, $height) : Image

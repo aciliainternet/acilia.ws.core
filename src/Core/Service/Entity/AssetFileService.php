@@ -33,7 +33,7 @@ class AssetFileService implements FactoryCollectorInterface
         return ['createdAt', 'filename'];
     }
 
-    public function createFromUploadedFile(UploadedFile $fileFile, $entity = null, string $fileField = null): AssetFile
+    public function createFromUploadedFile(UploadedFile $fileFile, $entity = null, string $fileField = null, array $storageMetadata = []): AssetFile
     {
         $assetFile = (new AssetFile())
             ->setFilename($this->sanitizeFilename($fileFile))

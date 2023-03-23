@@ -55,7 +55,7 @@ class AssetImage
     /**
      * @ORM\Column(name="image_storage_metadata", type="json", nullable=true)
      */
-    protected $storageMetadata;
+    protected $storageMetadata = [];
 
     /**
      * @Assert\Type("DateTime")
