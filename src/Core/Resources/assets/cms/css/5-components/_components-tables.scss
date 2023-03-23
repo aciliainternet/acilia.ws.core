@@ -50,6 +50,7 @@
 .c-table-responsive\@desktop {
     position: relative;
     overflow-x: auto;
+    overflow-y: hidden;
 }
 
 @media (max-width: $breakpoint-mobile) {

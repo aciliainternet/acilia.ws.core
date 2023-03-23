@@ -5,17 +5,7 @@
         <span class="c-sidebar-toggle__bar"></span>
     </button>
     <div class="u-ml-auto">
-        {% for menu in ws_cms_navbar_get() %}
-            {% if menu.roles is empty or ws_cms_sidebar_is_granted(menu.roles) %}
-                {% if menu.template is not empty %}
-                    {{ include(menu.template, ignore_missing = true) }}
-                {% else %}
-                    <a class="u-mr-20" href="{{ path(menu.routeName, menu.routeOptions) }}" title="{{ menu.label|trans({}, menu.translationDomain)|raw }}">
-                        <i class="fal {{ menu.icon }}"></i>
-                    </a>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
+        {{ include(['general/navbar_menu.html.twig', '@WSCore/cms/general/navbar_menu.html.twig']) }}
 
         {{ include('@WSCore/cms/general/language.html.twig') }}
 
@@ -27,9 +17,9 @@
             </a>
         {% endif %}
 
-        {{ include('@WSCore/cms/general/dropdown_profile.html.twig') }}
+        {{ include(['general/dropdown_profile.html.twig', '@WSCore/cms/general/dropdown_profile.html.twig']) }}
     </div>
-    
+
     {% set breadcrumbs = [{ 'name': 'dashboard.menu'|trans({}, 'ws_cms'), 'path': path('ws_dashboard') }]|merge(get_breadcrumbs()) %}
     <ol class="c-breadcrumb">
         {% for breadcrumb in breadcrumbs %}
