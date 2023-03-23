@@ -188,7 +188,11 @@ class ImageService
             StorageDriverInterface::CONTEXT_PUBLIC
         );
 
-        $this->createRendition($assetImage, new RenditionDefinition('', '', 'thumb', 300, 300, RenditionDefinition::METHOD_THUMB, ['80x80', '150x150']), $options);
+        $this->createRendition(
+            $assetImage,
+            new RenditionDefinition('', '', 'thumb', 300, 300, RenditionDefinition::METHOD_THUMB, ['80x80', '150x150']),
+            $options
+        );
 
         return $assetImage;
     }
@@ -196,22 +200,24 @@ class ImageService
     public function copy($entity, $imageField, int $assetId, array $options = null, $entityClass = null) : ?AssetImage
     {
         $sourceAssetImage = $this->assetImageService->get($assetId);
-        if ($sourceAssetImage === null) {
+        if (null === $sourceAssetImage) {
             return null;
         }
+        $sourceAssetImageContent = $this->storageService->get(
+            $this->getFilePath($sourceAssetImage, 'original'),
+            StorageDriverInterface::CONTEXT_PUBLIC,
+            $sourceAssetImage->getStorageMetadata()
+        );
 
         $assetImage = $this->assetImageService->createFromAsset($entity, $imageField, $sourceAssetImage);
 
-        if ($entityClass === null) {
+        if (null === $entityClass) {
             $entityClass = get_class($entity);
         }
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
-            $this->storageService->get(
-                $this->getFilePath($sourceAssetImage, 'original'),
-                StorageDriverInterface::CONTEXT_PUBLIC
-            ),
+            $sourceAssetImageContent,
             StorageDriverInterface::CONTEXT_PUBLIC
         );
 
@@ -263,12 +269,20 @@ class ImageService
 
     protected function createRendition(AssetImage $assetImage, RenditionDefinition $definition, array $options = null)
     {
-        $imageContent = $this->storageService->get($this->getFilePath($assetImage, 'original'), StorageDriverInterface::CONTEXT_PUBLIC);
-        $image = $this->imageManager->make($imageContent);
+        $imageContent = $this->storageService->get(
+            $this->getFilePath($assetImage, 'original'),
+            StorageDriverInterface::CONTEXT_PUBLIC,
+            $assetImage->getStorageMetadata()
+        );
 
+        $image = $this->imageManager->make($imageContent);
         $image = $this->executeRenderMethod($definition, $image, $options);
 
-        $this->storageService->save($this->getFilePath($assetImage, $definition->getName()), $image->encode(null, $definition->getQuality()), StorageDriverInterface::CONTEXT_PUBLIC);
+        $this->storageService->save(
+            $this->getFilePath($assetImage, $definition->getName()),
+            $image->encode(null, $definition->getQuality()),
+            StorageDriverInterface::CONTEXT_PUBLIC
+        );
 
         foreach ($definition->getSubRenditions() as $subRendition) {
             list($subRenditionWidth, $subRenditionHeight) = explode('x', $subRendition, 2);

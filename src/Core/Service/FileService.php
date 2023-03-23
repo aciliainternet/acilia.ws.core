@@ -90,11 +90,17 @@ class FileService
             return null;
         }
 
+        $originalAssetFileContent = $this->storageService->get(
+            $this->getFilePath($originalAssetFile),
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE,
+            $originalAssetFile->getStorageMetadata()
+        );
+
         $assetFile = $this->assetFileService->clone($originalAssetFile);
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
-            file_get_contents($this->storageService->getPrivateUrl($this->getFilePath($originalAssetFile))),
+            $originalAssetFileContent,
             $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         );
 

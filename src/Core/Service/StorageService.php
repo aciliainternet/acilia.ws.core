@@ -23,7 +23,7 @@ class StorageService
         }
 
         throw new StorageDriverException(
-            sprintf('Invalid driver storage "%s", drivers available: "local" or "aws".', $driverName)
+            sprintf('Invalid driver storage "%s"', $driverName)
         );
     }
 
