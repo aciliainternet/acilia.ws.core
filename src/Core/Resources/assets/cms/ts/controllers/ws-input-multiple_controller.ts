@@ -1,3 +1,4 @@
+import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
 import Choices, { Choices as ChoicesNamespace } from 'choices.js';
 

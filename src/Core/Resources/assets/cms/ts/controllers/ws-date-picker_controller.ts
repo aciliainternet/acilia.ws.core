@@ -1,3 +1,4 @@
+import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
 import {
   DatePickerOptions,

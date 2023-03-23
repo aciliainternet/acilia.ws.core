@@ -1,3 +1,4 @@
+import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
 /* eslint-disable no-underscore-dangle */
 import aSelect, { aSelectType, Item } from '../modules/a_select';

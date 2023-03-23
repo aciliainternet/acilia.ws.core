@@ -1,6 +1,7 @@
 // add this line because eslint demands that the package be on dependencies
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EasyMDE from 'easymde';
+import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
 import { handleImage } from './ws_markdown/ws-markdown-image_controller';
 import { handleFile } from './ws_markdown/ws-markdown-file_controller';

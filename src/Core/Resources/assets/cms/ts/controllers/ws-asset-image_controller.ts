@@ -1,3 +1,4 @@
+import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
 import initModalImageSelector from '../../js/components/ws_assets_images/ui_image_selector';
 import { init as initCropper } from '../../js/components/ws_assets_images/ui_cropper';
