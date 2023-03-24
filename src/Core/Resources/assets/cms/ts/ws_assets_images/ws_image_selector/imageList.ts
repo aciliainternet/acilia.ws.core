@@ -25,7 +25,7 @@ function setNextPage(page: number) {
 }
 
 function openCropper(event: Event) {
-  const modal = imageListContainer?.closest('.js-image-selector-modal');
+  const modal = imageListContainer?.closest<HTMLElement>('.js-image-selector-modal');
 
   if (modal) {
     showCropper(event, modal);
