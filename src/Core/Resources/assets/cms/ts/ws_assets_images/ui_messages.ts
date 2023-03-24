@@ -13,6 +13,7 @@ function hide(messageWrapperIdentifier: string) {
       message.classList.add('u-hidden');
     });
   } catch (error) {
+    /* eslint-disable-next-line no-console */
     console.error(error);
   }
 }
@@ -26,7 +27,11 @@ function hide(messageWrapperIdentifier: string) {
  *
  * @return void
  */
-function show(messageWrapperIdentifier: string, messageText: string, type: string) {
+function show(
+  messageWrapperIdentifier: string,
+  messageText: string,
+  type: string
+) {
   try {
     const wrapper = document.querySelector(messageWrapperIdentifier);
 
@@ -45,11 +50,9 @@ function show(messageWrapperIdentifier: string, messageText: string, type: strin
       showErrorNotification(messageText);
     }
   } catch (error) {
+    /* eslint-disable-next-line no-console */
     console.error(error);
   }
 }
 
-export {
-  hide,
-  show,
-};
+export { hide, show };

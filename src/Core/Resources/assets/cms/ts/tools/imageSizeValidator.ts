@@ -22,25 +22,29 @@ interface ValidatorData {
   minHeight?: number;
 }
 
-export default async function checkImagesSizes(imageSrc: string, minimums: Minimums) {
+export default async function checkImagesSizes(
+  imageSrc: string,
+  minimums: Minimums
+) {
   try {
     const imageTag = await loadImage(imageSrc);
     const validatorData: ValidatorData = { isValid: true };
 
-    const minWidth = Object
-      .values(minimums)
+    const minWidth = Object.values(minimums)
       .map((m) => m.width)
       .sort(sortMethod)
       .shift();
 
-    const minHeight = Object
-      .values(minimums)
+    const minHeight = Object.values(minimums)
       .map((m) => m.height)
       .sort(sortMethod)
       .shift();
 
     if (minHeight !== undefined && minWidth !== undefined) {
-      if (imageTag.naturalHeight < minHeight || imageTag.naturalWidth < minWidth) {
+      if (
+        imageTag.naturalHeight < minHeight ||
+        imageTag.naturalWidth < minWidth
+      ) {
         validatorData.isValid = false;
         validatorData.minHeight = minHeight;
         validatorData.minWidth = minWidth;
@@ -48,7 +52,7 @@ export default async function checkImagesSizes(imageSrc: string, minimums: Minim
     }
 
     return validatorData;
-  } catch (err) {
+  } catch (err: any) {
     const { currentTarget } = err;
     throw new Error(`Failed to load image for src: ${currentTarget.src}`);
   }

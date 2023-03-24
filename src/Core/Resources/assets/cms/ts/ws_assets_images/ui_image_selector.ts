@@ -6,7 +6,8 @@ import AModal from '../modules/a_modal';
 
 function newFile(event: MouseEvent) {
   const currentTarget = event.currentTarget as HTMLElement;
-  const id = currentTarget.closest<HTMLElement>('.js-image-selector-modal')?.dataset.id;
+  const id = currentTarget.closest<HTMLElement>('.js-image-selector-modal')
+    ?.dataset.id;
 
   if (id) {
     document.getElementById(id)?.click();
@@ -24,7 +25,8 @@ function init(assetImageElement: HTMLImageElement, modal: AModal) {
 
     initImageList(assetImageElement.id);
 
-    document.querySelector<HTMLImageElement>(`.js-img-selector-new${dataString}`)
+    document
+      .querySelector<HTMLImageElement>(`.js-img-selector-new${dataString}`)
       ?.addEventListener('click', newFile);
 
     modal.open(`.js-image-selector-modal${dataString}`);

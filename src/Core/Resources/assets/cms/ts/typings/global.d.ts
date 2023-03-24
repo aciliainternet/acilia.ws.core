@@ -4,6 +4,6 @@ import { CMSSettings } from '../interfaces/settings';
 declare global {
   interface Window {
     cmsTranslations: CMSTranslations;
-    cmsSettings: CMSSettings
+    cmsSettings: CMSSettings;
   }
 }

@@ -1,4 +1,8 @@
-import { init as initACropper, getCropperInstance, crop } from '../modules/a_cropper';
+import {
+  init as initACropper,
+  getCropperInstance,
+  crop,
+} from '../modules/a_cropper';
 import { Loader } from '../tools/ws_loader';
 import { hide as hideMessage, show as showMessage } from './ui_messages';
 import { showError as showErrorNotification } from '../modules/a_notifications';
@@ -11,7 +15,9 @@ let modal: AModal | null = null;
 let cancelEvent: (() => void) | null = null;
 
 function getComponentConfig(elmId: string, ratio: number): Cropper.Options {
-  const preview = document.querySelector(`[data-id="${elmId}"] .ws-cropper_preview`);
+  const preview = document.querySelector(
+    `[data-id="${elmId}"] .ws-cropper_preview`
+  );
 
   return {
     ...(preview && { preview }),
@@ -40,13 +46,18 @@ function cancelCrop(event: Event) {
   if (inputElement) {
     inputElement.value = '';
   }
-  
-  const cropperModal = document.querySelector<HTMLElement>(`.ws-cropper_modal[data-id="${dataId}"]`);
+
+  const cropperModal = document.querySelector<HTMLElement>(
+    `.ws-cropper_modal[data-id="${dataId}"]`
+  );
 
   if (cropperModal) {
     cropperModal.dataset.croppIndex = (0).toString(10);
 
-    const img = cropperModal.querySelector<HTMLImageElement>(`.ws-cropper_crop img`);
+    const img = cropperModal.querySelector<HTMLImageElement>(
+      '.ws-cropper_crop img'
+    );
+
     if (img) {
       img.src = '';
     }
@@ -71,42 +82,62 @@ function saveCrop(id: string) {
       const idSelector = `${hiddenFields}${config.ratio.replace(':', 'x')}`;
       const value = `${config.data?.width};${config.data?.height};${config.data?.x};${config.data?.y}`;
 
-      const inputElement = document.querySelector<HTMLInputElement>(`#${idSelector}`);
+      const inputElement = document.querySelector<HTMLInputElement>(
+        `#${idSelector}`
+      );
+
       if (inputElement) {
         inputElement.value = value;
       }
-      
-      const inputElementRemove = document.querySelector<HTMLInputElement>(`#${id}_remove`);
+
+      const inputElementRemove = document.querySelector<HTMLInputElement>(
+        `#${id}_remove`
+      );
+
       if (inputElementRemove) {
         inputElementRemove.value = '';
       }
     });
 
-    document.querySelectorAll(`[data-id="${id.replace('_asset', '')}"]`).forEach((elm) => {
-      elm.classList.remove('u-hidden');
-    });
+    document
+      .querySelectorAll(`[data-id="${id.replace('_asset', '')}"]`)
+      .forEach((elm) => {
+        elm.classList.remove('u-hidden');
+      });
 
-    const notOnPreview = document.querySelector(`.js-open-modal.js-not-on-preview[data-id-asset-component="${id}"] i`);
+    const notOnPreview = document.querySelector(
+      `.js-open-modal.js-not-on-preview[data-id-asset-component="${id}"] i`
+    );
+
     if (notOnPreview) {
       notOnPreview.classList.add('u-hidden');
     }
 
-    document.querySelectorAll(`[data-id="${id.replace('_asset', '')}"]`).forEach((element) => {
-      const img = element.querySelector<HTMLImageElement>('img');
-      const wrapperImg = element.querySelector('.c-img-upload__wrapper-img');
-      if (img) {
-        img.src = fieldData.cropper?.getCroppedCanvas().toDataURL() || '';
-      } else if (wrapperImg) {
-        wrapperImg.insertAdjacentHTML(
-          'afterbegin',
-          `<img class="c-img-upload__img" src="${fieldData.cropper?.getCroppedCanvas().toDataURL()}">`,
-        );
+    document
+      .querySelectorAll(`[data-id="${id.replace('_asset', '')}"]`)
+      .forEach((element) => {
+        const img = element.querySelector<HTMLImageElement>('img');
+        const wrapperImg = element.querySelector('.c-img-upload__wrapper-img');
+        if (img) {
+          img.src = fieldData.cropper?.getCroppedCanvas().toDataURL() || '';
+        } else if (wrapperImg) {
+          wrapperImg.insertAdjacentHTML(
+            'afterbegin',
+            `<img class="c-img-upload__img" src="${fieldData.cropper
+              ?.getCroppedCanvas()
+              .toDataURL()}">`
+          );
 
-        element.querySelector('.c-img-upload__wrapper-img')?.classList.remove('u-hidden');
-      }
-    });
+          element
+            .querySelector('.c-img-upload__wrapper-img')
+            ?.classList.remove('u-hidden');
+        }
+      });
 
-    const img = document.querySelector<HTMLImageElement>(`.ws-cropper_modal[data-id="${id}"] .ws-cropper_crop img`);
+    const img = document.querySelector<HTMLImageElement>(
+      `.ws-cropper_modal[data-id="${id}"] .ws-cropper_crop img`
+    );
+
     if (img) {
       img.src = '';
     }
@@ -143,7 +174,10 @@ function checkCropSize(event: Event) {
     // get the current index
     const index = parseInt(croppIndex, 10) - 1;
     const { minimums } = getCropperInstance(id).config[index];
-    const { width, height } = (event as CustomEvent).detail as { width: number; height: number };
+    const { width, height } = (event as CustomEvent).detail as {
+      width: number;
+      height: number;
+    };
 
     if (width < minimums.width || height < minimums.height) {
       getCropperInstance(id).cropper?.setData({
@@ -166,10 +200,15 @@ function showCropper(elm: { id: string }, cropperIndex: number) {
     const cropperSelector = `.ws-cropper_modal[data-id="${elm.id}"]`;
     const config = getComponentConfig(elm.id, Number(cropperConfig.ratioValue));
 
-    document.querySelector(`${cropperSelector} .ws-cropper_crop`)?.classList.add('u-hidden');
+    document
+      .querySelector(`${cropperSelector} .ws-cropper_crop`)
+      ?.classList.add('u-hidden');
 
     if (fieldData.cropper !== null) {
-      document.querySelector(imageSelector)?.removeEventListener('crop', checkCropSize);
+      document
+        .querySelector(imageSelector)
+        ?.removeEventListener('crop', checkCropSize);
+
       fieldData.cropper.destroy();
     }
 
@@ -179,12 +218,20 @@ function showCropper(elm: { id: string }, cropperIndex: number) {
       fieldData.cropper = crop(image, config);
       image.addEventListener('crop', checkCropSize);
     }
-    
-    document.querySelector(`${cropperSelector} .ws-cropper_crop`)?.classList.remove('u-hidden');
 
-    const ratioElem = document.querySelector<HTMLElement>(`${cropperSelector} .ws-cropper_details_ratio`);
-    const wElem = document.querySelector<HTMLElement>(`${cropperSelector} .ws-cropper_details_min_w`);
-    const hElem = document.querySelector<HTMLElement>(`${cropperSelector} .ws-cropper_details_min_h`);
+    document
+      .querySelector(`${cropperSelector} .ws-cropper_crop`)
+      ?.classList.remove('u-hidden');
+
+    const ratioElem = document.querySelector<HTMLElement>(
+      `${cropperSelector} .ws-cropper_details_ratio`
+    );
+    const wElem = document.querySelector<HTMLElement>(
+      `${cropperSelector} .ws-cropper_details_min_w`
+    );
+    const hElem = document.querySelector<HTMLElement>(
+      `${cropperSelector} .ws-cropper_details_min_h`
+    );
 
     if (ratioElem && wElem && hElem) {
       ratioElem.innerText = ratio;
@@ -192,11 +239,15 @@ function showCropper(elm: { id: string }, cropperIndex: number) {
       hElem.innerText = cropperConfig.minimums.height;
     }
 
-    const saveElem = document.querySelector<HTMLElement>(`${cropperSelector} .ws-cropper_save`);
-    const nextElem = document.querySelector<HTMLElement>(`${cropperSelector} .ws-cropper_next`);
+    const saveElem = document.querySelector<HTMLElement>(
+      `${cropperSelector} .ws-cropper_save`
+    );
+    const nextElem = document.querySelector<HTMLElement>(
+      `${cropperSelector} .ws-cropper_next`
+    );
 
     if (saveElem && nextElem) {
-      if (croppersConfig.length > (cropperIndex + 1)) {
+      if (croppersConfig.length > cropperIndex + 1) {
         saveElem.style.display = 'none';
         nextElem.style.display = 'inline-block';
       } else {
@@ -214,13 +265,16 @@ function showCropper(elm: { id: string }, cropperIndex: number) {
 
 function nextCrop(event: Event) {
   const currentTarget = event.currentTarget as HTMLElement;
-  const id = currentTarget.dataset.id;
+  const { id } = currentTarget.dataset;
 
   if (!id) {
     return;
   }
 
-  const cropperElem = document.querySelector<HTMLElement>(`.ws-cropper_modal[data-id="${id}"]`);
+  const cropperElem = document.querySelector<HTMLElement>(
+    `.ws-cropper_modal[data-id="${id}"]`
+  );
+
   if (!cropperElem) {
     return;
   }
@@ -243,13 +297,19 @@ function nextCrop(event: Event) {
 async function initCropper(event: Event, loaderContainer?: HTMLElement) {
   const currentTarget = event.currentTarget as HTMLElement;
   const id = currentTarget.id || currentTarget.dataset.id;
-  
-  const elm = document.querySelector<HTMLInputElement>(`#${id}[data-component="ws_cropper"]`);
+
+  const elm = document.querySelector<HTMLInputElement>(
+    `#${id}[data-component="ws_cropper"]`
+  );
+
   if (!elm) {
     return;
   }
 
-  const modalCropper = document.querySelector<HTMLElement>(`.ws-cropper_modal[data-id="${elm.id}"]`);
+  const modalCropper = document.querySelector<HTMLElement>(
+    `.ws-cropper_modal[data-id="${elm.id}"]`
+  );
+
   if (!modalCropper) {
     return;
   }
@@ -274,7 +334,10 @@ async function initCropper(event: Event, loaderContainer?: HTMLElement) {
   Loader.show(loaderContainer);
 
   try {
-    const imgValidator = await checkImagesSizes(imageSrc, JSON.parse(elm.dataset.minimums || '{}'));
+    const imgValidator = await checkImagesSizes(
+      imageSrc,
+      JSON.parse(elm.dataset.minimums || '{}')
+    );
 
     if (!imgValidator.isValid) {
       const { error } = window.cmsTranslations.ws_cms_components.cropper;
@@ -290,7 +353,10 @@ async function initCropper(event: Event, loaderContainer?: HTMLElement) {
     } else {
       setPreview(elm.id, imageSrc);
       if (currentTarget.dataset.imageUrl) {
-        const dataElem = document.querySelector<HTMLInputElement>(`#${id}_data`);
+        const dataElem = document.querySelector<HTMLInputElement>(
+          `#${id}_data`
+        );
+
         if (dataElem) {
           dataElem.value = currentTarget.dataset.imageId || '';
         }
@@ -298,16 +364,19 @@ async function initCropper(event: Event, loaderContainer?: HTMLElement) {
 
       initACropper(elm);
 
-      const cropperDetails = modalCropper.querySelector<HTMLElement>('.ws-cropper_details_obs');
+      const cropperDetails = modalCropper.querySelector<HTMLElement>(
+        '.ws-cropper_details_obs'
+      );
+
       if (cropperDetails) {
         cropperDetails.innerText = '';
       }
 
       modalCropper.dataset.croppIndex = '1';
 
-      document.querySelectorAll(`.ws-cropper_confirm[data-id="${elm.id}"]`).forEach(
-        (input) => input.classList.remove('u-hidden'),
-      );
+      document
+        .querySelectorAll(`.ws-cropper_confirm[data-id="${elm.id}"]`)
+        .forEach((input) => input.classList.remove('u-hidden'));
 
       showCropper(elm, 0);
 
@@ -319,13 +388,17 @@ async function initCropper(event: Event, loaderContainer?: HTMLElement) {
         }
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     Loader.hide();
     showErrorNotification(err.message);
   }
 }
 
-function init(assetElement: HTMLElement, modalElement: AModal, closeEvent: (() => void) | null = null) {
+function init(
+  assetElement: HTMLElement,
+  modalElement: AModal,
+  closeEvent: (() => void) | null = null
+) {
   const { cmsTranslations } = window;
   if (cmsTranslations === undefined || cmsTranslations === null) {
     throw Error('No CMS Translations defined.');
@@ -336,18 +409,21 @@ function init(assetElement: HTMLElement, modalElement: AModal, closeEvent: (() =
   assetElement.addEventListener('change', initCropper);
   hideMessage(`${messageCropperPrefix}-${assetElement.id}`);
 
-  document.querySelectorAll(`[data-id="${assetElement.id}"] .ws-cropper_container .ws-cropper_cancel`).forEach((elm) => {
-    elm.addEventListener('click', cancelCrop);
-  });
+  document
+    .querySelectorAll(
+      `[data-id="${assetElement.id}"] .ws-cropper_container .ws-cropper_cancel`
+    )
+    .forEach((elm) => {
+      elm.addEventListener('click', cancelCrop);
+    });
 
-  document.querySelectorAll(`[data-id="${assetElement.id}"] .ws-cropper_container .ws-cropper_confirm`).forEach(
-    (elm) => {
+  document
+    .querySelectorAll(
+      `[data-id="${assetElement.id}"] .ws-cropper_container .ws-cropper_confirm`
+    )
+    .forEach((elm) => {
       elm.addEventListener('click', nextCrop);
-    },
-  );
+    });
 }
 
-export {
-  init,
-  initCropper,
-};
+export { init, initCropper };
