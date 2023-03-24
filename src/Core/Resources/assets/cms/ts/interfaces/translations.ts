@@ -15,10 +15,20 @@ export interface MarkdownTranslations {
   autosave: string;
 }
 
+export interface CropperTranslations {
+  error?: string;
+}
+
+export interface AssetsImagesTranslations {
+  no_results: string;
+}
+
 export interface CMSComponentTranslations {
+  assets_images: AssetsImagesTranslations;
   select: SelectTranslations;
   input_multiple: InputMultipleTranslations;
   markdown: MarkdownTranslations;
+  cropper: CropperTranslations;
 }
 
 export interface CMSBatchActionsTranslations {

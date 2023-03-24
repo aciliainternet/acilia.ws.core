@@ -1,4 +1,4 @@
-function loadImage(imageSrc) {
+function loadImage(imageSrc: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = document.createElement('img');
     img.src = imageSrc;
@@ -7,19 +7,32 @@ function loadImage(imageSrc) {
   });
 }
 
-function sortMethod(a, b) {
+function sortMethod(a: number, b: number) {
   return a < b ? 1 : -1;
 }
 
-export default async function checkImagesSizes(imageSrc, minimums) {
+interface Minimums {
+  width: number;
+  height: number;
+}
+
+interface ValidatorData {
+  isValid: boolean;
+  minWidth?: number;
+  minHeight?: number;
+}
+
+export default async function checkImagesSizes(imageSrc: string, minimums: Minimums) {
   try {
     const imageTag = await loadImage(imageSrc);
-    const validatorData = { isValid: true };
+    const validatorData: ValidatorData = { isValid: true };
+
     const minWidth = Object
       .values(minimums)
       .map((m) => m.width)
       .sort(sortMethod)
       .shift();
+
     const minHeight = Object
       .values(minimums)
       .map((m) => m.height)

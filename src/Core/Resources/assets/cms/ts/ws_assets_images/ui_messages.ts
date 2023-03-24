@@ -1,13 +1,13 @@
-import { showError as showErrorNotification } from '../../../ts/modules/a_notifications';
+import { showError as showErrorNotification } from '../modules/a_notifications';
 
-function getStylesByType(type) {
+function getStylesByType(type: string) {
   return {
     wrapperSpecificClass: `c-alert--border-${type}`,
     icon: `<i class="fal fa-exclamation-triangle u-color-${type}"></i>`,
   };
 }
 
-function hide(messageWrapperIdentifier) {
+function hide(messageWrapperIdentifier: string) {
   try {
     document.querySelectorAll(messageWrapperIdentifier).forEach((message) => {
       message.classList.add('u-hidden');
@@ -19,12 +19,14 @@ function hide(messageWrapperIdentifier) {
 
 /**
  * Show the cropper message
+ *
  * @param string messageWrapperIdentifier - The DOM identifier of the wrapper.
  * @param string messageText - The message to show.
  * @param string type - The type of message, ex: success, warning, danger, info.
+ *
  * @return void
  */
-function show(messageWrapperIdentifier, messageText, type) {
+function show(messageWrapperIdentifier: string, messageText: string, type: string) {
   try {
     const wrapper = document.querySelector(messageWrapperIdentifier);
 

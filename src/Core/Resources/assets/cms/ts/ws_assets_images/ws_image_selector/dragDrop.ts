@@ -1,19 +1,19 @@
 import { initCropper as showCropper } from '../ui_cropper';
 
-function preventDefaults(event) {
+function preventDefaults(event: Event) {
   event.preventDefault();
   event.stopPropagation();
 }
 
-function highlight(event) {
-  event.currentTarget.classList.add('is-active');
+function highlight(event: Event) {
+  (event.currentTarget as HTMLElement).classList.add('is-active');
 }
 
-function unhighlight(event) {
-  event.currentTarget.classList.remove('is-active');
+function unhighlight(event: Event) {
+  (event.currentTarget as HTMLElement).classList.remove('is-active');
 }
 
-function handleDrop(event) {
+function handleDrop(event: Event) {
   showCropper(event);
 }
 

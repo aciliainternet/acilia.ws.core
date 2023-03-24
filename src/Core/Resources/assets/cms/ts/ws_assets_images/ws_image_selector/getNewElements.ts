@@ -1,5 +1,14 @@
-function getNewElements(url) {
-  const promiseObj = new Promise((resolve, reject) => {
+
+export type NewElementsResponse = NewElementItem[];
+
+export interface NewElementItem {
+  alt: string;
+  thumb: string;
+  id: string;
+}
+
+function getNewElements(url: string): Promise<NewElementsResponse> {
+  const promiseObj = new Promise<NewElementsResponse>((resolve, reject) => {
     const httpRequest = new XMLHttpRequest();
     httpRequest.open('GET', url);
     httpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

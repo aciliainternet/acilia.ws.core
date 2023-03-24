@@ -1,12 +1,17 @@
 import Cropper from 'cropperjs';
 
-const cropperInstances = [];
+export interface CropperInstance {
+  config: Config[];
+  cropper: Cropper | null;
+}
+
+const cropperInstances: Record<string, CropperInstance> = {};
 
 function crop(image: HTMLImageElement | HTMLCanvasElement, config?: Cropper.Options) {
   return new Cropper(image, config);
 }
 
-function getCropperInstance(id: string) {
+function getCropperInstance(id: string): CropperInstance {
   return cropperInstances[id];
 }
 
@@ -22,6 +27,7 @@ interface Config {
   ratio: string;
   ratioValue: string;
   minimums: Minimums;
+  data?: Cropper.Data;
 }
 
 function createCropperConfig(element: HTMLElement) {

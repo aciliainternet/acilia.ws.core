@@ -1,7 +1,7 @@
 import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
-import initModalImageSelector from '../../js/components/ws_assets_images/ui_image_selector';
-import { init as initCropper } from '../../js/components/ws_assets_images/ui_cropper';
+import initModalImageSelector from '../ws_assets_images/ui_image_selector';
+import { init as initCropper } from '../ws_assets_images/ui_cropper';
 import Modal from '../modules/a_modal';
 
 let modal: Modal | null = null;
@@ -53,7 +53,7 @@ export default class extends Controller {
   }
 
   openModal(event: MouseEvent & { currentTarget: HTMLElement }) {
-    const assetImageElement = document.querySelector<HTMLElement>(
+    const assetImageElement = document.querySelector<HTMLImageElement>(
       `#${event.currentTarget.dataset.idAssetComponent}[data-component="ws_cropper"]`,
     );
   
@@ -65,9 +65,13 @@ export default class extends Controller {
       && document.querySelector<HTMLElement>('.js-image-selector-modal')?.offsetWidth === 0
       && document.querySelector<HTMLElement>('.js-image-selector-modal')?.offsetHeight === 0) {
       event.preventDefault();
-      initModalImageSelector(assetImageElement, modal);
+      if (modal !== null) {
+        initModalImageSelector(assetImageElement, modal);
+      }
     } else if (assetImageElement.dataset.displayMode === 'crop') {
-      initCropper(assetImageElement, modal);
+      if (modal !== null) {
+        initCropper(assetImageElement, modal);
+      }
       assetImageElement.click();
     }
   }
