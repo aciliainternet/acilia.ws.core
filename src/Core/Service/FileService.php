@@ -115,9 +115,13 @@ class FileService
         );
     }
 
-    public function getFilePrivate(AssetFile $assetFile): string
+    public function getFileContents(AssetFile $assetFile): string
     {
-        return $this->storageService->getPrivateUrl($this->getFilePath($assetFile));
+        return $this->storageService->get(
+            $this->getFilePath($assetFile),
+            StorageDriverInterface::CONTEXT_PRIVATE,
+            $assetFile->getStorageMetadata()
+        );
     }
 
     protected function getFilePath(AssetFile $assetFile): string

@@ -57,14 +57,4 @@ class StorageService
     {
         return $this->getDriver($this->driverName)->getPublicUrl($filePath, $options);
     }
-
-    public function getPrivateUrl(string $filePath): string
-    {
-        return $this->getDriver($this->driverName)->getPrivateUrl($filePath);
-    }
-
-    public function getPublicPath(string $filePath): string
-    {
-        return $this->getDriver($this->driverName)->getPublicPath($filePath);
-    }
 }
