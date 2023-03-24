@@ -1,0 +1,12 @@
+{
+    "extends": "@tsconfig/recommended/tsconfig.json",
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "lib": ["ESNext", "DOM"],
+        "allowJs": true
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules"]
+}

@@ -1,7 +1,9 @@
 {
   "scripts": {
     "dev": "node esbuild.mjs --watch",
-    "build": "node esbuild.mjs"
+    "prebuild": "node ./node_modules/.bin/tsc --project ./src/Core/Resources/assets/cms/ts/tsconfig.json",
+    "build": "node esbuild.mjs",
+    "lint": "node ./node_modules/.bin/eslint src/Core/Resources/assets/cms/ts/**/*.ts"
   },
   "license": "UNLICENSED",
   "private": true,
@@ -21,20 +23,24 @@
     "esbuild-copy-files-plugin": "1.1.0",
     "esbuild-plugin-manifest": "0.5.0",
     "esbuild-sass-plugin": "2.4.0",
-    "eslint": "6.8.0",
-    "eslint-config-airbnb-base": "14.1.0",
-    "eslint-plugin-import": "2.20.2",
+    "eslint": "8.36.0",
+    "eslint-plugin-prettier": "4.2.1",
     "flatpickr": "4.5.2",
+    "prettier": "2.8.6",
     "rangeslider-pure": "0.4.11",
     "sass": "1.35.2",
     "smoothscroll-polyfill": "0.4.4",
     "sweetalert": "2.1.2",
     "tippy.js": "6.2.3",
     "toastr": "2.1.4",
+    "typescript": "^5.0.2",
     "vanilla-lazyload": "15.1.1",
     "vanilla-picker": "2.10.1"
   },
   "devDependencies": {
-    "@types/toastr": "^2.1.40"
+    "@tsconfig/recommended": "1.0.2",
+    "@types/toastr": "^2.1.40",
+    "@typescript-eslint/eslint-plugin": "5.56.0",
+    "@typescript-eslint/parser": "5.56.0"
   }
 }

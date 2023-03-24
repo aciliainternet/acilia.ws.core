@@ -1,0 +1,27 @@
+name: Catalyst Frontend Linters
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  backend-linters:
+    name: Frontend Linters
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      #- name: Copy .env file
+      #  uses: canastro/copy-file-action@master
+      #  with:
+      #    source: 'env.local'
+      #    target: '.env'
+
+      - name: NPM install
+        run: npm install
+
+      - name: Eslint
+        run: npm run lint
