@@ -2,9 +2,9 @@ name: Catalyst Frontend Build
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ main, '6.2', '5.4', '5.3' ]
   push:
-    branches: [ main ]
+    branches: [ main, '6.2', '5.4', '5.3' ]
 
 jobs:
   backend-linters:
