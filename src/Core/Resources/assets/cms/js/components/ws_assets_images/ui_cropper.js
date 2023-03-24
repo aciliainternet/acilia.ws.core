@@ -1,7 +1,7 @@
-import { init as initACropper, getCropperInstance, crop } from '../../../ts/modules/a_cropper.ts';
-import { Loader } from '../../../ts/tools/ws_loader.ts';
+import { init as initACropper, getCropperInstance, crop } from '../../../ts/modules/a_cropper';
+import { show as showLoader, hide as hideLoader } from '../ws_loader';
 import { hide as hideMessage, show as showMessage } from './ui_messages';
-import { showError as showErrorNotification } from '../../../ts/modules/a_notifications.ts';
+import { showError as showErrorNotification } from '../../../ts/modules/a_notifications';
 import checkImagesSizes from './imageSizeValidator';
 
 const cropperIgnoreClasses = ':not(.cropper-u-hidden):not(.cropper-hidden)';
@@ -135,7 +135,7 @@ function showCropper(elm, cropperIndex) {
       document.querySelector(`${cropperSelector} .ws-cropper_next`).style.display = 'none';
     }
 
-    // hideLoader();
+    hideLoader();
   } catch (error) {
     // this catch is to catch the error
     // 'InternalError: "too much recursion"' from the cropper library
@@ -177,8 +177,7 @@ async function initCropper(event, loaderContainer) {
     imageSrc = currentTarget.dataset.imageUrl;
   }
 
-  const loader = new Loader(loaderContainer);
-  loader.show();
+  showLoader(loaderContainer);
 
   try {
     const imgValidator = await checkImagesSizes(imageSrc, JSON.parse(elm.dataset.minimums));
@@ -190,7 +189,7 @@ async function initCropper(event, loaderContainer) {
         showMessage(`${messageCropperPrefix}-${id}`, errorMsg, 'warning');
       }
 
-      loader.hide();
+      hideLoader();
     } else {
       setPreview(elm.id, imageSrc);
       if (currentTarget.dataset.imageUrl) {
@@ -215,7 +214,7 @@ async function initCropper(event, loaderContainer) {
       }
     }
   } catch (err) {
-    loader.hide();
+    hideLoader();
     showErrorNotification(err.message);
   }
 }

@@ -1,9 +1,9 @@
 import getNewElements from './getNewElements';
-import { init as lazyLoadInit, update as lazyLoadUpdate } from '../../../../ts/modules/a_lazyload.ts';
+import { init as lazyLoadInit, update as lazyLoadUpdate } from '../../../../ts/modules/a_lazyload';
 import { initCropper as showCropper } from '../ui_cropper';
-import { Loader } from '../../../../ts/tools/ws_loader.ts';
+import { show as showLoader, hide as hideLoader } from '../../ws_loader';
 import { show as showMessage } from '../ui_messages';
-import { showError as showErrorNotification } from '../../../../ts/modules/a_notifications.ts';
+import { showError as showErrorNotification } from '../../../../ts/modules/a_notifications';
 import checkImagesSizes from '../imageSizeValidator';
 
 let imageListContainer = null;
@@ -32,8 +32,7 @@ async function useImage(event) {
   const { imageId, imageOriginal, imageUrl } = event.currentTarget.dataset;
   const cropper = document.querySelector(`#${id}[data-component="ws_cropper"]`);
 
-  const loader = new Loader(imageListContainer.closest('.js-image-selector-modal'));
-  loader.show();
+  showLoader(imageListContainer.closest('.js-image-selector-modal'));
 
   try {
     const imgValidator = await checkImagesSizes(imageOriginal, JSON.parse(cropper.dataset.minimums));
@@ -44,7 +43,7 @@ async function useImage(event) {
         const errorMsg = error.replace('%width%', imgValidator.minWidth).replace('%height%', imgValidator.minHeight);
         showMessage(`.js-cropper-msg-${id}`, errorMsg, 'warning');
       }
-      loader.hide();
+      hideLoader();
     } else {
       const element = document.querySelector(`[data-id="${id.replace('_asset', '')}"]`);
       if (element.querySelector('img')) {
@@ -62,12 +61,12 @@ async function useImage(event) {
           .classList.add('u-hidden');
       }
 
-      loader.hide();
+      hideLoader();
       document.getElementById(`${id}_data`).value = imageId;
       document.querySelector('[data-id="image-selector"]').querySelector('#a-close').click();
     }
   } catch (err) {
-    loader.hide();
+    hideLoader();
     showErrorNotification(err.message);
   }
 }
@@ -79,15 +78,14 @@ function deleteImage(event) {
   if (dataset.path) {
     httpRequest.open('POST', dataset.path);
     httpRequest.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    const loader = new Loader(imageListContainer);
-    loader.show();
+    showLoader(imageListContainer);
     httpRequest.onreadystatechange = () => {
       const imgToRemove = imageListContainer.querySelector(`img[id="${dataset.imageId}"]`);
 
       if (imgToRemove && imgToRemove.parentElement) {
         imageListContainer.removeChild(imgToRemove.parentElement);
       }
-      loader.hide();
+      hideLoader();
     };
     httpRequest.send(JSON.stringify({ assetId: dataset.imageId }));
   }
@@ -130,8 +128,7 @@ function showElements(imageList) {
     );
   }
 
-  const loader = new Loader(imageListContainer.closest('.js-image-selector-modal'));
-  loader.hide();
+  hideLoader();
   working = false;
 }
 
@@ -149,7 +146,6 @@ function getElementsOnScroll() {
   // On the container there is a diffenece of height between firefox and chrome
   const gap = 10;
 
-  const loader = new Loader(imageListContainer);
   if (
     stillData
     && !working
@@ -157,7 +153,7 @@ function getElementsOnScroll() {
     && yLastElement + heightLastElement <= (yContainer + heightContainer) + gap
   ) {
     working = true;
-    loader.show();
+    showLoader(imageListContainer);
 
     if (document.querySelector('.js-search-form').dataset.queryString) {
       endpointUrl = `${endpointUrl}&${document.querySelector('.js-search-form').dataset.queryString}`;
@@ -186,8 +182,7 @@ function init(containerId = null) {
     endpointUrl = `${endpointUrl}?page=1`;
     imageListContainer.addEventListener('scroll', getElementsOnScroll);
     removeListElements(imageListContainer);
-    const loader = new Loader(imageListContainer);
-    loader.show();
+    showLoader(imageListContainer);
     getNewElements(endpointUrl).then(showElements);
     lazyLoadInit();
   }
