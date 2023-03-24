@@ -1,4 +1,4 @@
-import '../../typings/global';
+import '../../typings/global.d';
 import getNewElements, { NewElementsResponse } from './getNewElements';
 import { init as lazyLoadInit, update as lazyLoadUpdate } from '../../modules/a_lazyload';
 import { initCropper as showCropper } from '../ui_cropper';
