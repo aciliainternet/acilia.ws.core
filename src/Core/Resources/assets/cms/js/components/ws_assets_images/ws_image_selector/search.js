@@ -1,6 +1,6 @@
 import getNewElements from './getNewElements';
 import { showElements, setNextPage, removeListElements } from './imageList';
-import { show as showLoader } from '../../ws_loader';
+import { Loader } from '../../../../ts/tools/ws_loader.ts';
 
 let endpointUrl = window.cmsSettings.ws_cms_components.assets_images.endpoint;
 
@@ -20,7 +20,7 @@ function searchAction() {
 
   setNextPage(2);
   removeListElements(imageList);
-  showLoader(imageList);
+  Loader.show(imageList);
   getNewElements(endpointUrl).then(showElements);
 }
 
