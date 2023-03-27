@@ -388,9 +388,9 @@ async function initCropper(event: Event, loaderContainer?: HTMLElement) {
         }
       }
     }
-  } catch (err: any) {
+  } catch (err: unknown) {
     Loader.hide();
-    showErrorNotification(err.message);
+    showErrorNotification((err as Error).message);
   }
 }
 

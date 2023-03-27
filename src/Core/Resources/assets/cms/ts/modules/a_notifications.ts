@@ -1,6 +1,10 @@
 import toastr from 'toastr';
 
-function showError(msg: string, title: string | null = null, options: any | null = null) {
+function showError(
+  msg: string,
+  title: string | null = null,
+  options: ToastrOptions | null = null
+) {
   if (title && options) {
     toastr.error(msg, title, options);
   }
@@ -10,7 +14,11 @@ function showError(msg: string, title: string | null = null, options: any | null
   toastr.error(msg);
 }
 
-function showSuccess(msg: string, title: string | null = null, options: any | null = null) {
+function showSuccess(
+  msg: string,
+  title: string | null = null,
+  options: ToastrOptions | null = null
+) {
   if (title && options) {
     toastr.success(msg, title, options);
   }
@@ -20,7 +28,4 @@ function showSuccess(msg: string, title: string | null = null, options: any | nu
   toastr.success(msg);
 }
 
-export {
-  showError,
-  showSuccess,
-};
+export { showError, showSuccess };

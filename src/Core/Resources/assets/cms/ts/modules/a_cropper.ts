@@ -1,5 +1,20 @@
 import Cropper from 'cropperjs';
 
+interface Ratios {
+  [label: string]: { label: string; fraction: string };
+}
+
+interface Minimums {
+  [label: string]: Array<string | number>;
+}
+
+interface Config {
+  ratio: string;
+  ratioValue: string;
+  minimums: Array<string | number>;
+  data?: Cropper.Data;
+}
+
 export interface CropperInstance {
   config: Config[];
   cropper: Cropper | null;
@@ -7,7 +22,10 @@ export interface CropperInstance {
 
 const cropperInstances: Record<string, CropperInstance> = {};
 
-function crop(image: HTMLImageElement | HTMLCanvasElement, config?: Cropper.Options) {
+function crop(
+  image: HTMLImageElement | HTMLCanvasElement,
+  config?: Cropper.Options
+) {
   return new Cropper(image, config);
 }
 
@@ -15,25 +33,10 @@ function getCropperInstance(id: string): CropperInstance {
   return cropperInstances[id];
 }
 
-interface Ratios {
-  [label: string]: { label: string, fraction: string };
-}
-
-interface Minimums {
-  [label: string]: any;
-}
-
-interface Config {
-  ratio: string;
-  ratioValue: string;
-  minimums: Minimums;
-  data?: Cropper.Data;
-}
-
 function createCropperConfig(element: HTMLElement) {
   const croppersConfig: Config[] = [];
-  const ratios: Ratios = JSON.parse(element.dataset.ratios || "{}");
-  const minimums: Minimums = JSON.parse(element.dataset.minimums || "{}");
+  const ratios: Ratios = JSON.parse(element.dataset.ratios || '{}');
+  const minimums: Minimums = JSON.parse(element.dataset.minimums || '{}');
 
   Object.keys(ratios).forEach((ratioKey) => {
     croppersConfig.push({
@@ -52,8 +55,4 @@ function init(element: HTMLElement) {
   }
 }
 
-export {
-  init,
-  crop,
-  getCropperInstance,
-};
+export { init, crop, getCropperInstance };

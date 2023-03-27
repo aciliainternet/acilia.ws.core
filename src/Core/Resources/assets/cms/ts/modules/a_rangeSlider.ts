@@ -1,26 +1,35 @@
+import '../typings/rangeSlider.d';
 import rangeSlider from 'rangeslider-pure';
 
-const createTooltip = (rangeSliderEl: any, tooltip: HTMLElement) => {
+const createTooltip = (
+  rangeSliderEl: HTMLRangeSliderElement,
+  tooltip: HTMLElement
+) => {
   const handleEl = rangeSliderEl.handle;
   tooltip.classList.add('rangeSlider__tooltip');
   handleEl.appendChild(tooltip);
+
+  /* eslint-disable-next-line no-param-reassign */
   tooltip.textContent = rangeSliderEl.value;
 };
 
-function init(elm: HTMLElement & { rangeSlider?: any } | null = null, options: any = {}) {
+function init(
+  elm: HTMLInputElement | null = null,
+  options: Partial<RangeSliderOptions> = {}
+) {
   if (elm === null) {
     return;
   }
 
-  const opt = {
+  const opt: Partial<RangeSliderOptions> = {
     ...options,
     polyfill: true,
     root: document,
   };
 
   const tooltip = document.createElement('div');
-  rangeSlider.create(elm, opt);
-  createTooltip(elm.rangeSlider, tooltip);
+  rangeSlider.create(elm, opt as RangeSliderOptions);
+  createTooltip((elm as HTMLRangeSliderElement).rangeSlider, tooltip);
 }
 
 export default init;

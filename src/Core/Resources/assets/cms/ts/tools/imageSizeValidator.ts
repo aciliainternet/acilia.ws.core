@@ -52,8 +52,8 @@ export default async function checkImagesSizes(
     }
 
     return validatorData;
-  } catch (err: any) {
-    const { currentTarget } = err;
+  } catch (err: unknown) {
+    const { currentTarget } = err as { currentTarget: HTMLImageElement };
     throw new Error(`Failed to load image for src: ${currentTarget.src}`);
   }
 }

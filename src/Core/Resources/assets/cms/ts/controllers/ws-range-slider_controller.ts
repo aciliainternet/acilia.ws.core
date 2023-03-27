@@ -1,16 +1,18 @@
 import { Controller } from '@hotwired/stimulus';
 import aRangeSlider from '../modules/a_rangeSlider';
 
-export default class extends Controller<HTMLElement> {
+export default class extends Controller<HTMLInputElement> {
   static values = {
     min: Number,
     max: Number,
     step: Number,
   };
 
-  declare minValue: Number;
-  declare maxValue: Number;
-  declare stepValue: Number;
+  declare minValue: number;
+
+  declare maxValue: number;
+
+  declare stepValue: number;
 
   connect() {
     const options = {

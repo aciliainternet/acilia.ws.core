@@ -1,8 +1,8 @@
 import Choices, { Choices as ChoicesNamespace } from 'choices.js';
 
 export interface Item {
-  id: string,
-  active: boolean,
+  id: string;
+  active: boolean;
 }
 
 interface CurrentState {

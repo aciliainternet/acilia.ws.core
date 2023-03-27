@@ -27,7 +27,4 @@ function init() {
   document.addEventListener('DOMContentLoaded', update);
 }
 
-export {
-  init,
-  update,
-};
+export { init, update };

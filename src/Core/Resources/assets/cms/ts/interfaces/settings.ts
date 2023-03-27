@@ -18,9 +18,9 @@ interface InputMultipleSettings {
 interface WSComponentSettings {
   datepicker: DatePickerSettings;
   input_multiple: InputMultipleSettings;
-  markdown_asset_file: { endpoint: string; };
-  markdown_asset_image: { endpoint: string; };
-  assets_images: { endpoint: string; };
+  markdown_asset_file: { endpoint: string };
+  markdown_asset_image: { endpoint: string };
+  assets_images: { endpoint: string };
 }
 
 export interface CMSSettings {

@@ -9,7 +9,7 @@ export interface InputMultipleTranslations {
   add_item: string;
   unique_item: string;
   invalid_item: string;
-};
+}
 
 export interface MarkdownTranslations {
   autosave: string;
@@ -41,6 +41,6 @@ export interface CMSTranslations {
   ws_cms_components: CMSComponentTranslations;
   ws_cms_batch_actions: CMSBatchActionsTranslations;
   cancel: string;
-  delete: { confirm: string; };
+  delete: { confirm: string };
   error: string;
 }
