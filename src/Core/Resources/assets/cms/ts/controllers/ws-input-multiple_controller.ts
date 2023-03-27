@@ -82,7 +82,9 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     widgetConfig: Partial<ChoicesNamespace.Options>
   ) {
     const choicesInput = new Choices(inputMultiple, widgetConfig);
-    const inputElement = (choicesInput as any).input.element;
+    const inputElement = (
+      choicesInput as Choices & { input: { element: HTMLElement } }
+    ).input.element;
 
     choicesInput.passedElement.element.addEventListener(
       'addItem',
