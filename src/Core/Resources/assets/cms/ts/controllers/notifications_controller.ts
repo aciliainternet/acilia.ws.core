@@ -23,7 +23,7 @@ export default class extends Controller {
   static values = {
     notificationClass: {
       type: String,
-      default: 'cms-notifications'
+      default: 'cms-notifications',
     },
     options: {
       type: Object,
@@ -32,21 +32,24 @@ export default class extends Controller {
   };
 
   declare notificationClassValue: string;
+
   declare optionsValue: ToastrOptions | null;
-  
-  connect() {      
+
+  connect() {
     toastr.options = this.optionsValue || defaultOptions;
     this.checkNotifications();
   }
 
   checkNotifications() {
-    document.querySelectorAll<HTMLElement>(`.${this.notificationClassValue}`).forEach((elem) => {
-      if (elem.dataset.type === 'success') {
-        showSuccess(elem.innerHTML);
-      }
-      if (elem.dataset.type === 'failure') {
-        showError(elem.innerHTML);
-      }
-    });
+    document
+      .querySelectorAll<HTMLElement>(`.${this.notificationClassValue}`)
+      .forEach((elem) => {
+        if (elem.dataset.type === 'success') {
+          showSuccess(elem.innerHTML);
+        }
+        if (elem.dataset.type === 'failure') {
+          showError(elem.innerHTML);
+        }
+      });
   }
 }

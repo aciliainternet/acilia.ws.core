@@ -5,7 +5,6 @@ declare class Picker {
     // NOOP
   }
 
-  /* eslint-disable class-methods-use-this */
   onChange(color: PickerColor): void {
     // noop
   }

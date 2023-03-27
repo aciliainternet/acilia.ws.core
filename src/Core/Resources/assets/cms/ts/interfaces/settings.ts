@@ -1,4 +1,5 @@
 interface DatePickerFormat {
+  [index: string]: string;
   date_hour: string;
   date: string;
   hour: string;

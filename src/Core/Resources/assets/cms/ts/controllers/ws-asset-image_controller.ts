@@ -7,13 +7,24 @@ import Modal from '../modules/a_modal';
 let modal: Modal | null = null;
 
 export default class extends Controller {
-  static targets = ['image', 'placeholder', 'uploadNewImage', 'changeImage', 'removeField'];
+  static targets = [
+    'image',
+    'placeholder',
+    'uploadNewImage',
+    'changeImage',
+    'removeField',
+  ];
 
   declare hasImageTarget: boolean;
+
   declare imageTarget: HTMLImageElement;
+
   declare placeholderTarget: HTMLElement;
+
   declare changeImageTarget: HTMLElement;
+
   declare uploadNewImageTarget: HTMLElement;
+
   declare removeFieldTarget: HTMLInputElement;
 
   connect() {
@@ -33,7 +44,9 @@ export default class extends Controller {
         closeButton: true,
         identifier: 'image-selector',
         onClose: () => {
-          const searchInput = document.querySelector<HTMLInputElement>('.js-search-input');
+          const searchInput =
+            document.querySelector<HTMLInputElement>('.js-search-input');
+
           if (searchInput) {
             searchInput.value = '';
           }
@@ -43,7 +56,7 @@ export default class extends Controller {
   }
 
   deleteAssetImage() {
-    this.removeFieldTarget.value = 'remove'
+    this.removeFieldTarget.value = 'remove';
     if (this.hasImageTarget) {
       this.imageTarget.classList.add('u-hidden');
     }
@@ -54,16 +67,20 @@ export default class extends Controller {
 
   openModal(event: MouseEvent & { currentTarget: HTMLElement }) {
     const assetImageElement = document.querySelector<HTMLImageElement>(
-      `#${event.currentTarget.dataset.idAssetComponent}[data-component="ws_cropper"]`,
+      `#${event.currentTarget.dataset.idAssetComponent}[data-component="ws_cropper"]`
     );
-  
+
     if (!assetImageElement) {
       return;
     }
 
-    if (assetImageElement.dataset.displayMode === 'list'
-      && document.querySelector<HTMLElement>('.js-image-selector-modal')?.offsetWidth === 0
-      && document.querySelector<HTMLElement>('.js-image-selector-modal')?.offsetHeight === 0) {
+    if (
+      assetImageElement.dataset.displayMode === 'list' &&
+      document.querySelector<HTMLElement>('.js-image-selector-modal')
+        ?.offsetWidth === 0 &&
+      document.querySelector<HTMLElement>('.js-image-selector-modal')
+        ?.offsetHeight === 0
+    ) {
       event.preventDefault();
       if (modal !== null) {
         initModalImageSelector(assetImageElement, modal);

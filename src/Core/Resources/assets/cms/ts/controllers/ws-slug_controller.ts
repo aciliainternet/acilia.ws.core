@@ -23,6 +23,8 @@ export default class extends Controller {
 
     current.value = current.value.toLowerCase();
     current.value = current.value.replace(/\s+/g, '-');
-    current.value = current.value.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    current.value = current.value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
   }
 }

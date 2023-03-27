@@ -22,7 +22,6 @@ function aDatePicker(
   let datepicker: Instance | Instance[] | null = null;
   if (elm && options) {
     if (options.locale === 'es') {
-      /* eslint-disable-next-line no-param-reassign */
       options.locale = Spanish;
     }
     datepicker = flatpickr(elm, options);

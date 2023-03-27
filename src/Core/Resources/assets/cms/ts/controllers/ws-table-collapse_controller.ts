@@ -9,7 +9,7 @@ export default class extends Controller {
 
   toggleRow() {
     this.element.classList.toggle('is-open');
-    
+
     const panel = document.querySelector(`#${this.rowIdValue}`);
 
     if (panel) {

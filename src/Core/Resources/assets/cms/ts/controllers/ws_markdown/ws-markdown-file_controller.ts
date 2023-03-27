@@ -14,20 +14,23 @@ export default class extends Controller<HTMLInputElement> {
     const formData = new FormData();
     formData.append('asset', file);
 
-    const response = await fetch(window.cmsSettings.ws_cms_components.markdown_asset_file.endpoint, {
-      method: 'POST',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-      body: formData,
-    });
+    const response = await fetch(
+      window.cmsSettings.ws_cms_components.markdown_asset_file.endpoint,
+      {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+        body: formData,
+      }
+    );
 
-    return await response.json() as FileResponse;
+    return (await response.json()) as FileResponse;
   }
 }
 
 export function handleFile(): Promise<FileResponse> {
-  return new Promise(((resolve) => {
+  return new Promise((resolve) => {
     const interval = window.setInterval(() => {
       const tmpFile = newFile;
       if (tmpFile != null) {
@@ -36,5 +39,5 @@ export function handleFile(): Promise<FileResponse> {
         resolve(tmpFile);
       }
     }, 10);
-  }));
+  });
 }

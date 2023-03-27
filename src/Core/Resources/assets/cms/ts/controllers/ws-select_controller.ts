@@ -7,7 +7,7 @@ import { SelectTranslations } from '../interfaces/translations';
 let selectTranslations: SelectTranslations | null = null;
 const fetchLookupDelay = 500;
 let fetchLookupTimeout: number | null = null;
-const fetchLookupCache = {};
+const fetchLookupCache: { [index: string]: Item[] } = {};
 
 interface WSSelectConfig {
   loadingText: string;
@@ -39,7 +39,7 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
       removeItemButton: true,
       resetScrollPosition: false,
     };
-  
+
     if (!this.element.dataset.wsDisable) {
       config.searchEnabled = this.element.dataset.search
         ? this.element.dataset.search === 'true'
@@ -58,16 +58,24 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
   }
 
   populateChoices(choices: aSelectType, items: Item[]) {
-    const toRemove = choices._currentState.items.filter((item) => item.active).map(item => item.id);
+    const toRemove = choices._currentState.items
+      .filter((item) => item.active)
+      .map((item) => item.id);
+
     const toKeep = items.filter((item) => !toRemove.includes(item.id));
 
     choices.setChoices(toKeep, 'value', 'label', true);
   }
-   
+
   async lookup(choices: aSelectType, apiUrl: string) {
     // show temporary loading option
     choices.clearChoices();
-    choices.setChoices([{ value: 0, label: selectTranslations?.loading }], 'value', 'label', true);
+    choices.setChoices(
+      [{ value: 0, label: selectTranslations?.loading }],
+      'value',
+      'label',
+      true
+    );
 
     const query = choices.input.value;
 

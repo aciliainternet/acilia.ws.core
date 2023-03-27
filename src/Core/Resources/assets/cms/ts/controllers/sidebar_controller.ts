@@ -8,7 +8,10 @@ export default class extends Controller {
   connect() {
     // if a subnav is active, we can't set the subnav class in the html using twig
     // then we have to open the subnav using js
-    const linkActive = document.querySelector('ul.c-sidebar__submenu.collapse a.c-sidebar__link.is-active');
+    const linkActive = document.querySelector(
+      'ul.c-sidebar__submenu.collapse a.c-sidebar__link.is-active'
+    );
+
     if (linkActive) {
       const closestCollapsed = linkActive.closest('ul.collapse');
 

@@ -2,7 +2,6 @@ import '../typings/vanillaPicker.d';
 import Picker, { PickerColor } from 'vanilla-picker';
 
 function init(elm: HTMLElement | null = null) {
-  /* eslint-disable no-param-reassign */
   const picker = new Picker(elm);
 
   picker.onChange = (color: PickerColor) => {

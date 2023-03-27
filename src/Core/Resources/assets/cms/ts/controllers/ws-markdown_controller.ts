@@ -1,4 +1,3 @@
-// add this line because eslint demands that the package be on dependencies
 // eslint-disable-next-line import/no-extraneous-dependencies
 import EasyMDE from 'easymde';
 import '../typings/global.d';
@@ -13,12 +12,14 @@ interface EditorInstance {
 }
 
 const editors: EditorInstance[] = [];
- 
-export default class extends Controller<HTMLElement> { 
+
+export default class extends Controller<HTMLElement> {
   static targets = ['textarea', 'filePlugin', 'imagePlugin'];
 
   declare textareaTarget: HTMLTextAreaElement;
+
   declare filePluginTarget: HTMLElement;
+
   declare imagePluginTarget: HTMLElement;
 
   connect() {
@@ -30,7 +31,11 @@ export default class extends Controller<HTMLElement> {
 
     editors.push({
       key: this.textareaTarget,
-      instance: this.createMarkdown(this.textareaTarget, cmsTranslations, this.getConfig()),
+      instance: this.createMarkdown(
+        this.textareaTarget,
+        cmsTranslations,
+        this.getConfig()
+      ),
     });
   }
 
@@ -59,13 +64,23 @@ export default class extends Controller<HTMLElement> {
       autoDownloadFontAwesome: false,
       hideIcons: ['image', 'side-by-side'],
       toolbar: [
-        'bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'link', 'preview',
+        'bold',
+        'italic',
+        'heading',
+        '|',
+        'quote',
+        'unordered-list',
+        'ordered-list',
+        'link',
+        'preview',
         {
           name: 'Insert Image',
           action: (editor) => {
             this.imagePluginTarget.click();
             handleImage().then((image) => {
-              editor.codemirror.replaceSelection(`![${image.name}](${image.path})`);
+              editor.codemirror.replaceSelection(
+                `![${image.name}](${image.path})`
+              );
             });
           },
           className: 'fa fa-image',
@@ -76,7 +91,9 @@ export default class extends Controller<HTMLElement> {
           action: (editor) => {
             this.filePluginTarget.click();
             handleFile().then((file) => {
-              editor.codemirror.replaceSelection(`[${file.name}](${file.path})`);
+              editor.codemirror.replaceSelection(
+                `[${file.name}](${file.path})`
+              );
             });
           },
           className: 'fa fa-file',
@@ -86,7 +103,11 @@ export default class extends Controller<HTMLElement> {
     };
   }
 
-  createMarkdown(elm: HTMLElement, cmsTranslations: CMSTranslations, config: EasyMDE.Options) {
+  createMarkdown(
+    elm: HTMLElement,
+    cmsTranslations: CMSTranslations,
+    config: EasyMDE.Options
+  ) {
     const mdeConfiguration = config;
     mdeConfiguration.element = elm;
 
@@ -95,7 +116,8 @@ export default class extends Controller<HTMLElement> {
 
     if (mdeConfiguration.autosave) {
       mdeConfiguration.autosave.uniqueId = elm.id;
-      mdeConfiguration.autosave.text = cmsTranslations.ws_cms_components.markdown.autosave;
+      mdeConfiguration.autosave.text =
+        cmsTranslations.ws_cms_components.markdown.autosave;
     }
 
     return new EasyMDE(mdeConfiguration);

@@ -5,7 +5,7 @@ import {
   DatePickerLocale,
   HTMLPickrElement,
   aDatePicker,
-  getADatePickerInstance
+  getADatePickerInstance,
 } from '../modules/a_datePicker';
 
 export default class extends Controller<HTMLInputElement> {
@@ -16,7 +16,7 @@ export default class extends Controller<HTMLInputElement> {
     }
 
     const datePickerCMSConfig = cmsSettings.ws_cms_components.datepicker;
-  
+
     if (!this.element.dataset.wsDisable) {
       const options: DatePickerOptions = {
         locale: cmsSettings.locale as DatePickerLocale,
@@ -24,7 +24,10 @@ export default class extends Controller<HTMLInputElement> {
 
       const { format, defaultHour } = this.element.dataset;
 
-      if (format && Object.prototype.hasOwnProperty.call(datePickerCMSConfig.format, format)) {
+      if (
+        format &&
+        Object.prototype.hasOwnProperty.call(datePickerCMSConfig.format, format)
+      ) {
         // if the format from the input exist in the configuration json for the component, we assign it
         options.dateFormat = datePickerCMSConfig.format[format];
         if (format === 'date_hour') {
@@ -59,7 +62,9 @@ export default class extends Controller<HTMLInputElement> {
 
     this.element.insertAdjacentElement('afterend', button);
 
-    getADatePickerInstance(this.element as HTMLPickrElement).config.onChange.push((selectedDates, dateStr) => {
+    getADatePickerInstance(
+      this.element as HTMLPickrElement
+    ).config.onChange.push((selectedDates) => {
       if (selectedDates.length > 0) {
         button.classList.remove('hidden');
       } else {
@@ -69,7 +74,6 @@ export default class extends Controller<HTMLInputElement> {
 
     button.addEventListener('click', (evt) => {
       evt.preventDefault();
-      /* eslint-disable no-param-reassign */
       this.element.value = '';
       button.classList.add('hidden');
     });

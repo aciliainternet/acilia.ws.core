@@ -18,7 +18,7 @@ export default class extends Controller {
   toggleDropdown(event: MouseEvent) {
     event.stopPropagation();
     const isOpen = this.toggleTarget.classList.contains('show');
-    
+
     // We need to hide all dropdowns in the page
     this.hideAllDropDowns();
 
@@ -29,12 +29,16 @@ export default class extends Controller {
   }
 
   hideAllDropDowns() {
-    document.querySelectorAll<HTMLElement>('[data-controller="ws-dropdown"]').forEach((element) => {
-      element.classList.remove('show');
-    });
+    document
+      .querySelectorAll<HTMLElement>('[data-controller="ws-dropdown"]')
+      .forEach((element) => {
+        element.classList.remove('show');
+      });
 
-    document.querySelectorAll<HTMLElement>('[data-ws-dropdown-target="toggle"').forEach((element) => {
-      element.classList.remove('show');
-    });
+    document
+      .querySelectorAll<HTMLElement>('[data-ws-dropdown-target="toggle"')
+      .forEach((element) => {
+        element.classList.remove('show');
+      });
   }
 }

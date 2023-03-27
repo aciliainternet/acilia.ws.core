@@ -5,9 +5,11 @@ export default class extends Controller {
   static targets = ['allInput', 'itemInput', 'actions'];
 
   declare allInputTarget: HTMLInputElement;
+
   declare itemInputTargets: HTMLInputElement[];
+
   declare actionsTarget: HTMLSelectElement;
-  
+
   handleAction(event: Event) {
     const selectInput = event.currentTarget as HTMLSelectElement;
     let url: string | null = null;
@@ -19,27 +21,31 @@ export default class extends Controller {
     }
 
     if (url && url.length > 0) {
-      showAlert({
-        icon: 'warning',
-        dangerMode: true,
-        title,
-        text: window.cmsTranslations.ws_cms_batch_actions.confirm_message,
-        buttons: {
-          cancel: {
-            text: window.cmsTranslations.cancel,
-            value: null,
-            closeModal: true,
-            visible: true,
-          },
-          confirm: {
-            text: window.cmsTranslations.ws_cms_batch_actions.confirm_button_label,
-            value: url,
-            closeModal: false,
+      showAlert(
+        {
+          icon: 'warning',
+          dangerMode: true,
+          title,
+          text: window.cmsTranslations.ws_cms_batch_actions.confirm_message,
+          buttons: {
+            cancel: {
+              text: window.cmsTranslations.cancel,
+              value: null,
+              closeModal: true,
+              visible: true,
+            },
+            confirm: {
+              text: window.cmsTranslations.ws_cms_batch_actions
+                .confirm_button_label,
+              value: url,
+              closeModal: false,
+            },
           },
         },
-      }, (value) => {
-        this.batchAction(value);
-      });
+        (value) => {
+          this.batchAction(value);
+        }
+      );
     }
   }
 
@@ -48,7 +54,10 @@ export default class extends Controller {
       this.allInputTarget.checked = false;
     }
 
-    const selectedCheckboxes = document.querySelectorAll('input[type=checkbox]:checked');
+    const selectedCheckboxes = document.querySelectorAll(
+      'input[type=checkbox]:checked'
+    );
+
     const anySelected = !(selectedCheckboxes.length === 0);
     this.manageActionsSelector(anySelected);
   }
@@ -76,8 +85,8 @@ export default class extends Controller {
     }
   }
 
-  onBatchActionDone(event) {
-    const request = event.currentTarget;
+  onBatchActionDone(event: Event) {
+    const request = event.currentTarget as XMLHttpRequest;
     const response = JSON.parse(request.response);
 
     switch (request.status) {
@@ -92,12 +101,15 @@ export default class extends Controller {
         });
         break;
       case 200:
-        showAlert({
-          text: response.msg,
-          icon: 'success',
-        }, () => {
-          window.location.reload();
-        });
+        showAlert(
+          {
+            text: response.msg,
+            icon: 'success',
+          },
+          () => {
+            window.location.reload();
+          }
+        );
         break;
       default:
         break;
@@ -106,12 +118,14 @@ export default class extends Controller {
 
   async batchAction(url: string) {
     const ids: string[] = [];
-    document.querySelectorAll('input[type=checkbox]:checked').forEach((input) => {
-      const wrapper = input.closest('tr');
-      if (wrapper && wrapper.dataset.id) {
-        ids.push(wrapper.dataset.id);
-      }
-    });
+    document
+      .querySelectorAll('input[type=checkbox]:checked')
+      .forEach((input) => {
+        const wrapper = input.closest('tr');
+        if (wrapper && wrapper.dataset.id) {
+          ids.push(wrapper.dataset.id);
+        }
+      });
 
     if (ids.length === 0) {
       showAlert({
@@ -132,12 +146,15 @@ export default class extends Controller {
 
         const responseData: { msg: string } = await response.json();
         if (response.ok) {
-          showAlert({
-            text: responseData.msg,
-            icon: 'success',
-          }, () => {
-            window.location.reload();
-          });
+          showAlert(
+            {
+              text: responseData.msg,
+              icon: 'success',
+            },
+            () => {
+              window.location.reload();
+            }
+          );
         } else {
           showAlert({
             title: window.cmsTranslations.error,

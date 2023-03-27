@@ -3,7 +3,10 @@ import { Controller } from '@hotwired/stimulus';
 import Choices, { Choices as ChoicesNamespace } from 'choices.js';
 
 export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
-  config: Partial<ChoicesNamespace.Options> & { addItemMessage: string, filter: string };
+  config: Partial<ChoicesNamespace.Options> & {
+    addItemMessage?: string;
+    filter?: string;
+  } = {};
 
   connect() {
     const { cmsSettings, cmsTranslations } = window;
@@ -16,7 +19,8 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     }
 
     const inputMultipleConfig = cmsSettings.ws_cms_components.input_multiple;
-    const inputMultipleTranslations = cmsTranslations.ws_cms_components.input_multiple;
+    const inputMultipleTranslations =
+      cmsTranslations.ws_cms_components.input_multiple;
 
     this.addItemFilter = this.addItemFilter.bind(this);
     this.getAddItemText = this.getAddItemText.bind(this);
@@ -43,8 +47,12 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
 
     this.initInputMultiple(this.element, this.config);
   }
-  
-  handlePlaceholder(choicesInput: Choices, inputElement: HTMLElement, placeholder = '') {
+
+  handlePlaceholder(
+    choicesInput: Choices,
+    inputElement: HTMLElement,
+    placeholder = ''
+  ) {
     const element = inputElement;
 
     if (choicesInput.getValue().length === 0) {
@@ -56,7 +64,7 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
   }
 
   getAddItemText(value: string) {
-    return (`${this.config.addItemMessage} <b>${value}</b>`);
+    return `${this.config.addItemMessage} <b>${value}</b>`;
   }
 
   addItemFilter(value: string) {
@@ -64,18 +72,33 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
       return false;
     }
 
-    const expression = new RegExp(this.config.filter, 'i');
+    const expression = new RegExp(this.config.filter || '', 'i');
 
     return expression.test(value.toLowerCase());
   }
 
-  initInputMultiple(inputMultiple: HTMLInputElement | HTMLSelectElement, widgetConfig: Partial<ChoicesNamespace.Options>) {
+  initInputMultiple(
+    inputMultiple: HTMLInputElement | HTMLSelectElement,
+    widgetConfig: Partial<ChoicesNamespace.Options>
+  ) {
     const choicesInput = new Choices(inputMultiple, widgetConfig);
     const inputElement = (choicesInput as any).input.element;
 
-    choicesInput.passedElement.element.addEventListener('addItem', () => this.handlePlaceholder(choicesInput, inputElement), false);
     choicesInput.passedElement.element.addEventListener(
-      'removeItem', () => this.handlePlaceholder(choicesInput, inputElement, widgetConfig.placeholderValue || ''), false,
+      'addItem',
+      () => this.handlePlaceholder(choicesInput, inputElement),
+      false
     );
-  } 
+
+    choicesInput.passedElement.element.addEventListener(
+      'removeItem',
+      () =>
+        this.handlePlaceholder(
+          choicesInput,
+          inputElement,
+          widgetConfig.placeholderValue || ''
+        ),
+      false
+    );
+  }
 }

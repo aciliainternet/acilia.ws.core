@@ -9,11 +9,13 @@ export default class extends Controller {
   };
 
   declare saveUrlValue: string;
+
   declare optionTargets: Array<HTMLSelectElement | HTMLInputElement>;
+
   declare saveBtnTarget: HTMLInputElement;
 
   async saveSettings() {
-    const settings = {};
+    const settings: { [index: string]: string } = {};
 
     this.optionTargets.forEach((item) => {
       if (item.type === 'checkbox' && !(item as HTMLInputElement).checked) {

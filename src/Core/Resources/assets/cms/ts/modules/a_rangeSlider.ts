@@ -9,7 +9,6 @@ const createTooltip = (
   tooltip.classList.add('rangeSlider__tooltip');
   handleEl.appendChild(tooltip);
 
-  /* eslint-disable-next-line no-param-reassign */
   tooltip.textContent = rangeSliderEl.value;
 };
 

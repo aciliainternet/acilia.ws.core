@@ -17,38 +17,51 @@ export default class extends Controller {
   };
 
   declare idValue: number;
+
   declare titleValue: string;
+
   declare urlValue: string;
+
   declare messageValue: string;
 
-  onRemoveDone(responseData: DeleteResponseJson) {  
+  onRemoveDone(responseData: DeleteResponseJson) {
     if (responseData.id) {
       this.element.classList.add('js-genericDelete_remove');
     }
 
-    showAlert({
-      title: responseData.title,
-      text: responseData.msg,
-      icon: 'success',
-    }, () => {
-      this.element.classList.add('animated', 'fadeOutRight');
-      setTimeout(() => {
-        this.element.remove();
-      }, 800);
+    showAlert(
+      {
+        title: responseData.title,
+        text: responseData.msg,
+        icon: 'success',
+      },
+      () => {
+        this.element.classList.add('animated', 'fadeOutRight');
+        setTimeout(() => {
+          this.element.remove();
+        }, 800);
 
-      const pagSubtotalValue = document.getElementById('js-pagination_subtotal');
-      if (pagSubtotalValue) {
-        pagSubtotalValue.textContent = (parseInt(pagSubtotalValue.textContent || '0', 10) - 1).toString();
-      }
+        const pagSubtotalValue = document.getElementById(
+          'js-pagination_subtotal'
+        );
 
-      const pagTotalValue = document.getElementById('js-pagination_total');
-      if (pagTotalValue) {
-        pagTotalValue.textContent = (parseInt(pagTotalValue.textContent || '0', 10) - 1).toString();
+        if (pagSubtotalValue) {
+          pagSubtotalValue.textContent = (
+            parseInt(pagSubtotalValue.textContent || '0', 10) - 1
+          ).toString();
+        }
+
+        const pagTotalValue = document.getElementById('js-pagination_total');
+        if (pagTotalValue) {
+          pagTotalValue.textContent = (
+            parseInt(pagTotalValue.textContent || '0', 10) - 1
+          ).toString();
+        }
       }
-    });
+    );
   }
 
-  async sendDeletePost(value: boolean | number) {
+  async sendDeletePost(value: string) {
     if (!value) {
       return;
     }
@@ -63,7 +76,7 @@ export default class extends Controller {
         body: JSON.stringify({ id: this.idValue }),
       });
 
-      const responseData = await response.json() as DeleteResponseJson;
+      const responseData = (await response.json()) as DeleteResponseJson;
 
       if (response.ok) {
         if (response.status === 302) {
@@ -92,26 +105,29 @@ export default class extends Controller {
   }
 
   remove() {
-    showAlert({
-      icon: 'warning',
-      dangerMode: true,
-      title: this.titleValue,
-      text: this.messageValue,
-      buttons: {
-        cancel: {
-          text: window.cmsTranslations.cancel,
-          closeModal: true,
-          visible: true,
-          value: false,
-        },
-        confirm: {
-          text: window.cmsTranslations.delete.confirm,
-          value: this.idValue,
-          closeModal: false,
+    showAlert(
+      {
+        icon: 'warning',
+        dangerMode: true,
+        title: this.titleValue,
+        text: this.messageValue,
+        buttons: {
+          cancel: {
+            text: window.cmsTranslations.cancel,
+            closeModal: true,
+            visible: true,
+            value: false,
+          },
+          confirm: {
+            text: window.cmsTranslations.delete.confirm,
+            value: this.idValue,
+            closeModal: false,
+          },
         },
       },
-    }, (value: boolean | number) => {
-      this.sendDeletePost(value);
-    });
+      (value) => {
+        this.sendDeletePost(value);
+      }
+    );
   }
 }

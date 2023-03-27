@@ -5,9 +5,10 @@ export default class extends Controller {
   static targets = ['save', 'attribute'];
 
   declare saveTarget: HTMLElement;
+
   declare attributeTargets: HTMLTextAreaElement[];
 
-  connect() {    
+  connect() {
     this.saveTranslations = this.saveTranslations.bind(this);
     this.saveTarget.addEventListener('click', this.saveTranslations);
   }
@@ -27,13 +28,13 @@ export default class extends Controller {
       }
     });
 
-    const currentTarget = event.currentTarget;
+    const currentTarget = event.currentTarget as HTMLElement;
 
     if (!currentTarget) {
       return;
     }
 
-    const saveUrl = (currentTarget as HTMLElement).dataset.saveUrl;
+    const { saveUrl } = currentTarget.dataset;
 
     if (!saveUrl) {
       return;
@@ -47,8 +48,8 @@ export default class extends Controller {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(translations),
-      })
-      
+      });
+
       const body = await response.text();
       if (response.ok) {
         showSuccess(JSON.parse(body).msg);

@@ -4,11 +4,12 @@ export default class extends Controller {
   static targets = ['button', 'input'];
 
   declare buttonTargets: HTMLElement[];
+
   declare inputTargets: HTMLInputElement[];
-  
+
   handleToggle(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    
+
     if (!target) {
       return;
     }
@@ -28,7 +29,12 @@ export default class extends Controller {
   }
 
   removeToggled() {
-    this.buttonTargets.forEach((btn) => { btn.classList.remove('is-active'); });
-    this.inputTargets.forEach((input) => { input.checked = false; });
+    this.buttonTargets.forEach((btn) => {
+      btn.classList.remove('is-active');
+    });
+
+    this.inputTargets.forEach((input) => {
+      input.checked = false;
+    });
   }
 }
