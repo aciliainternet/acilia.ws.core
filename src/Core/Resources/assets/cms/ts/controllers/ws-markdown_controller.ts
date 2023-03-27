@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import EasyMDE from 'easymde';
 import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
