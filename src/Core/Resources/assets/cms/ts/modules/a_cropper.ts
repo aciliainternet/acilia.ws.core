@@ -5,13 +5,13 @@ interface Ratios {
 }
 
 interface Minimums {
-  [label: string]: Array<string | number>;
+  [label: string]: number;
 }
 
 interface Config {
   ratio: string;
   ratioValue: string;
-  minimums: Array<string | number>;
+  minimums: Minimums;
   data?: Cropper.Data;
 }
 
@@ -36,7 +36,9 @@ function getCropperInstance(id: string): CropperInstance {
 function createCropperConfig(element: HTMLElement) {
   const croppersConfig: Config[] = [];
   const ratios: Ratios = JSON.parse(element.dataset.ratios || '{}');
-  const minimums: Minimums = JSON.parse(element.dataset.minimums || '{}');
+  const minimums: Record<string, Minimums> = JSON.parse(
+    element.dataset.minimums || '{}'
+  );
 
   Object.keys(ratios).forEach((ratioKey) => {
     croppersConfig.push({

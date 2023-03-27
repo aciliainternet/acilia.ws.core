@@ -3,7 +3,7 @@
     "dev": "node esbuild.mjs --watch",
     "prebuild": "node ./node_modules/.bin/tsc --project ./src/Core/Resources/assets/cms/ts/tsconfig.json",
     "build": "node esbuild.mjs",
-    "lint": "node ./node_modules/.bin/eslint src/Core/Resources/assets/cms/ts/**/*.ts"
+    "lint": "node ./node_modules/.bin/eslint src/Core/Resources/assets/cms/ts/**/*"
   },
   "license": "UNLICENSED",
   "private": true,

@@ -5,7 +5,10 @@ import { Loader } from '../../tools/ws_loader';
 let endpointUrl = window.cmsSettings.ws_cms_components.assets_images.endpoint;
 
 function restartListImages() {
-  const imageList = document.querySelector<HTMLElement>('.js-img-selector-images-list');
+  const imageList = document.querySelector<HTMLElement>(
+    '.js-img-selector-images-list'
+  );
+
   if (imageList) {
     removeListElements(imageList);
   }
@@ -15,8 +18,11 @@ function restartListImages() {
 
 function searchAction() {
   const searchForm = document.querySelector<HTMLFormElement>('.js-search-form');
-  const searchInput = document.querySelector<HTMLInputElement>('.js-search-input')?.value;
-  const imageList = document.querySelector<HTMLElement>('.js-img-selector-images-list');
+  const searchInput =
+    document.querySelector<HTMLInputElement>('.js-search-input')?.value;
+  const imageList = document.querySelector<HTMLElement>(
+    '.js-img-selector-images-list'
+  );
 
   if (!searchForm || !imageList) {
     return;
@@ -33,15 +39,19 @@ function searchAction() {
 
 function handleKeyPressed(event: KeyboardEvent) {
   const currentTarget = event.currentTarget as HTMLInputElement;
-  if ((event.keyCode === 8 || event.keyCode === 46) && currentTarget.value === '') {
+  if (
+    (event.keyCode === 8 || event.keyCode === 46) &&
+    currentTarget.value === ''
+  ) {
     restartListImages();
   } else if (event.keyCode === 13) {
     searchAction();
   }
 }
 
-function init() {
-  const inputElement = document.querySelector<HTMLInputElement>('.js-search-input');
+export default function init() {
+  const inputElement =
+    document.querySelector<HTMLInputElement>('.js-search-input');
   const submitElement = document.querySelector('.js-search-submit');
 
   if (inputElement && submitElement) {
@@ -49,5 +59,3 @@ function init() {
     submitElement.addEventListener('click', searchAction);
   }
 }
-
-module.exports = init();

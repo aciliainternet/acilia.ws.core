@@ -235,8 +235,8 @@ function showCropper(elm: { id: string }, cropperIndex: number) {
 
     if (ratioElem && wElem && hElem) {
       ratioElem.innerText = ratio;
-      wElem.innerText = cropperConfig.minimums.width;
-      hElem.innerText = cropperConfig.minimums.height;
+      wElem.innerText = cropperConfig.minimums.width.toString();
+      hElem.innerText = cropperConfig.minimums.height.toString();
     }
 
     const saveElem = document.querySelector<HTMLElement>(

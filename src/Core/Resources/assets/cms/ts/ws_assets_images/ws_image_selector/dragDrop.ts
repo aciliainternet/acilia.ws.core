@@ -17,7 +17,7 @@ function handleDrop(event: Event) {
   showCropper(event);
 }
 
-function init() {
+export default function init() {
   document.querySelectorAll('.js-img-selector-new').forEach((fileDrop) => {
     if (fileDrop) {
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName) => {
@@ -37,5 +37,3 @@ function init() {
     }
   });
 }
-
-module.exports = init();
