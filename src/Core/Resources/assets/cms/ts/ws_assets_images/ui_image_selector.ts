@@ -1,5 +1,5 @@
-import './ws_image_selector/search';
-import './ws_image_selector/dragDrop';
+import searchInit from './ws_image_selector/search';
+import dragDropInit from './ws_image_selector/dragDrop';
 import { init as initImageList } from './ws_image_selector/imageList';
 import { init as initCropper } from './ui_cropper';
 import AModal from '../modules/a_modal';
@@ -31,6 +31,9 @@ function init(assetImageElement: HTMLImageElement, modal: AModal) {
 
     modal.open(`.js-image-selector-modal${dataString}`);
   }
+
+  searchInit();
+  dragDropInit();
 }
 
 export default init;
