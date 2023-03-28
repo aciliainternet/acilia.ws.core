@@ -23,6 +23,7 @@ import WSMarkdown from './controllers/ws-markdown_controller';
 import WSMarkdownFile from './controllers/ws_markdown/ws-markdown-file_controller';
 import WSMarkdownImage from './controllers/ws_markdown/ws-markdown-image_controller';
 import WSAssetImage from './controllers/ws-asset-image_controller';
+import WSNotifications from './controllers/notifications_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
 const stimulus = Application.start();
@@ -30,11 +31,12 @@ stimulus.register('module-translation-sidebar', ModuleTranslationSidebar);
 stimulus.register('module-generic-delete', ModuleGenericDelete);
 stimulus.register('module-batch-actions', ModuleBatchActions);
 stimulus.register('module-filter', ModuleFilter);
+stimulus.register('notifications', WSNotifications);
 stimulus.register('settings', Settings);
 stimulus.register('sidebar', Sidebar);
+stimulus.register('translation', Translation);
 stimulus.register('ws-select', WSSelect);
 stimulus.register('ws-slug', WSSlug);
-stimulus.register('translation', Translation);
 stimulus.register('ws-tooltip', WSTooltip);
 stimulus.register('ws-tabs', WSTabs);
 stimulus.register('ws-datepicker', WSDatePicker);

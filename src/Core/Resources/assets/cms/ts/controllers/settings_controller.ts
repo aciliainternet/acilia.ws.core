@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-import { showError, showSuccess } from '../modules/a_notifications';
 
 export default class extends Controller {
   static targets = ['saveBtn', 'option'];
@@ -41,12 +40,27 @@ export default class extends Controller {
       const responseData = await response.json();
 
       if (response.ok) {
-        showSuccess(responseData.msg);
+        this.element.dispatchEvent(
+          new CustomEvent('notifications:showSuccess', {
+            bubbles: true,
+            detail: { msg: responseData.msg },
+          })
+        );
       } else {
-        showError(responseData.msg);
+        this.element.dispatchEvent(
+          new CustomEvent('notifications:showError', {
+            bubbles: true,
+            detail: { msg: responseData.msg },
+          })
+        );
       }
     } catch (e) {
-      showError(window.cmsTranslations.error);
+      this.element.dispatchEvent(
+        new CustomEvent('notifications:showError', {
+          bubbles: true,
+          detail: { msg: window.cmsTranslations.error },
+        })
+      );
     }
   }
 }

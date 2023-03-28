@@ -2,6 +2,12 @@ import { Controller } from '@hotwired/stimulus';
 import toastr from 'toastr';
 import { showError, showSuccess } from '../modules/a_notifications';
 
+interface NotificationDetail {
+  msg: string;
+  title?: string;
+  options?: ToastrOptions;
+}
+
 const defaultOptions: ToastrOptions = {
   closeButton: true,
   debug: false,
@@ -27,17 +33,36 @@ export default class extends Controller {
     },
     options: {
       type: Object,
-      default: null,
+      default: defaultOptions,
     },
   };
 
   declare notificationClassValue: string;
 
-  declare optionsValue: ToastrOptions | null;
+  declare optionsValue: ToastrOptions;
 
   connect() {
-    toastr.options = this.optionsValue || defaultOptions;
+    toastr.options = this.optionsValue;
     this.checkNotifications();
+
+    this.showSuccess = this.showSuccess.bind(this);
+    this.showError = this.showError.bind(this);
+
+    this.element.addEventListener(
+      'notifications:showSuccess',
+      this.showSuccess
+    );
+
+    this.element.addEventListener('notification:showError', this.showError);
+  }
+
+  disconnect() {
+    this.element.removeEventListener(
+      'notifications:showSuccess',
+      this.showSuccess
+    );
+
+    this.element.removeEventListener('notification:showError', this.showError);
   }
 
   checkNotifications() {
@@ -51,5 +76,17 @@ export default class extends Controller {
           showError(elem.innerHTML);
         }
       });
+  }
+
+  showSuccess(event: Event) {
+    const { msg, title, options } = (event as CustomEvent)
+      .detail as NotificationDetail;
+    showSuccess(msg, title, options);
+  }
+
+  showError(event: Event) {
+    const { msg, title, options } = (event as CustomEvent)
+      .detail as NotificationDetail;
+    showError(msg, title, options);
   }
 }
