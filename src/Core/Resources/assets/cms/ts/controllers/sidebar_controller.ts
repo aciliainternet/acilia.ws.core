@@ -22,10 +22,9 @@ export default class extends Controller {
   }
 
   menuAction(event: MouseEvent) {
-    event.stopPropagation();
     const target = event.target as HTMLLIElement | null;
     if (target?.closest('.js-submenu-children')) {
-      return true;
+      return;
     }
 
     const currentTarget = event.currentTarget as HTMLElement;
@@ -35,12 +34,9 @@ export default class extends Controller {
       submenu.classList.toggle('collapse');
       currentTarget.classList.toggle('is-open');
     }
-
-    return true;
   }
 
-  toggleSidebar(event: MouseEvent) {
+  toggleSidebar() {
     this.sidebarTarget.classList.toggle('is-visible');
-    event.stopPropagation();
   }
 }

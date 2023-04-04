@@ -2,7 +2,7 @@ import getNewElements from './getNewElements';
 import { showElements, setNextPage, removeListElements } from './imageList';
 import { Loader } from '../../tools/ws_loader';
 
-let endpointUrl = window.cmsSettings.ws_cms_components.assets_images.endpoint;
+let endpointUrl = '';
 
 function restartListImages() {
   const imageList = document.querySelector<HTMLElement>(
@@ -50,6 +50,7 @@ function handleKeyPressed(event: KeyboardEvent) {
 }
 
 export default function init() {
+  endpointUrl = window.cmsSettings.ws_cms_components.assets_images.endpoint;
   const inputElement =
     document.querySelector<HTMLInputElement>('.js-search-input');
   const submitElement = document.querySelector('.js-search-submit');

@@ -19,6 +19,7 @@
             {% for domain in domains %}
                 <a
                     href="{{ path('ws_switch_domain', { 'id': domain.id }) }}"
+                    data-controller="ws-turbo-visit"
                     class="c-dropdown__item dropdown-item o-media {{ domain.id == get_current_domain().id ? 'is-active' }}"
                 >
                     {{ domain.host }} |

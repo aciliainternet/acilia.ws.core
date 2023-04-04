@@ -16,10 +16,10 @@
         data-ws-dropdown-target="toggle"
         aria-labelledby="dropdwonMenuAvatar"
     >
-        <a class="c-dropdown__item dropdown-item" href="{{ path('ws_administrator_profile') }}">
+        <a class="c-dropdown__item dropdown-item" href="{{ path('ws_administrator_profile') }}" data-controller="ws-turbo-visit">
             <i class="fal fa-id-card u-mr-10"></i>{{ 'view_profile'|trans({}, 'ws_cms') }}
         </a>
-        <a class="c-dropdown__item dropdown-item" href="{{ app.user ? logout_path() : '' }}">
+        <a class="c-dropdown__item dropdown-item" href="{{ app.user ? logout_path() : '' }}" data-controller="ws-turbo-visit">
             <i class="fal fa-sign-out-alt u-mr-10"></i>{{ 'logout'|trans({}, 'ws_cms') }}
         </a>
     </div>

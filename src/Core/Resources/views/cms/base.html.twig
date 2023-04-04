@@ -14,6 +14,7 @@
     <link rel="shortcut icon" href="{{ asset('cms/favicon.ico', 'core') }}" type="image/x-icon">
     <style>a{color: #475364;}</style>
     <link type="text/css" href="{{ asset('core.css', 'core') }}" rel="stylesheet" />
+    <script type="text/javascript" src="{{ asset('core.js', 'core') }}"></script>
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="o-page {{ bodyClass is defined ? bodyClass }}" data-controller="module-batch-actions module-filter notifications sidebar">
@@ -91,8 +92,6 @@
             },
         };
     </script>
-
-    <script type="text/javascript" src="{{ asset('core.js', 'core') }}"></script>
 
     <!-- Custom JavaScript -->
     {% block javascript %}{% endblock %}
