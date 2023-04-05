@@ -1,6 +1,8 @@
 menu: Navigation
-title: Navigation Instances
+title: Navigation
+configure_title: Configuring navigation "%name%"
 no_rows_found: No navigation items found.
+empty: The navigation has no items.
 
 form.name.label: Name
 form.name.placeholder: Name of the navigation (i.e. Main Menu)

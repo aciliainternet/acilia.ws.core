@@ -45,7 +45,9 @@ class NavigationController extends AbstractController
             throw new \Exception("Error loading navigation. Navigation not found!");
         }
 
-        return new Response('');
+        return $this->render('@WSCore/cms/navigation/configure.html.twig', [
+            'navigation' => $navigation,
+        ]);
     }
 
     #[Route(path: '/make-default/{id}', name: 'make_default', methods: ['POST'])]

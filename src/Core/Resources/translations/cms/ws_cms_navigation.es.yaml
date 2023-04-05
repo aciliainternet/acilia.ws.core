@@ -1,6 +1,8 @@
 menu: Navegaciones
 title: Navegaciones
+configure_title: Configurando navegación "%name%"
 no_rows_found: No se encontraron navegaciones.
+empty: La navegación no tiene items.
 
 form.name.label: Nombre
 form.name.placeholder: Nombre para identificar la navegación (ej. Menú Principal)

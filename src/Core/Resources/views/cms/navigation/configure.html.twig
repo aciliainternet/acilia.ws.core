@@ -1,0 +1,65 @@
+{% extends('@WSCore/cms/layout.html.twig') %}
+
+{% page_configuration {
+    'title': 'configure_title'|trans({ '%name%': navigation.name }, 'ws_cms_navigation'),
+    'header': 'title'|trans([], 'ws_cms_navigation'),
+    'breadcrumbs': [
+    {
+        'name': 'title'|trans([], 'ws_cms_navigation'),
+        'main': true
+    }
+]} %}
+
+{% block content %}
+    <div class="row u-mb-large u-ml-30 u-mr-30">
+        <div 
+            class="col-sm-12"
+            data-controller="site-config"
+            data-site-config-save-url-value=""
+        >
+            <div class="c-table-responsive@desktop">
+                <div class="c-toolbar c-toolbar--column c-toolbar--caption u-justify-space-between" style="border-radius: 4px;">
+                    <div class="c-toolbar__row">
+                        <div class="u-flex u-mr-auto">
+                            <h4 class="c-toolbar__title u-mr-10 u-pt-10 u-pb-10">{{ 'configure_title'|trans({ '%name%': navigation.name }, 'ws_cms_navigation') }}</h4>
+                        </div>
+                    </div>
+            </div>
+
+            {% if modules_config is defined and modules_config is not empty %}
+                <div
+                    class="c-table c-table--highlight u-mt-30" 
+                    style="border-radius: 4px; border-collapse: inherit;"
+                    data-controller="item-order"
+                >
+                    // TODO
+                </div>
+            {% else %}
+                <div class="c-toolbar c-toolbar--caption u-mt-30" style="border-radius: 4px; border-bottom: 1px solid #e6eaee;">
+                    <div class="c-form__content-full">
+                        <p>
+                            <i class="fa fa-info-circle u-color-warning"></i> {{ 'empty'|trans([], 'ws_cms_navigation') }}
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+
+            <button
+                class="c-btn c-btn--info u-mt-30"
+                data-action="click->site-config#onSave"
+                data-site-config-target="saveBtn"
+            >
+                {{ 'save'|trans([], 'ws_cms') }}
+
+                <span class="o-loader-wrapper" data-site-config-target="loader">
+                    <span class="o-loader"></span>
+                </span>
+            </button>
+
+            <a
+                class="c-btn c-btn--cancel u-mt-30"
+                href="{{ path('ws_navigation_index') }}"
+            >{{ 'cancel'|trans([], 'ws_cms') }}</a>
+        </div>
+    </div>
+{% endblock %}
