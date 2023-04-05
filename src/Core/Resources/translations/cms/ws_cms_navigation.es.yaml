@@ -10,5 +10,9 @@ form.type.non_default: Secundario
 
 fields.name.label: Nombre
 fields.default.label: Tipo
+options.configure: Configurar
+options.make_default: Convertir en Principal
+options.make_default.success: La navegación ha sido designada como la principal.
+options.make_default.error: Ha ocurrido un error al intentar designar la navegación como principal.
 
 delete_warning: ¿Seguro que desea eliminar la navegación?

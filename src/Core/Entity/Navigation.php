@@ -6,6 +6,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use WS\Core\Library\Attribute\CRUD\ListField;
+use WS\Core\Library\Attribute\CRUD\FilterField;
+use WS\Core\Library\Attribute\CRUD\SortField;
 use WS\Core\Repository\NavigationRepository;
 
 #[ORM\Entity(repositoryClass: NavigationRepository::class)]
@@ -20,10 +22,12 @@ class Navigation
 
     #[Assert\NotNull]
     #[ListField()]
+    #[SortField()]
     #[ORM\Column(name: 'navigation_name', type: Types::STRING, length: 64, nullable: false)]
     private string $name;
 
     #[ListField()]
+    #[FilterField()]
     #[ORM\Column(name: 'navigation_default', type: Types::BOOLEAN, nullable: false)]
     private bool $default;
 

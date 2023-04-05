@@ -1,0 +1,51 @@
+{% extends('@WSCore/cms/crud/index.html.twig') %}
+
+{% block crud_table_body_row %}
+    {% if field.name != 'default' and field.name != 'name' %}
+        {{ parent() }}
+    {% else %}
+        {% set isDefault = attribute(entity, 'default') == 1 %}
+        <td class="c-table__cell">
+            {% if is_granted(view_roles['edit']) %}
+                <a
+                    class="c-table__link"
+                    href="{{ path("#{route_prefix}_edit", { 'id': entity.id }) }}"
+                >
+            {% endif %}
+                {% if field.name == 'default' %}
+                <span class="c-badge {{ isDefault ? 'c-badge--success' : 'c-badge--draft' }}">
+                    {{ (isDefault ? 'form.type.default' : 'form.type.non_default')|trans({}, 'ws_cms_navigation') }}
+                </span>
+                {% else %}
+                    <span class="{{ isDefault ? 'u-font-bold' : '' }}">
+                        {{ attribute(entity, field.name) }}
+                    </span>
+                {% endif %}
+            {% if is_granted(view_roles['edit']) %}
+                </a>
+            {% endif %}
+        </td>
+    {% endif %}
+{% endblock %}
+
+{% block crud_table_body_row_action %}
+    {% if is_granted(view_roles['edit']) %}
+        {% if not attribute(entity, 'default') %}
+            <form 
+                action="{{ path('ws_navigation_make_default', { id: attribute(entity, 'id') }) }}"
+                method="POST"
+                class="u-inline"
+            >
+                <button type="submit" class="c-btn c-btn--secondary">
+                    <i class="fa fa-square-exclamation u-mr-5"></i> {{ 'options.make_default'|trans({}, 'ws_cms_navigation') }}
+                </button>
+            </form>
+        {% endif %}
+
+        <a class="c-btn c-btn--secondary" href="{{
+            path('ws_navigation_configure', { id: attribute(entity, 'id') }) 
+        }}">
+            <i class="fa fa-gear u-mr-5"></i> {{ 'options.configure'|trans({}, 'ws_cms_navigation') }}
+        </a>
+    {% endif %}
+{% endblock %}

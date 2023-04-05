@@ -2,10 +2,19 @@
 
 namespace WS\Core\Repository;
 
-use Doctrine\Persistence\ManagerRegistry;
 use WS\Core\Entity\Navigation;
 use WS\Core\Library\CRUD\AbstractRepository;
 
 class NavigationRepository extends AbstractRepository
 {
+    public function resetDefaults()
+    {
+        $this->createQueryBuilder('n')
+            ->update()
+            ->set('n.default', ':default')
+            ->setParameter(':default', 0)
+            ->getQuery()
+            ->execute()
+        ;
+    }
 }
