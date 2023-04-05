@@ -18,24 +18,28 @@
             data-site-config-save-url-value=""
         >
             <div class="c-table-responsive@desktop">
-                <div class="c-toolbar c-toolbar--column c-toolbar--caption u-justify-space-between" style="border-radius: 4px;">
+                <div class="c-toolbar c-toolbar--column c-toolbar--caption u-justify-space-between">
                     <div class="c-toolbar__row">
                         <div class="u-flex u-mr-auto">
-                            <h4 class="c-toolbar__title u-mr-10 u-pt-10 u-pb-10">{{ 'configure_title'|trans({ '%name%': navigation.name }, 'ws_cms_navigation') }}</h4>
+                            <h4 class="c-toolbar__title u-mr-10 u-pt-10 u-pb-10">
+                                {{ 'configure_title'|trans({ '%name%': navigation.name }, 'ws_cms_navigation') }}
+                            </h4>
+
+                            <button class="c-btn c-btn--brand">Nuevo Item</button>
                         </div>
                     </div>
+                </div>
             </div>
 
             {% if modules_config is defined and modules_config is not empty %}
                 <div
-                    class="c-table c-table--highlight u-mt-30" 
-                    style="border-radius: 4px; border-collapse: inherit;"
+                    class="c-table c-table--highlight" style="border-radius: 0"
                     data-controller="item-order"
                 >
                     // TODO
                 </div>
             {% else %}
-                <div class="c-toolbar c-toolbar--caption u-mt-30" style="border-radius: 4px; border-bottom: 1px solid #e6eaee;">
+                <div class="c-toolbar c-toolbar--caption" style="border-radius: 0; border-bottom: 1px solid #e6eaee;">
                     <div class="c-form__content-full">
                         <p>
                             <i class="fa fa-info-circle u-color-warning"></i> {{ 'empty'|trans([], 'ws_cms_navigation') }}
