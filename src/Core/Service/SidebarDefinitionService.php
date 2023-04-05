@@ -42,6 +42,20 @@ class SidebarDefinitionService implements SidebarDefinitionInterface
             ]
         );
 
+        $navigationNode = new SidebarDefinition(
+            'navigation',
+            'menu',
+            [
+                'route_name' => 'ws_navigation_index',
+            ],
+            [
+                'roles' => [],
+                'translation_domain' => 'ws_cms_navigation',
+                'icon' => 'fa-square-list',
+                'order' => 5,
+            ]
+        );
+
         // translation menu
         $translationsNode = new SidebarDefinition(
             'translations',
@@ -54,7 +68,7 @@ class SidebarDefinitionService implements SidebarDefinitionInterface
                 'translation_domain' => 'ws_cms_translation',
                 'icon' => 'fa-language',
                 'collapsed_routes' => ['ws_translation_'],
-                'order' => 5,
+                'order' => 6,
             ]
         );
 
@@ -69,7 +83,7 @@ class SidebarDefinitionService implements SidebarDefinitionInterface
                 'translation_domain' => 'ws_cms_setting',
                 'icon' => 'fa-cogs',
                 'collapsed_routes' => ['ws_setting_'],
-                'order' => 6,
+                'order' => 7,
             ]
         );
 
@@ -106,12 +120,13 @@ class SidebarDefinitionService implements SidebarDefinitionInterface
                 'translation_domain' => 'ws_cms_administrator',
                 'icon' => 'fa-user-shield',
                 'collapsed_routes' => ['ws_administrator_'],
-                'order' => 7,
+                'order' => 8,
             ]
         );
 
         return [
             $dashboardNode,
+            $navigationNode,
             $translationsNode,
             $settingsNode,
             $administratorsNode,

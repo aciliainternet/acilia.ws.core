@@ -1,0 +1,14 @@
+menu: Navigation
+title: Navigation Instances
+no_rows_found: No navigation items found.
+
+form.name.label: Name
+form.name.placeholder: Name of the navigation (i.e. Main Menu)
+form.type.label: Type
+form.type.default: Main
+form.type.non_default: Secondary
+
+fields.name.label: Name
+fields.default.label: Type
+
+delete_warning: Are you sure you want to delete this navigation?

@@ -1,0 +1,14 @@
+menu: Navegaciones
+title: Navegaciones
+no_rows_found: No se encontraron navegaciones.
+
+form.name.label: Nombre
+form.name.placeholder: Nombre para identificar la navegación (ej. Menú Principal)
+form.type.label: Tipo
+form.type.default: Principal
+form.type.non_default: Secundario
+
+fields.name.label: Nombre
+fields.default.label: Tipo
+
+delete_warning: ¿Seguro que desea eliminar la navegación?

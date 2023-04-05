@@ -51,6 +51,10 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
                 'ROLE_WS_CORE_ADMINISTRATOR',
                 'ROLE_WS_CORE_PROFILE',
                 'ROLE_WS_CORE_TRANSLATION',
+                'ROLE_WS_CORE_NAVIGATION_VIEW',
+                'ROLE_WS_CORE_NAVIGATION_CREATE',
+                'ROLE_WS_CORE_NAVIGATION_EDIT',
+                'ROLE_WS_CORE_NAVIGATION_DELETE',
                 'ROLE_WS_CORE_ACTIVITY_LOG',
                 'ROLE_WS_CORE_SETTINGS'
             ]
