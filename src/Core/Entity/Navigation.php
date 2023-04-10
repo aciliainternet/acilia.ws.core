@@ -76,7 +76,7 @@ class Navigation
     }
 
     /**
-     * @return NavigationItem[]
+     * @return Collection|NavigationItem[]
      */ 
     public function getMenuItems(): Collection
     {
