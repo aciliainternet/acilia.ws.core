@@ -2,6 +2,8 @@
 
 namespace WS\Core\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,6 +32,14 @@ class Navigation
     #[FilterField()]
     #[ORM\Column(name: 'navigation_default', type: Types::BOOLEAN, nullable: false)]
     private bool $default;
+
+    #[ORM\OneToMany(targetEntity: NavigationItem::class, cascade: ['persist'], orphanRemoval: true, mappedBy: 'navigation')]
+    private Collection $menuItems;
+
+    public function __construct()
+    {
+        $this->menuItems = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,6 +72,37 @@ class Navigation
     {
         $this->default = $default;
 
+        return $this;
+    }
+
+    /**
+     * @return NavigationItem[]
+     */ 
+    public function getMenuItems(): Collection
+    {
+        return $this->menuItems;
+    }
+
+    public function setMenuItems(Collection $menuItems): self
+    {
+        $this->menuItems = $menuItems;
+
+        return $this;
+    }
+
+    public function addMenuItem(NavigationItem $item): self
+    {
+        if (!$this->menuItems->contains($item)) {
+            $this->menuItems[] = $item;
+            $item->setNavigation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMenuItem(NavigationItem $item): self
+    {
+        $this->menuItems->remove($item);
         return $this;
     }
 }
