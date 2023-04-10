@@ -2,7 +2,6 @@
 
 namespace WS\Core\Repository;
 
-use WS\Core\Entity\Navigation;
 use WS\Core\Library\CRUD\AbstractRepository;
 
 class NavigationRepository extends AbstractRepository
