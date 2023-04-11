@@ -15,7 +15,7 @@ function generateManifest(entry) {
 
   const manifestEntry = entry;
   return Object.keys(manifestEntry).reduce((acc, key) => {
-    manifestEntry[key] = manifestEntry[key].replace('src/Core/Resources/public/', 'bundles/wscore/');
+    manifestEntry[key] = manifestEntry[key].replace('src/Core/Resources/public/', '/bundles/wscore/');
     return { ...acc, [manifestKeysMap[key]]: manifestEntry[key] };
   }, {});
 }

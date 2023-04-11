@@ -37,6 +37,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: setupTemplate, priority: 126 }
 
+    WS\Core\EventListener\AssetPackageListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: setupAssetPackage, priority: 125 }
+
     WS\Core\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onException, priority: 124 }
