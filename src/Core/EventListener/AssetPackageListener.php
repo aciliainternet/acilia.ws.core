@@ -7,18 +7,22 @@ use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use WS\Core\Service\ContextService;
 
-class TemplateListener
+class AssetPackageListener
 {
     protected ParameterBagInterface $parameterBagInterface;
     protected Packages $packages;
+    protected ContextService $contextService;
 
     public function __construct(
         ParameterBagInterface $parameterBagInterface,
-        Packages $packages
+        Packages $packages,
+        ContextService $contextService
     ) {
         $this->parameterBagInterface = $parameterBagInterface;
         $this->packages = $packages;
+        $this->contextService = $contextService;
     }
 
     public function setupAssetPackage(RequestEvent $event): void
