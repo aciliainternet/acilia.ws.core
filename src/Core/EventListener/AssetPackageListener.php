@@ -14,12 +14,10 @@ use WS\Core\Service\ContextInterface;
 class AssetPackageListener
 {
     public function __construct(
-        private ParameterBagInterface $parameterBagInterface,
+        private ParameterBagInterface $params,
         private Packages $packages,
         private ContextInterface $context
     ) {
-        $this->parameterBagInterface = $parameterBagInterface;
-        $this->packages = $packages;
     }
 
     public function setupAssetPackage(RequestEvent $event): void
@@ -34,7 +32,7 @@ class AssetPackageListener
 
         $jsonManifestPath = \sprintf(
             '%s/public/bundles/wscore/manifest.json',
-            \strval($this->parameterBagInterface->get('kernel.project_dir'))
+            \strval($this->params->get('kernel.project_dir'))
         );
         $this->packages->addPackage('core', new Package(new JsonManifestVersionStrategy($jsonManifestPath)));
     }

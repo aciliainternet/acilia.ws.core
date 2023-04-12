@@ -24,7 +24,7 @@
                         {% if form.saveAndBack is defined %}
                             {{ form_widget(form.saveAndBack) }}
                         {% endif %}
-                        <a href="{{ path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+                        <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
                     </div>
                 {% endblock %}
             </div>

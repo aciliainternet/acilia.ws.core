@@ -55,11 +55,12 @@ class AssetImageService implements FactoryCollectorInterface
         return [];
     }
 
-    public function createFromUploadedFile(UploadedFile $imageFile, ?object $entity = null, string $imageField = null): AssetImage
+    public function createFromUploadedFile(UploadedFile $imageFile, ?object $entity = null, string $imageField = null, array $storageMetadata = []): AssetImage
     {
         $assetImage = (new AssetImage())
             ->setFilename($this->sanitizeFilename($imageFile))
-            ->setMimeType((string) $imageFile->getMimeType());
+            ->setMimeType((string) $imageFile->getMimeType())
+            ->setStorageMetadata($storageMetadata);
 
         $assetImageInfo = getimagesize($imageFile->getPathname());
         if (false !== $assetImageInfo) {
@@ -92,6 +93,7 @@ class AssetImageService implements FactoryCollectorInterface
     {
         $assetImage = (new AssetImage())
             ->setFilename($sourceAsset->getFilename())
+            ->setStorageMetadata($sourceAsset->getStorageMetadata())
             ->setMimeType($sourceAsset->getMimeType())
             ->setWidth($sourceAsset->getWidth())
             ->setHeight($sourceAsset->getHeight());

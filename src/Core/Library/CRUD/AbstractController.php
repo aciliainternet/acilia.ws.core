@@ -232,14 +232,17 @@ abstract class AbstractController extends BaseController
                                 return $this->redirect(\strval($form->get('referer')->getData()));
                             }
 
-                            return $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
+                            return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
                         }
                     }
 
-                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', [
-                        'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
-                    ]);
-                } catch (\Exception $e) {
+                    return $this->redirect(
+                        $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', [
+                            'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
+                        ])
+                    );
+
+                } catch (\Exception) {
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }
             } else {
@@ -297,14 +300,17 @@ abstract class AbstractController extends BaseController
                                 return $this->redirect(\strval($form->get('referer')->getData()));
                             }
 
-                            return $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
+                            return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
                         }
                     }
 
-                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', [
-                        'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
-                    ]);
-                } catch (\Exception $e) {
+                    return $this->redirect(
+                        $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', [
+                            'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
+                        ])
+                    );
+
+                } catch (\Exception) {
                     $this->addFlash('cms_error', $this->trans('edit_error', [], $this->getTranslatorPrefix()));
                 }
             } else {
