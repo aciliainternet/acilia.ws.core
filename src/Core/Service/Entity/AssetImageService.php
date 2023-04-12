@@ -55,8 +55,12 @@ class AssetImageService implements FactoryCollectorInterface
         return [];
     }
 
-    public function createFromUploadedFile(UploadedFile $imageFile, ?object $entity = null, string $imageField = null, array $storageMetadata = []): AssetImage
-    {
+    public function createFromUploadedFile(
+        UploadedFile $imageFile,
+        ?object $entity = null,
+        string $imageField = null,
+        array $storageMetadata = []
+    ): AssetImage {
         $assetImage = (new AssetImage())
             ->setFilename($this->sanitizeFilename($imageFile))
             ->setMimeType((string) $imageFile->getMimeType())

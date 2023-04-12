@@ -6,12 +6,10 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class LocalDriver implements StorageDriverInterface
 {
-    protected ParameterBagInterface $params;
     protected array $storageContext;
 
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(private ParameterBagInterface $params)
     {
-        $this->params = $params;
     }
 
     public function getName(): string

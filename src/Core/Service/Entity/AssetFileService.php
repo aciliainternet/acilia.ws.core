@@ -30,8 +30,12 @@ class AssetFileService implements FactoryCollectorInterface
         return ['filename'];
     }
 
-    public function createFromUploadedFile(UploadedFile $fileFile, object $entity = null, string $fileField = null, array $storageMetadata = []): AssetFile
-    {
+    public function createFromUploadedFile(
+        UploadedFile $fileFile,
+        object $entity = null,
+        string $fileField = null,
+        array $storageMetadata = []
+    ): AssetFile {
         $assetFile = (new AssetFile())
             ->setFilename($this->sanitizeFilename($fileFile))
             ->setMimeType((string) $fileFile->getMimeType())
