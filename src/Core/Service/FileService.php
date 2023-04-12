@@ -5,6 +5,7 @@ namespace WS\Core\Service;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Psr\Log\LoggerInterface;
 use WS\Core\Entity\AssetFile;
+use WS\Core\Library\Storage\StorageDriverInterface;
 use WS\Core\Service\Entity\AssetFileService;
 
 class FileService
@@ -25,17 +26,17 @@ class FileService
 
     public function handle(UploadedFile $fileFile, object $entity, string $fileField, ?array $options = null): AssetFile
     {
-        $fileFileContent = file_get_contents($fileFile->getPathname());
-        if (false === $fileFileContent) {
-            throw new \RuntimeException('File cannot be read');
-        }
-
-        $assetFile = $this->assetFileService->createFromUploadedFile($fileFile, $entity, $fileField);
+        $assetFile = $this->assetFileService->createFromUploadedFile(
+            $fileFile,
+            $entity,
+            $fileField,
+            $this->storageService->getStorageMetadata()
+        );
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
-            $fileFileContent,
-            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+            file_get_contents($fileFile->getPathname()),
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         );
 
         return $assetFile;
@@ -48,17 +49,22 @@ class FileService
             throw new \RuntimeException('File cannot be read');
         }
 
-        $assetFile = $this->assetFileService->createFromUploadedFile($fileFile);
+        $assetFile = $this->assetFileService->createFromUploadedFile(
+            $fileFile,
+            null,
+            null,
+            $this->storageService->getStorageMetadata()
+        );
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
             $fileFileContent,
-            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         );
 
         return $assetFile;
     }
-    
+
     public function delete(object $entity, string $fileField): void
     {
         $fieldSetter = sprintf('set%s', ucfirst((string) $fileField));
@@ -76,7 +82,8 @@ class FileService
     {
         if (!$this->storageService->exists(
             $this->getFilePath($originalAssetFile),
-            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE,
+            $originalAssetFile->getStorageMetadata()
         )) {
             $this->logger->error(sprintf(
                 'Error copying AssetFile. File "%s" not found.',
@@ -86,19 +93,18 @@ class FileService
             return null;
         }
 
-        $originalFileContent = file_get_contents(
-            $this->storageService->getPrivateUrl($this->getFilePath($originalAssetFile))
+        $originalAssetFileContent = $this->storageService->get(
+            $this->getFilePath($originalAssetFile),
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE,
+            $originalAssetFile->getStorageMetadata()
         );
-        if (false === $originalFileContent) {
-            throw new \RuntimeException('File cannot be read');
-        }
 
         $assetFile = $this->assetFileService->clone($originalAssetFile);
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
-            $originalFileContent,
-            $options['context'] ?? StorageService::CONTEXT_PRIVATE
+            $originalAssetFileContent,
+            $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         );
 
         return $assetFile;
@@ -106,12 +112,19 @@ class FileService
 
     public function getFileUrl(AssetFile $assetFile): string
     {
-        return $this->storageService->getPublicUrl($this->getFilePath($assetFile));
+        return $this->storageService->getPublicUrl(
+            $this->getFilePath($assetFile),
+            $assetFile->getStorageMetadata()
+        );
     }
 
-    public function getFilePrivate(AssetFile $assetFile): string
+    public function getFileContents(AssetFile $assetFile): string
     {
-        return $this->storageService->getPrivateUrl($this->getFilePath($assetFile));
+        return $this->storageService->get(
+            $this->getFilePath($assetFile),
+            StorageDriverInterface::CONTEXT_PRIVATE,
+            $assetFile->getStorageMetadata()
+        );
     }
 
     protected function getFilePath(AssetFile $assetFile): string

@@ -15,6 +15,7 @@ use WS\Core\Library\Setting\SettingCompilerPass;
 use WS\Core\Library\Sidebar\SidebarCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use WS\Core\Library\Storage\StorageCompilerPass;
 
 class WSCoreBundle extends Bundle
 {
@@ -33,5 +34,6 @@ class WSCoreBundle extends Bundle
         $container->addCompilerPass(new DataExportCompilerPass());
         $container->addCompilerPass(new CRUDCompilerPass());
         $container->addCompilerPass(new DataCollectorCompilerPass());
+        $container->addCompilerPass(new StorageCompilerPass());
     }
 }
