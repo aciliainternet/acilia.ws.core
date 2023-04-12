@@ -51,6 +51,7 @@
     position: relative;
     overflow-x: auto;
     overflow-y: hidden;
+    min-height: 550px;
 }
 
 @media (max-width: $breakpoint-mobile) {
