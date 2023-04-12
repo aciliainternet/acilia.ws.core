@@ -38,6 +38,9 @@ class AssetImage
     #[ORM\Column(name: 'image_visible', type: 'boolean', nullable: false, options: ['default' => 1])]
     private bool $visible = true;
 
+    #[ORM\Column(name: 'image_storage_metadata', type: 'json', nullable: true)]
+    protected array $storageMetadata = [];
+
     #[Gedmo\Timestampable(on: 'create')]
     #[Assert\Type('DateTime')]
     #[ORM\Column(name: 'image_created_at', type: 'datetime', nullable: false)]
@@ -118,6 +121,18 @@ class AssetImage
     public function setVisible(bool $visible): self
     {
         $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function getStorageMetadata(): ?array
+    {
+        return $this->storageMetadata;
+    }
+
+    public function setStorageMetadata(?array $storageMetadata): self
+    {
+        $this->storageMetadata = $storageMetadata;
 
         return $this;
     }
