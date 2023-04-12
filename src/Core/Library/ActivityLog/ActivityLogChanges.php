@@ -5,10 +5,10 @@ namespace WS\Core\Library\ActivityLog;
 class ActivityLogChanges
 {
     protected string $field;
-    protected mixed $before;
-    protected mixed $after;
+    protected $before;
+    protected $after;
 
-    public function __construct(string $field, mixed $before, mixed $after)
+    public function __construct(string $field, $before, $after)
     {
         $this->field = $field;
         $this->before = $before;
@@ -20,12 +20,12 @@ class ActivityLogChanges
         return $this->field;
     }
 
-    public function getBefore(): mixed
+    public function getBefore()
     {
         return $this->before;
     }
 
-    public function getAfter(): mixed
+    public function getAfter()
     {
         return $this->after;
     }

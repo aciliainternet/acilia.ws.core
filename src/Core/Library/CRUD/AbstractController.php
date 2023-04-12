@@ -197,7 +197,7 @@ abstract class AbstractController extends BaseController
         }
     }
 
-    protected function getFormErrorMessagesList(FormInterface $form, int $output = 0): mixed
+    protected function getFormErrorMessagesList(FormInterface $form, int $output = 0)
     {
         $errors = [];
 
