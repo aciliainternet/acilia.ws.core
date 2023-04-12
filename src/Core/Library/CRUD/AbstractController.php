@@ -377,11 +377,14 @@ abstract class AbstractController extends BaseController
                     if ($form->has('saveAndBack') && $form->get('saveAndBack')->isClicked()) {
                         $url = $form->has('referer')
                             ? $form->get('referer')->getData()
-                            : $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
+                            : $this->wsGenerateUrl($this->getRouteNamePrefix() . '_index');
+
                         return $this->redirect($url);
                     }
 
-                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()]);
+                    return $this->redirect(
+                        $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()])
+                    );
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }
@@ -442,11 +445,13 @@ abstract class AbstractController extends BaseController
                     if ($form->has('saveAndBack') && $form->get('saveAndBack')->isClicked()) {
                         $url = $form->has('referer')
                             ? $form->get('referer')->getData()
-                            : $this->redirectToRoute($this->getRouteNamePrefix() . '_index');
+                            : $this->wsGenerateUrl($this->getRouteNamePrefix() . '_index');
                         return $this->redirect($url);
                     }
 
-                    return $this->redirectToRoute($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()]);
+                    return $this->redirect(
+                        $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()])
+                    );
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('edit_error', [], $this->getTranslatorPrefix()));
                 }

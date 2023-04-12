@@ -27,7 +27,7 @@
                                 <div class="u-flex u-mr-auto">
                                     <h4 class="c-toolbar__title u-mr-10">{{ 'title'|trans([], trans_prefix) }}</h4>
                                     {% if is_granted(view_roles['create']) %}
-                                        <a class="c-btn c-btn--brand u-mr-10" href="{{ path("#{route_prefix}_create") }}">
+                                        <a class="c-btn c-btn--brand u-mr-10" href="{{ ws_cms_path("#{route_prefix}_create") }}">
                                             {{ 'new'|trans({}, 'ws_cms') }}
                                         </a>
                                     {% endif %}
@@ -81,7 +81,7 @@
                                     {% block crud_export_formats %}
                                         <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
                                             <a  class="c-dropdown__item dropdown-item"
-                                                href="{{ path("#{route_prefix}_export", app.request.query.all) }}">
+                                                href="{{ ws_cms_path("#{route_prefix}_export", app.request.query.all) }}">
                                                 <i class="fal fa-file-csv u-pr-5"></i> {{ 'export.csv'|trans({}, 'ws_cms') }}
                                             </a>
                                             {% block crud_export_format %}
@@ -211,7 +211,7 @@
                                                 {% if is_granted(view_roles['edit']) %}
                                                     <a
                                                         class="c-table__link"
-                                                        href="{{ path("#{route_prefix}_edit", { 'id': entity.id }) }}"
+                                                        href="{{ ws_cms_path("#{route_prefix}_edit", { 'id': entity.id }) }}"
                                                     >
                                                 {% endif %}
                                                     {% if field.isDate|default(false) %}
@@ -238,7 +238,7 @@
                                                 <button
                                                         class="c-btn c-btn--secondary c-btn--delete js-genericDelete"
                                                         data-id="{{ entity.id }}"
-                                                        data-url="{{ path("#{route_prefix}_delete", { 'id': entity.id }) }}"
+                                                        data-url="{{ ws_cms_path("#{route_prefix}_delete", { 'id': entity.id }) }}"
                                                         data-title="{{ 'title'|trans([], trans_prefix) }}"
                                                         data-message="{{ 'delete_warning'|trans([], trans_prefix) }}"
                                                 >

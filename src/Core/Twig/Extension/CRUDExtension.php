@@ -56,7 +56,7 @@ class CRUDExtension extends AbstractExtension
         return '-';
     }
 
-    public function listFilter(Environment $environment, string $filter, array $options, string $value): ?string
+    public function listFilter(Environment $environment, string $filter, array $options, $value): ?string
     {
         $twigFilter = $environment->getFilter($filter);
         if ($twigFilter instanceof TwigFilter) {
