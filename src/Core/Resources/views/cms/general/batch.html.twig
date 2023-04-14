@@ -15,7 +15,10 @@
             {% for action in batch_actions %}
                 {% set actionData = get_batch_action_data(action) %}
 
-                <option value="{{ path("#{route_prefix}_#{actionData.route}") }}" data-title="{{ actionData.title|trans({}, 'ws_cms') }}">
+                <option
+                    value="{{ ws_cms_path("#{route_prefix}_#{actionData.route}") }}"
+                    data-title="{{ actionData.title|trans({}, 'ws_cms') }}"
+                >
                     {{ actionData.label|trans({}, 'ws_cms') }}
                 </option>
             {% endfor %}

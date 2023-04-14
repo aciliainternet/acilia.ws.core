@@ -10,6 +10,7 @@ use WS\Core\Library\CRUD\CRUDCompilerPass;
 use WS\Core\Library\DataCollector\DataCollectorCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\Setting\SettingCompilerPass;
+use WS\Core\Library\Storage\StorageCompilerPass;
 
 class WSCoreBundle extends Bundle
 {
@@ -23,5 +24,6 @@ class WSCoreBundle extends Bundle
         $container->addCompilerPass(new ActivityLogCompilerPass());
         $container->addCompilerPass(new CRUDCompilerPass());
         $container->addCompilerPass(new DataCollectorCompilerPass());
+        $container->addCompilerPass(new StorageCompilerPass());
     }
 }
