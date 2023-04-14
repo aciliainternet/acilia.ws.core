@@ -31,6 +31,8 @@ export default class extends Controller {
     const submenu = currentTarget.querySelector('ul.c-sidebar__submenu');
 
     if (submenu) {
+      event.preventDefault();
+      event.stopPropagation();
       submenu.classList.toggle('collapse');
       currentTarget.classList.toggle('is-open');
     }
