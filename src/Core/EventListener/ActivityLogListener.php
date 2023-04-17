@@ -2,8 +2,11 @@
 
 namespace WS\Core\EventListener;
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Events;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
@@ -17,6 +20,9 @@ use WS\Core\Service\ActivityLogService;
 use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: ControllerEvent::class, method: 'onController', priority: 121)]
+#[AsEntityListener(event: Events::preUpdate, method: 'preUpdate')]
+#[AsEntityListener(event: Events::postPersist, method: 'postPersist')]
+#[AsEntityListener(event: Events::preRemove, method: 'preRemove')]
 class ActivityLogListener
 {
     public function __construct(
@@ -88,7 +94,7 @@ class ActivityLogListener
         }
     }
 
-    public function postPersist(LifecycleEventArgs $args): void
+    public function postPersist(PostPersistEventArgs $args): void
     {
         if (!$this->activityLogService->isEnabled()) {
             return;
@@ -124,7 +130,7 @@ class ActivityLogListener
         }
     }
 
-    public function preRemove(LifecycleEventArgs $args): void
+    public function preRemove(PreRemoveEventArgs $args): void
     {
         if (!$this->activityLogService->isEnabled()) {
             return;
