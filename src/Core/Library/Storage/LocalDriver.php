@@ -83,4 +83,9 @@ class LocalDriver implements StorageDriverInterface
     {
         return sprintf('%s/%s', $this->storageContext[self::CONTEXT_URL], $filePath);
     }
+
+    public function getPrivateUrl(string $filePath, array $options): string
+    {
+        return sprintf('%s/%s', $this->storageContext[self::CONTEXT_PRIVATE], $filePath);
+    }
 }

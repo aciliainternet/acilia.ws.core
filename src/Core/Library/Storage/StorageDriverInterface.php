@@ -21,4 +21,6 @@ interface StorageDriverInterface
     public function exists(string $filePath, string $context, array $options): bool;
 
     public function getPublicUrl(string $filePath, array $options): string;
+    
+    public function getPrivateUrl(string $filePath, array $options): string;
 }
