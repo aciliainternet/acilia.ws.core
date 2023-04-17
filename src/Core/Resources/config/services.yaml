@@ -1,4 +1,5 @@
 parameters:
+    storage.driver: 'local'
 
 services:
     _defaults:
