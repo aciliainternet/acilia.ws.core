@@ -1,4 +1,6 @@
 import { Application } from '@hotwired/stimulus';
+import './typings/global.d';
+
 import ModuleTranslationSidebar from './controllers/module-translation-sidebar_controller';
 import ModuleGenericDelete from './controllers/module-generic-delete_controller';
 import ModuleBatchActions from './controllers/module-batch-actions_controller';
@@ -27,30 +29,36 @@ import WSNotifications from './controllers/notifications_controller';
 import WSTurboVisit from './controllers/ws-turbo-visit_controller';
 
 // TODO: Use lazy loading with webpack or a similar feature
-const stimulus = Application.start();
-stimulus.register('module-translation-sidebar', ModuleTranslationSidebar);
-stimulus.register('module-generic-delete', ModuleGenericDelete);
-stimulus.register('module-batch-actions', ModuleBatchActions);
-stimulus.register('module-filter', ModuleFilter);
-stimulus.register('notifications', WSNotifications);
-stimulus.register('settings', Settings);
-stimulus.register('sidebar', Sidebar);
-stimulus.register('translation', Translation);
-stimulus.register('ws-select', WSSelect);
-stimulus.register('ws-slug', WSSlug);
-stimulus.register('ws-tooltip', WSTooltip);
-stimulus.register('ws-tabs', WSTabs);
-stimulus.register('ws-datepicker', WSDatePicker);
-stimulus.register('ws-input-multiple', WSInputMultiple);
-stimulus.register('ws-widget-list-modal', WSWidgetListModal);
-stimulus.register('ws-color-picker', WSColorPicker);
-stimulus.register('ws-range-slider', WSRangeSlider);
-stimulus.register('ws-dropdown', WSDropdown);
-stimulus.register('ws-table-collapse', WSTableCollapse);
-stimulus.register('ws-toggle-choice', WSToggleChoice);
-stimulus.register('ws-asset', WSAsset);
-stimulus.register('ws-markdown', WSMarkdown);
-stimulus.register('ws-markdown-file', WSMarkdownFile);
-stimulus.register('ws-markdown-image', WSMarkdownImage);
-stimulus.register('ws-asset-image', WSAssetImage);
-stimulus.register('ws-turbo-visit', WSTurboVisit);
+if (window.Stimulus === undefined) {
+  window.Stimulus = Application.start();
+}
+
+window.Stimulus.register(
+  'module-translation-sidebar',
+  ModuleTranslationSidebar
+);
+window.Stimulus.register('module-generic-delete', ModuleGenericDelete);
+window.Stimulus.register('module-batch-actions', ModuleBatchActions);
+window.Stimulus.register('module-filter', ModuleFilter);
+window.Stimulus.register('notifications', WSNotifications);
+window.Stimulus.register('settings', Settings);
+window.Stimulus.register('sidebar', Sidebar);
+window.Stimulus.register('translation', Translation);
+window.Stimulus.register('ws-select', WSSelect);
+window.Stimulus.register('ws-slug', WSSlug);
+window.Stimulus.register('ws-tooltip', WSTooltip);
+window.Stimulus.register('ws-tabs', WSTabs);
+window.Stimulus.register('ws-datepicker', WSDatePicker);
+window.Stimulus.register('ws-input-multiple', WSInputMultiple);
+window.Stimulus.register('ws-widget-list-modal', WSWidgetListModal);
+window.Stimulus.register('ws-color-picker', WSColorPicker);
+window.Stimulus.register('ws-range-slider', WSRangeSlider);
+window.Stimulus.register('ws-dropdown', WSDropdown);
+window.Stimulus.register('ws-table-collapse', WSTableCollapse);
+window.Stimulus.register('ws-toggle-choice', WSToggleChoice);
+window.Stimulus.register('ws-asset', WSAsset);
+window.Stimulus.register('ws-markdown', WSMarkdown);
+window.Stimulus.register('ws-markdown-file', WSMarkdownFile);
+window.Stimulus.register('ws-markdown-image', WSMarkdownImage);
+window.Stimulus.register('ws-asset-image', WSAssetImage);
+window.Stimulus.register('ws-turbo-visit', WSTurboVisit);

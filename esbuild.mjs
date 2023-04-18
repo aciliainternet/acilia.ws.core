@@ -16,7 +16,10 @@ function generateManifest(entry) {
 
   const manifestEntry = entry;
   return Object.keys(manifestEntry).reduce((acc, key) => {
-    manifestEntry[key] = manifestEntry[key].replace('src/Core/Resources/public/', '/bundles/wscore/');
+    manifestEntry[key] = manifestEntry[key].replace(
+      'src/Core/Resources/public/',
+      '/bundles/wscore/'
+    );
     return { ...acc, [manifestKeysMap[key]]: manifestEntry[key] };
   }, {});
 }
@@ -60,8 +63,13 @@ build({
       setup(bld) {
         // Mark all paths starting with "../fonts/" as external
         bld.onResolve(
-          { filter: /^\.\.\/fonts\// },
-          (args) => ({ path: args.path, external: true }),
+          {
+            filter: /^\.\.\/fonts\//,
+          },
+          (args) => ({
+            path: args.path,
+            external: true,
+          })
         );
       },
     },
