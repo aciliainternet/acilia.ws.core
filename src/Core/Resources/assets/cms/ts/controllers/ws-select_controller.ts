@@ -1,7 +1,7 @@
 import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
 /* eslint-disable no-underscore-dangle */
-import aSelect, { aSelectType, Item } from '../modules/a_select';
+import aSelect, { ChoicesExtended, Item } from '../modules/a_select';
 import { SelectTranslations } from '../interfaces/translations';
 
 let selectTranslations: SelectTranslations | null = null;
@@ -52,12 +52,12 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
       const choices = aSelect(this.element, config);
 
       if (this.element.dataset.search && this.element.dataset.lookup) {
-        this.setUpLookup(this.element, choices);
+        this.setUpLookup(this.element, choices as ChoicesExtended);
       }
     }
   }
 
-  populateChoices(choices: aSelectType, items: Item[]) {
+  populateChoices(choices: ChoicesExtended, items: Item[]) {
     const toRemove = choices._currentState.items
       .filter((item) => item.active)
       .map((item) => item.id);
@@ -67,7 +67,7 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     choices.setChoices(toKeep, 'value', 'label', true);
   }
 
-  async lookup(choices: aSelectType, apiUrl: string) {
+  async lookup(choices: ChoicesExtended, apiUrl: string) {
     // show temporary loading option
     choices.clearChoices();
     choices.setChoices(
@@ -105,7 +105,10 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     }
   }
 
-  setUpLookup(elm: HTMLInputElement | HTMLSelectElement, choices: aSelectType) {
+  setUpLookup(
+    elm: HTMLInputElement | HTMLSelectElement,
+    choices: ChoicesExtended
+  ) {
     // reduce select items
     if (choices._currentState.choices.length > 100) {
       const slicedChoices = choices._currentState.choices.slice(0, 100);
