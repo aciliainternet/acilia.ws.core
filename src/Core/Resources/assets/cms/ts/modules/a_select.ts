@@ -1,13 +1,10 @@
 import Choices, { Choices as ChoicesNamespace } from 'choices.js';
 
-export interface Item {
-  id: string;
-  active: boolean;
-}
+export type Item = ChoicesNamespace.Item;
 
 interface CurrentState {
-  items: Item[];
-  choices: Item[];
+  items: ChoicesNamespace.Item[];
+  choices: ChoicesNamespace.Item[];
 }
 
 /**
@@ -16,7 +13,7 @@ interface CurrentState {
  */
 interface ChoicesExtended extends Choices {
   _currentState: CurrentState;
-  choices: Item[];
+  choices: ChoicesNamespace.Item[];
   input: HTMLSelectElement | HTMLInputElement;
   clearData: () => void;
 }
