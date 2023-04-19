@@ -98,5 +98,5 @@
     {% block javascript %}{% endblock %}
 </body>
 
-<!-- Build: {{ app_build }} -->
+<!-- Build: {{ app_build|default('__no_build__') }} -->
 </html>

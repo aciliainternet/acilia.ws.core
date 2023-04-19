@@ -45,7 +45,10 @@ class TemplateListener
             \strval($this->parameterBagInterface->get('kernel.project_dir')),
             $this->context->getTemplatesBase()
         );
-        array_unshift($twigPaths, $newPath);
+
+        if (\file_exists($newPath)) {
+            array_unshift($twigPaths, $newPath);
+        }
 
         $this->getTwigLoader()->setPaths($twigPaths);
     }
