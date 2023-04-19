@@ -38,7 +38,6 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
-        $loader->load('router.yaml');
 
         $masterRole = 'ROLE_WS_CORE';
         $actions = ['view', 'create', 'edit', 'delete'];
