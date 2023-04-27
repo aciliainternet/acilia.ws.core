@@ -389,9 +389,14 @@ abstract class AbstractController extends BaseController
                             : $this->wsGenerateUrl($this->getRouteNamePrefix() . '_index');
                         return $this->redirect($url);
                     }
-                    return $this->redirect(
-                        $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()])
-                    );
+
+                    if ($this->isGranted($this->calculateRole($this->getService()->getEntityClass(), 'edit'))) {
+                        return $this->redirect(
+                            $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', ['id' => $entity->getId()])
+                        );
+                    } else {
+                        return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    }
                 } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }
