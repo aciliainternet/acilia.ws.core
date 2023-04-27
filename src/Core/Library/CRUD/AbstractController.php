@@ -236,7 +236,7 @@ abstract class AbstractController extends BaseController
                         }
                     }
 
-                    if ($this->isGranted($this->calculateRole($this->getService()->getEntityClass(), 'edit'))) {
+                    if (!$this->isGranted($this->calculateRole($this->getService()->getEntityClass(), 'edit'))) {
                         return $this->redirect(
                             $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', [
                                 'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
