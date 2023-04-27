@@ -389,7 +389,7 @@ abstract class AbstractController extends BaseController
                     } else {
                         return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
                     }
-                } catch (\Exception) {
+                } catch (\Exception $e) {
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }
             } else {
