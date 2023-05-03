@@ -18,35 +18,48 @@
             data-site-config-save-url-value=""
         >
             <div class="c-table-responsive@desktop">
-                <div class="c-toolbar c-toolbar--column c-toolbar--caption u-justify-space-between">
+                <div class="c-toolbar c-toolbar--column c-toolbar--caption u-justify-space-between u-mb-20">
                     <div class="c-toolbar__row">
                         <div class="u-flex u-mr-auto">
                             <h4 class="c-toolbar__title u-mr-10 u-pt-10 u-pb-10">
                                 {{ 'configure_title'|trans({ '%name%': navigation.name }, 'ws_cms_navigation') }}
                             </h4>
 
-                            <button class="c-btn c-btn--brand">Nuevo Item</button>
+                            <button class="c-btn c-btn--brand js-navigation-new-item-btn">{{ 'new.item'|trans([], 'ws_cms_navigation') }}</button>
+                        </div>
+                    </div>
+
+                    <div class="c-toolbar_row js-navigation-new-item-form u-hidden">
+                        <div class="c-form">
+                            {{ form_start(newItemForm, { attr: { action: path('ws_navigation_new_item', { id: navigation.id }) }}) }}
+                                {{ form_row(newItemForm.parent) }}
+                                {{ form_row(newItemForm.item) }}
+
+                                <button class="c-btn c-btn--primary">{{ 'new.item.save'|trans([], 'ws_cms_navigation') }}</button>
+                            {{ form_end(newItemForm) }}
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {% if modules_config is defined and modules_config is not empty %}
-                <div
-                    class="c-table c-table--highlight" style="border-radius: 0"
-                    data-controller="item-order"
-                >
-                    // TODO
-                </div>
-            {% else %}
-                <div class="c-toolbar c-toolbar--caption" style="border-radius: 0; border-bottom: 1px solid #e6eaee;">
-                    <div class="c-form__content-full">
-                        <p>
-                            <i class="fa fa-info-circle u-color-warning"></i> {{ 'empty'|trans([], 'ws_cms_navigation') }}
-                        </p>
+                {% if navigation is defined and navigation.menuItems|length > 0 %}
+                    <div
+                        class="c-table c-table--highlight" style="border-radius: 0"
+                        data-controller="item-order"
+                    >
+                        {% set navigation_tree = cms_get_navigation_tree(navigation) %}
+                        
+                        {{ dump(navigation_tree) }}
                     </div>
-                </div>
-            {% endif %}
+                {% else %}
+                    <div class="c-toolbar c-toolbar--caption" style="border-radius: 0; border-bottom: 1px solid #e6eaee;">
+                        <div class="c-form__content-full">
+                            <p>
+                                <i class="fa fa-info-circle u-color-warning"></i> {{ 'empty'|trans([], 'ws_cms_navigation') }}
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
 
             <button
                 class="c-btn c-btn--info u-mt-30"

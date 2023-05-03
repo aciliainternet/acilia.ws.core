@@ -5,6 +5,7 @@ namespace WS\Core\Controller\CMS;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use WS\Core\Entity\Navigation;
+use WS\Core\Form\NavigationItemType;
 use WS\Core\Library\CRUD\AbstractController;
 use WS\Core\Service\Entity\NavigationService;
 
@@ -45,9 +46,29 @@ class NavigationController extends AbstractController
             throw new \Exception("Error loading navigation. Navigation not found!");
         }
 
+        $newItemForm = $this->createForm(NavigationItemType::class, null, [
+            'translation_domain' => $this->getTranslatorPrefix(),
+        ])->createView();
+
         return $this->render('@WSCore/cms/navigation/configure.html.twig', [
             'navigation' => $navigation,
+            'newItemForm' => $newItemForm,
         ]);
+    }
+
+    #[Route(path: '/configure/{id}/new-item', name: 'new_item', methods: ['POST'])]
+    public function addItem(int $id): Response
+    {
+        /** @var Navigation | null */
+        $navigation = $this->service->get($id);
+        
+        if (null === $navigation) {
+            throw new \Exception("Error loading navigation. Navigation not found!");
+        }
+        
+        $this->addFlash('cms_error', 'TODO!');
+
+        return $this->redirectToRoute('ws_navigation_configure', [ 'id' => $id]);
     }
 
     #[Route(path: '/make-default/{id}', name: 'make_default', methods: ['POST'])]

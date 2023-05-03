@@ -22,6 +22,7 @@ import componentTooltip from './components/ws_tooltip';
 import componentDropdown from './components/ws_dropdown';
 import componentTableCollapse from './components/ws_table_collapse';
 import componentToggleChoice from './components/ws_toggle_choice';
+import componentNavigation from './components/ws_navigation';
 
 // controllers
 import settingsCntrl from './controllers/settings';
@@ -46,6 +47,7 @@ componentTooltip();
 componentDropdown();
 componentTableCollapse();
 componentToggleChoice();
+componentNavigation();
 
 if (document.querySelector('[data-page="settings"]')) {
   settingsCntrl();

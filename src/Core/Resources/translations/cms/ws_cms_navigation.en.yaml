@@ -18,3 +18,11 @@ options.make_default.success: Navigation set as the main navigation successfully
 options.make_default.error: There has been an error while trying to set the main navigation.
 
 delete_warning: Are you sure you want to delete this navigation?
+
+new.item: Nuevo Item
+new.item.save: Agregar
+
+form.parent.label: Elemento Padre
+form.parent.placeholder: Raíz
+form.item.label: Item
+form.item.placeholder: Haz click para elegir el item
