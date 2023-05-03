@@ -6,6 +6,11 @@
     'breadcrumbs': [
     {
         'name': 'title'|trans([], 'ws_cms_navigation'),
+        'main': false,
+        'path': path('ws_navigation_index')
+    },
+    {
+        'name': 'configure_title'|trans({ '%name%': navigation.name }, 'ws_cms_navigation'),
         'main': true
     }
 ]} %}
