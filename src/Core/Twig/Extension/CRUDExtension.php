@@ -4,19 +4,18 @@ namespace WS\Core\Twig\Extension;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use WS\Core\Library\Router\Router;
 
 class CRUDExtension extends AbstractExtension
 {
     public function __construct(
         private RequestStack $requestStack,
-        private UrlGeneratorInterface $generator,
+        private RouterInterface $router,
         private TranslatorInterface $translator
     ) {
     }
@@ -35,14 +34,26 @@ class CRUDExtension extends AbstractExtension
         /** @var Request */
         $request = $this->requestStack->getCurrentRequest();
 
-        if ($this->generator instanceof Router) {
-            $parameters = array_merge(
-                $this->generator->getContextParams($name, (array) $request->attributes->get('_route_params')),
-                $parameters
-            );
+        // fetch context params (if any)
+        $routeParams = $request->attributes->get('_route_params');
+        $contextParams = [];
+        $routeDefinition = $this->router->getRouteCollection()->get($name);
+        if (null !== $routeDefinition) {
+            foreach ($routeParams as $param => $value) {
+                if (preg_match(sprintf('/{%s}/', $param), $routeDefinition->getPath())) {
+                    $contextParams[$param] = $value;
+                }
+            }
         }
 
-        return $this->generator->generate($name, $parameters, $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH);
+        // merge with current params
+        $parameters = array_merge($contextParams, $parameters);
+
+        return $this->router->generate(
+            $name,
+            $parameters,
+            $relative ? RouterInterface::RELATIVE_PATH : RouterInterface::ABSOLUTE_PATH
+        );
     }
 
     public function listIsDate(?\DateTimeInterface $dateTime): string
@@ -54,7 +65,7 @@ class CRUDExtension extends AbstractExtension
         return '-';
     }
 
-    public function listFilter(Environment $environment, string $filter, array $options, string $value): ?string
+    public function listFilter(Environment $environment, string $filter, array $options, mixed $value): ?string
     {
         /** @var TwigFilter */
         $twigFilter = $environment->getFilter($filter);

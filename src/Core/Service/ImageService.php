@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetImage;
 use WS\Core\Library\Asset\ImageRenditionInterface;
 use WS\Core\Library\Asset\RenditionDefinition;
+use WS\Core\Library\Storage\StorageDriverInterface;
 use WS\Core\Service\Entity\AssetImageService;
 
 class ImageService
@@ -145,27 +146,27 @@ class ImageService
         array $options = null,
         ?string $entityClass = null
     ): AssetImage {
-        $imageFileContent = file_get_contents($imageFile->getPathname());
-        if (false === $imageFileContent) {
-            throw new \RuntimeException('Image cannot be read');
-        }
-
         $this->processImageMetadata($imageFile);
 
-        $assetImage = $this->assetImageService->createFromUploadedFile($imageFile, $entity, $imageField);
+        $assetImage = $this->assetImageService->createFromUploadedFile(
+            $imageFile,
+            $entity,
+            $imageField,
+            $this->storageService->getStorageMetadata()
+        );
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
-            $imageFileContent,
-            StorageService::CONTEXT_PUBLIC
+            file_get_contents($imageFile->getPathname()),
+            StorageDriverInterface::CONTEXT_PUBLIC
         );
 
         if ($entityClass === null) {
-            $entityClass = \get_class($entity);
+            $entityClass = get_class($entity);
         }
 
         /** @var RenditionDefinition $definition */
-        foreach ($this->getRenditions((string) $entityClass, $imageField) as $definition) {
+        foreach ($this->getRenditions($entityClass, $imageField) as $definition) {
             $this->createRendition($assetImage, $definition, $options);
         }
 
@@ -174,22 +175,26 @@ class ImageService
 
     public function handleStandalone(UploadedFile $imageFile, array $options = null): AssetImage
     {
-        $imageFileContent = file_get_contents($imageFile->getPathname());
-        if (false === $imageFileContent) {
-            throw new \RuntimeException('Image cannot be read');
-        }
-
         $this->processImageMetadata($imageFile);
 
-        $assetImage = $this->assetImageService->createFromUploadedFile($imageFile);
+        $assetImage = $this->assetImageService->createFromUploadedFile(
+            $imageFile,
+            null,
+            null,
+            $this->storageService->getStorageMetadata()
+        );
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
-            $imageFileContent,
-            StorageService::CONTEXT_PUBLIC
+            file_get_contents($imageFile->getPathname()),
+            StorageDriverInterface::CONTEXT_PUBLIC
         );
 
-        $this->createRendition($assetImage, new RenditionDefinition('', '', 'thumb', 300, 300, RenditionDefinition::METHOD_THUMB, ['80x80', '150x150']), $options);
+        $this->createRendition(
+            $assetImage,
+            new RenditionDefinition('', '', 'thumb', 300, 300, RenditionDefinition::METHOD_THUMB, ['80x80', '150x150']),
+            $options
+        );
 
         return $assetImage;
     }
@@ -202,23 +207,25 @@ class ImageService
         ?string $entityClass = null
     ): ?AssetImage {
         $sourceAssetImage = $this->assetImageService->get($assetId);
-        if ($sourceAssetImage === null) {
+        if (null === $sourceAssetImage) {
             return null;
         }
+        $sourceAssetImageContent = $this->storageService->get(
+            $this->getFilePath($sourceAssetImage, 'original'),
+            StorageDriverInterface::CONTEXT_PUBLIC,
+            $sourceAssetImage->getStorageMetadata()
+        );
 
         $assetImage = $this->assetImageService->createFromAsset($entity, $imageField, $sourceAssetImage);
 
-        if ($entityClass === null) {
+        if (null === $entityClass) {
             $entityClass = get_class($entity);
         }
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
-            $this->storageService->get(
-                $this->getFilePath($sourceAssetImage, 'original'),
-                StorageService::CONTEXT_PUBLIC
-            ),
-            StorageService::CONTEXT_PUBLIC
+            $sourceAssetImageContent,
+            StorageDriverInterface::CONTEXT_PUBLIC
         );
 
         /** @var RenditionDefinition $definition */
@@ -244,15 +251,16 @@ class ImageService
 
     public function getImageUrl(AssetImage $image, string $rendition, ?string $subRendition = null): string
     {
-        return $this->storageService->getPublicUrl($this->getFilePath($image, $rendition, $subRendition));
+        return $this->storageService->getPublicUrl($this->getFilePath($image, $rendition, $subRendition), $image->getStorageMetadata());
     }
 
     public function dynamicResize(string $requestedFile, string $originalFile, int $width, int $height): Image
     {
-        $originalContent = $this->storageService->get(sprintf('images/%s', $originalFile), StorageService::CONTEXT_PUBLIC);
+        $originalContent = $this->storageService->get(sprintf('images/%s', $originalFile), StorageDriverInterface::CONTEXT_PUBLIC);
         $originalImage = $this->imageManager->make($originalContent);
         $originalImage->fit($width, $height);
-        $this->storageService->save(sprintf('images/%s', $requestedFile), $originalImage->encode(null, 90), StorageService::CONTEXT_PUBLIC);
+
+        $this->storageService->save(sprintf('images/%s', $requestedFile), $originalImage->encode(null, 90), StorageDriverInterface::CONTEXT_PUBLIC);
 
         return $originalImage;
     }
@@ -284,7 +292,11 @@ class ImageService
         RenditionDefinition $definition,
         array $options = null
     ): void {
-        $imageContent = $this->storageService->get($this->getFilePath($assetImage, 'original'), StorageService::CONTEXT_PUBLIC);
+        $imageContent = $this->storageService->get(
+            $this->getFilePath($assetImage, 'original'),
+            StorageDriverInterface::CONTEXT_PUBLIC,
+            $assetImage->getStorageMetadata()
+        );
 
         $image = $this->imageManager->make($imageContent);
         $image = $this->executeRenderMethod($definition, $image, $options);
@@ -292,7 +304,7 @@ class ImageService
         $this->storageService->save(
             $this->getFilePath($assetImage, $definition->getName()),
             $image->encode(null, $definition->getQuality()),
-            StorageService::CONTEXT_PUBLIC
+            StorageDriverInterface::CONTEXT_PUBLIC
         );
 
         foreach ($definition->getSubRenditions() as $subRendition) {
@@ -301,19 +313,19 @@ class ImageService
 
             // check image width is empty
             if ($subRenditionWidth <= 0) {
-                $subRenditionWidth = floor((\intval($subRenditionHeight) / $image->getHeight()) * $image->getWidth());
+                $subRenditionWidth = floor(($subRenditionHeight / $image->getHeight()) * $image->getWidth());
             }
 
             // check image height is empty
             if ($subRenditionHeight <= 0) {
-                $subRenditionHeight = floor((\intval($subRenditionWidth) / $image->getWidth()) * $image->getHeight());
+                $subRenditionHeight = floor(($subRenditionWidth / $image->getWidth()) * $image->getHeight());
             }
 
             $subRenditionImage->fit((int) $subRenditionWidth, (int) $subRenditionHeight);
             $this->storageService->save(
                 $this->getFilePath($assetImage, $definition->getName(), $subRendition),
                 $subRenditionImage->encode(null, $definition->getQuality()),
-                StorageService::CONTEXT_PUBLIC
+                StorageDriverInterface::CONTEXT_PUBLIC
             );
         }
     }

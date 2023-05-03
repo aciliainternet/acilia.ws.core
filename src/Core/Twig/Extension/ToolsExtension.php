@@ -6,7 +6,6 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use WS\Core\Entity\Domain;
 use WS\Core\Library\CRUD\AbstractController;
-use WS\Core\Library\Dashboard\DashboardWidgetInterface;
 use WS\Core\Service\AlertService;
 use WS\Core\Service\ContextInterface;
 use WS\Core\Service\DashboardService;

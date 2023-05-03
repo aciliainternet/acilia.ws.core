@@ -3,73 +3,58 @@
 namespace WS\Core\Service;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use WS\Core\Library\Storage\StorageDriverException;
 use WS\Core\Library\Storage\StorageDriverInterface;
 
 class StorageService
 {
-    public const CONTEXT_PUBLIC = 'public';
-    public const CONTEXT_URL = 'url';
-    public const CONTEXT_PRIVATE = 'private';
-
-    protected StorageDriverInterface $driver;
-    protected array $storage;
+    protected string $driverName;
+    protected array $drivers;
 
     public function __construct(protected ParameterBagInterface $parameterBag)
     {
-        $this->storage = [
-            self::CONTEXT_PRIVATE => sprintf('%s/storage', \strval($parameterBag->get('kernel.project_dir'))),
-            self::CONTEXT_PUBLIC => sprintf('%s/public/storage', \strval($parameterBag->get('kernel.project_dir'))),
-            self::CONTEXT_URL => '/storage',
-        ];
+        $this->driverName = $parameterBag->get('storage.driver');
+    }
+
+    public function getDriver(string $driverName): StorageDriverInterface
+    {
+        if (isset($this->drivers[$driverName])) {
+            return $this->drivers[$driverName];
+        }
+
+        throw new StorageDriverException(
+            sprintf('Invalid driver storage "%s"', $driverName)
+        );
+    }
+
+    public function addDriver(StorageDriverInterface $driver): void
+    {
+        $driver->setConfiguration();
+        $this->drivers[$driver->getName()] = $driver;
+    }
+
+    public function getStorageMetadata(): array
+    {
+        return $this->getDriver($this->driverName)->getStorageMetadata();
     }
 
     public function save(string $filePath, string $content, string $context): void
     {
-        //$this->driver->save($resource, $context);
-
-        $finalFile = sprintf('%s/%s', $this->storage[$context], $filePath);
-
-        if (!is_dir(dirname($finalFile))) {
-            mkdir(dirname($finalFile), 0766, true);
-        }
-
-        file_put_contents($finalFile, $content);
+        $this->getDriver($this->driverName)->save($filePath, $content, $context);
     }
 
-    public function get(string $filePath, string $context): string
+    public function get(string $filePath, string $context, array $options = []): string
     {
-        //return $this->driver->get($resource, $context);
-
-        $finalFile = sprintf('%s/%s', $this->storage[$context], $filePath);
-        if (!file_exists($finalFile) || !is_readable($finalFile)) {
-            throw new \Exception(sprintf('File "%s" does not exists or is not readable.', $finalFile));
-        }
-
-        $finalFileContent = file_get_contents($finalFile);
-        if (false === $finalFileContent) {
-            throw new \Exception(sprintf('File "%s" exists but cannot be opened.', $finalFile));
-        }
-
-        return $finalFileContent;
+        return $this->getDriver($this->driverName)->get($filePath, $context, $options);
     }
 
-    public function exists(string $filePath, string $context): bool
+    public function exists(string $filePath, string $context, array $options = []): bool
     {
-        return \file_exists(sprintf('%s/%s', $this->storage[$context], $filePath));
+        return $this->getDriver($this->driverName)->exists($filePath, $context, $options);
     }
 
-    public function getPublicUrl(string $filePath): string
+    public function getPublicUrl(string $filePath, array $options = []): string
     {
-        return sprintf('%s/%s', $this->storage[self::CONTEXT_URL], $filePath);
-    }
-
-    public function getPrivateUrl(string $filePath): string
-    {
-        return sprintf('%s/%s', $this->storage[self::CONTEXT_PRIVATE], $filePath);
-    }
-
-    public function getPublicPath(string $filePath): string
-    {
-        return sprintf('%s/%s', $this->storage[self::CONTEXT_PUBLIC], $filePath);
+        return $this->getDriver($this->driverName)->getPublicUrl($filePath, $options);
     }
 }

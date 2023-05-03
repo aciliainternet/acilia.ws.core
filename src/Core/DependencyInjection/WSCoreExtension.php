@@ -20,6 +20,8 @@ use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
 use WS\Core\Library\Setting\SettingCompilerPass;
 use WS\Core\Library\Setting\SettingDefinitionInterface;
+use WS\Core\Library\Storage\StorageCompilerPass;
+use WS\Core\Library\Storage\StorageDriverInterface;
 use WS\Core\Library\Traits\CRUD\RoleCalculatorTrait;
 use WS\Core\Library\Traits\DependencyInjection\RoleAdderTrait;
 use WS\Core\Library\Traits\DependencyInjection\RoleLoaderTrait;
@@ -36,7 +38,6 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yaml');
-        $loader->load('router.yaml');
 
         $masterRole = 'ROLE_WS_CORE';
         $actions = ['view', 'create', 'edit', 'delete'];
@@ -80,6 +81,9 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 
         // Tag CRUD Controllers
         $container->registerForAutoconfiguration(AbstractController::class)->addTag(CRUDCompilerPass::TAG);
+
+        // Tag StorageDriver Definitions
+        $container->registerForAutoconfiguration(StorageDriverInterface::class)->addTag(StorageCompilerPass::TAG);
 
         // Configure services
         $configuration = new Configuration();

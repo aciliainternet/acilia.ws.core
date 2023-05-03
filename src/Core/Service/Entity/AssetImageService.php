@@ -47,7 +47,7 @@ class AssetImageService implements FactoryCollectorInterface
         $filter = ['visible' => true];
 
         try {
-            return $this->repository->getAll($this->context->getDomain(), $search, $filter, null, $orderBy, $limit, $offset);
+            return $this->repository->getAll($this->context->getDomain(), $search, $filter, $this->getFilterFields(), $orderBy, $limit, $offset);
         } catch (\Exception $e) {
             $this->logger->error(sprintf('Error fetching image assets. Error %s', $e->getMessage()));
         }
@@ -55,11 +55,16 @@ class AssetImageService implements FactoryCollectorInterface
         return [];
     }
 
-    public function createFromUploadedFile(UploadedFile $imageFile, ?object $entity = null, string $imageField = null): AssetImage
-    {
+    public function createFromUploadedFile(
+        UploadedFile $imageFile,
+        ?object $entity = null,
+        string $imageField = null,
+        array $storageMetadata = []
+    ): AssetImage {
         $assetImage = (new AssetImage())
             ->setFilename($this->sanitizeFilename($imageFile))
-            ->setMimeType((string) $imageFile->getMimeType());
+            ->setMimeType((string) $imageFile->getMimeType())
+            ->setStorageMetadata($storageMetadata);
 
         $assetImageInfo = getimagesize($imageFile->getPathname());
         if (false !== $assetImageInfo) {
@@ -92,6 +97,7 @@ class AssetImageService implements FactoryCollectorInterface
     {
         $assetImage = (new AssetImage())
             ->setFilename($sourceAsset->getFilename())
+            ->setStorageMetadata($sourceAsset->getStorageMetadata())
             ->setMimeType($sourceAsset->getMimeType())
             ->setWidth($sourceAsset->getWidth())
             ->setHeight($sourceAsset->getHeight());
