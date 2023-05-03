@@ -19,10 +19,10 @@ options.make_default.error: There has been an error while trying to set the main
 
 delete_warning: Are you sure you want to delete this navigation?
 
-new.item: Nuevo Item
-new.item.save: Agregar
+new.item: New Item
+new.item.save: Save
 
-form.parent.label: Elemento Padre
-form.parent.placeholder: Raíz
+form.parent.label: Parent element
+form.parent.placeholder: Root
 form.item.label: Item
-form.item.placeholder: Haz click para elegir el item
+form.item.placeholder: Click to choose an item

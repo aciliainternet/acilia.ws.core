@@ -19,10 +19,10 @@ options.make_default.error: Ha ocurrido un error al intentar designar la navegac
 
 delete_warning: ¿Seguro que desea eliminar la navegación?
 
-new.item: New Item
-new.item.save: Save
+new.item: Nuevo Item
+new.item.save: Agregar
 
-form.parent.label: Parent element
-form.parent.placeholder: Root
+form.parent.label: Elemento Padre
+form.parent.placeholder: Raíz
 form.item.label: Item
-form.item.placeholder: Click to choose an item
+form.item.placeholder: Haz click para elegir el item
