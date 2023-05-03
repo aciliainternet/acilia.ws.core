@@ -10,7 +10,7 @@ interface NavigationEntityInterface
     /**
      * Gets the entity fully qualified class name
      */
-    function getClassName(): string;
+    static function getClassName(): string;
 
     /**
      * identifies the entity as displayed in the lists of entities

@@ -6,9 +6,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use WS\Core\Library\Navigation\NavigationEntityItemInterface;
+use WS\Core\Service\NavigationService;
 
 class NavigationItemType extends AbstractType
 {
+    public function __construct(private NavigationService $navigationService)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -42,11 +48,12 @@ class NavigationItemType extends AbstractType
         foreach ($options['navigation_entities'] as $entityList) {
             $group = $entityList->getName();
 
+            /** @var NavigationEntityItemInterface $item */
             foreach ($entityList->getItems() as $item) {
                 $out[] = [
                     'group_by' => $group,
-                    'label' => $entity->getLabel(),
-                    'value' => $entity->getId(),
+                    'label' => $this->navigationService->getNavigationEntityLabel($item),
+                    'value' => $item->getId(),
                 ];
             }
         }
@@ -64,9 +71,11 @@ class NavigationItemType extends AbstractType
         $out = [];
 
         foreach ($tree['children'] as $item) {
+            /** @var NavigationEntityItemInterface */
+            $entity = $item['entity'];
             $out[] = [
-                'label' => $item['entity']->getLabel(),
-                'value' => $item['entity']->getId(),
+                'label' => $this->navigationService->getNavigationEntityLabel($entity),
+                'value' => $entity->getId(),
             ];
 
             if (count($item['children'])) {

@@ -2,9 +2,14 @@
 
 namespace WS\Core\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\DependencyInjection\Argument\ServiceLocator;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
 use WS\Core\Library\Navigation\NavigationEntitiesModel;
+use WS\Core\Library\Navigation\NavigationEntityInterface;
+use WS\Core\Library\Navigation\NavigationEntityItemInterface;
 use WS\Core\Library\Navigation\NavigationItemModel;
 use WS\Core\Repository\NavigationRepository;
 
@@ -13,6 +18,8 @@ class NavigationService
     public function __construct(
         #[TaggedIterator(NavigationEntityInterface::class)]
         private iterable $serviceIterator,
+        #[TaggedLocator(NavigationEntityInterface::class, defaultIndexMethod: 'getClassName')]
+        private ServiceLocator $serviceLocator,
         private NavigationRepository $navigationRepository
     ) {
     }
@@ -23,7 +30,7 @@ class NavigationService
      *
      * @return NavigationItemModel[]
      **/
-    function getNavigationByName(string $name, int $depth = 0): array
+    public function getNavigationByName(string $name, int $depth = 0): array
     {
         $navigation = $this->navigationRepository->getByName($name);
 
@@ -37,7 +44,7 @@ class NavigationService
     /** 
      * @return NavigationItemModel[] 
      **/
-    function getDefaultNavigation(int $depth = 0): array
+    public function getDefaultNavigation(int $depth = 0): array
     {
         $navigation = $this->navigationRepository->getDefault();
 
@@ -67,7 +74,7 @@ class NavigationService
      * 
      * @return NavigationEntitiesModel[]
      **/
-    function getNavigationEntities(): array
+    public function getNavigationEntities(): array
     {
         $out = [];
 
@@ -75,9 +82,23 @@ class NavigationService
         {
             $out[] = (new NavigationEntitiesModel())
                 ->setName($service->getLabel())
-                ->setItems($service->getNavigationEntities());
+                ->setItems(new ArrayCollection($service->getNavigationEntities()));
         }
 
         return $out;
+    }
+
+    public function getNavigationEntityLabel(NavigationEntityItemInterface $entity): string
+    {
+        if (!$this->serviceLocator->has($entity::class)) {
+            throw new \Exception(
+                sprintf('Navigation service for entity %s not found!', $entity::class)
+            );
+        }
+
+        /** @var NavigationEntityInterface */
+        $service = $this->serviceLocator->get($entity::class);
+
+        return $service->getEntityLabel($entity);
     }
 }

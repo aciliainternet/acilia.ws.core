@@ -7,13 +7,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use WS\Core\Entity\Navigation;
 use WS\Core\Form\NavigationItemType;
 use WS\Core\Library\CRUD\AbstractController;
-use WS\Core\Service\Entity\NavigationService;
-use WS\Core\Service\NavigationService as MainNavigationService;
+use WS\Core\Service\Entity\NavigationService as EntityNavigationService;
+use WS\Core\Service\NavigationService;
 
 #[Route(path: '/navigation', name: 'ws_navigation_')]
 class NavigationController extends AbstractController
 {
-    public function __construct(NavigationService $service, private MainNavigationService $navigationService)
+    public function __construct(EntityNavigationService $service, private NavigationService $navigationService)
     {
         $this->service = $service;
     }
@@ -47,8 +47,10 @@ class NavigationController extends AbstractController
             throw new \Exception('Error loading navigation. Navigation not found!');
         }
 
-        if (!($this->service instanceof NavigationService)) {
-            throw new \Exception('Error loading navigation. Service must be of type NavigationService');
+        if (!($this->service instanceof EntityNavigationService)) {
+            throw new \Exception(
+                sprintf('Error loading navigation. Service must be of type %s', EntityNavigationService::class)
+            );
         }
 
         $newItemForm = $this->createForm(NavigationItemType::class, null, [
@@ -89,7 +91,7 @@ class NavigationController extends AbstractController
         }
 
         try {
-            if (!($this->service instanceof NavigationService)) {
+            if (!($this->service instanceof EntityNavigationService)) {
                 throw new \Exception('Error while trying to access the navigation service!');
             }
 
