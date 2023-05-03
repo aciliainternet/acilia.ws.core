@@ -34,8 +34,8 @@
                         </div>
                     </div>
 
-                    <div class="c-toolbar_row js-navigation-new-item-form u-hidden">
-                        <div class="c-form">
+                    <div class="c-toolbar__row u-mt-20 js-navigation-new-item-form u-hidden">
+                        <div class="c-form c-form__content-full">
                             {{ form_start(newItemForm, { attr: { action: path('ws_navigation_new_item', { id: navigation.id }) }}) }}
                                 {{ form_row(newItemForm.parent) }}
                                 {{ form_row(newItemForm.item) }}

@@ -10,14 +10,11 @@ use WS\Core\Repository\NavigationRepository;
 
 class NavigationService
 {
-    /**
-     * Manages the retrieval of menu lists for the site as well as the list of entities in the cms
-     */
-    #[TaggedIterator(NavigationEntityInterface::class)]
-    private iterable $serviceIterator;
-
-    public function __construct(private NavigationRepository $navigationRepository)
-    {
+    public function __construct(
+        #[TaggedIterator(NavigationEntityInterface::class)]
+        private iterable $serviceIterator,
+        private NavigationRepository $navigationRepository
+    ) {
     }
 
     /** 

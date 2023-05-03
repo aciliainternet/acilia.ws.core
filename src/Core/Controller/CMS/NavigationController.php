@@ -8,11 +8,12 @@ use WS\Core\Entity\Navigation;
 use WS\Core\Form\NavigationItemType;
 use WS\Core\Library\CRUD\AbstractController;
 use WS\Core\Service\Entity\NavigationService;
+use WS\Core\Service\NavigationService as MainNavigationService;
 
 #[Route(path: '/navigation', name: 'ws_navigation_')]
 class NavigationController extends AbstractController
 {
-    public function __construct(NavigationService $service)
+    public function __construct(NavigationService $service, private MainNavigationService $navigationService)
     {
         $this->service = $service;
     }
@@ -43,11 +44,17 @@ class NavigationController extends AbstractController
         $navigation = $this->service->get($id);
         
         if (null === $navigation) {
-            throw new \Exception("Error loading navigation. Navigation not found!");
+            throw new \Exception('Error loading navigation. Navigation not found!');
+        }
+
+        if (!($this->service instanceof NavigationService)) {
+            throw new \Exception('Error loading navigation. Service must be of type NavigationService');
         }
 
         $newItemForm = $this->createForm(NavigationItemType::class, null, [
             'translation_domain' => $this->getTranslatorPrefix(),
+            'navigation_tree' => $this->service->getNavigationTree($navigation),
+            'navigation_entities' => $this->navigationService->getNavigationEntities(),
         ])->createView();
 
         return $this->render('@WSCore/cms/navigation/configure.html.twig', [
