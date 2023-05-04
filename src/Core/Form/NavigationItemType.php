@@ -21,8 +21,7 @@ class NavigationItemType extends AbstractType
             ->add('parent', ChoiceType::class, [
                 'label' => 'form.parent.label',
                 'choices' => $this->getNavigationChoices($options),
-                'choice_value' => 'value',
-                'choice_label' => 'label',
+                'choice_translation_domain' => false,
                 'attr' => [
                     'placeholder' => 'form.parent.placeholder',
                 ],
@@ -30,8 +29,7 @@ class NavigationItemType extends AbstractType
             ->add('item', ChoiceType::class, [
                 'label' => 'form.item.label',
                 'choices' => $this->getNavigationEntitiesChoices($options),
-                'choice_value' => 'value',
-                'choice_label' => 'label',
+                'choice_translation_domain' => false,
                 'attr' => [
                     'placeholder' => 'form.item.placeholder',
                     'data-search' => true,
@@ -48,13 +46,11 @@ class NavigationItemType extends AbstractType
         foreach ($options['navigation_entities'] as $entityList) {
             $group = $entityList->getName();
 
+            $out[$group] = [];
             /** @var NavigationEntityItemInterface $item */
             foreach ($entityList->getItems() as $item) {
-                $out[] = [
-                    'group_by' => $group,
-                    'label' => $this->navigationService->getNavigationEntityLabel($item),
-                    'value' => $item->getId(),
-                ];
+                $label = $this->navigationService->getNavigationEntityLabel($item);
+                $out[$group][$label] = $item->getId();
             }
         }
 
@@ -73,10 +69,8 @@ class NavigationItemType extends AbstractType
         foreach ($tree['children'] as $item) {
             /** @var NavigationEntityItemInterface */
             $entity = $item['entity'];
-            $out[] = [
-                'label' => $this->navigationService->getNavigationEntityLabel($entity),
-                'value' => $entity->getId(),
-            ];
+            $label = $this->navigationService->getNavigationEntityLabel($entity);
+            $out[$label] = $entity->getId();
 
             if (count($item['children'])) {
                 array_push($out, ...$this->getChoicesForParent($item));
