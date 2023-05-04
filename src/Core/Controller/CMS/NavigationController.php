@@ -77,7 +77,7 @@ class NavigationController extends AbstractController
         
         $this->addFlash('cms_error', 'TODO!');
 
-        return $this->redirectToRoute('ws_navigation_configure', [ 'id' => $id]);
+        return $this->redirectToRoute('ws_navigation_configure', ['id' => $id]);
     }
 
     #[Route(path: '/make-default/{id}', name: 'make_default', methods: ['POST'])]
