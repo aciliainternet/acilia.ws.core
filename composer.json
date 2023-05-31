@@ -16,7 +16,7 @@
         "symfony/asset": "6.3.*",
         "symfony/console": "6.3.*",
         "symfony/expression-language": "6.3.*",
-        "symfony/flex": "^2.1",
+        "symfony/flex": "^2.2",
         "symfony/form": "6.3.*",
         "symfony/framework-bundle": "6.3.*",
         "symfony/lock": "6.3.*",
