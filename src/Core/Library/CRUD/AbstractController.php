@@ -236,12 +236,15 @@ abstract class AbstractController extends BaseController
                         }
                     }
 
-                    return $this->redirect(
-                        $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', [
-                            'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
-                        ])
-                    );
-
+                    if ($this->isGranted($this->calculateRole($this->getService()->getEntityClass(), 'edit'))) {
+                        return $this->redirect(
+                            $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', [
+                                'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
+                            ])
+                        );
+                    } else {
+                        return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    }
                 } catch (\Exception) {
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }

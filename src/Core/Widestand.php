@@ -2,6 +2,9 @@
 
 namespace WS\Core;
 
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
+
+#[AutoconfigureTag('ws.component')]
 class Widestand
 {
     public const NAME = 'Core';

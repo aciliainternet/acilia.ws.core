@@ -65,6 +65,11 @@
         &.is-focused {
             border-color: $input-focus-border-color;
         }
+
+        input.choices__input.choices__input--cloned {
+            box-sizing: content-box;
+            padding: 0 10px;
+        }
     }
 
     &__input {

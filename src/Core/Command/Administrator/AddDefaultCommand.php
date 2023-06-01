@@ -29,17 +29,25 @@ class AddDefaultCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        $generatedPassword = \substr(\str_shuffle(\str_repeat(
+            $x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            ceil(24/strlen($x))
+            )), 1, 24);
+
         try {
             $administrator = new Administrator();
-            $administrator->setName('Widestand Admin');
-            $administrator->setActive(true);
-            $administrator->setEmail('admin@widestand');
-            $administrator->setProfile('ROLE_ADMINISTRATOR');
-            $administrator->setPassword($this->passwordHasherService->hashPassword($administrator, 'uMZuPuAP2n3y66DT'));
+            $administrator
+                ->setName('Widestand Admin')
+                ->setActive(true)
+                ->setEmail('admin@widestand')
+                ->setProfile('ROLE_ADMINISTRATOR')
+                ->setPassword($this->passwordHasherService->hashPassword($administrator, $generatedPassword))
+                ->setCreatedAt(new \DateTimeImmutable())
+                ->setModifiedAt(new \DateTimeImmutable());
 
             $this->administratorService->create($administrator);
 
-            $io->success('You have created the default Administrator. Password should be requested!');
+            $io->success(sprintf('You have created the default Administrator. Email is "admin@widestand". Password is "%s"', $generatedPassword));
         } catch (\Exception $e) {
             $io->error($e->getMessage());
         }

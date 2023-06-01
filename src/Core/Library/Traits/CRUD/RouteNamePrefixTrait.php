@@ -36,10 +36,20 @@ trait RouteNamePrefixTrait
     ): string {
         $request = $this->container->get('request_stack')->getCurrentRequest();
 
-        $parameters = array_merge(
-            $this->container->get('router')->getContextParams($route, $request->attributes->get('_route_params')),
-            $parameters
-        );
+        // fetch context params (if any)
+        $routeParams = $request->attributes->get('_route_params');
+        $contextParams = [];
+        $routeDefinition = $this->container->get('router')->getRouteCollection()->get($route);
+        if (null !== $routeDefinition) {
+            foreach ($routeParams as $param => $value) {
+                if (preg_match(sprintf('/{%s}/', $param), $routeDefinition->getPath())) {
+                    $contextParams[$param] = $value;
+                }
+            }
+        }
+
+        // merge with current params
+        $parameters = array_merge($contextParams, $parameters);
 
         return $this->container->get('router')->generate($route, $parameters, $referenceType);
     }

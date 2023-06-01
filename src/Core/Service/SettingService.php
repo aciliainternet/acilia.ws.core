@@ -2,6 +2,7 @@
 
 namespace WS\Core\Service;
 
+use Doctrine\DBAL\ParameterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WS\Core\Entity\Setting;
@@ -195,9 +196,8 @@ class SettingService implements AlertGathererInterface
 
             $conn = $this->em->getConnection();
             $stmt = $conn->prepare('SELECT * FROM ws_setting WHERE setting_domain = :domain');
-            $result = $stmt->executeQuery([
-                'domain' => $domain->getId()
-            ]);
+            $stmt->bindValue('domain', $domain->getId(), ParameterType::INTEGER);
+            $result = $stmt->executeQuery();
 
             $rows = $result->fetchAllAssociative();
             foreach ($rows as $row) {

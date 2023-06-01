@@ -40,4 +40,9 @@ class SecurityController extends AbstractController
             'error' => $error,
         ]);
     }
+
+    #[Route(path: '/logout', name: 'ws_cms_logout')]
+    public function logout(): Response
+    {
+    }
 }
