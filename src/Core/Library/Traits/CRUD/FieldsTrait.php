@@ -88,7 +88,7 @@ trait FieldsTrait
 
         $filterFields = \array_merge($properties->toArray(), $methods->toArray());
 
-        return array_map(function (\ReflectionProperty $p) {
+        return array_map(function (\ReflectionProperty|\ReflectionMethod $p) {
             $attribute = $p->getAttributes(FilterField::class)[0];
             return $attribute->getArguments()['name'] ?? $p->getName();
         }, $filterFields);
