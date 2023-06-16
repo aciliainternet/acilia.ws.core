@@ -32,7 +32,6 @@
 
         #{ $self }__inner {
             align-items: flex-start;
-            min-height: rem(66);
             overflow: scroll;
         }
     }
@@ -50,7 +49,6 @@
         box-sizing: border-box;
         width: 100%;
         min-height: rem(52);
-        padding: $input-padding;
         border: $input-border-width solid $input-border-color;
         border-radius: $base-border-radius;
         background-color: $color-white;
