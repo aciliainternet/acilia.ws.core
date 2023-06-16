@@ -112,7 +112,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
     protected function setFilter(string $alias, QueryBuilder $qb, ?string $search, ?array $filtetrFields): void
     {
-        if (!$search) {
+        if (null === $search || '' === $search) {
             return;
         }
 
