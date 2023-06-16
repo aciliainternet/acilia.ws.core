@@ -2,7 +2,6 @@
 
 namespace WS\Core\Entity;
 
-use WS\Core\Entity\Domain;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]

@@ -2,16 +2,16 @@
 
 namespace WS\Core\Library\Storage;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use WS\Core\Service\StorageService;
 
 class StorageCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    const TAG = 'storage_service';
+    public const TAG = 'storage_service';
 
     public function process(ContainerBuilder $container): void
     {

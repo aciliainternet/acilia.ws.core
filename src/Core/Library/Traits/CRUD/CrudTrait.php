@@ -68,16 +68,13 @@ trait CrudTrait
         if ($classPath[0] === 'WS') {
             $controllerClassname = str_replace('Controller', '', $classPath[4]);
             return sprintf('WS\Core\Form\%sType', $controllerClassname);
-
         } elseif ($classPath[0] === 'App') {
             $controllerClassname = str_replace('Controller', '', $classPath[3]);
             return sprintf('App\Form\CMS\%sType', $controllerClassname);
-
         } else {
             throw new \Exception(sprintf('Unable to find form for Service: %s', $serviceClass));
         }
     }
-
 
     protected function getFilterExtendedFormType(): ?string
     {
@@ -107,5 +104,4 @@ trait CrudTrait
     {
         return 20;
     }
-
 }

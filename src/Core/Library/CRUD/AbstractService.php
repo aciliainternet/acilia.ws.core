@@ -2,13 +2,13 @@
 
 namespace WS\Core\Library\CRUD;
 
-use Psr\Log\LoggerInterface;
-use WS\Core\Service\ContextInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use WS\Core\Library\Traits\CRUD\EntityTrait;
+use Psr\Log\LoggerInterface;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\Domain\DomainDependantInterface;
+use WS\Core\Library\Traits\CRUD\EntityTrait;
 use WS\Core\Library\Traits\CRUD\FieldsTrait;
+use WS\Core\Service\ContextInterface;
 
 abstract class AbstractService implements DBLoggerInterface
 {

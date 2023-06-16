@@ -4,9 +4,9 @@ namespace WS\Core\Library\Storage;
 
 interface StorageDriverInterface
 {
-    const CONTEXT_PUBLIC = 'public';
-    const CONTEXT_URL = 'url';
-    const CONTEXT_PRIVATE = 'private';
+    public const CONTEXT_PUBLIC = 'public';
+    public const CONTEXT_URL = 'url';
+    public const CONTEXT_PRIVATE = 'private';
 
     public function getName(): string;
 

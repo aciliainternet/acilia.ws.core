@@ -2,7 +2,7 @@
 
 namespace WS\Core\Library\Attribute\CRUD;
 
-#[\Attribute(\Attribute::TARGET_PROPERTY)]
+#[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::TARGET_METHOD)]
 class ListField
 {
     public function __construct(
@@ -10,6 +10,6 @@ class ListField
         public ?string $filter = null,
         public array $options = [],
         public bool $isDate =  false
-    ){
+    ) {
     }
 }

@@ -9,10 +9,10 @@ use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterfac
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use WS\Core\Library\Attribute\CRUD as WS;
 use WS\Core\Library\Traits\Entity\BlameableTrait;
 use WS\Core\Library\Traits\Entity\TimestampableTrait;
 use WS\Core\Repository\AdministratorRepository;
-use WS\Core\Library\Attribute\CRUD as WS;
 
 #[ORM\Entity(repositoryClass: AdministratorRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'ws.administrator.email_already_exists')]

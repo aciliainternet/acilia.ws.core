@@ -5,9 +5,9 @@ namespace WS\Core\EventListener;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\VersionStrategy\JsonManifestVersionStrategy;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: RequestEvent::class, method: 'setupAssetPackage', priority: 125)]

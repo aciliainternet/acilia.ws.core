@@ -2,8 +2,8 @@
 
 namespace WS\Core\Library\Traits\CRUD;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetFile;
 use WS\Core\Entity\AssetImage;
 
@@ -31,7 +31,6 @@ trait AssetTrait
 
                 // Hanlde asset image post save
                 $this->handleImageField($entity, $imageField, $assetImage);
-
             } elseif (
                 $form->get($imageField)->has('asset_data') &&
                 is_numeric($form->get($imageField)->get('asset_data')->getData())
@@ -53,7 +52,6 @@ trait AssetTrait
 
                 // Hanlde asset image post copy
                 $this->handleImageField($entity, $imageField, $assetImage);
-
             } elseif (
                 $form->get($imageField)->has('asset_remove')
                 && $form->get($imageField)->get('asset_remove')->getData() === 'remove'

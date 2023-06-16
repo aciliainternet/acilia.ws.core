@@ -35,11 +35,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
 
         $this->setFilter($alias, $qb, $search, $filtetrFields);
 
-        if (isset($orderBy) && count($orderBy)) {
-            foreach ($orderBy as $field => $dir) {
-                $qb->addOrderBy(sprintf('%s.%s', $alias, $field), $dir);
-            }
-        }
+        $this->setOrder($alias, $qb, $orderBy);
 
         if (isset($limit) && isset($offset)) {
             $qb->setFirstResult($offset);
@@ -58,7 +54,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $qb = $this->getAllCountQueryBuilder();
         $alias = $qb->getRootAliases()[0];
 
-        $qb = $qb->select(sprintf(sprintf('count(%s.id)', $alias)));
+        $qb = $qb->select(sprintf(sprintf('count(distinct %s.id)', $alias)));
 
         $this->setFilter($alias, $qb, $search, $filtetrFields);
 
@@ -138,8 +134,16 @@ abstract class AbstractRepository extends ServiceEntityRepository
         }
     }
 
+    protected function setOrder(string $alias, QueryBuilder $qb, ?array $orderBy = null): void
+    {
+        if (isset($orderBy) && count($orderBy)) {
+            foreach ($orderBy as $field => $dir) {
+                $qb->addOrderBy(sprintf('%s.%s', $alias, $field), $dir);
+            }
+        }
+    }
+
     protected function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
     }
-
 }
