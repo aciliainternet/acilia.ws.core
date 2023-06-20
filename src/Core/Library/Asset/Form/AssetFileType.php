@@ -58,7 +58,8 @@ class AssetFileType extends AbstractType
         $view->vars = array_replace($view->vars, [
             'ws' => [
                 'entity' => $options['ws']['entity'],
-                'constraints' => $options['ws']['constraints']
+                'constraints' => $options['ws']['constraints'],
+                'render' => $options['ws']['render'],
             ],
             'type' => 'ws-asset-file',
         ]);
@@ -73,6 +74,7 @@ class AssetFileType extends AbstractType
             'ws' => [
                 'entity' => null,
                 'constraints' => [],
+                'render' => [],
                 'context' => null
             ]
         ]);

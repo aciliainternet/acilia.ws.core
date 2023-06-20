@@ -524,6 +524,13 @@
         <div class="c-asset-upload__wrapper">
             {% if form.children.asset_file.vars.data != null %}
                 <span class="c-asset-upload__asset" data-id="{{ id }}_link">
+                    {% if form.vars.ws.render is defined %}
+                        {{ ws_cms_crud_filter(
+                            form.vars.ws.render.filter,
+                            form.vars.ws.render.options|default([]),
+                            form.children.asset_file.vars.data)
+                        }}
+                    {% endif %}
                     {{ form.children.asset_file.vars.data.filename }}
                 </span>
             {% endif %}

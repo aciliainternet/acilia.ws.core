@@ -25,7 +25,7 @@ class CRUDExtension extends AbstractExtension
         return [
             new TwigFunction('ws_cms_path', [$this, 'getPath']),
             new TwigFunction('ws_cms_crud_list_is_date', [$this, 'listIsDate']),
-            new TwigFunction('ws_cms_crud_list_filter', [$this, 'listFilter'], ['is_safe' => ['html'], 'needs_environment' => true]),
+            new TwigFunction('ws_cms_crud_filter', [$this, 'crudFilter'], ['is_safe' => ['html'], 'needs_environment' => true]),
         ];
     }
 
@@ -65,7 +65,7 @@ class CRUDExtension extends AbstractExtension
         return '-';
     }
 
-    public function listFilter(Environment $environment, string $filter, array $options, mixed $value): ?string
+    public function crudFilter(Environment $environment, string $filter, array $options, mixed $value): ?string
     {
         /** @var TwigFilter */
         $twigFilter = $environment->getFilter($filter);
