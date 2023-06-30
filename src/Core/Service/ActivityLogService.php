@@ -34,9 +34,11 @@ class ActivityLogService
         return $this->supportedEntities[$className]->getActivityLogClassName($className);
     }
 
-    public function isSupported(string $className): bool
+    public function isSupported(string $className, ?string $operation = null): bool
     {
-        return isset($this->supportedEntities[$className]);
+        return
+            isset($this->supportedEntities[$className]) &&
+            $this->supportedEntities[$className]->isActivityLogSpported($className, $operation);
     }
 
     public function getService(string $className): ActivityLogInterface

@@ -103,7 +103,7 @@ class ActivityLogListener
         $entity = $args->getObject();
         $entityName = get_class($entity);
 
-        if (!$this->activityLogService->isSupported($entityName)) {
+        if (!$this->activityLogService->isSupported($entityName, ActivityLogInterface::CREATE)) {
             return;
         }
 
@@ -139,7 +139,7 @@ class ActivityLogListener
         $entity = $args->getObject();
         $entityName = get_class($entity);
 
-        if (!$this->activityLogService->isSupported($entityName)) {
+        if (!$this->activityLogService->isSupported($entityName, ActivityLogInterface::DELETE)) {
             return;
         }
 

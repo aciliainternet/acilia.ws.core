@@ -10,10 +10,15 @@ trait ActivityLogTrait
     {
         return $entity->getId();
     }
-    
+
     public function getActivityLogClassName(string $className): string
     {
         return $className;
+    }
+
+    public function isActivityLogSpported(string $className, ?string $operation): bool
+    {
+        return true;
     }
 
     public function getActivityLogSupported(): array
