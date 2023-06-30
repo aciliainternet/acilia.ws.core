@@ -10,11 +10,11 @@ trait ActivityLogTrait
     {
         return $className;
     }
-    
-    public function getActivityLogSupported(): string
+
+    public function getActivityLogSupported(): array
     {
         if ($this instanceof AbstractService) {
-            return $this->getEntityClass();
+            return [$this->getEntityClass()];
         }
 
         throw new \Exception(sprintf(
