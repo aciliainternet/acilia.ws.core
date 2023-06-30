@@ -83,7 +83,7 @@ class ActivityLogListener
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::UPDATE,
                 'activity_log_model' => $this->activityLogService->getClassName($entityName),
-                'activity_log_model_id' => $entity->getId(),
+                'activity_log_model_id' => $this->activityLogService->getEntityId($entityName, $entity),
                 'activity_log_changes' => json_encode($changes),
                 'activity_log_created_at' => $activityLogDate->format('Y-m-d H:i:s'),
                 'activity_log_created_by' => $this->getUsername(),
@@ -119,7 +119,7 @@ class ActivityLogListener
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::CREATE,
                 'activity_log_model' => $this->activityLogService->getClassName($entityName),
-                'activity_log_model_id' => $entity->getId(),
+                'activity_log_model_id' => $this->activityLogService->getEntityId($entityName, $entity),
                 'activity_log_changes' => json_encode([]),
                 'activity_log_created_at' => $activityLogDate->format('Y-m-d H:i:s'),
                 'activity_log_created_by' => $this->getUsername(),
@@ -155,7 +155,7 @@ class ActivityLogListener
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::DELETE,
                 'activity_log_model' => $this->activityLogService->getClassName($entityName),
-                'activity_log_model_id' => $entity->getId(),
+                'activity_log_model_id' => $this->activityLogService->getEntityId($entityName, $entity),
                 'activity_log_changes' => json_encode([]),
                 'activity_log_created_at' => $activityLogDate->format('Y-m-d H:i:s'),
                 'activity_log_created_by' => $this->getUsername(),
