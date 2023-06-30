@@ -2,6 +2,7 @@
 
 namespace WS\Core\Service;
 
+use Doctrine\DBAL\ParameterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -37,9 +38,8 @@ class TranslationService
 
             $conn = $this->em->getConnection();
             $stmt = $conn->prepare($sql);
-            $result = $stmt->executeQuery([
-                'domain' => $domain->getId()
-            ]);
+            $stmt->bindValue('domain', $domain->getId(), ParameterType::INTEGER);
+            $result = $stmt->executeQuery();
 
             $this->translations = [];
             $result = $result->fetchAllAssociative();

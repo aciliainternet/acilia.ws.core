@@ -19,7 +19,14 @@ class ActivityLogService
 
     public function registerService(ActivityLogInterface $service): void
     {
-        $this->supportedEntities[$service->getActivityLogSupported()] = $service;
+        foreach($service->getActivityLogSupported() as $supportedClass) {
+            $this->supportedEntities[$supportedClass] = $service;
+        }
+    }
+
+    public function getClassName(string $className): string
+    {
+        return $this->supportedEntities[$className]->getActivityLogClassName($className);
     }
 
     public function isSupported(string $className): bool

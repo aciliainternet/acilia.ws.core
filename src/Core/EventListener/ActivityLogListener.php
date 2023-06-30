@@ -2,7 +2,7 @@
 
 namespace WS\Core\EventListener;
 
-use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -20,9 +20,9 @@ use WS\Core\Service\ActivityLogService;
 use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: ControllerEvent::class, method: 'onController', priority: 121)]
-#[AsEntityListener(event: Events::preUpdate, method: 'preUpdate')]
-#[AsEntityListener(event: Events::postPersist, method: 'postPersist')]
-#[AsEntityListener(event: Events::preRemove, method: 'preRemove')]
+#[AsDoctrineListener(event: Events::preUpdate)]
+#[AsDoctrineListener(event: Events::postPersist)]
+#[AsDoctrineListener(event: Events::preRemove)]
 class ActivityLogListener
 {
     public function __construct(
@@ -82,7 +82,7 @@ class ActivityLogListener
             // save the editorial activity log
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::UPDATE,
-                'activity_log_model' => $entityName,
+                'activity_log_model' => $this->activityLogService->getClassName($entityName),
                 'activity_log_model_id' => $entity->getId(),
                 'activity_log_changes' => json_encode($changes),
                 'activity_log_created_at' => $activityLogDate->format('Y-m-d H:i:s'),
@@ -118,7 +118,7 @@ class ActivityLogListener
             // save the editorial activity log
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::CREATE,
-                'activity_log_model' => $entityName,
+                'activity_log_model' => $this->activityLogService->getClassName($entityName),
                 'activity_log_model_id' => $entity->getId(),
                 'activity_log_changes' => json_encode([]),
                 'activity_log_created_at' => $activityLogDate->format('Y-m-d H:i:s'),
@@ -154,7 +154,7 @@ class ActivityLogListener
             // save the editorial activity log
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
                 'activity_log_action' => ActivityLogInterface::DELETE,
-                'activity_log_model' => $entityName,
+                'activity_log_model' => $this->activityLogService->getClassName($entityName),
                 'activity_log_model_id' => $entity->getId(),
                 'activity_log_changes' => json_encode([]),
                 'activity_log_created_at' => $activityLogDate->format('Y-m-d H:i:s'),

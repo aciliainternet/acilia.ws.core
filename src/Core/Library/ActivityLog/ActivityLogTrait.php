@@ -6,6 +6,11 @@ use WS\Core\Library\CRUD\AbstractService;
 
 trait ActivityLogTrait
 {
+    public function getActivityLogClassName(string $className): string
+    {
+        return $className;
+    }
+    
     public function getActivityLogSupported(): string
     {
         if ($this instanceof AbstractService) {

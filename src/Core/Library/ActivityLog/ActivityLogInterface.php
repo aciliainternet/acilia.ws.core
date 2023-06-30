@@ -8,7 +8,9 @@ interface ActivityLogInterface
     public const CREATE = 'create';
     public const DELETE = 'delete';
 
-    public function getActivityLogSupported(): string;
+    public function getActivityLogClassName(string $class): string;
+
+    public function getActivityLogSupported(): array;
 
     public function getActivityLogFields(): ?array;
 }
