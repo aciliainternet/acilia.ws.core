@@ -4,14 +4,26 @@ namespace App\Service;
 
 namespace WS\Core\Service;
 
-use WS\Core\Library\Encrypt\Encryption;
+use WS\Core\Library\Preview\Encryption;
+use WS\Core\Library\Preview\PreviewInterface;
 
 class PreviewService
 {
+    private array $supportedEntities = [];
     private bool $isPreview = false;
 
     public function __construct(private array $config)
     {
+    }
+
+    public function registerService(PreviewInterface $service): void
+    {
+        $this->supportedEntities[$service->getPreviewClassName()] = $service;
+    }
+
+    public function isSupported(string $className): bool
+    {
+        return isset($this->supportedEntities[$className]);
     }
 
     public function isEnabled(): bool

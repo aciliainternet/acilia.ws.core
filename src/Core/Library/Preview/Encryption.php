@@ -1,6 +1,6 @@
 <?php
 
-namespace WS\Core\Library\Encrypt;
+namespace WS\Core\Library\Preview;
 
 class Encryption
 {

@@ -18,15 +18,25 @@ class PreviewExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('ws_preview_enabled', [$this, 'isEnabled']),
+            new TwigFunction('ws_preview_enabled', [$this, 'isPreviewEnabled']),
+            new TwigFunction('ws_preview_supported', [$this, 'isPreviewSupported']),
             new TwigFunction('ws_preview_path', [$this, 'getPreviewPath']),
             new TwigFunction('ws_preview_locales', [$this, 'getPreviewLocales']),
         ];
     }
 
-    public function isEnabled(): bool
+    public function isPreviewEnabled(): bool
     {
         return $this->previewService->isEnabled();
+    }
+
+    public function isPreviewSupported(object $entity): bool
+    {
+        try {
+            return $this->previewService->isSupported((new \ReflectionClass($entity))->getName());
+        } catch (\ReflectionException) {
+            return false;
+        }
     }
 
     public function getPreviewPath(object $entity, array $options = [], array $queryString = []): string

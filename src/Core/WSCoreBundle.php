@@ -5,6 +5,7 @@ namespace WS\Core;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use WS\Core\Library\ActivityLog\ActivityLogCompilerPass;
+use WS\Core\Library\Preview\PreviewCompilerPass;
 use WS\Core\Library\Asset\ImageCompilerPass;
 use WS\Core\Library\CRUD\CRUDCompilerPass;
 use WS\Core\Library\DataCollector\DataCollectorCompilerPass;
@@ -25,5 +26,6 @@ class WSCoreBundle extends Bundle
         $container->addCompilerPass(new CRUDCompilerPass());
         $container->addCompilerPass(new DataCollectorCompilerPass());
         $container->addCompilerPass(new StorageCompilerPass());
+        $container->addCompilerPass(new PreviewCompilerPass());
     }
 }

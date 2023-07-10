@@ -18,6 +18,8 @@ use WS\Core\Library\CRUD\CRUDCompilerPass;
 use WS\Core\Library\DBLogger\DBLoggerInterface;
 use WS\Core\Library\FactoryCollector\FactoryCollectorCompilerPass;
 use WS\Core\Library\FactoryCollector\FactoryCollectorInterface;
+use WS\Core\Library\Preview\PreviewCompilerPass;
+use WS\Core\Library\Preview\PreviewInterface;
 use WS\Core\Library\Setting\SettingCompilerPass;
 use WS\Core\Library\Setting\SettingDefinitionInterface;
 use WS\Core\Library\Storage\StorageCompilerPass;
@@ -81,6 +83,9 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
 
         // Tag StorageDriver Definitions
         $container->registerForAutoconfiguration(StorageDriverInterface::class)->addTag(StorageCompilerPass::TAG);
+
+        // Tag Preview
+        $container->registerForAutoconfiguration(PreviewInterface::class)->addTag(PreviewCompilerPass::TAG);
 
         // Configure services
         $configuration = new Configuration();
