@@ -95,7 +95,7 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         $translationsService->setArgument(0, $config['translations']);
 
         // Configure Preview
-        $activityLogService = $container->getDefinition(PreviewService:class);
+        $activityLogService = $container->getDefinition(PreviewService::class);
         $activityLogService->setArgument(0, $config['preview']);
     }
 
