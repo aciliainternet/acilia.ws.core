@@ -35,7 +35,7 @@
                             {% endblock %}
 
                             {{ include(
-                                '@WSCore/cms/general/batch.html.twig',
+                                '@WSCore/cms/crud/blocks/batch.html.twig',
                                 { 'batch_actions': batch_actions, 'route_prefix': route_prefix },
                                 with_context = false
                             ) }}
@@ -70,25 +70,7 @@
                             {% endif %}
 
                             {% if view_export %}
-                                <div class="c-dropdown dropdown u-hidden@md--down" data-toggle="dropdown-export" data-component="ws_dropdown">
-                                    <button class="c-btn c-btn--secondary has-dropdown dropdown-toggle"
-                                            type="button"
-                                            id="ExportDropdownButton"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            {{ source('@WSCore/cms/icons/export.svg') }}
-                                            {{ 'export'|trans({}, 'ws_cms') }}
-                                    </button>
-                                    {% block crud_export_formats %}
-                                        <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
-                                            <a  class="c-dropdown__item dropdown-item"
-                                                href="{{ ws_cms_path("#{route_prefix}_export", app.request.query.all) }}">
-                                                <i class="fal fa-file-csv u-pr-5"></i> {{ 'export.csv'|trans({}, 'ws_cms') }}
-                                            </a>
-                                            {% block crud_export_format %}
-                                            {% endblock %}
-                                        </div>
-                                    {% endblock %}
-                                </div>
+                                {{ include('@WSCore/cms/crud/blocks/export.html.twig') }}
                             {% endif %}
                         </div>
 
@@ -233,6 +215,10 @@
                                     {% block crud_table_body_row_actions %}
                                         <td class="c-table__cell">
                                             {% block crud_table_body_row_action %}{% endblock %}
+
+                                            {% block crud_table_body_row_preview_action %}
+                                                {{ include('@WSCore/cms/crud/blocks/preview.html.twig') }}
+                                            {% endblock %}
 
                                             {% if is_granted(view_roles['delete']) %}
                                                 <button

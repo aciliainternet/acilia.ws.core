@@ -45,6 +45,7 @@ domain_switched: Cambiado al dominio %domain% (%locale%)
 view_profile: Perfil
 dashboard: Panel
 dashboard.menu: Panel
+preview: Previsualización
 
 # Cropper and assets
 cropper_preview: Previsualización

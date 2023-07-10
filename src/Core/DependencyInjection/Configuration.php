@@ -15,12 +15,13 @@ class Configuration implements ConfigurationInterface
         $root
             ->children()
                 ->booleanNode('activity_log')
-                    ->defaultTrue()
                     ->info('Disables or Enables the Activity Log service.')
+                    ->defaultTrue()
                 ->end() // activity_log
+
                 ->arrayNode('translations')
-                    ->addDefaultsIfNotSet()
                     ->info('Allows to configure site translations.')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('sources')
                             ->prototype('scalar')
@@ -29,8 +30,28 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end() // translation
-            ->end()
-        ;
+
+                ->arrayNode('preview')
+                    ->info('Disables or Enables the frontend preview service.')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enabled')
+                        ->defaultFalse()
+                        ->end()
+                        ->scalarNode('path')
+                        ->defaultValue('preview')
+                        ->end()
+                        ->scalarNode('ttl')
+                        ->defaultValue(2592000)
+                        ->end()
+                        ->arrayNode('locales')
+                            ->prototype('scalar')
+                            ->end()
+                            ->defaultValue(['en'])
+                        ->end()
+                    ->end()
+                ->end() // preview
+            ->end();
 
         return $treeBuilder;
     }

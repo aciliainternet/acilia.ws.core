@@ -45,6 +45,7 @@ domain_switched: Switched to domain %domain% (%locale%)
 view_profile: View Profile
 dashboard: Dashboard
 dashboard.menu: Dashboard
+preview: Preview
 
 # Cropper and assets
 cropper_preview: Preview

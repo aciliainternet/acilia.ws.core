@@ -26,6 +26,7 @@ use WS\Core\Library\Traits\CRUD\RoleCalculatorTrait;
 use WS\Core\Library\Traits\DependencyInjection\RoleAdderTrait;
 use WS\Core\Library\Traits\DependencyInjection\RoleLoaderTrait;
 use WS\Core\Service\ActivityLogService;
+use WS\Core\Service\PreviewService;
 use WS\Core\Service\TranslationService;
 
 class WSCoreExtension extends Extension implements PrependExtensionInterface
@@ -92,6 +93,10 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         // Configure Translations
         $translationsService = $container->getDefinition(TranslationService::class);
         $translationsService->setArgument(0, $config['translations']);
+
+        // Configure Preview
+        $activityLogService = $container->getDefinition(PreviewService:class);
+        $activityLogService->setArgument(0, $config['preview']);
     }
 
     public function prepend(ContainerBuilder $container): void

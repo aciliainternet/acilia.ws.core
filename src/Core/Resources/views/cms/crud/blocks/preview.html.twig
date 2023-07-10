@@ -1,0 +1,30 @@
+{% if (ws_preview_enabled()) %}
+    {% if ws_preview_locales()|length == 1 %}
+        <a
+            class="c-btn c-btn--secondary"
+            title="{{ 'preview'|trans({}, 'cms')}}"
+            href="{{ ws_preview_path(entity, { 'id': entity.id}) }}"
+            style="color:#9fa9ba;"
+            target="_blank"
+        >
+            <i class="fa-light fa-eye"></i>
+        </a>
+    {% else %}
+        <div class="c-dropdown dropdown u-hidden@md--down" data-toggle="dropdown-export" data-component="ws_dropdown">
+            <button
+                class="c-btn c-btn--secondary has-dropdown dropdown-toggle"
+                type="button"
+                title="{{ 'preview'|trans({}, 'cms')}}"
+                style="color:#9fa9ba;">
+                <i class="fa-light fa-eye"></i>
+            </button>
+            <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
+            {% for preview_locale in ws_preview_locales() %}
+                <a class="c-dropdown__item dropdown-item" href="{{ ws_preview_path(entity, { 'id': entity.id, '_locale': preview_locale}) }}" target="_blank">
+                    {{ "preview.#{preview_locale}.label"|trans([], trans_prefix) }}
+                </a>
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
