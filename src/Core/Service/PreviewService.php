@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Service;
-
 namespace WS\Core\Service;
 
 use WS\Core\Library\Preview\Encryption;
