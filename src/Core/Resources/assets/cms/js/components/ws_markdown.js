@@ -28,6 +28,7 @@ function getConfig() {
     nativeSpellcheck: true,
     previewRender: false,
     autoDownloadFontAwesome: false,
+    minHeight: '100px',
     hideIcons: ['image', 'side-by-side'],
     toolbar: [
       'bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'link', 'preview',

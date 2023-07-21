@@ -1,382 +1,432 @@
 {# Widgets #}
 
 {%- block form_widget -%}
-    {% if compound %}
-        {{- block('form_widget_compound') -}}
-    {% else %}
-        {{- block('form_widget_simple') -}}
-    {% endif %}
+{% if compound %}
+{{- block('form_widget_compound') -}}
+{% else %}
+{{- block('form_widget_simple') -}}
+{% endif %}
 {%- endblock form_widget -%}
 
 {%- block form_widget_simple -%}
-    {%- set type = type|default('text') -%}
-    {%- if type == 'range' or type == 'color' -%}
-        {# Attribute "required" is not supported #}
-        {%- set required = false -%}
-    {%- endif -%}
+{%- set type = type|default('text') -%}
+{%- if type == 'range' or type == 'color' -%}
+{# Attribute "required" is not supported #}
+{%- set required = false -%}
+{%- endif -%}
 
-    {% set attr = attr|merge({ 'class': 'c-input ' ~ attr.class|default('') }) %}
-    <input type="{{ type }}" spellcheck="true" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{% set attr = attr|merge({ 'class': 'c-input ' ~ attr.class|default('') }) %}
+<input type="{{ type }}" spellcheck="true" {{ block('widget_attributes') }} {% if value is not empty
+    %}value="{{ value }}" {% endif %} />
 {%- endblock form_widget_simple -%}
 
 {%- block form_widget_compound -%}
-    {%- set type = form.vars.type|default('') -%}
-    {%- if type == 'ws-asset-image' %}
-        {{- block('ws_asset_image_widget') -}}
-    {%- elseif type == 'ws-asset-file' -%}
-        {{- block('ws_asset_file_widget') -}}
-    {%- else -%}
-        <div class="c-form__content-full" {{ block('widget_container_attributes') }}>
-            {%- if form is rootform -%}
-                {{ form_errors(form) }}
-            {%- endif -%}
-            {{- block('form_rows') -}}
-            {{- form_rest(form) -}}
-        </div>
+{%- set type = form.vars.type|default('') -%}
+{%- if type == 'ws-asset-image' %}
+{{- block('ws_asset_image_widget') -}}
+{%- elseif type == 'ws-asset-file' -%}
+{{- block('ws_asset_file_widget') -}}
+{%- else -%}
+<div class="c-form__content-full" {{ block('widget_container_attributes') }}>
+    {%- if form is rootform -%}
+    {{ form_errors(form) }}
     {%- endif -%}
+    {{- block('form_rows') -}}
+    {{- form_rest(form) -}}
+</div>
+{%- endif -%}
 {%- endblock form_widget_compound -%}
 
 {%- block collection_widget -%}
-    {% if prototype is defined and not prototype.rendered %}
-        {%- set attr = attr|merge({'data-prototype': form_row(prototype) }) -%}
-    {% endif %}
-    {{- block('form_widget') -}}
+{% if prototype is defined and not prototype.rendered %}
+{%- set attr = attr|merge({'data-prototype': form_row(prototype) }) -%}
+{% endif %}
+{{- block('form_widget') -}}
 {%- endblock collection_widget -%}
 
 {%- block textarea_widget -%}
-    {% set attr = attr|merge({ 'class': 'c-input ' ~ attr.class|default('') }) %}
-    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-    {% if form.vars.ws is defined %}
-        {% if form.vars.ws.plugin.image %}
-            <input type="file" spellcheck="true" name="markdown-image" id="markdown-image-{{id}}" class="ws-img-markdown__new-upload" data-component="ws_markdown_image">
-        {% endif %}
-        {% if form.vars.ws.plugin.file %}
-            <input type="file" spellcheck="true" name="markdown-file" id="markdown-file-{{id}}" class="ws-file-markdown__new-upload" data-component="ws_markdown_file">
-        {% endif %}
-    {% endif %}
+{% set attr = attr|merge({ 'class': 'c-input ' ~ attr.class|default('') }) %}
+<textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{% if form.vars.ws is defined %}
+{% if form.vars.ws.plugin.image %}
+<input type="file" spellcheck="true" name="markdown-image" id="markdown-image-{{id}}"
+    class="ws-img-markdown__new-upload" data-component="ws_markdown_image">
+{% endif %}
+{% if form.vars.ws.plugin.file %}
+<input type="file" spellcheck="true" name="markdown-file" id="markdown-file-{{id}}" class="ws-file-markdown__new-upload"
+    data-component="ws_markdown_file">
+{% endif %}
+{% endif %}
 {%- endblock textarea_widget -%}
 
 {%- block choice_widget -%}
-    {% if form.vars.type|default('') == 'ws-toggle-choice' %}
-        {{- block('ws_toggle_choice') -}}
-    {% else %}
-        {% if expanded %}
-            {{- block('choice_widget_expanded') -}}
-        {% else %}
-            {{- block('choice_widget_collapsed') -}}
-        {% endif %}
-    {% endif %}
+{% if form.vars.type|default('') == 'ws-toggle-choice' %}
+{{- block('ws_toggle_choice') -}}
+{% else %}
+{% if expanded %}
+{{- block('choice_widget_expanded') -}}
+{% else %}
+{{- block('choice_widget_collapsed') -}}
+{% endif %}
+{% endif %}
 {%- endblock choice_widget -%}
 
 {%- block choice_widget_expanded -%}
-    <div {{ block('widget_container_attributes') }}>
+<div {{ block('widget_container_attributes') }}>
     {%- for child in form %}
-        {{- form_widget(child) -}}
-        {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+    {{- form_widget(child) -}}
+    {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
     {% endfor -%}
-    </div>
+</div>
 {%- endblock choice_widget_expanded -%}
 
 {%- block choice_widget_collapsed -%}
-    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
-        {% set required = false %}
+{%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or
+attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merge({ 'class' : 'c-select ' ~
+    attr.class|default('') }) %} <select {{ block('widget_attributes') }} data-component="ws_select" {% if multiple %}
+    multiple="multiple" {% endif %}>
+    {%- if attr.placeholder|default('') is not empty -%}
+    <option value="" {% if required and value is empty %} selected="selected" {% endif %}>{{ attr.placeholder != '' ?
+        (translation_domain is same as(false) ? attr.placeholder : attr.placeholder|trans({}, translation_domain)) }}
+    </option>
     {%- endif -%}
-
-    {% set attr = attr|merge({ 'class': 'c-select ' ~ attr.class|default('') }) %}
-    <select {{ block('widget_attributes') }} data-component="ws_select" {% if multiple %} multiple="multiple"{% endif %}>
-        {%- if attr.placeholder|default('') is not empty -%}
-            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ attr.placeholder != '' ? (translation_domain is same as(false) ? attr.placeholder : attr.placeholder|trans({}, translation_domain)) }}</option>
-        {%- endif -%}
-        {%- if preferred_choices|length > 0 -%}
-            {% set options = preferred_choices %}
-            {{- block('choice_widget_options') -}}
-            {%- if choices|length > 0 and separator is not none -%}
-                <option disabled="disabled">{{ separator }}</option>
-            {%- endif -%}
-        {%- endif -%}
-        {%- set options = choices -%}
-        {{- block('choice_widget_options') -}}
+    {%- if preferred_choices|length > 0 -%}
+    {% set options = preferred_choices %}
+    {{- block('choice_widget_options') -}}
+    {%- if choices|length > 0 and separator is not none -%}
+    <option disabled="disabled">{{ separator }}</option>
+    {%- endif -%}
+    {%- endif -%}
+    {%- set options = choices -%}
+    {{- block('choice_widget_options') -}}
     </select>
-{%- endblock choice_widget_collapsed -%}
+    {%- endblock choice_widget_collapsed -%}
 
-{%- block choice_widget_options -%}
+    {%- block choice_widget_options -%}
     {% for group_label, choice in options %}
-        {%- if choice is iterable -%}
-            <optgroup label="{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}">
-                {% set options = choice %}
-                {{- block('choice_widget_options') -}}
-            </optgroup>
-        {%- else -%}
-            <option value="{{ choice.value }}"{% if choice.attr %}{% with { attr: choice.attr } %}{{ block('attributes') }}{% endwith %}{% endif %}{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain) }}</option>
-        {%- endif -%}
+    {%- if choice is iterable -%}
+    <optgroup
+        label="{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}">
+        {% set options = choice %}
+        {{- block('choice_widget_options') -}}
+    </optgroup>
+    {%- else -%}
+    <option value="{{ choice.value }}" {% if choice.attr %}{% with { attr: choice.attr } %}{{ block('attributes') }}{%
+        endwith %}{% endif %}{% if choice is selectedchoice(value) %} selected="selected" {% endif %}>{{
+        choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain)
+        }}</option>
+    {%- endif -%}
     {% endfor %}
-{%- endblock choice_widget_options -%}
+    {%- endblock choice_widget_options -%}
 
-{%- block checkbox_widget -%}
+    {%- block checkbox_widget -%}
     {% set attr = attr|merge({ 'class': 'c-choice__input ' ~ attr.class|default('') }) %}
     <div class="c-choice c-choice--checkbox">
-        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}" {% endif
+            %}{% if checked %} checked="checked" {% endif %} />
 
         {% set label_attr = label_attr|merge({'class': 'c-choice__label'|trim}) %}
-        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr} %}{{ block('attributes') }}{% endwith %}{% endif %} for="{{ id }}">
+        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr} %}{{ block('attributes') }}{%
+            endwith %}{% endif %} for="{{ id }}">
             {%- if translation_domain is same as(false) -%}
-                {{- label -}}
+            {{- label -}}
             {%- else -%}
-                {{- label|trans(label_translation_parameters, translation_domain) -}}
+            {{- label|trans(label_translation_parameters, translation_domain) -}}
             {%- endif -%}
         </{{ element|default('label') }}>
     </div>
-{%- endblock checkbox_widget -%}
+    {%- endblock checkbox_widget -%}
 
-{%- block radio_widget -%}
+    {%- block radio_widget -%}
     {% set attr = attr|merge({ 'class': 'custom-radio__input ' ~ attr.class|default('') }) %}
 
     <label class="col-sm-2 col-form-label">{{ label|trans }}</label>
     <div class="col-sm-10">
         <label class="custom-radio job-form__check col-12">
-            <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+            <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}" {% endif
+                %}{% if checked %} checked="checked" {% endif %} />
             <span class="custom-radio__checkmark"></span>
             <span class="custom-radio__text">{{ help|trans }}</span>
         </label>
     </div>
-{%- endblock radio_widget -%}
+    {%- endblock radio_widget -%}
 
-{%- block datetime_widget -%}
+    {%- block datetime_widget -%}
     {% if widget == 'single_text' %}
-        {{- block('form_widget_simple') -}}
+    {{- block('form_widget_simple') -}}
     {%- else -%}
-        <div {{ block('widget_container_attributes') }}>
-            {{- form_errors(form.date) -}}
-            {{- form_errors(form.time) -}}
-            {{- form_widget(form.date) -}}
-            {{- form_widget(form.time) -}}
-        </div>
+    <div {{ block('widget_container_attributes') }}>
+        {{- form_errors(form.date) -}}
+        {{- form_errors(form.time) -}}
+        {{- form_widget(form.date) -}}
+        {{- form_widget(form.time) -}}
+    </div>
     {%- endif -%}
-{%- endblock datetime_widget -%}
+    {%- endblock datetime_widget -%}
 
-{%- block date_widget -%}
+    {%- block date_widget -%}
     {%- if widget == 'single_text' -%}
-        {{ block('form_widget_simple') }}
+    {{ block('form_widget_simple') }}
     {%- else -%}
-        <div {{ block('widget_container_attributes') }}>
-            {{- date_pattern|replace({
-                '{{ year }}':  form_widget(form.year),
-                '{{ month }}': form_widget(form.month),
-                '{{ day }}':   form_widget(form.day),
-            })|raw -}}
-        </div>
+    <div {{ block('widget_container_attributes') }}>
+        {{- date_pattern|replace({
+        '{{ year }}': form_widget(form.year),
+        '{{ month }}': form_widget(form.month),
+        '{{ day }}': form_widget(form.day),
+        })|raw -}}
+    </div>
     {%- endif -%}
-{%- endblock date_widget -%}
+    {%- endblock date_widget -%}
 
-{%- block time_widget -%}
+    {%- block time_widget -%}
     {%- if widget == 'single_text' -%}
-        {{ block('form_widget_simple') }}
+    {{ block('form_widget_simple') }}
     {%- else -%}
-        {%- set vars = widget == 'text' ? { 'attr': { 'size': 1 }} : {} -%}
-        <div {{ block('widget_container_attributes') }}>
-            {{ form_widget(form.hour, vars) }}{% if with_minutes %}:{{ form_widget(form.minute, vars) }}{% endif %}{% if with_seconds %}:{{ form_widget(form.second, vars) }}{% endif %}
-        </div>
+    {%- set vars = widget == 'text' ? { 'attr': { 'size': 1 }} : {} -%}
+    <div {{ block('widget_container_attributes') }}>
+        {{ form_widget(form.hour, vars) }}{% if with_minutes %}:{{ form_widget(form.minute, vars) }}{% endif %}{% if
+        with_seconds %}:{{ form_widget(form.second, vars) }}{% endif %}
+    </div>
     {%- endif -%}
-{%- endblock time_widget -%}
+    {%- endblock time_widget -%}
 
-{%- block dateinterval_widget -%}
+    {%- block dateinterval_widget -%}
     {%- if widget == 'single_text' -%}
-        {{- block('form_widget_simple') -}}
+    {{- block('form_widget_simple') -}}
     {%- else -%}
-        <div {{ block('widget_container_attributes') }}>
-            {{- form_errors(form) -}}
-            <table class="{{ table_class|default('') }}" role="presentation">
-                <thead>
-                    <tr>
-                        {%- if with_years %}<th>{{ form_label(form.years) }}</th>{% endif -%}
-                        {%- if with_months %}<th>{{ form_label(form.months) }}</th>{% endif -%}
-                        {%- if with_weeks %}<th>{{ form_label(form.weeks) }}</th>{% endif -%}
-                        {%- if with_days %}<th>{{ form_label(form.days) }}</th>{% endif -%}
-                        {%- if with_hours %}<th>{{ form_label(form.hours) }}</th>{% endif -%}
-                        {%- if with_minutes %}<th>{{ form_label(form.minutes) }}</th>{% endif -%}
-                        {%- if with_seconds %}<th>{{ form_label(form.seconds) }}</th>{% endif -%}
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        {%- if with_years %}<td>{{ form_widget(form.years) }}</td>{% endif -%}
-                        {%- if with_months %}<td>{{ form_widget(form.months) }}</td>{% endif -%}
-                        {%- if with_weeks %}<td>{{ form_widget(form.weeks) }}</td>{% endif -%}
-                        {%- if with_days %}<td>{{ form_widget(form.days) }}</td>{% endif -%}
-                        {%- if with_hours %}<td>{{ form_widget(form.hours) }}</td>{% endif -%}
-                        {%- if with_minutes %}<td>{{ form_widget(form.minutes) }}</td>{% endif -%}
-                        {%- if with_seconds %}<td>{{ form_widget(form.seconds) }}</td>{% endif -%}
-                    </tr>
-                </tbody>
-            </table>
-            {%- if with_invert %}{{ form_widget(form.invert) }}{% endif -%}
-        </div>
+    <div {{ block('widget_container_attributes') }}>
+        {{- form_errors(form) -}}
+        <table class="{{ table_class|default('') }}" role="presentation">
+            <thead>
+                <tr>
+                    {%- if with_years %}<th>{{ form_label(form.years) }}</th>{% endif -%}
+                    {%- if with_months %}<th>{{ form_label(form.months) }}</th>{% endif -%}
+                    {%- if with_weeks %}<th>{{ form_label(form.weeks) }}</th>{% endif -%}
+                    {%- if with_days %}<th>{{ form_label(form.days) }}</th>{% endif -%}
+                    {%- if with_hours %}<th>{{ form_label(form.hours) }}</th>{% endif -%}
+                    {%- if with_minutes %}<th>{{ form_label(form.minutes) }}</th>{% endif -%}
+                    {%- if with_seconds %}<th>{{ form_label(form.seconds) }}</th>{% endif -%}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {%- if with_years %}<td>{{ form_widget(form.years) }}</td>{% endif -%}
+                    {%- if with_months %}<td>{{ form_widget(form.months) }}</td>{% endif -%}
+                    {%- if with_weeks %}<td>{{ form_widget(form.weeks) }}</td>{% endif -%}
+                    {%- if with_days %}<td>{{ form_widget(form.days) }}</td>{% endif -%}
+                    {%- if with_hours %}<td>{{ form_widget(form.hours) }}</td>{% endif -%}
+                    {%- if with_minutes %}<td>{{ form_widget(form.minutes) }}</td>{% endif -%}
+                    {%- if with_seconds %}<td>{{ form_widget(form.seconds) }}</td>{% endif -%}
+                </tr>
+            </tbody>
+        </table>
+        {%- if with_invert %}{{ form_widget(form.invert) }}{% endif -%}
+    </div>
     {%- endif -%}
-{%- endblock dateinterval_widget -%}
+    {%- endblock dateinterval_widget -%}
 
-{%- block number_widget -%}
+    {%- block number_widget -%}
     {# type="number" doesn't work with floats in localized formats #}
     {%- set type = type|default('text') -%}
     {{ block('form_widget_simple') }}
-{%- endblock number_widget -%}
+    {%- endblock number_widget -%}
 
-{%- block integer_widget -%}
+    {%- block integer_widget -%}
     {%- set type = type|default('number') -%}
     {{ block('form_widget_simple') }}
-{%- endblock integer_widget -%}
+    {%- endblock integer_widget -%}
 
-{%- block money_widget -%}
-    {{ money_pattern|form_encode_currency(block('form_widget_simple')) }}
-{%- endblock money_widget -%}
+    {%- block money_widget -%}
+    {%- set ws_block = money_pattern|form_encode_currency(block('form_widget_simple')) -%}
 
-{%- block url_widget -%}
+    {{ _self.ws_addon(ws_block, row_attr) }}
+    {%- endblock money_widget -%}
+
+    {% macro ws_addon(block, data, addon_class = '', addon_icon = '') %}
+    {% if data['ws-data-addon'] is defined and data['ws-data-addon'] is not empty %}
+    {% set ws_addon_data = data['ws-data-addon'] %}
+    {% endif %}
+
+    {% if ws_addon_data is defined and ws_addon_data is not empty %}
+    {% set ws_addon_class = ws_addon_data['class']|default(addon_class) %}
+    {% set ws_addon_icon = ws_addon_data['icon']|default(addon_icon) %}
+
+    {% if 'has-addon-right' in ws_addon_class %}
+    <div class="{{ ws_addon_class }} c-field">
+        {{ block|raw }}
+        <span class="c-field__addon"><i class="{{ ws_addon_icon }}"></i></span>
+    </div>
+    {% else %}
+    <div class="{{ ws_addon_class }} c-field">
+        <span class="c-field__addon"><i class="{{ ws_addon_icon }}"></i></span>
+        {{ block|raw }}
+    </div>
+    {% endif %}
+    {% else %}
+    {{ block|raw }}
+    {% endif %}
+    {% endmacro ws_addon %}
+
+    {%- block url_widget -%}
     {%- set type = type|default('url') -%}
     {{ block('form_widget_simple') }}
-{%- endblock url_widget -%}
+    {%- endblock url_widget -%}
 
-{%- block search_widget -%}
+    {%- block search_widget -%}
     {%- set type = type|default('search') -%}
     {{ block('form_widget_simple') }}
-{%- endblock search_widget -%}
+    {%- endblock search_widget -%}
 
-{%- block percent_widget -%}
+    {%- block percent_widget -%}
     {%- set type = type|default('text') -%}
-    {{ block('form_widget_simple') }}{% if symbol %} {{ symbol|default('%') }}{% endif %}
-{%- endblock percent_widget -%}
+    {%- set ws_block = block('form_widget_simple') -%}
 
-{%- block password_widget -%}
+    {{ _self.ws_addon(ws_block, row_attr, '', 'fa fa-percent') }}
+    {%- endblock percent_widget -%}
+
+    {%- block password_widget -%}
     {%- set type = type|default('password') -%}
     {{ block('form_widget_simple') }}
-{%- endblock password_widget -%}
+    {%- endblock password_widget -%}
 
-{%- block hidden_widget -%}
+    {%- block hidden_widget -%}
     {%- set type = type|default('hidden') -%}
     {{ block('form_widget_simple') }}
-{%- endblock hidden_widget -%}
+    {%- endblock hidden_widget -%}
 
-{%- block email_widget -%}
+    {%- block email_widget -%}
     {%- set type = type|default('email') -%}
     {{ block('form_widget_simple') }}
-{%- endblock email_widget -%}
+    {%- endblock email_widget -%}
 
-{%- block range_widget -%}
+    {%- block range_widget -%}
     {% set type = type|default('range') %}
     {{- block('form_widget_simple') -}}
-{%- endblock range_widget %}
+    {%- endblock range_widget %}
 
-{%- block button_widget -%}
+    {%- block button_widget -%}
     {%- if label is empty -%}
-        {%- if label_format is not empty -%}
-            {% set label = label_format|replace({
-                '%name%': name,
-                '%id%': id,
-            }) %}
-        {%- elseif label is same as(false) -%}
-            {% set translation_domain = false %}
-        {%- else -%}
-            {% set label = name|humanize %}
-        {%- endif -%}
+    {%- if label_format is not empty -%}
+    {% set label = label_format|replace({
+    '%name%': name,
+    '%id%': id,
+    }) %}
+    {%- elseif label is same as(false) -%}
+    {% set translation_domain = false %}
+    {%- else -%}
+    {% set label = name|humanize %}
     {%- endif -%}
-    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label : label|trans(label_translation_parameters, translation_domain) }}</button>
-{%- endblock button_widget -%}
+    {%- endif -%}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>
+        {{ translation_domain is same as(false) ? label : label|trans(label_translation_parameters, translation_domain)
+        }}
+    </button>
 
-{%- block submit_widget -%}
+    {%- endblock button_widget -%}
+
+    {%- block submit_widget -%}
     {%- set type = type|default('submit') -%}
     {{ block('button_widget') }}
-{%- endblock submit_widget -%}
+    {%- endblock submit_widget -%}
 
-{%- block reset_widget -%}
+    {%- block reset_widget -%}
     {%- set type = type|default('reset') -%}
     {{ block('button_widget') }}
-{%- endblock reset_widget -%}
+    {%- endblock reset_widget -%}
 
-{%- block tel_widget -%}
+    {%- block tel_widget -%}
     {%- set type = type|default('tel') -%}
     {{ block('form_widget_simple') }}
-{%- endblock tel_widget -%}
+    {%- endblock tel_widget -%}
 
-{%- block color_widget -%}
+    {%- block color_widget -%}
     {%- set type = type|default('color') -%}
     {{ block('form_widget_simple') }}
-{%- endblock color_widget -%}
+    {%- endblock color_widget -%}
 
-{%- block cropper_widget -%}
+    {%- block cropper_widget -%}
 
-{%- endblock cropper_widget -%}
+    {%- endblock cropper_widget -%}
 
-{# Labels #}
+    {# Labels #}
 
-{%- block form_label -%}
+    {%- block form_label -%}
     {% if label is not same as(false) -%}
-        {% if not compound -%}
-            {% set label_attr = label_attr|merge({'for': id}) %}
-        {%- endif -%}
-        {% if required -%}
-            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
-        {%- endif -%}
-        {% if label is empty -%}
-            {%- if label_format is not empty -%}
-                {% set label = label_format|replace({
-                    '%name%': name,
-                    '%id%': id,
-                }) %}
-            {%- else -%}
-                {% set label = name|humanize %}
-            {%- endif -%}
-        {%- endif -%}
-        {% set label_attr = label_attr|merge({'class': 'c-field__label'|trim}) %}
-        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
-            {%- if translation_domain is same as(false) -%}
-                {{- label -}}
-            {%- else -%}
-                {{- label|trans(label_translation_parameters, translation_domain) -}}
-            {%- endif -%}
-        </{{ element|default('label') }}>
+    {% if not compound -%}
+    {% set label_attr = label_attr|merge({'for': id}) %}
     {%- endif -%}
-{%- endblock form_label -%}
+    {% if required -%}
+    {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+    {%- endif -%}
+    {% if label is empty -%}
+    {%- if label_format is not empty -%}
+    {% set label = label_format|replace({
+    '%name%': name,
+    '%id%': id,
+    }) %}
+    {%- else -%}
+    {% set label = name|humanize %}
+    {%- endif -%}
+    {%- endif -%}
+    {% set label_attr = label_attr|merge({'class': 'c-field__label'|trim}) %}
+    <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith
+        %}{% endif %}>
+        {%- if translation_domain is same as(false) -%}
+        {{- label -}}
+        {%- else -%}
+        {{- label|trans(label_translation_parameters, translation_domain) -}}
+        {%- endif -%}
+    </{{ element|default('label') }}>
+    {%- endif -%}
+    {%- endblock form_label -%}
 
-{%- block button_label -%}{%- endblock -%}
+    {%- block button_label -%}{%- endblock -%}
 
-{# Help #}
+    {# Help #}
 
-{% block form_help -%}
+    {% block form_help -%}
     {%- if help is not empty -%}
-        {%- set help_attr = help_attr|merge({class: (help_attr.class|default('c-field__message u-mt-5') ~ ' help-text')|trim}) -%}
-        <small id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
-            {%- if translation_domain is same as(false) -%}
-                {%- if help_html is same as(false) -%}
-                    <i class="fa fa-info-circle"></i>{{ help|trans }}
-                {%- else -%}
-                    <i class="fa fa-info-circle"></i>{{ help|trans }}
-                {%- endif -%}
-            {%- else -%}
-                {%- if help_html is same as(false) -%}
-                    <i class="fa fa-info-circle"></i>{{ help|trans({}, translation_domain) }}
-                {%- else -%}
-                    <i class="fa fa-info-circle"></i>{{ help|trans }}
-                {%- endif -%}
-            {%- endif -%}
-        </small>
+    {%- set help_attr = help_attr|merge({class: (help_attr.class|default('c-field__message u-mt-5') ~ '
+    help-text')|trim}) -%}
+    <small id="{{ id }}_help" {% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
+        {%- if translation_domain is same as(false) -%}
+        {%- if help_html is same as(false) -%}
+        <i class="fa fa-info-circle"></i>{{ help|trans }}
+        {%- else -%}
+        <i class="fa fa-info-circle"></i>{{ help|trans }}
+        {%- endif -%}
+        {%- else -%}
+        {%- if help_html is same as(false) -%}
+        <i class="fa fa-info-circle"></i>{{ help|trans({}, translation_domain) }}
+        {%- else -%}
+        <i class="fa fa-info-circle"></i>{{ help|trans }}
+        {%- endif -%}
+        {%- endif -%}
+    </small>
     {%- endif -%}
-{%- endblock form_help %}
+    {%- endblock form_help %}
 
-{# Rows #}
+    {# Rows #}
 
-{%- block repeated_row -%}
+    {%- block repeated_row -%}
     {#
     No need to render the errors here, as all errors are mapped
     to the first child (see RepeatedTypeValidatorExtension).
     #}
     {{- block('form_rows') -}}
-{%- endblock repeated_row -%}
+    {%- endblock repeated_row -%}
 
-{%- block form_row -%}
+    {%- block form_row -%}
     {%- set widget_attr = {} -%}
     {%- if help is not empty -%}
-        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
     {%- endif -%}
 
-    {%- set row_attr = row_attr|merge({'class': 'l-form__item c-field ' ~ (row_attr.class is defined ? row_attr.class : '')}) -%}
+    {# remove ws_addon custom configuration #}
+    {%- set row_attr = row_attr|
+    merge({'class': 'l-form__item c-field ' ~ (row_attr.class is defined ? row_attr.class : '')})|
+    filter((v, k) => k != 'ws-data-addon')
+    -%}
 
     <div {% with {attr: row_attr|default({})} %}{{ block('attributes') }}{% endwith %}>
         {{- form_label(form) -}}
@@ -384,294 +434,290 @@
         {{- form_errors(form) -}}
         {{- form_help(form) -}}
     </div>
-{%- endblock form_row -%}
+    {%- endblock form_row -%}
 
-{%- block button_row -%}
+    {%- block button_row -%}
     <div {% with {attr: row_attr|default({})} %}{{ block('attributes') }}{% endwith %}>
         {{- form_widget(form) -}}
     </div>
-{%- endblock button_row -%}
+    {%- endblock button_row -%}
 
-{%- block hidden_row -%}
+    {%- block hidden_row -%}
     {{ form_widget(form) }}
-{%- endblock hidden_row -%}
+    {%- endblock hidden_row -%}
 
-{# Misc #}
+    {# Misc #}
 
-{%- block form -%}
+    {%- block form -%}
     {{ form_start(form) }}
-        {{- form_widget(form) -}}
+    {{- form_widget(form) -}}
     {{ form_end(form) }}
-{%- endblock form -%}
+    {%- endblock form -%}
 
-{%- block form_start -%}
+    {%- block form_start -%}
     {%- do form.setMethodRendered() -%}
     {% set method = method|upper %}
     {%- if method in ["GET", "POST"] -%}
-        {% set form_method = method %}
+    {% set form_method = method %}
     {%- else -%}
-        {% set form_method = "POST" %}
+    {% set form_method = "POST" %}
     {%- endif -%}
-    <form{% if name != '' %} name="{{ name }}"{% endif %} method="{{ form_method|lower }}"{% if action != '' %} action="{{ action }}"{% endif %}{{ block('attributes') }}{% if multipart %} enctype="multipart/form-data"{% endif %}>
-    {%- if form_method != method -%}
+    <form{% if name !='' %} name="{{ name }}" {% endif %} method="{{ form_method|lower }}" {% if action !='' %}
+        action="{{ action }}" {% endif %}{{ block('attributes') }}{% if multipart %} enctype="multipart/form-data" {%
+        endif %}>
+        {%- if form_method != method -%}
         <input type="hidden" name="_method" value="{{ method }}" />
-    {%- endif -%}
-{%- endblock form_start -%}
+        {%- endif -%}
+        {%- endblock form_start -%}
 
-{%- block form_end -%}
-    {%- if not render_rest is defined or render_rest -%}
+        {%- block form_end -%}
+        {%- if not render_rest is defined or render_rest -%}
         {{ form_rest(form) }}
-    {%- endif -%}
-    </form>
-{%- endblock form_end -%}
+        {%- endif -%}
+        </form>
+        {%- endblock form_end -%}
 
-{%- block form_errors -%}
-    {%- if errors|length > 0 -%}
-    <ul>
-        {%- for error in errors -%}
+        {%- block form_errors -%}
+        {%- if errors|length > 0 -%}
+        <ul>
+            {%- for error in errors -%}
             <li>
                 <small class="c-field__message u-color-danger">
                     <i class="fa fa-times-circle"></i>{{ error.message }}
                 </small>
             </li>
-        {%- endfor -%}
-    </ul>
-    {%- endif -%}
-{%- endblock form_errors -%}
+            {%- endfor -%}
+        </ul>
+        {%- endif -%}
+        {%- endblock form_errors -%}
 
-{%- block form_rest -%}
-    {% for child in form -%}
+        {%- block form_rest -%}
+        {% for child in form -%}
         {% if not child.rendered %}
-            {{- form_row(child) -}}
+        {{- form_row(child) -}}
         {% endif %}
-    {%- endfor -%}
+        {%- endfor -%}
 
-    {% if not form.methodRendered and form is rootform %}
+        {% if not form.methodRendered and form is rootform %}
         {%- do form.setMethodRendered() -%}
         {% set method = method|upper %}
         {%- if method in ["GET", "POST"] -%}
-            {% set form_method = method %}
+        {% set form_method = method %}
         {%- else -%}
-            {% set form_method = "POST" %}
+        {% set form_method = "POST" %}
         {%- endif -%}
 
         {%- if form_method != method -%}
-            <input type="hidden" name="_method" value="{{ method }}" />
+        <input type="hidden" name="_method" value="{{ method }}" />
         {%- endif -%}
-    {% endif -%}
-{% endblock form_rest %}
+        {% endif -%}
+        {% endblock form_rest %}
 
-{# Support #}
+        {# Support #}
 
-{%- block form_rows -%}
-    {% for child in form|filter(child => not child.rendered) %}
+        {%- block form_rows -%}
+        {% for child in form|filter(child => not child.rendered) %}
         {{- form_row(child) -}}
-    {% endfor %}
-{%- endblock form_rows -%}
+        {% endfor %}
+        {%- endblock form_rows -%}
 
-{%- block widget_attributes -%}
-    id="{{ id }}" name="{{ full_name }}"
-    {%- if disabled %} disabled="disabled"{% endif -%}
-    {%- if required %} required="required"{% endif -%}
-    {{ block('attributes') }}
-    {{ block('ws_attributes') }}
-{%- endblock widget_attributes -%}
+        {%- block widget_attributes -%}
+        id="{{ id }}" name="{{ full_name }}"
+        {%- if disabled %} disabled="disabled"{% endif -%}
+        {%- if required %} required="required"{% endif -%}
+        {{ block('attributes') }}
+        {{ block('ws_attributes') }}
+        {%- endblock widget_attributes -%}
 
-{%- block widget_container_attributes -%}
-    {%- if id is not empty %}id="{{ id }}"{% endif -%}
-    {{ block('attributes') }}
-{%- endblock widget_container_attributes -%}
+        {%- block widget_container_attributes -%}
+        {%- if id is not empty %}id="{{ id }}"{% endif -%}
+        {{ block('attributes') }}
+        {%- endblock widget_container_attributes -%}
 
-{%- block button_attributes -%}
-    id="{{ id }}" name="{{ full_name }}"{% if disabled %} disabled="disabled"{% endif -%}
-    {{ block('attributes') }}
-{%- endblock button_attributes -%}
+        {%- block button_attributes -%}
+        id="{{ id }}" name="{{ full_name }}"{% if disabled %} disabled="disabled"{% endif -%}
+        {{ block('attributes') }}
+        {%- endblock button_attributes -%}
 
-{% block attributes -%}
-    {%- for attrname, attrvalue in attr -%}
+        {% block attributes -%}
+        {%- for attrname, attrvalue in attr -%}
         {{- " " -}}
         {%- if attrname in ['placeholder', 'title'] -%}
-            {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans(attr_translation_parameters, translation_domain) }}"
+        {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue :
+        attrvalue|trans(attr_translation_parameters, translation_domain) }}"
         {%- elseif attrvalue is same as(true) -%}
-            {{- attrname }}="{{ attrname }}"
+        {{- attrname }}="{{ attrname }}"
         {%- elseif attrvalue is not same as(false) -%}
-            {{- attrname }}="{{ attrvalue }}"
+        {{- attrname }}="{{ attrvalue }}"
         {%- endif -%}
-    {%- endfor -%}
-{%- endblock attributes -%}
-
-{# WS #}
-{% block ws_attributes -%}
-    {%- if ws_attr is defined -%}
-        {%- for attrname, attrvalue in ws_attr -%}
-            {{- " " -}}
-            {%- if attrname in ['placeholder', 'title'] -%}
-                {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue : attrvalue|trans(attr_translation_parameters, translation_domain) }}"
-            {%- elseif attrvalue is same as(true) -%}
-                {{- attrname }}="{{ attrname }}"
-            {%- elseif attrvalue is not same as(false) -%}
-                {{- attrname }}="{{ attrvalue }}"
-            {%- endif -%}
         {%- endfor -%}
-    {%- endif-%}
-{%- endblock ws_attributes -%}
+        {%- endblock attributes -%}
 
-{%- block ws_asset_file_widget -%}
-    <div class="c-asset-upload" data-id="{{ id }}">
-        {# input to indicate if we are gonna to delete the asset image #}
-        {{ form_widget(form.children.asset_remove) }}
+        {# WS #}
+        {% block ws_attributes -%}
+        {%- if ws_attr is defined -%}
+        {%- for attrname, attrvalue in ws_attr -%}
+        {{- " " -}}
+        {%- if attrname in ['placeholder', 'title'] -%}
+        {{- attrname }}="{{ translation_domain is same as(false) ? attrvalue :
+        attrvalue|trans(attr_translation_parameters, translation_domain) }}"
+        {%- elseif attrvalue is same as(true) -%}
+        {{- attrname }}="{{ attrname }}"
+        {%- elseif attrvalue is not same as(false) -%}
+        {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
+        {%- endfor -%}
+        {%- endif-%}
+        {%- endblock ws_attributes -%}
 
-        <div class="c-asset-upload__wrapper">
-            {% if form.children.asset_file.vars.data != null %}
+        {%- block ws_asset_file_widget -%}
+        <div class="c-asset-upload" data-id="{{ id }}">
+            {# input to indicate if we are gonna to delete the asset image #}
+            {{ form_widget(form.children.asset_remove) }}
+
+            <div class="c-asset-upload__wrapper">
+                {% if form.children.asset_file.vars.data != null %}
                 <span class="c-asset-upload__asset" data-id="{{ id }}_link">
                     {% if form.vars.ws.render is defined %}
-                        {{ ws_cms_crud_filter(
-                            form.vars.ws.render.filter,
-                            form.vars.ws.render.options|default([]),
-                            form.children.asset_file.vars.data)
-                        }}
+                    {{ ws_cms_crud_filter(
+                    form.vars.ws.render.filter,
+                    form.vars.ws.render.options|default([]),
+                    form.children.asset_file.vars.data)
+                    }}
                     {% endif %}
                     {{ form.children.asset_file.vars.data.filename }}
                 </span>
-            {% endif %}
-            <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}" data-id-asset-component="{{ id }}">
-                {# show file input field #}
-                {{ form_widget(form.children.asset) }}
-                {{ form_errors(form.children.asset) }}
-            </div>
-            {% if form.children.asset_file.vars.data != null %}
+                {% endif %}
+                <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}"
+                    data-id-asset-component="{{ id }}">
+                    {# show file input field #}
+                    {{ form_widget(form.children.asset) }}
+                    {{ form_errors(form.children.asset) }}
+                </div>
+                {% if form.children.asset_file.vars.data != null %}
                 <div class="c-btn-upload-image-container">
-                    <button
-                        class="c-btn c-btn--secondary c-btn--upload-image js-delete-asset"
-                        type="button"
+                    <button class="c-btn c-btn--secondary c-btn--upload-image js-delete-asset" type="button"
                         data-id-asset-component="{{ id }}">
                         {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
                     </button>
-                    <button
-                        class="c-btn c-btn--secondary js-delete-asset"
-                        type="button"
+                    <button class="c-btn c-btn--secondary js-delete-asset" type="button"
                         data-id-asset-component="{{ id }}">
                         <i class="fal fa-trash-alt"></i>
                     </button>
                 </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
-    </div>
-{%- endblock ws_asset_file_widget -%}
+        {%- endblock ws_asset_file_widget -%}
 
-{%- block ws_asset_image_widget -%}
-    {# show image thumbnail if exists #}
-    <div class="c-img-upload u-mb-20" data-id="{{ id }}">
-        <div class="c-img-upload__wrapper-img">
-            <figure
-                class="c-img-upload__figure js-open-modal js-not-on-preview }}"
-                data-id-asset-component="{{ form.children.asset.vars.id }}"
-            />
+        {%- block ws_asset_image_widget -%}
+        {# show image thumbnail if exists #}
+        <div class="c-img-upload u-mb-20" data-id="{{ id }}">
+            <div class="c-img-upload__wrapper-img">
+                <figure class="c-img-upload__figure js-open-modal js-not-on-preview }}"
+                    data-id-asset-component="{{ form.children.asset.vars.id }}" />
                 {% if form.children.asset_image.vars.data == null %}
-                    <i class="c-img-upload__figure-img fal fa-cloud-upload"></i>
+                <i class="c-img-upload__figure-img fal fa-cloud-upload"></i>
                 {% endif %}
                 {% if form.children.asset_image.vars.data != null %}
-                    <img
-                        class="c-img-upload__img"
-                        src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', '300x300') }}">
+                <img class="c-img-upload__img"
+                    src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', '300x300') }}">
                 {% endif %}
-            </figure>
+                </figure>
+            </div>
         </div>
-    </div>
-    <div class="c-btn-upload-image-container {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
-        <button
-            class="c-btn c-btn--secondary c-btn--upload-image js-open-modal"
-            type="button"
+        <div class="c-btn-upload-image-container {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
+            <button class="c-btn c-btn--secondary c-btn--upload-image js-open-modal" type="button"
+                data-id-asset-component="{{ form.children.asset.vars.id }}">
+                {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
+            </button>
+            <button class="c-btn c-btn--secondary js-delete-asset-image" type="button"
+                data-id-asset-component="{{ id }}">
+                <i class="fal fa-trash-alt"></i>
+            </button>
+        </div>
+
+        {# show file input field #}
+        {{ form_widget(form.children.asset) }}
+
+        <button type="button"
+            class="c-btn c-btn--brand c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
             data-id-asset-component="{{ form.children.asset.vars.id }}">
-            {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
+            {{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}
         </button>
-        <button
-            class="c-btn c-btn--secondary js-delete-asset-image"
-            type="button"
-            data-id-asset-component="{{ id }}">
-            <i class="fal fa-trash-alt"></i>
-        </button>
-    </div>
 
-    {# show file input field #}
-    {{ form_widget(form.children.asset) }}
-
-    <button
-        type="button"
-        class="c-btn c-btn--brand c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
-        data-id-asset-component="{{ form.children.asset.vars.id }}">
-        {{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}
-    </button>
-
-    {# show aspect ratios and minimums #}
-    {% for cropper in form.children.cropper %}
+        {# show aspect ratios and minimums #}
+        {% for cropper in form.children.cropper %}
         {{ form_widget(cropper) }}
-    {% endfor %}
+        {% endfor %}
 
-    {# input to indicate if we are gonna to delete the asset image #}
-    {{ form_widget(form.children.asset_remove) }}
+        {# input to indicate if we are gonna to delete the asset image #}
+        {{ form_widget(form.children.asset_remove) }}
 
-    {# show cropper modal #}
-    <div class="ws-cropper_modal" data-id="{{ form.children.asset.vars.id }}" style="display:none" data-cropp-index="0">
-        <div class="ws-cropper_container">
-            <div class="ws-cropper_crop u-mb-40">
-                <img>
-            </div>
-            <div class="ws-cropper_aside u-mb-20">
-                <div class="ws-cropper_preview_wrapper u-mr-30">
-                    <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_preview'|trans({}, 'ws_cms') }}</h4>
-                    <div class="ws-cropper_preview"></div>
+        {# show cropper modal #}
+        <div class="ws-cropper_modal" data-id="{{ form.children.asset.vars.id }}" style="display:none"
+            data-cropp-index="0">
+            <div class="ws-cropper_container">
+                <div class="ws-cropper_crop u-mb-40">
+                    <img>
                 </div>
-                <div class="ws-cropper_detail_wrapper">
-                    <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_title'|trans({}, 'ws_cms') }}:</h4>
-                    <table class="c-table c-table--fixed u-text-center u-border-right-zero u-border-left-zero u-mb-20">
-                        <thead class="c-table__head">
-                            <tr>
-                                <th
-                                    class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_ratio">
-                                </th>
-                                <th
-                                    class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_min_w">
-                                </th>
-                                <th
-                                    class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_min_h">
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
-                                    {{ 'cropper_ratio'|trans({}, 'ws_cms') }}
-                                </td>
-                                <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
-                                    {{ 'cropper_width'|trans({}, 'ws_cms') }}
-                                </td>
-                                <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
-                                    {{ 'cropper_height'|trans({}, 'ws_cms') }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h6 class="u-h6 u-font-medium u-mb-10">{{ 'cropper_obs'|trans({}, 'ws_cms') }}</h6>
-                    <p class="ws-cropper_details_obs"></p>
+                <div class="ws-cropper_aside u-mb-20">
+                    <div class="ws-cropper_preview_wrapper u-mr-30">
+                        <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_preview'|trans({}, 'ws_cms') }}</h4>
+                        <div class="ws-cropper_preview"></div>
+                    </div>
+                    <div class="ws-cropper_detail_wrapper">
+                        <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_title'|trans({}, 'ws_cms') }}:</h4>
+                        <table
+                            class="c-table c-table--fixed u-text-center u-border-right-zero u-border-left-zero u-mb-20">
+                            <thead class="c-table__head">
+                                <tr>
+                                    <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_ratio">
+                                    </th>
+                                    <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_min_w">
+                                    </th>
+                                    <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_min_h">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
+                                        {{ 'cropper_ratio'|trans({}, 'ws_cms') }}
+                                    </td>
+                                    <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
+                                        {{ 'cropper_width'|trans({}, 'ws_cms') }}
+                                    </td>
+                                    <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
+                                        {{ 'cropper_height'|trans({}, 'ws_cms') }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h6 class="u-h6 u-font-medium u-mb-10">{{ 'cropper_obs'|trans({}, 'ws_cms') }}</h6>
+                        <p class="ws-cropper_details_obs"></p>
+                    </div>
                 </div>
-            </div>
-            <div class="ws-cropper_actions">
-                <div class="c-divider u-mv-small"></div>
-                <button class="c-btn c-btn--success c-btn--no-transition ws-cropper_confirm ws-cropper_next u-mr-5" data-id="{{ form.children.asset.vars.id }}">
-                    {{ 'next'|trans({}, 'ws_cms') }}
-                </button>
-                <button class="c-btn c-btn--info c-btn--no-transition ws-cropper_confirm ws-cropper_save u-mr-5" data-id="{{ form.children.asset.vars.id }}">
-                    {{ 'confirm'|trans({}, 'ws_cms') }}
-                </button>
-                <button class="c-btn c-btn--cancel c-btn--no-transition ws-cropper_cancel" data-id="{{ form.children.asset.vars.id }}">
-                    {{ 'cancel'|trans({}, 'ws_cms') }}
-                </button>
+                <div class="ws-cropper_actions">
+                    <div class="c-divider u-mv-small"></div>
+                    <button class="c-btn c-btn--success c-btn--no-transition ws-cropper_confirm ws-cropper_next u-mr-5"
+                        data-id="{{ form.children.asset.vars.id }}">
+                        {{ 'next'|trans({}, 'ws_cms') }}
+                    </button>
+                    <button class="c-btn c-btn--info c-btn--no-transition ws-cropper_confirm ws-cropper_save u-mr-5"
+                        data-id="{{ form.children.asset.vars.id }}">
+                        {{ 'confirm'|trans({}, 'ws_cms') }}
+                    </button>
+                    <button class="c-btn c-btn--cancel c-btn--no-transition ws-cropper_cancel"
+                        data-id="{{ form.children.asset.vars.id }}">
+                        {{ 'cancel'|trans({}, 'ws_cms') }}
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    {% if form.vars.ws.display_mode == constant('WS\\Core\\Library\\Asset\\Form\\AssetImageType::ASSET_IMAGE_DISPLAY_MODE_LIST') %}
+        {% if form.vars.ws.display_mode ==
+        constant('WS\\Core\\Library\\Asset\\Form\\AssetImageType::ASSET_IMAGE_DISPLAY_MODE_LIST') %}
 
         {# show hidden input field to save crop data #}
         {{ form_widget(form.children.asset_data) }}
@@ -694,14 +740,8 @@
                                     {{ source('@WSCore/cms/icons/search.svg') }}
                                 </span>
                                 <label class="u-hidden-visually" for="navbar-search">Seach</label>
-                                <input
-                                    class="c-input c-input--small js-search-input"
-                                    autocomplete="off"
-                                    name="f"
-                                    placeholder="Search"
-                                    type="text"
-                                    value=""
-                                >
+                                <input class="c-input c-input--small js-search-input" autocomplete="off" name="f"
+                                    placeholder="Search" type="text" value="">
                             </div>
                             <button type="submit" class="c-btn c-btn--info c-btn--no-transition js-search-submit">
                                 <i class="fa fa-search u-mr-xsmall"></i>
@@ -723,10 +763,12 @@
                 </div>
 
                 <div class="c-img-modal__alert-wrapper">
-                    <div class="c-img-modal__alert c-alert js-cropper-msg-{{ form.children.asset.vars.id }} u-hidden"></div>
+                    <div class="c-img-modal__alert c-alert js-cropper-msg-{{ form.children.asset.vars.id }} u-hidden">
+                    </div>
                 </div>
 
-                <div class="c-img-modal__list js-img-selector-images-list" data-id="{{ form.children.asset.vars.id }}" data-next-page="2">
+                <div class="c-img-modal__list js-img-selector-images-list" data-id="{{ form.children.asset.vars.id }}"
+                    data-next-page="2">
                 </div>
             </div>
         </div>
@@ -734,98 +776,85 @@
         <figure class="c-img-modal__figure js-image-item #extra-class" data-id="{{ form.children.asset.vars.id }}">
             <button
                 class="c-btn c-btn--secondary c-btn--small c-btn--no-transition c-btn--delete-image js-list-image-delete"
-                data-image-id="#image-id"
-                data-path="{{ path('ws_asset_image_soft_delete') }}"
-                type="button">
-                    <i class="fal fa-trash-alt"></i>
+                data-image-id="#image-id" data-path="{{ path('ws_asset_image_soft_delete') }}" type="button">
+                <i class="fal fa-trash-alt"></i>
             </button>
             <div class="c-img-modal__img-actions">
-                <button
-                    class="c-btn c-btn--info c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"
-                    data-image-id="#image-id"
-                    data-image-url="#image-thumb"
-                    data-image-original="#image-original"
+                <button class="c-btn c-btn--info c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"
+                    data-image-id="#image-id" data-image-url="#image-thumb" data-image-original="#image-original"
                     type="button">
-                        {{ 'assets_image.image_list.use'|trans({}, 'ws_cms') }}
+                    {{ 'assets_image.image_list.use'|trans({}, 'ws_cms') }}
                 </button>
-                <button
-                    class="c-btn c-btn--secondary c-btn--small c-btn--no-transition js-list-image-crop"
-                    data-id="#id"
-                    data-image-id="#image-id"
-                    data-image-url="#image-original"
-                    type="button">
-                        {{ 'assets_image.image_list.crop'|trans({}, 'ws_cms') }}
+                <button class="c-btn c-btn--secondary c-btn--small c-btn--no-transition js-list-image-crop"
+                    data-id="#id" data-image-id="#image-id" data-image-url="#image-original" type="button">
+                    {{ 'assets_image.image_list.crop'|trans({}, 'ws_cms') }}
                 </button>
             </div>
-            <img
-                    id="#image-id"
-                    alt="#image-alt"
-                    class="c-img-modal__img lazy_loaded js-image"
-                    data-a-lazy
-                    data-src="#image-thumb"
-                    data-image="#image-original"/>
+            <img id="#image-id" alt="#image-alt" class="c-img-modal__img lazy_loaded js-image" data-a-lazy
+                data-src="#image-thumb" data-image="#image-original" />
         </figure>
-    {% endif %}
+        {% endif %}
 
-{%- endblock -%}
+        {%- endblock -%}
 
-{%- block ws_switch_widget -%}
-    <label class="col-sm-2 col-form-label">{{ label|trans }}</label>
-    <div class="col-sm-10">
-        <label class="custom-switch job-form__check col-12">
-            <input type="checkbox" class="custom-switch__input" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %} {% if checked %} checked="checked"{% endif %} />
-            <span class="custom-switch__checkmark"></span>
-        </label>
-    </div>
-{%- endblock ws_switch_widget -%}
-
-{%- block ws_color_picker_widget -%}
-    <label class="col-sm-2 col-form-label">{{ label|trans }}</label>
-    <div class="col-sm-10">
-        <span class="color-picker" data-component="ws_color-picker"{% if value is not empty %} data-value="{{ value }}" {% endif %}></span>
-    </div>
-{%- endblock ws_color_picker_widget -%}
-
-{%- block ws_progress_bar -%}
-    <div class="col-sm-10">
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-warning" style="width: {{ value is defined ? value : 0 }}" role="progressbar" aria-valuenow="{{ value is defined ? value : 0 }}" aria-valuemin="0" aria-valuemax="100"></div>
+        {%- block ws_switch_widget -%}
+        <label class="col-sm-2 col-form-label">{{ label|trans }}</label>
+        <div class="col-sm-10">
+            <label class="custom-switch job-form__check col-12">
+                <input type="checkbox" class="custom-switch__input" {{ block('widget_attributes') }}{% if value is
+                    defined %} value="{{ value }}" {% endif %} {% if checked %} checked="checked" {% endif %} />
+                <span class="custom-switch__checkmark"></span>
+            </label>
         </div>
-    </div>
-{%- endblock ws_progress_bar -%}
+        {%- endblock ws_switch_widget -%}
 
-{%- block ws_range_slider_widget -%}
-    <div class="col-sm-10">
-        <input type="range" data-component="ws_range-slider" data-min="0" data-max="100" data-step="1" {% if value is defined %} value="{{ value }}"{% endif %}/>
-    </div>
-{%- endblock ws_range_slider_widget -%}
+        {%- block ws_color_picker_widget -%}
+        <label class="col-sm-2 col-form-label">{{ label|trans }}</label>
+        <div class="col-sm-10">
+            <span class="color-picker" data-component="ws_color-picker" {% if value is not empty %}
+                data-value="{{ value }}" {% endif %}></span>
+        </div>
+        {%- endblock ws_color_picker_widget -%}
 
-{%- block ws_widget_class -%}
-    {%- if attr['class'] is defined -%}{{ attr['class'] }}{%- endif -%}
-{%- endblock ws_widget_class -%}
+        {%- block ws_progress_bar -%}
+        <div class="col-sm-10">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-warning"
+                    style="width: {{ value is defined ? value : 0 }}" role="progressbar"
+                    aria-valuenow="{{ value is defined ? value : 0 }}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+        {%- endblock ws_progress_bar -%}
 
-{%- block ws_toggle_choice -%}
-    {%- set attr = attr|merge({'class': 'js-toggle c-toggle ' ~ (attr.class is defined ? attr.class : '')}) -%}
+        {%- block ws_range_slider_widget -%}
+        <div class="col-sm-10">
+            <input type="range" data-component="ws_range-slider" data-min="0" data-max="100" data-step="1" {% if value
+                is defined %} value="{{ value }}" {% endif %} />
+        </div>
+        {%- endblock ws_range_slider_widget -%}
 
-    <div {% with {attr: attr|default({})} %}{{ block('attributes') }}{% endwith %} data-component="ws_toggle_choice">
-        {% for choice in choices %}
+        {%- block ws_widget_class -%}
+        {%- if attr['class'] is defined -%}{{ attr['class'] }}{%- endif -%}
+        {%- endblock ws_widget_class -%}
+
+        {%- block ws_toggle_choice -%}
+        {%- set attr = attr|merge({'class': 'js-toggle c-toggle ' ~ (attr.class is defined ? attr.class : '')}) -%}
+
+        <div {% with {attr: attr|default({})} %}{{ block('attributes') }}{% endwith %}
+            data-component="ws_toggle_choice">
+            {% for choice in choices %}
             <div class="c-toggle__btn js-toggle-btn {{ choice is selectedchoice(value) ? 'is-active' }}">
                 <label class="c-toggle__label" for={{ "#{id}#{loop.index}" }}>
-                    <input
-                        id="{{ "#{id}#{loop.index}" }}"
-                        class="c-toggle__input js-toggle-input"
-                        name="{{ full_name }}"
-                        type="radio"
-                        value="{{ choice.value }}"
-                        {{ choice is selectedchoice(value) ? 'checked' }}
-                    >
-                        {% if choice_translation_domain is same as(false) %}
-                            {{ choice.label }}
-                        {% else %}
-                            {{ choice.label|trans({}, choice_translation_domain) }}
-                        {% endif %}
+                    <input id="{{ " #{id}#{loop.index}" }}" class="c-toggle__input js-toggle-input"
+                        name="{{ full_name }}" type="radio" value="{{ choice.value }}" {{ choice is
+                        selectedchoice(value) ? 'checked' }}>
+                    {% if choice_translation_domain is same as(false) %}
+                    {{ choice.label }}
+                    {% else %}
+                    {{ choice.label|trans({}, choice_translation_domain) }}
+                    {% endif %}
                 </label>
             </div>
-        {% endfor %}
-    </div>
-{%- endblock ws_toggle_choice -%}
+            {% endfor %}
+        </div>
+        {%- endblock ws_toggle_choice -%}
