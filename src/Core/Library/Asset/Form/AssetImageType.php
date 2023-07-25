@@ -114,7 +114,8 @@ class AssetImageType extends AbstractType
         $view->vars = array_replace($view->vars, [
             'ws' => [
                 'entity' => $options['ws']['entity'],
-                'display_mode' => $options['ws']['display-mode']
+                'display_mode' => $options['ws']['display-mode'],
+                'thumb_size' => $options['ws']['thumb-size'] ?? '300x300'
             ],
             'type' => 'ws-asset-image',
         ]);
