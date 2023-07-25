@@ -57,6 +57,7 @@ class AssetImageType extends AbstractType
                 'data-ratios' => json_encode($aspectRatiosFractions),
                 'data-minimums' => json_encode($minimums),
                 'data-display-mode' => $options['ws']['display-mode'],
+                'thumb_size' => $options['ws']['thumb-size'] ?? '300x300',
                 'data-is-visible' => 'false'
             ],
         ]);
