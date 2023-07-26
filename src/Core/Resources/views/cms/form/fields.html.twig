@@ -620,8 +620,9 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                 <i class="c-img-upload__figure-img fal fa-cloud-upload"></i>
                 {% endif %}
                 {% if form.children.asset_image.vars.data != null %}
-                <img class="c-img-upload__img"
-                    src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
+                    <img
+                        class="c-img-upload__img"
+                        src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
                 {% endif %}
                 </figure>
             </div>

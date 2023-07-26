@@ -21,7 +21,6 @@ class AssetImageType extends AbstractType
 {
     public const ASSET_IMAGE_DISPLAY_MODE_LIST = 'list';
     public const ASSET_IMAGE_DISPLAY_MODE_CROP = 'crop';
-
     public const ASSET_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     public const ASSET_IMAGE_MAX_SIZE = '25M';
     public const ASSET_IMAGE_DEFAULT_THUMB_SIZE = '300x300';

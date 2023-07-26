@@ -1,0 +1,49 @@
+<title>{{ metas.title|striptags }}</title>
+<meta name="title" content="{{ metas.title }}" />
+<meta name="description" content="{{ metas.description }}" />
+<meta name="keywords" content="{{ metas.keywords }}" />
+
+<meta property="og:locale" content="{{ app.request.locale }}">
+<meta property="og:title" content="{{ metas.og_title }}" />
+<meta property="og:description" content="{{ metas.description }}" />
+<meta property="og:url" content="{{ app.request.uri|raw }}" />
+
+{% if metas.og_image %}
+    <meta property="og:image" content="{{ absolute_url(metas.og_image)|raw }}">
+
+    {% if metas.og_image_type %}
+        <meta property="og:image:type" content="{{ metas.og_image_type|raw }}">
+    {% endif %}
+
+    {% if metas.og_image_width %}
+        <meta property="og:image:width" content="{{ metas.og_image_width|raw }}">
+    {% endif %}
+
+    {% if metas.og_image_height %}
+        <meta property="og:image:height" content="{{ metas.og_image_height|raw }}">
+    {% endif %}
+{% endif %}
+
+{% if metas.og_type %}
+    <meta property="og:type" content="{{ metas. og_type|raw }}">
+{% endif %}
+
+{% if metas.og_video %}
+    <meta property="og:video" content="{{ absolute_url(metas.og_video)|raw }}">
+
+    {% if og_video_type %}
+        <meta property="og:video:type" content="{{ metas.og_video_type|raw }}" />
+    {% endif %}
+
+    {% if metas.og_video_width %}
+        <meta property="og:video:width" content="{{ metas.og_video_width }}" />
+    {% endif %}
+
+    {% if metas.og_video_height %}
+        <meta property="og:video:height" content="{{ metas.og_video_height }}" />
+    {% endif %}
+{% endif %}
+
+{% for tag, value in custom %}
+    <meta name="{{ tag|raw }}" content="{{ value|raw }}" />
+{% endfor %}
