@@ -100,6 +100,10 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
     {%- set options = choices -%}
     {{- block('choice_widget_options') -}}
     </select>
+
+    {%- if form.vars.type|default('') == 'ws-extended-entity' -%}
+        {{- block('ws_extended_entity') -}}
+    {%- endif -%}
     {%- endblock choice_widget_collapsed -%}
 
     {%- block choice_widget_options -%}
@@ -620,9 +624,8 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                 <i class="c-img-upload__figure-img fal fa-cloud-upload"></i>
                 {% endif %}
                 {% if form.children.asset_image.vars.data != null %}
-                    <img
-                        class="c-img-upload__img"
-                        src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
+                <img class="c-img-upload__img"
+                    src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
                 {% endif %}
                 </figure>
             </div>
@@ -859,3 +862,10 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
             {% endfor %}
         </div>
         {%- endblock ws_toggle_choice -%}
+
+        {%- block ws_extended_entity -%}
+        <button type="button" class="choices_add c-btn c-btn--brand c-btn--small" data-component="ws_extended_entity" data-entity-name="form.vars.class" data-modal-url="{{ path('ws_extended_entity_modal', { entityName: form.vars.class }) }}">
+            <i class="fa fa-plus u-mr-10" aria-hidden="true"></i>
+        </button>
+        <div class="choices_add_modal js_choices_add_modal"></div>
+        {%- endblock ws_extended_entity -%}

@@ -1,0 +1,30 @@
+.choices:has(+ .choices_add) {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+
+    .choices__inner {
+        flex-basis: 90%;
+
+        .choices__button {
+            right: 10%;
+        }
+    }
+
+    &:after {
+        right: calc(10% + 11.5px);
+    }
+}
+
+.choices_add {
+    width: 6%;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    padding: 0 2%;
+    height: 42%;
+}
+
+.choices_add_modal {
+
+}
