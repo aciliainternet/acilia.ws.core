@@ -100,6 +100,11 @@ publishing.publishSince.placeholder: Publish Since
 publishing.publishUntil.label: Publish Until
 publishing.publishUntil.placeholder: Publish Until
 
+# Metadata
+metadata.metadataTitle.label: Metadata Title
+metadata.metadataDescription.label: Metadata Description
+metadata.metadataKeywords.label: Metadata Keywords
+
 # Batch actions
 batch_action.confirm_message: This action will be applied to every item selected. Do you want to continue?
 batch_action.confirm_button_label: Continue
