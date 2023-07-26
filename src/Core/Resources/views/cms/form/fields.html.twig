@@ -566,7 +566,7 @@
                 {% if form.children.asset_image.vars.data != null %}
                     <img
                         class="c-img-upload__img"
-                        src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', '300x300') }}">
+                        src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
                 {% endif %}
             </figure>
         </div>
