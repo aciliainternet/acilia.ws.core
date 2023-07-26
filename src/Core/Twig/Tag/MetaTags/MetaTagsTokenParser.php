@@ -2,12 +2,13 @@
 
 namespace WS\Core\Twig\Tag\MetaTags;
 
+use Twig\Node\Node;
 use Twig\TokenParser\AbstractTokenParser;
 use Twig\Token;
 
 class MetaTagsTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token)
+    public function parse(Token $token): Node
     {
         $parser = $this->parser;
         $stream = $parser->getStream();
@@ -18,7 +19,7 @@ class MetaTagsTokenParser extends AbstractTokenParser
         return new MetaTagsNode('metatags_configuration', $value, $token->getLine(), $this->getTag());
     }
 
-    public function getTag()
+    public function getTag(): string
     {
         return 'metatags_configuration';
     }
