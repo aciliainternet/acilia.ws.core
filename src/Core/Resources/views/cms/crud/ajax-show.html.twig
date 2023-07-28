@@ -1,0 +1,34 @@
+{% block content %}
+
+    <div class="container">
+        <div class="c-form" {% block crud_show_form_attributes %}{% endblock crud_show_form_attributes %}>
+    {{ form_start(form) }}
+
+            {% block crud_show_title %}
+                <div class="u-flex u-mr-auto">
+                    <h2 class="c-form__title u-h2 u-mb-30">{{ 'ajax-title'|trans({}, trans_prefix) }}</h2>
+                </div>
+            {% endblock %}
+
+            {% if form.saveAndBack is defined %}
+                {% set saveAndBackField = form_widget(form.saveAndBack) %}
+            {% endif %}
+
+            {% block crud_show_content %}
+                {{ form_widget(form) }}
+            {% endblock %}
+
+            <div class="c-divider u-mv-small"></div>
+
+            {% block crud_show_action %}
+                <div>
+                    <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                    <button type="cancel" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</button>
+                </div>
+            {% endblock %}
+
+    {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+
+{% endblock %}

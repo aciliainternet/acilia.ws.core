@@ -1,4 +1,4 @@
-.choices:has(+ .choices_add) {
+.choices:has(+ .ws-entity-type-add-trigger) {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -16,7 +16,7 @@
     }
 }
 
-.choices_add {
+.ws-entity-type-add-trigger {
     width: 6%;
     position: absolute;
     right: 0;
@@ -25,6 +25,6 @@
     height: 42%;
 }
 
-.choices_add_modal {
+.ws-entity-type-modal {
 
 }

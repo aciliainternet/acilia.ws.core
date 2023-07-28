@@ -6,11 +6,13 @@ trait TemplateTrait
 {
     protected function useCRUDTemplate(string $template): bool
     {
-        if ($template === 'index.html.twig') {
-            return true;
-        }
+        $crudTemplates = [
+            'index.html.twig',
+            'show.html.twig',
+            'ajax-show.html.twig'
+        ];
 
-        if ($template === 'show.html.twig') {
+        if (in_array($template, $crudTemplates)) {
             return true;
         }
 

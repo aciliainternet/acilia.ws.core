@@ -270,6 +270,78 @@ abstract class AbstractController extends BaseController
         );
     }
 
+    #[Route(path: '/ajax_create', name: 'ajax_create')]
+    public function _ajaxCreate(Request $request): Response
+    {
+        $this->denyAccessUnlessAllowed('create');
+
+        // Create new Entity
+        $entity = $this->createEntity();
+        if ($entity === null) {
+            throw new BadRequestHttpException($this->trans('bad_request', [], 'ws_cms'));
+        }
+
+        // Create entity Form
+        $form = $this->createEntityForm($entity);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $this->handleImages($form, $entity);
+            if ($form->isValid()) {
+                try {
+                    $this->getService()->create($entity);
+
+                    $this->handleImages($form, $entity);
+
+                    $this->handleFiles($form, $entity);
+
+                    $this->addFlash('cms_success', $this->trans('create_success', [], $this->getTranslatorPrefix()));
+
+                    if ($form->has('saveAndBack')) {
+                        $submitButton = $form->get('saveAndBack');
+                        if ($submitButton instanceof SubmitButton && $submitButton->isClicked()) {
+                            if ($form->has('referer')) {
+                                return $this->redirect(\strval($form->get('referer')->getData()));
+                            }
+
+                            return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                        }
+                    }
+
+                    if ($this->isGranted($this->calculateRole($this->getService()->getEntityClass(), 'edit'))) {
+                        return $this->redirect(
+                            $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', [
+                                'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
+                            ])
+                        );
+                    } else {
+                        return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
+                    }
+                } catch (\Exception) {
+                    $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
+                }
+            } else {
+                $this->addFlash('cms_error', $this->getFormErrorMessagesList($form));
+            }
+        }
+
+        // Add data to the view
+        $extraData = $this->createExtraData();
+
+        return $this->render(
+            $this->getTemplate('ajax-show.html.twig'),
+            array_merge(
+                [
+                    'form' => $form->createView(),
+                    'isCreate' => true,
+                    'trans_prefix' => $this->getTranslatorPrefix(),
+                    'route_prefix' => $this->getRouteNamePrefix(),
+                ],
+                $extraData
+            )
+        );
+    }
+
     #[Route(path: '/edit/{id}', name: 'edit')]
     public function edit(Request $request, int $id): Response
     {
