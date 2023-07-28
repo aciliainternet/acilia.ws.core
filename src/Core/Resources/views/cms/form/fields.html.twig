@@ -424,7 +424,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
 
     {# remove ws_addon custom configuration #}
     {%- set row_attr = row_attr|
-    merge({'class': 'l-form__item c-field ' ~ (row_attr.class is defined ? row_attr.class : '')})|
+    merge({'class': 'c-field l-form__item ' ~ (row_attr.class is defined ? row_attr.class : '')})|
     filter((v, k) => k != 'ws-data-addon')
     -%}
 

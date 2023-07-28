@@ -19,7 +19,7 @@
     {{ form_start(form) }}
 
     <div class="container">
-        <div class="c-form" {% block crud_show_form_attributes %}{% endblock crud_show_form_attributes %}>
+        <div class="{% block crud_show_form_class %}c-form{% endblock crud_show_form_class %}" {% block crud_show_form_attributes %}{% endblock crud_show_form_attributes %}>
 
             {% block crud_show_title %}
                 <div class="u-flex u-mr-auto">
