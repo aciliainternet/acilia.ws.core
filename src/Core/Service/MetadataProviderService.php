@@ -2,7 +2,7 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\DependencyInjection\Argument\ServiceLocator;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
 use WS\Core\Library\Metadata\MetadataProviderInterface;
 
