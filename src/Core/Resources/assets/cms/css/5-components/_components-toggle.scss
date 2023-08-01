@@ -79,8 +79,8 @@
             color: $toggle-btn-active-color;
 
             #{ $self }__label {
-                color: $color-info;
-                font-weight: $font-weight-semibold;
+                color: var(--color-info);
+                font-weight: var(--font-weight-semibold);
             }
         }
     }

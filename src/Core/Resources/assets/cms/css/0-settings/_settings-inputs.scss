@@ -5,34 +5,34 @@
 //   #INPUTS
 //   ======================================================================== */
 
-$input-padding: rem(14.5) rem(15) !default;
-$input-focus-color: $gunmetal-200 !default;
+$input-padding: .906rem .938rem !default;
+$input-focus-color: var(--gunmetal-200) !default;
 
-$input-border-color: $grey-400 !default;
-$input-focus-border-color: $color-info !default;
-$input-border-width: $base-border-width !default;
-$input-border-radius: $base-border-radius !default;
+$input-border-color: var(--grey-400) !default;
+$input-focus-border-color: var(--color-info) !default;
+$input-border-width: var(--base-border-width) !default;
+$input-border-radius: var(--base-border-radius) !default;
 
-$input-font-weight: $font-weight-normal !default;
-$input-font-size: $text-font-size !default;
+$input-font-weight: var(--font-weight-normal) !default;
+$input-font-size: var(--text-font-size) !default;
 
-$input-placeholder-color: rgba($gunmetal-200, .8) !default;
-$input-placeholder-font-weight: $font-weight-normal !default;
+$input-placeholder-color: rgba(var(--gunmetal-200), .8) !default;
+$input-placeholder-font-weight: var(--font-weight-normal) !default;
 
-$input-background-color: $white !default;
-$input-disabled-background-color: $grey-300 !default;
-$input-disabled-border-color: $grey-400 !default;
-$input-disabled-color: rgba($gunmetal-200, .5) !default;
+$input-background-color: var(--white) !default;
+$input-disabled-background-color: var(--grey-300) !default;
+$input-disabled-border-color: var(--grey-400) !default;
+$input-disabled-color: rgba(var(--gunmetal-200), .5) !default;
 
-$textarea-font-weight: $font-weight-normal !default;
-$textarea-font-size: $text-font-size !default;
+$textarea-font-weight: var(--font-weight-normal) !default;
+$textarea-font-size: var(--text-font-size) !default;
 
 // Different states: success, error
-$input-success-border-color: $color-success !default;
-$input-success-color: $color-success !default;
+$input-success-border-color: var(--color-success) !default;
+$input-success-color: var(--color-success) !default;
 
-$input-warning-border-color: $color-warning !default;
-$input-warning-color: $color-warning !default;
+$input-warning-border-color: var(--color-warning) !default;
+$input-warning-color: var(--color-warning) !default;
 
-$input-danger-border-color: $color-danger !default;
-$input-danger-color: $color-danger !default;
+$input-danger-border-color: var(--color-danger) !default;
+$input-danger-color: var(--color-danger) !default;

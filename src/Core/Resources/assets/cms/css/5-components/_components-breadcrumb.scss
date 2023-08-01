@@ -22,13 +22,13 @@
 .c-breadcrumb__item {
     display: inline-block;
     color: $breadcrumb-item-color;
-    font-size: rem(13);
-    line-height: rem(13);
+    font-size: .813rem;
+    line-height: .813rem;
 
     > a {
         color: inherit;
-        font-size: rem(13);
-        line-height: rem(13);
+        font-size: .813rem;
+        line-height: .813rem;
     }
 
     > a:hover {
@@ -45,6 +45,6 @@
 
     &.is-active {
         color: $breadcrumb-item-active-color;
-        font-weight: $font-weight-semibold;
+        font-weight: var(--font-weight-semibold);
     }
 }

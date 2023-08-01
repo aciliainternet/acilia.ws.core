@@ -35,8 +35,8 @@
     }
 
     &[class*='--border'] {
-        font-weight: $font-weight-normal;
-        font-size: rem(13);
+        font-weight: var(--font-weight-normal);
+        font-size: .813rem;
     }
 
     &--border-success {

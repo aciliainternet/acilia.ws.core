@@ -3,19 +3,19 @@
 
 .c-footer {
     width: 100%;
-    margin: rem(50) auto;
-    padding: 0 rem(30) rem(50);
+    margin: 3.125rem auto;
+    padding: 0 1.875rem 3.125rem;
 }
 
 .c-footer__wrapper {
-    padding-top: rem(30);
-    border-top: 1px solid $border-color;
-    color: $color-default-text;
-    font-size: rem(12);
+    padding-top: 1.875rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--color-default-text);
+    font-size: .75rem;
     text-align: right;
 }
 
 .c-footer__link {
-    color: $color-default-text;
-    font-weight: $font-weight-semibold;
+    color: var(--color-default-text);
+    font-weight: var(--font-weight-semibold);
 }

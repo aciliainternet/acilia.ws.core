@@ -16,8 +16,8 @@
 
 .ws-img-selector__new-container {
     padding: 30px;
-    background-color: $body-background-color;
-    border-bottom: 2px solid $grey-300;
+    background-color: var(--body-background-color);
+    border-bottom: 2px solid var(--grey-300);
 }
 
 .ws-img-selector__new-wrapper {

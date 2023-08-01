@@ -10,7 +10,7 @@
 $navbar-height: 70px !default;
 
 $navbar-padding: 13px 30px !default;
-$navbar-background-color: $white !default;
+$navbar-background-color: var(--white) !default;
 $navbar-border-width: 1px !default;
 $navbar-border-color: #e6eaee !default;
 

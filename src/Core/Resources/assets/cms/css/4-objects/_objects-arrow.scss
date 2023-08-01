@@ -25,13 +25,13 @@ $duration: .5s;
     }
 
     .o-arrow path {
-        stroke: $grey-700;
+        stroke: var(--grey-700);
     }
 
     &:hover {
 
         .o-arrow path {
-            stroke: $color-primary;
+            stroke: var(--color-primary);
         }
     }
 }

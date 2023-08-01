@@ -17,19 +17,19 @@
  */
 
 .u-border-top {
-    border-top: $base-border-width solid $base-border-color !important;
+    border-top: var(--base-border-width) solid var(--base-border-color) !important;
 }
 
 .u-border-right {
-    border-right: $base-border-width solid $base-border-color !important;
+    border-right: var(--base-border-width) solid var(--base-border-color) !important;
 }
 
 .u-border-bottom {
-    border-bottom: $base-border-width solid $base-border-color !important;
+    border-bottom: var(--base-border-width) solid var(--base-border-color) !important;
 }
 
 .u-border-left {
-    border-left: $base-border-width solid $base-border-color !important;
+    border-left: var(--base-border-width) solid var(--base-border-color) !important;
 }
 
 
@@ -63,7 +63,7 @@
  */
 
 .u-border-rounded {
-    border-radius: $base-border-radius;
+    border-radius: var(--base-border-radius);
     overflow: hidden;
 }
 

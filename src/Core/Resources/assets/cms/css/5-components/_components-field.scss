@@ -142,9 +142,9 @@
     align-items: center;
     justify-content: center;
     border: $field-addon-border-width solid $field-addon-border-color;
-    border-radius: $base-border-radius;
+    border-radius: var(--base-border-radius);
     color: $field-addon-color;
-    font-size: rem(18);
+    font-size: 1.125rem;
     text-align: center;
 }
 
@@ -159,10 +159,10 @@
     padding: $field-message-padding;
     color: $field-message-color;
     font-size: $field-message-font-size;
-    line-height: rem(16);
+    line-height: 1rem;
 
     > i {
-        margin-right: rem(5);
+        margin-right: .313rem;
     }
 }
 
@@ -183,7 +183,7 @@
 
     &--filters {
         #{ $self }__label {
-            color: $grey-700;
+            color: var(--grey-700);
         }
     }
 }

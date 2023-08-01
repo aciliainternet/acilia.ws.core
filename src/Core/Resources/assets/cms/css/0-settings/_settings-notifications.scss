@@ -4,7 +4,7 @@
 //   #NOTIFICATIONS
 //   ======================================================================== */
 
-$notification-icon-color: $color-mute !default;
+$notification-icon-color: var(--color-mute) !default;
 $notification-icon-font-size: 20px !default;
 
 $notification-number-width: 20px !default;
@@ -14,6 +14,6 @@ $notification-number-padding: 0 5px !default;
 $notification-number-border-radius: 20px !default;
 
 $notification-number-background-color: #ff7800 !default;
-$notification-number-color: $white !default;
-$notification-number-font-size: $text-small-font-size !default;
+$notification-number-color: var(--white) !default;
+$notification-number-font-size: var(--text-small-font-size) !default;
 $notification-number-line-height: 20px !default;

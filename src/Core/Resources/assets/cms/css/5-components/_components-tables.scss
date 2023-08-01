@@ -148,7 +148,7 @@
 .c-table__title {
     position: relative;
     padding: 25px 30px;
-    border: $base-border-width solid $base-border-color;
+    border: var(--base-border-width) solid var(--base-border-color);
     border-bottom: 0;
     border-radius: 4px 4px 0 0;
     background-color: $table-title-background-color;
@@ -159,7 +159,7 @@
     small {
         display: inline-block;
         margin-left: 10px;
-        color: $color-mute;
+        color: var(--color-mute);
         font-size: 14px;
 
         // divider
@@ -227,19 +227,19 @@
 }
 
 .c-table__row--success {
-    border-left-color: $color-success;
+    border-left-color: var(--color-success);
 }
 
 .c-table__row--danger {
-    border-left-color: $color-danger;
+    border-left-color: var(--color-danger);
 }
 
 .c-table__row--info {
-    border-left-color: $color-info;
+    border-left-color: var(--color-info);
 }
 
 .c-table__row--warning {
-    border-left-color: $color-warning;
+    border-left-color: var(--color-warning);
 }
 
 
@@ -257,15 +257,15 @@
     white-space: nowrap;
 
     &:last-child {
-        padding-right: $spacer;
+        padding-right: var(--spacer);
         text-align: right;
     }
 }
 
 .c-table__cell--head {
-    color: $color-mute;
-    font-weight: $font-weight-semibold;
-    font-size: $text-font-size;
+    color: var(--color-mute);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-font-size);
 }
 
 
@@ -281,8 +281,8 @@
     align-items: center;
 }
 
-$table-cell-font-weight: $font-weight-normal;
-$table-cell-line-height: $base-line-height;
+$table-cell-font-weight: var(--font-weight-normal);
+$table-cell-line-height: var(--base-line-height);
 
 
 .c-table {
@@ -292,8 +292,8 @@ $table-cell-line-height: $base-line-height;
     width: 100%;
 
     &__cell {
-        color: $gunmetal-100;
-        font-weight: $font-weight-normal;
+        color: var(--gunmetal-100);
+        font-weight: var(--font-weight-normal);
 
         &--batch {
             width: 50px;
@@ -310,8 +310,8 @@ $table-cell-line-height: $base-line-height;
 
     &__link {
         display: block;
-        color: $gunmetal-100;
-        font-weight: $font-weight-normal;
+        color: var(--gunmetal-100);
+        font-weight: var(--font-weight-normal);
         font-size: $table-cell-font-size;
         line-height: $table-cell-line-height;
 
@@ -322,14 +322,14 @@ $table-cell-line-height: $base-line-height;
 
 
         &:hover {
-            color: $gunmetal-200;
+            color: var(--gunmetal-200);
             text-decoration: none;
         }
     }
 
     &__toggle {
         position: relative;
-        background-color: $color-transparent;
+        background-color: var(--color-transparent);
         outline: none;
 
         &:hover {
@@ -375,23 +375,23 @@ $table-cell-line-height: $base-line-height;
     &__sorting-link {
         position: relative;
         z-index: 2;
-        color: $gunmetal-100;
-        font-weight: $font-weight-medium;
+        color: var(--gunmetal-100);
+        font-weight: var(--font-weight-medium);
     }
 
     &__row--to-read {
-        background-color: lighten($color-brand, 35%);
+        background: color-mix(in srgb,var(--color-brand),#000 25%);
     }
 }
 
 .c-table-collapse {
     padding: 20px 30px;
-    background-color: $color-white;
-    font-size: rem(14);
+    background-color: var(--white);
+    font-size: .875rem;
 
     &__item {
-        font-weight: $font-weight-semibold;
-        font-size: rem(16);
+        font-weight: var(--font-weight-semibold);
+        font-size: 1rem;
 
         &:not(:last-child) {
             margin-bottom: 20px;
@@ -400,14 +400,14 @@ $table-cell-line-height: $base-line-height;
 
     &__sub-list {
         margin: 10px 0 0 20px;
-        font-weight: $font-weight-normal;
-        font-size: rem(14);
-        line-height: rem(18);
+        font-weight: var(--font-weight-normal);
+        font-size: .875rem;
+        line-height: 1.125rem;
     }
 
     &__sub-item {
-        font-weight: $font-weight-normal;
-        font-size: rem(13);
+        font-weight: var(--font-weight-normal);
+        font-size: .813rem;
     }
 }
 

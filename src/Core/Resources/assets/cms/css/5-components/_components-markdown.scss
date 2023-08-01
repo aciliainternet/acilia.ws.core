@@ -21,7 +21,7 @@
     }
 
     button {
-        font-size: rem(16);
+        font-size: 1rem;
 
         &:focus {
             outline: none;
@@ -71,15 +71,15 @@
 }
 
 .CodeMirror-code {
-    color: $gunmetal-200;
-    font-size: rem(14);
-    line-height: 1.5;
+    color: var(--gunmetal-200);
+    font-size: .875rem;
+    line-height: 1.5rem;
 }
 
 .CodeMirror-placeholder {
     color: $input-placeholder-color !important;
     font-weight: $input-placeholder-font-weight;
-    font-size: rem(14) !important;
+    font-size: .875rem !important;
     opacity: .7;
     transition: opacity .3s;
 }

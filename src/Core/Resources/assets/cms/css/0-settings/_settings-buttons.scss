@@ -7,47 +7,23 @@
 //   ======================================================================== */
 
 
-$btn-padding: rem(8) rem(20) !default;
-$btn-border-width: $base-border-width !default;
-$btn-border-color: $blue-500 !default;
-$btn-border-radius: $base-border-radius !default;
-$btn-color: $white !default;
-$btn-font-size: rem(14) !default;
-$btn-font-weight: $font-weight-normal !default;
+$btn-padding: .5rem 1.25rem !default;
+$btn-border-width: var(--base-border-width) !default;
+$btn-border-color: var(--blue-500) !default;
+$btn-border-radius: var(--base-border-radius) !default;
+$btn-color: var(--white) !default;
+$btn-font-size: .875rem !default;
+$btn-font-weight: var(--font-weight-normal) !default;
 $btn-line-height: 1.5rem !default;
-$btn-hover-color: $white !default;
+$btn-hover-color: var(--white) !default;
 
-$btn-small-font-size: $text-small-font-size !default;
-$btn-small-padding: rem(4) rem(18) !default;
+$btn-small-font-size: var(--text-small-font-size) !default;
+$btn-small-padding: .25rem 1.125rem !default;
 
-$btn-large-font-size: $text-large-font-size !default;
-$btn-large-padding: rem(8) rem(30) !default;
-
-
-//
-// Color Variants
-//
-// only primary, secondary are here as other variations (success, danger..) are
-// the same in the default and dark theme
-
-$btn-primary-gradient: $gunmetal-100, $gunmetal-400 !default;
-$btn-primary-border-color: $gunmetal-200 !default;
-
-$btn-primary-hover-gradient: darken($gunmetal-100, 4%), darken($gunmetal-500, 4%) !default;
-$btn-primary-focus-gradient: darken($gunmetal-100, 6%), darken($gunmetal-500, 6%) !default;
-
-
-$btn-secondary-gradient: $white, $grey-200 !default;
-$btn-secondary-border-color: $grey-400 !default;
-$btn-secondary-color: $gunmetal-200 !default;
-
-$btn-secondary-hover-gradient: #e6f2f3;
-$btn-secondary-hover-color: $gunmetal-200 !default;
-
-$btn-secondary-focus-gradient: #e6f2f3;
-$btn-secondary-focus-color: $gunmetal-200 !default;
+$btn-large-font-size: var(--text-large-font-size) !default;
+$btn-large-padding: .5 1.875rem !default;
 
 // Disabled State
-$btn-disabled-color: rgba($gunmetal-200, .5) !default;
-$btn-disabled-background-color: $grey-100 !default;
-$btn-disabled-border-color: $grey-300 !default;
+$btn-disabled-color: rgba(var(--gunmetal-200), .5) !default;
+$btn-disabled-background-color: var(--grey-100) !default;
+$btn-disabled-border-color: var(--grey-300) !default;

@@ -27,7 +27,7 @@
         }
 
         #{ $self }__button {
-            color: $color-info;
+            color: var(--color-info);
         }
 
         #{ $self }__inner {
@@ -39,7 +39,7 @@
     &[data-type*=text],
     &[data-type*=select-multiple] {
         #{ $self }__button {
-            color: $color-info;
+            color: var(--color-info);
             background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==);
         }
     }
@@ -56,13 +56,13 @@
         overflow: visible;
         box-sizing: border-box;
         width: 100%;
-        min-height: rem(52);
+        min-height: 3.25rem;
         border: $input-border-width solid $input-border-color;
-        border-radius: $base-border-radius;
-        background-color: $color-white;
-        color: $color-default-text;
+        border-radius: var(--base-border-radius);
+        background-color: var(--white);
+        color: var(--color-default-text);
         box-shadow: none;
-        font-size: rem(14);
+        font-size: .875rem;
         line-height: 1.35rem;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -80,7 +80,7 @@
 
     &__input {
         margin-bottom: 0;
-        background-color: $color-transparent;
+        background-color: var(--color-transparent);
     }
 
     &__list {
@@ -109,24 +109,26 @@
 
             .choices__item {
                 border-color: transparent;
-                border-radius: rem(5);
-                background-color: rgba($color: $color-info, $alpha: .1);
-                color: $color-default-text;
-                font-weight: $font-weight-normal;
-                font-size: $text-font-size;
-                font-family: $base-font-family;
+                border-radius: .313rem;
+                // background-color: rgba($color: var(--color-info), $alpha: .1);
+                background: color-mix(in srgb,var(--color-info),#fff 75%);
+                color: var(--color-default-text);
+                font-weight: var(--font-weight-normal);
+                font-size: var(--text-font-size);
+                font-family: var(--base-font-family);
                 transition: background 300ms ease-in-out;
 
                 &:hover {
-                    background-color: rgba($color: $color-info, $alpha: .3);
+                    background: color-mix(in srgb,var(--color-info),#fff 50%);
+
                 }
 
                 &:focus {
-                    background-color: rgba($color: $color-info, $alpha: .3);
+                    background: color-mix(in srgb,var(--color-info),#fff 50%);
                 }
 
                 &.is-highlighted {
-                    background-color: rgba($color: $color-info, $alpha: .3);
+                    background: color-mix(in srgb,var(--color-info),#fff 50%);
                 }
             }
         }
@@ -138,8 +140,8 @@
 
         #{ $self }__inner {
             border-color: $input-border-color;
-            border-radius: $base-border-radius;
-            color: $color-default-text;
+            border-radius: var(--base-border-radius);
+            color: var(--color-default-text);
 
             &::placeholder {
                 color: $input-placeholder-color;
@@ -187,9 +189,9 @@
 
         &::before {
             top: initial;
-            width: rem(20);
-            height: rem(20);
-            line-height: rem(18);
+            width: 1.25rem;
+            height: 1.25rem;
+            line-height: 1.125rem;
         }
     }
 
@@ -197,14 +199,14 @@
 
         .c-field__label {
             margin-bottom: 0;
-            font-weight: $font-weight-normal;
+            font-weight: var(--font-weight-normal);
         }
 
         #{ $self }__input:checked + #{ $self }__label:checked {
             content: '\f00c';
-            border-color: $color-secondary;
-            background-color: $color-secondary;
-            font-size: rem(14);
+            border-color: var(--color-secondary);
+            background-color: var(--color-secondary);
+            font-size: .875rem;
             font-family: 'Font Awesome 5 Pro';
         }
     }

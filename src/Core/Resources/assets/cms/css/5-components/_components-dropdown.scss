@@ -27,7 +27,7 @@
     position: absolute;
     top: 100%; /* [1] */
     right: 0;
-    z-index: $z-index-400;
+    z-index: var(--z-index-400);
     width: $dropdown-menu-width;
     margin: 5px 0 0;
     border: $dropdown-menu-border-width solid $dropdown-menu-border-color;
@@ -78,7 +78,7 @@
     border-bottom: $dropdown-item-border-width solid $dropdown-item-border-color;
     color: $dropdown-item-color;
     font-weight: $dropdown-item-font-weight;
-    font-size: $text-font-size;
+    font-size: var(--text-font-size);
 
     &:hover {
         background-color: $dropdown-item-hover-background-color;

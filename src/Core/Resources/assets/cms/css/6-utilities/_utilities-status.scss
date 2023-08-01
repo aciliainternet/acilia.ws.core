@@ -7,38 +7,38 @@
 .wp-status-terminated,
 .wp-status-failed,
 .wp-status-lockdown {
-    color: $red-500 !important;
+    color: var(--red-500) !important;
 }
 
 .wp-status-active {
-    color: $green-300 !important;
+    color: var(--green-300) !important;
 }
 
 .wp-status-pending,
 .wp-status-lockdown-rollback {
-    color: $orange-400 !important;
+    color: var(--orange-400) !important;
 }
 
 .wp-status-ready,
 .wp-status-approved,
 .wp-status-available {
-    color: $green-500 !important;
+    color: var(--green-500) !important;
 }
 
 .wp-status-processing,
 .wp-status-in-progress,
 .wp-status-rollback-requested,
 .wp-status-rebuild {
-    color: $green-100 !important;
+    color: var(--green-100) !important;
 }
 
 .wp-status-processed,
 .wp-status-completed {
-    color: $blue-300 !important;
+    color: var(--blue-300) !important;
 }
 
 .wp-status-cancelled,
 .wp-status-cancel-failed,
 .wp-status-cancel-requested {
-    color: $red-200 !important;
+    color: var(--red-200) !important;
 }

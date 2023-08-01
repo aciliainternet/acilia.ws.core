@@ -18,14 +18,14 @@ $toggle-btn-width: calc(50% - 10px) !default;
 $toggle-btn-height: $toggle-height !default; // [1]
 $toggle-btn-border-width: 1px !default;
 $toggle-btn-border-color: #e7e9ed !default;
-$toggle-btn-border-radius: $base-border-radius !default;
+$toggle-btn-border-radius: var(--base-border-radius) !default;
 
 $toggle-btn-font-size: 14px !default;
 $toggle-btn-color: #565f6d !default;
 $toggle-btn-background-color: transparent !default;
 
-$toggle-btn-active-background-color: $color-info !default;
-$toggle-btn-active-border-color: $color-info !default;
+$toggle-btn-active-background-color: var(--color-info) !default;
+$toggle-btn-active-border-color: var(--color-info) !default;
 $toggle-btn-active-color: #565f6d !default;
 
 

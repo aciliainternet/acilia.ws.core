@@ -5,19 +5,19 @@
 
 /* stylelint-disable */
 .toast-title {
-    font-weight: $font-weight-semibold;
+    font-weight: var(--font-weight-semibold);
 }
 
 .toast-message {
-    font-weight: $font-weight-normal;
-    font-size: rem(14);
+    font-weight: var(--font-weight-normal);
+    font-size: .875rem;
     -ms-word-wrap: break-word;
     word-wrap: break-word;
 }
 
 .toast-message a,
 .toast-message label {
-    color: $color-white;
+    color: var(--white);
 }
 
 .toast-message a:hover {
@@ -30,10 +30,10 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: $color-white;
+    color: var(--white);
     font-weight: 300;
-    font-size: rem(24);
-    line-height: rem(15);
+    font-size: 1.5rem;
+    line-height: .938rem;
     cursor: pointer;
     -webkit-appearance: none;
 }
@@ -101,7 +101,7 @@
     margin: 0 0 6px;
     padding: 20px 20px 20px 50px;
     border-radius: 3px;
-    color: $color-white;
+    color: var(--white);
 }
 
 #toast-container > .toast-info::before {
@@ -111,7 +111,7 @@
     height: 30px;
     margin: auto;
     font-weight: 300;
-    font-size: 1.5em;
+    font-size: 1.5remem;
     font-family: 'Font Awesome 6 Pro';
 }
 
@@ -122,7 +122,7 @@
     height: 30px;
     margin: auto;
     font-weight: 300;
-    font-size: 1.5em;
+    font-size: 1.5remem;
     font-family: 'Font Awesome 6 Pro';
 }
 
@@ -133,7 +133,7 @@
     height: 30px;
     margin: auto;
     font-weight: 300;
-    font-size: 1.5em;
+    font-size: 1.5remem;
     font-family: 'Font Awesome 6 Pro';
 }
 
@@ -144,7 +144,7 @@
     height: 30px;
     margin: auto;
     font-weight: 300;
-    font-size: 1.5em;
+    font-size: 1.5remem;
     font-family: 'Font Awesome 6 Pro';
 }
 
@@ -167,25 +167,25 @@
 }
 
 .toast-success {
-    background-color: rgba($color-success, .9);
+    background-color: rgba(var(--color-success), .9);
 }
 
 .toast-error {
-    background-color: rgba($color-danger, .9);
+    background-color: rgba(var(--color-danger), .9);
 }
 
 .toast-info {
-    background-color: rgba($color-info, .9);
+    background-color: rgba(var(--color-info), .9);
 }
 
 .toast-warning {
-    background-color: rgba($color-warning, .9);
+    background-color: rgba(var(--color-warning), .9);
 }
 
 .toast-progress {
     @include position(absolute, $left: 0, $bottom: 0);
     height: 4px;
-    background-color: $color-black;
+    background-color: var(--black);
     opacity: .4;
 }
 /* stylelint-enable */

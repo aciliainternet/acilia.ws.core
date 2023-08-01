@@ -100,7 +100,7 @@
 
 @keyframes #{$fa-css-prefix}-beat {
   0%, 90% { transform: scale(1); }
-  45% { transform: scale(var(--#{$fa-css-prefix}-beat-scale, 1.25)); }
+  45% { transform: scale(var(--#{$fa-css-prefix}-beat-scale, 1.25rem)); }
 }
 
 @keyframes #{$fa-css-prefix}-bounce {
@@ -124,7 +124,7 @@
   }
   50% {
     opacity: 1;
-    transform: scale(var(--#{$fa-css-prefix}-beat-fade-scale, 1.125));
+    transform: scale(var(--#{$fa-css-prefix}-beat-fade-scale, 1.125rem));
   }
 }
 

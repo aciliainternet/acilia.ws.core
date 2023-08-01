@@ -1,5 +1,3 @@
-@use '../1-tools/_tools-mixin-rem' as *;
-
 ///* ========================================================================
 //   #GLOBAL
 //   ======================================================================== */
@@ -26,184 +24,179 @@
 //
 // 1. Color System
 // ========================================================================== */
+:root {
+    --grey-100: #f5f8fa;
+    --grey-200: #f2f4f7;
+    --grey-300: #e6eaee;
+    --grey-400: #dfe3e9;
+    --grey-500: #bbc5d5;
+    --grey-600: #b7c0cd;
+    --grey-700: #9fa9ba;
+    --grey-800: #7f8fa4;
 
-$grey-100: #f5f8fa !default;
-$grey-200: #f2f4f7 !default;
-$grey-300: #e6eaee !default;
-$grey-400: #dfe3e9 !default;
-$grey-500: #bbc5d5 !default;
-$grey-600: #b7c0cd !default;
-$grey-700: #9fa9ba !default;
-$grey-800: #7f8fa4 !default;
+    --gunmetal-100: #475364;
+    --gunmetal-200: #354052;
+    --gunmetal-300: #2d3848;
+    --gunmetal-400: #273142;
+    --gunmetal-500: #1d2531;
 
-$gunmetal-100: #475364 !default;
-$gunmetal-200: #354052 !default;
-$gunmetal-300: #2d3848 !default;
-$gunmetal-400: #273142 !default;
-$gunmetal-500: #1d2531 !default;
+    --blue-100: #86caff;
+    --blue-200: #53b2f9;
+    --blue-300: #2083fe; // main
+    --blue-400: #1990ea;
+    --blue-500: #1a91eb;
 
-$white: #ffffff !default;
-$black: #000000 !default;
+    --green-100: #65dc52;
+    --green-200: #1bb934;
+    --green-300: #39b54a;
+    --green-400: #34aa44;
+    --green-500: #249533;
 
-$blue-100: #86caff !default;
-$blue-200: #53b2f9 !default;
-// $blue-300: #2ea1f8 !default; // main
-$blue-300: #2083fe !default; // main
-$blue-400: #1990ea !default;
-$blue-500: #1a91eb !default;
+    --purple-100: #9d8fe3;
+    --purple-200: #a388e3;
+    --purple-300: #886ce6;
+    --purple-400: #8261e6;
+    --purple-500: #7d5be2;
 
-$green-100: #65dc52 !default;
-$green-200: #1bb934 !default;
-$green-300: #39b54a !default;
-$green-400: #34aa44 !default;
-$green-500: #249533 !default;
+    --red-100: #f95359;
+    --red-200: #ed1c24;
+    --red-300: #d35847;
+    --red-400: #ed1c24;
+    --red-500: #db161e;
 
-$purple-100: #9d8fe3 !default;
-$purple-200: #a388e3 !default;
-$purple-300: #886ce6 !default;
-$purple-400: #8261e6 !default;
-$purple-500: #7d5be2 !default;
-
-$red-100: #f95359 !default;
-$red-200: #ed1c24 !default;
-$red-300: #d35847 !default;
-$red-400: #ed1c24 !default;
-$red-500: #db161e !default;
-
-$orange-100: #f8c95d !default;
-$orange-200: #f7bf47 !default;
-$orange-300: #fd9a18 !default;
-$orange-400: #ff7800 !default;
-$orange-500: #f16911 !default;
-
-// WS
-$color-primary: #252529 !default;
-$color-secondary: #43ab34 !default;
-$color-brand: #ffa600 !default;
-$color-brand-secondary: #fb8332 !default;
-$color-default-text: #475364 !default;
-$color-sidebar-active: $color-primary !default;
-
-// Common
-$color-black: #000000 !default;
-$color-white: #ffffff !default;
-$color-transparent: transparent !default;
-$body-color: $color-default-text !default;
-$border-color: #dadae4;
-
-// states
-$color-success: #55b45a !default;
-$color-info: #007c89 !default;
-$color-warning: #ff9f0f !default;
-$color-danger: #ec0000 !default;
-$color-fancy: $purple-400 !default;
-$color-mute: $grey-700 !default;
-
-// gradients
-$gradient-info: $blue-300, $blue-400 !default;
-$gradient-success: $green-300, $green-400 !default;
-$gradient-fancy: $purple-300, $purple-500 !default;
-$gradient-danger: $red-100, $red-300 !default;
-$gradient-warning: $orange-300, $orange-500 !default;
-
-// brands
-$color-facebook: #2492e4 !default;
-$color-twitter: #00aaff !default;
-$color-pinterest: #e30f27 !default;
-$color-behance: #187ac6 !default;
-$color-dribbble: #ea4c89 !default;
-$color-linkedin: #222222 !default;
-
-// backgrounds
-$body-background-color: #eff3f6 !default;
-$base-background-color: $white !default;
-$secondary-background-color: #fafbfc !default;
-$background-color: #f2f2f6 !default;
+    --orange-100: #f8c95d;
+    --orange-200: #f7bf47;
+    --orange-300: #fd9a18;
+    --orange-400: #ff7800;
+    --orange-500: #f16911;
 
 
+    --white: #ffffff;
+    --black: #000000;
 
-//
-// 2. Typography
-// ========================================================================== */
+    --color-primary: #252529;
+    --color-secondary: #43ab34;
+    --color-brand: #ffa600;
+    --color-default-text: #475364;
+    --color-sidebar-active: --color-primary;
 
-$base-font-family: 'IBM Plex Sans', sans-serif !default;
-$base-font-size: rem(16) !default;
-$base-line-height: 1.5 !default;
+    // Common
+    --color-transparent: transparent;
+    --body-color: var(--color-default-text);
+    --border-color: #dadae4;
 
-// Font Weights
-$font-weight-light: 300 !default;
-$font-weight-normal: 400 !default;
-$font-weight-medium: 500 !default;
-$font-weight-semibold: 600 !default;
-$font-weight-bold: 700 !default;
-$font-weight-base: normal !default;
+    // states
+    --color-success: #55b45a;
+    --color-info: #007c89;
+    --color-warning: #ff9f0f;
+    --color-danger: #ec0000;
+    --color-mute: var(--grey-700);
 
-// Paragraphs
-$text-tiny-font-size: rem(10) !default;
-$text-small-font-size: rem(12) !default;
-$text-font-size: rem(14) !default;
-$text-large-font-size: rem(16) !default;
+    // brands
+    --color-facebook: #2492e4;
+    --color-twitter: #00aaff;
+    --color-pinterest: #e30f27;
+    --color-behance: #187ac6;
+    --color-dribbble: #ea4c89;
+    --color-linkedin: #222222;
 
-$text-color: $color-primary !default;
-$text-strong-color: $color-primary !default;
-$text-mark-color: $white !default;
-$text-mark-background-color: #ffff00 !default;
-$text-mute-color: $color-mute !default;
+    // backgrounds
+    --body-background-color: #eff3f6;
+    --base-background-color: var(--white);
+    --secondary-background-color: #fafbfc;
+    --background-color: #f2f2f6;
 
-// Headings
-$h1-font-size: rem(36) !default;
-$h2-font-size: rem(28) !default;
-$h3-font-size: rem(24) !default;
-$h4-font-size: rem(20) !default;
-$h5-font-size: rem(18) !default;
-$h6-font-size: rem(16) !default;
+    //
+    // 2. Typography
+    // ========================================================================== */
 
-$heading-margin-bottom: rem(8) !default;
-$heading-color: $color-primary !default;
-$heading-font-weight: $font-weight-semibold !default;
+    --base-font-family: 'IBM Plex Sans', sans-serif;
+    --base-font-size: 1rem;
+    --base-line-height: 1.5rem;
 
-// Links
-$link-color: $color-default-text !default;
-$link-text-decoration: none !default;
-$link-hover-color: $color-default-text !default;
-$link-hover-text-decoration: none !default;
+    // Font Weights
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-base: normal;
+
+    // Paragraphs
+    --text-tiny-font-size: .625rem;
+    --text-small-font-size: .75rem;
+    --text-font-size: .875rem;
+    --text-large-font-size: 1rem;
+
+    --text-color: var(--color-primary);
+    --text-strong-color: var(--color-primary);
+    --text-mark-color: var(--white);
+    --text-mark-background-color: #ffff00;
+    --text-mute-color: var(--color-mute);
+
+    // Headings
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.75rem;
+    --h3-font-size: 1.5rem;
+    --h4-font-size: 1.25rem;
+    --h5-font-size: 1.125rem;
+    --h6-font-size: 1rem;
+
+    --heading-margin-bottom: .5rem;
+    --heading-color: var(--color-primary);
+    --heading-font-weight: var(--font-weight-semibold);
+
+    // Links
+    --link-color: var(--color-default-text);
+    --link-text-decoration: none;
+    --link-hover-color: var(--color-default-text);
+    --link-hover-text-decoration: none;
 
 
-//
-// 3. Borders
-// ========================================================================== */
-$base-border-radius: 4px !default;
-$base-border-style: solid !default;
-$base-border-color: $grey-300 !default;
-$base-border-width: 1px !default;
+    //
+    // 3. Borders
+    // ========================================================================== */
+    --base-border-radius: .25rem;
+    --base-border-style: solid;
+    --base-border-color: var(--grey-300);
+    --base-border-width: 1px;
 
 
-//
-// 4. Icon Fonts
-// ========================================================================== */
-$base-icon-font: 'Font Awesome 6 Pro' !default;
+    //
+    // 4. Icon Fonts
+    // ========================================================================== */
+    --base-icon-font: 'Font Awesome 6 Pro';
 
 
-//
-// 5. Z-index System
-// ========================================================================== */
-$z-index-100: 100 !default; // over content
-$z-index-200: 200 !default; // over control
-$z-index-300: 300 !default; // over page
-$z-index-400: 400 !default; // over screen
-$z-index-500: 500 !default; // over everything
+    //
+    // 5. Z-index System
+    // ========================================================================== */
+    --z-index-100: 100; // over content
+    --z-index-200: 200; // over control
+    --z-index-300: 300; // over page
+    --z-index-400: 400; // over screen
+    --z-index-500: 500; // over everything
 
+
+    //
+    // 6. Spacing
+    // ========================================================================== */
+
+    --spacer-xsmall: .625rem;
+    --spacer-small: .938rem;
+    --spacer: 1.875rem;
+    --spacer-large: 3.125rem;
+    --spacer-xlarge: 6.25rem;
+}
 
 //
 // 6. Spacing
 // ========================================================================== */
-
-$spacer-xsmall: rem(10) !default;
-$spacer-small: rem(15) !default;
-$spacer: rem(30) !default;
-$spacer-large: rem(50) !default;
-$spacer-xlarge: rem(100) !default;
-
+    $spacer-xsmall: var(--spacer-xsmall);
+    $spacer-small: var(--spacer-small);
+    $spacer: var(--spacer);
+    $spacer-large: var(--spacer-large);
+    $spacer-xlarge: var(--spacer-xlarge);
 
 //
 // 7. Breakpoints
@@ -212,16 +205,16 @@ $spacer-xlarge: rem(100) !default;
 // Use these breakpoints with media-queries to create responsive website, these
 // numbers are based on Bootstrap's grid breakpoints
 
-$breakpoint-xs: 0 !default;
-$breakpoint-sm: 576px !default;
-$breakpoint-md: 768px !default;
-$breakpoint-lg: 992px !default;
-$breakpoint-xl: 1200px !default;
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
 
-$breakpoint-mobile: $breakpoint-sm !default;
-$breakpoint-tablet: $breakpoint-md !default;
-$breakpoint-desktop: $breakpoint-lg !default;
-$breakpoint-wide: $breakpoint-xl !default;
+$breakpoint-mobile: $breakpoint-sm;
+$breakpoint-tablet: $breakpoint-md;
+$breakpoint-desktop: $breakpoint-lg;
+$breakpoint-wide: $breakpoint-xl;
 
 //
 // 8. Layout
@@ -235,3 +228,4 @@ $margin-navbar: 30px;
 $height-toolbar: 80px;
 $height-pagination: 30px;
 $height-footer: 130px;
+

@@ -14,48 +14,48 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0 0 $heading-margin-bottom;
-    color: $heading-color;
+    margin: 0 0 var(--heading-margin-bottom);
+    color: var(--heading-color);
     font-weight: 400;
 }
 
 h1 {
-    font-size: $h1-font-size;
+    font-size: var(--h1-font-size);
 }
 
 h2 {
-    font-size: $h2-font-size;
+    font-size: var(--h2-font-size);
 }
 
 h3 {
-    font-size: $h3-font-size;
+    font-size: var(--h3-font-size);
 }
 
 h4 {
-    font-size: $h4-font-size;
+    font-size: var(--h4-font-size);
 }
 
 h5 {
-    font-size: $h5-font-size;
+    font-size: var(--h5-font-size);
 }
 
 h6 {
-    font-size: $h6-font-size;
+    font-size: var(--h6-font-size);
 }
 
 p {
-    color: $text-color;
-    font-size: $text-font-size;
-    line-height: $base-line-height;
+    color: var(--text-color);
+    font-size: var(--text-font-size);
+    line-height: var(--base-line-height);
 }
 
 strong {
-    color: $text-strong-color;
+    color: var(--text-strong-color);
 }
 
 dl dt,
 dl dd {
-    color: $text-color;
+    color: var(--text-color);
 }
 
 
@@ -66,14 +66,14 @@ dl dd {
 
 a {
     background-color: transparent; /* [1] */
-    color: $link-color;
-    text-decoration: $link-text-decoration;
+    color: var(--link-color);
+    text-decoration: var(--link-text-decoration);
     cursor: pointer;
     transition: color .15s ease-in-out;
 
     &:hover {
-        color: $link-hover-color;
-        text-decoration: $link-hover-text-decoration;
+        color: var(--link-hover-color);
+        text-decoration: var(--link-hover-text-decoration);
     }
 }
 
@@ -92,8 +92,8 @@ samp {
 }
 
 mark {
-    background-color: $text-mark-background-color;
-    color: $text-mark-color;
+    background-color: var(--text-mark-background-color);
+    color: var(--text-mark-color);
 }
 
 small {
@@ -102,5 +102,5 @@ small {
 
 blockquote {
     padding-left: 15px;
-    border-left: 3px solid $base-border-color;
+    border-left: 3px solid var(--base-border-color);
 }

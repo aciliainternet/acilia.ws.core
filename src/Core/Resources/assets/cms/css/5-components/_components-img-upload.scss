@@ -13,8 +13,8 @@
         width: 100%;
 
         @include media-breakpoint('md') {
-            width: rem(250);
-            min-height: rem(39);
+            width: 15.625rem;
+            min-height: 2.438rem;
         }
     }
 
@@ -27,29 +27,29 @@
         height: auto;
 
         @include media-breakpoint('md') {
-            width: rem(250);
+            width: 15.625rem;
         }
     }
 
     &__figure {
         display: grid;
         height: 100%;
-        min-height: rem(250);
-        border-radius: rem(8);
+        min-height: 15.625rem;
+        border-radius: .5;
         background-color: #f7f7f7;
         cursor: pointer;
         place-content: center;
     }
 
     &__figure-img {
-        font-size: rem(30);
+        font-size: 1.875rem;
     }
 
     &__img {
         display: block;
         width: 100%;
         height: auto;
-        border-radius: rem(8);
+        border-radius: .5;
     }
 }
 

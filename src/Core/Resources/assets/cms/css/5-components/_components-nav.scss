@@ -25,10 +25,10 @@
         position: relative;
         flex: 1 0 100%;
         order: 2;
-        margin-top: $spacer-small;
-        margin-right: -$spacer-small !important; /* [1] */
-        margin-left: -$spacer-small;
-        border-top: $base-border-width solid $base-border-color;
+        margin-top: var(--spacer-small);
+        margin-right: var(--spacer-small) !important; /* [1] */
+        margin-left: var(--spacer-small);
+        border-top: var(--base-border-width) solid var(--base-border-color);
 
         /**
          * Bootstrap classes used to show and hide nav.
@@ -72,7 +72,7 @@
         flex-basis: 100%;
         margin-right: 0;
         padding: 15px;
-        border-bottom: 1px solid $base-border-color;
+        border-bottom: 1px solid var(--base-border-color);
     }
 
     &:last-child {
@@ -86,14 +86,14 @@
 }
 
 .c-nav__link {
-    color: $nav-link-color;
+    color: var(--link-color);
     font-weight: $nav-link-font-weight;
     font-size: $nav-link-font-size;
 
     @include respond-to($breakpoint-tablet) {
         display: block;
-        color: $heading-color;
-        font-size: $text-large-font-size;
+        color: var(--heading-color);
+        font-size: var(--text-large-font-size);
     }
 
     &:hover {
@@ -122,7 +122,7 @@
     display: none;
     width: $nav-toggle-width;
     height: $nav-toggle-height;
-    margin: 0 0 0 $spacer-small; /* [1] */
+    margin: 0 0 0 var(--spacer-small); /* [1] */
     padding: 0; /* [1] */
     border: 0; /* [1] */
     background-color: transparent; /* [1] */

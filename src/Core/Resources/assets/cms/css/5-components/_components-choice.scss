@@ -114,7 +114,7 @@
         border-color: $choice-checkbox-border-color;
         background-color: $choice-checkbox-background-color;
         font-size: 10px;
-        font-family: $base-icon-font;
+        font-family: var(--base-icon-font);
     }
 }
 

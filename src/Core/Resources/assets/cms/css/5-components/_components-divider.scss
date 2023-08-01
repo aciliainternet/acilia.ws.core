@@ -48,7 +48,7 @@
 }
 
 .c-divider--small {
-    font-size: $text-font-size;
+    font-size: var(--text-font-size);
     text-transform: none;
 
     &.has-text {

@@ -7,9 +7,9 @@
     @include position(fixed, $top: 20px);
     position: sticky;
     padding: 30px 20px 20px 30px;
-    border: 1px solid $grey-300;
+    border: 1px solid var(--grey-300);
     border-radius: 4px;
-    background-color: $color-white;
+    background-color: var(--white);
 
     &__item {
         display: block;
@@ -23,12 +23,12 @@
     &__link {
         position: relative;
         display: block;
-        background-color: $color-transparent;
-        font-size: rem(14);
+        background-color: var(--color-transparent);
+        font-size: .875rem;
         opacity: .6;
 
         &.is-active {
-            font-weight: $font-weight-semibold;
+            font-weight: var(--font-weight-semibold);
             opacity: 1;
 
             &::before {

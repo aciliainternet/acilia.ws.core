@@ -17,18 +17,18 @@
     position: relative;
     display: block;
     overflow: hidden;
-    margin-bottom: $spacer;
+    margin-bottom: var(--spacer);
     padding-left: 32px;
-    color: $grey-700;
+    color: var(--grey-700);
 
     &::before {
         content: '';
         position: absolute;
         top: 4px;
         left: 6px;
-        width: $base-border-width;
+        width: var(--base-border-width);
         height: 100%;
-        background-color: $base-border-color;
+        background-color: var(--base-border-color);
     }
 
     &.has-icons {
@@ -56,7 +56,7 @@
         width: 12px;
         height: 12px;
         border-radius: 100%;
-        background-color: $color-brand;
+        background-color: var(--color-brand);
     }
 
     &:last-child {
@@ -70,7 +70,7 @@
             width: 12px;
             height: 100%;
             border-radius: 0;
-            background-color: $base-background-color;
+            background-color: var(--base-background-color);
         }
     }
 
@@ -88,9 +88,9 @@
             width: 30px;
             height: 30px;
             border-radius: 100%;
-            background-color: $color-info;
-            color: $white;
-            font-size: $text-font-size;
+            background-color: var(--color-info);
+            color: var(--white);
+            font-size: var(--text-font-size);
             line-height: 30px;
             text-align: center;
         }
@@ -106,38 +106,38 @@
 .c-feed__item--brand {
 
     &::before {
-        @include linear-gradient(to bottom, $color-brand, $color-brand);
+        @include linear-gradient(to bottom, var(--color-brand), var(--color-brand));
     }
 }
 
 .c-feed__comment {
     display: inline-block;
-    margin: $spacer-xsmall 0;
-    padding: $spacer-xsmall;
-    border: $base-border-width solid $base-border-color;
-    border-radius: $base-border-radius;
-    background-color: $secondary-background-color;
+    margin: var(--spacer-xsmall) 0;
+    padding: var(--spacer-xsmall);
+    border: var(--base-border-width) solid var(--base-border-color);
+    border-radius: var(--base-border-radius);
+    background-color: var(secondary-background-color);
 }
 
 
 .c-feed__gallery {
     display: flex;
-    margin-top: $spacer-xsmall;
+    margin-top: var(--spacer-xsmall);
 }
 
 .c-feed__gallery-item {
     overflow: hidden;
     width: 80px;
     height: 80px;
-    margin: 0 $spacer-xsmall $spacer-xsmall 0;
-    border-radius: $base-border-radius;
+    margin: 0 var(--spacer-xsmall) var(--spacer-xsmall) 0;
+    border-radius: var(--base-border-radius);
 }
 
 
 .c-feed__meta {
     display: block;
-    color: $color-mute;
-    font-size: $text-font-size;
+    color: var(--color-mute);
+    font-size: var(--text-font-size);
 }
 
 /* Style variants
@@ -146,21 +146,21 @@
 .c-feed__item--fancy {
 
     &::before {
-        @include linear-gradient(to bottom, $purple-300, $purple-500);
+        @include linear-gradient(to bottom, var(--purple-300), var(--purple-500));
     }
 }
 
 .c-feed__item--info {
 
     &::before {
-        @include linear-gradient(to bottom, $blue-300, $blue-400);
+        @include linear-gradient(to bottom, var(--blue-300), var(--blue-400));
     }
 }
 
 .c-feed__item--success {
 
     &::before {
-        @include linear-gradient(to bottom, $green-300, $green-400);
+        @include linear-gradient(to bottom, var(--green-300), var(--green-400));
     }
 }
 

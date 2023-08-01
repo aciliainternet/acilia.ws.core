@@ -20,7 +20,7 @@
  */
 
 .c-btn {
-    @include linear-gradient(to bottom, $gradient-info); /* [1] */
+    background: color-mix(in srgb,var(--color-info),#000 25%);
     position: relative;
     display: inline-block;
     vertical-align: middle;
@@ -34,7 +34,7 @@
     color: $btn-color; /* [1] */
     font-weight: $btn-font-weight;
     font-size: $btn-font-size;
-    line-height: 1.5;
+    line-height: 1.5rem;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -69,9 +69,9 @@
             height: 100%;
             margin-left: 1.25rem;
             padding: .5rem 8px;
-            border-left: 1px solid $grey-400;
+            border-left: 1px solid var(--grey-400);
             color: inherit;
-            font-family: $base-icon-font;
+            font-family: var(--base-icon-font);
         }
     }
 
@@ -129,157 +129,141 @@
  */
 
 .c-btn--primary {
-    @include linear-gradient(to bottom, $btn-primary-gradient);
-    border-color: $btn-primary-border-color;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
 
     &:hover {
-        @include linear-gradient(to bottom, $btn-primary-hover-gradient);
+        background: color-mix(in srgb,var(--color-primary),#000 25%);
     }
 
     &:focus {
-        @include linear-gradient(to bottom, $btn-primary-focus-gradient);
+        border-color: color-mix(in srgb,var(--color-primary),#000 25%);
     }
 }
 
 .c-btn--secondary {
-    @include linear-gradient(to bottom, $btn-secondary-gradient);
-    border-color: $btn-secondary-border-color;
-    color: $btn-secondary-color;
+    background: var(--white);
+    border-color: var(--grey-400);
 
     &:hover {
-        @include linear-gradient(to bottom, $btn-secondary-hover-gradient);
-        color: $btn-secondary-hover-color;
+        background: color-mix(in srgb,var(--color-secondary),#000 25%);
     }
 
     &:focus {
-        @include linear-gradient(to bottom, $btn-secondary-focus-gradient);
-        color: $btn-secondary-hover-color;
+        border-color: color-mix(in srgb,var(--color-secondary),#000 25%);
     }
 }
 
 .c-btn--success {
-    @include linear-gradient(to bottom, $green-300, $green-400);
-    border-color: $green-500;
+    background: var(--color-success);
+    border-color: var(--color-success);
 
     &:hover {
-        @include linear-gradient(to bottom, darken($green-300, 4%), darken($green-400, 4%));
+        background: color-mix(in srgb,var(--color-success),#000 25%);
     }
 
     &:focus {
-        @include linear-gradient(to bottom, darken($green-300, 6%), darken($green-400, 6%));
+        border-color: color-mix(in srgb,var(--color-success),#000 25%);
     }
 }
 
-.c-btn--fancy {
-    @include linear-gradient(to bottom, $purple-300, $purple-500);
-    border-color: $purple-500;
+.c-btn--info {
+    background: var(--color-info);
+    border-color: var(--color-info);
 
     &:hover {
-        @include linear-gradient(to bottom, darken($purple-300, 4%), darken($purple-500, 4%));
+        background: color-mix(in srgb,var(--color-info),#000 25%);
     }
 
     &:focus {
-        @include linear-gradient(to bottom, darken($purple-300, 6%), darken($purple-500, 6%));
+        border-color: color-mix(in srgb,var(--color-info),#000 25%);
     }
 }
 
 .c-btn--warning {
-    @include linear-gradient(to bottom, $orange-300, $orange-500);
-    border-color: $orange-500;
+    background: var(--color-warning);
+    border-color: var(--color-warning);
 
     &:hover {
-        @include linear-gradient(to bottom, darken($orange-300, 4%), darken($orange-500, 4%));
+        background: color-mix(in srgb,var(--color-warning),#000 25%);
     }
 
     &:focus {
-        @include linear-gradient(to bottom, darken($orange-300, 6%), darken($orange-500, 6%));
+        border-color: color-mix(in srgb,var(--color-warning),#000 25%);
     }
 }
 
 .c-btn--danger {
-    @include linear-gradient(to bottom, $red-100, $red-300);
-    border-color: $red-300;
+    background: var(--color-danger);
+    border-color: var(--color-danger);
 
     &:hover {
-        @include linear-gradient(to bottom, darken($red-100, 4%), darken($red-300, 4%));
+        background: color-mix(in srgb,var(--color-danger),#000 25%);
     }
 
     &:focus {
-        @include linear-gradient(to bottom, darken($red-100, 6%), darken($red-300, 6%));
+        border-color: color-mix(in srgb,var(--color-danger),#000 25%);
     }
 }
 
 .c-btn--brand {
-    @include linear-gradient(to bottom, $color-brand, $color-brand);
-    border-color: $color-brand;
+    background: var(--color-brand);
+    border-color: var(--color-brand);
 
     &:hover {
-        @include linear-gradient(to bottom, darken($color-brand, 4%), darken($color-brand, 4%));
+        background: color-mix(in srgb,var(--color-brand),#000 25%);
     }
 
     &:focus {
-        @include linear-gradient(to bottom, darken($color-brand, 6%), darken($color-brand, 6%));
+        border-color: color-mix(in srgb,var(--color-brand),#000 25%);
     }
 }
 
 .c-btn--cancel {
     border: 0;
-    background-color: $color-transparent;
-    color: $gunmetal-200;
+    background-color: var(--color-transparent);
+    color: var(--gunmetal-200);
     text-decoration: underline;
 
     &:hover {
-        color: $gunmetal-500;
+        color: var(--gunmetal-500);
     }
 }
 
 .c-btn--delete {
-    color: $grey-700;
+    color: var(--grey-700);
     transition: all .2s ease-in-out;
 
     &:hover {
-        @include linear-gradient(to bottom, $red-100, $red-300);
-        border-color: $red-300;
-        color: $color-white;
+        background-color: var(--red-100);
+        border-color: var(--red-300);
+        color: var(--white);
     }
 }
 
 .c-btn--ghost {
     padding: 0;
     border: 0;
-    background-color: $color-transparent;
-    color: $grey-700;
+    background-color: var(--color-transparent);
+    color: var(--grey-700);
 
     i {
-        color: $grey-700;
+        color: var(--grey-700);
     }
 
     &:hover,
     &:focus {
-        color: $color-primary;
+        color: var(--color-primary);
     }
 }
 
 .c-btn--grey {
     border: 0;
     background-color: #716b67;
-    color: $color-white;
+    color: var(--white);
 
     &:hover {
         background-color: #56524f;
-    }
-}
-
-.c-btn--info {
-    @include linear-gradient(to bottom, $color-info, $color-info);
-    border-color: $color-info;
-
-    &:hover {
-        @include linear-gradient(to bottom, darken($color-info, 4%), darken($color-info, 10%));
-    }
-
-    &:focus {
-        @include linear-gradient(to bottom, darken($color-info, 6%), darken($color-info, 10%));
     }
 }
 
@@ -296,8 +280,8 @@
     }
 
     &:hover {
-        @include linear-gradient(to bottom, darken($red-100, 4%), darken($red-300, 4%));
-        border-color: $red-300;
+        background-color: color-mix(in srgb,var(--red-100),--red-300 25%);
+        border-color: var(--red-300);
         color: $btn-hover-color;
     }
 }
