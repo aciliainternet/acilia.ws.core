@@ -65,7 +65,7 @@
 }
 
 .c-card__icon {
-    @include linear-gradient(to bottom, $gradient-info);
+    background: color-mix(in srgb,var(--color-info),#000 25%);
     position: absolute;
     top: -35px;
     right: 0;

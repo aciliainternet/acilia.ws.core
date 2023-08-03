@@ -84,8 +84,9 @@
                             {% endfor %}
                         </ul>
                     </nav>
-                    <div class="c-divider u-mv-small"></div>
-                    <button class="c-btn c-btn--info" data-save-url="{{ path('ws_translation_save') }}" id="ws-translation-save">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                    <div class="c-form__footer">
+                        <button class="c-btn c-btn--primary" data-save-url="{{ path('ws_translation_save') }}" id="ws-translation-save">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -12,24 +12,24 @@
 //    text vertically.
 //
 
-$toggle-height: 52px !default; // [1]
+$toggle-height: 52px; // [1]
 
-$toggle-btn-width: calc(50% - 10px) !default;
-$toggle-btn-height: $toggle-height !default; // [1]
-$toggle-btn-border-width: 1px !default;
-$toggle-btn-border-color: #e7e9ed !default;
-$toggle-btn-border-radius: $base-border-radius !default;
+$toggle-btn-width: calc(50% - 10px);
+$toggle-btn-height: $toggle-height; // [1]
+$toggle-btn-border-width: 1px;
+$toggle-btn-border-color: #e7e9ed;
+$toggle-btn-border-radius: var(--base-border-radius);
 
-$toggle-btn-font-size: 14px !default;
-$toggle-btn-color: #565f6d !default;
-$toggle-btn-background-color: transparent !default;
+$toggle-btn-font-size: 14px;
+$toggle-btn-color: #565f6d;
+$toggle-btn-background-color: transparent;
 
-$toggle-btn-active-background-color: $color-info !default;
-$toggle-btn-active-border-color: $color-info !default;
-$toggle-btn-active-color: #565f6d !default;
+$toggle-btn-active-background-color: var(--color-info);
+$toggle-btn-active-border-color: var(--color-info);
+$toggle-btn-active-color: #565f6d;
 
 
-$toggle-label-width: 100% !default;
-$toggle-label-height: $toggle-height !default; // [2]
-$toggle-label-line-height: $toggle-label-height !default; // [2]
+$toggle-label-width: 100%;
+$toggle-label-height: $toggle-height; // [2]
+$toggle-label-line-height: $toggle-label-height; // [2]
 

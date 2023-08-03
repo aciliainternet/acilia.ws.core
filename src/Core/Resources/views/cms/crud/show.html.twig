@@ -38,12 +38,12 @@
             <div class="c-divider u-mv-small"></div>
 
             {% block crud_show_action %}
-                <div>
-                    <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                <div class="c-form__footer">
+                    <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
                     {% if form.saveAndBack is defined %}
                         {{ saveAndBackField|raw }}
                     {% endif %}
-                    <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+                    <button type="submit" class="c-btn c-btn--primary">{{ 'save'|trans({}, 'ws_cms') }}</button>
                 </div>
             {% endblock %}
 

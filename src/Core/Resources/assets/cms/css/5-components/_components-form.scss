@@ -18,6 +18,16 @@ $sidebar-content-lg: 350px;
         padding: 40px;
     }
 
+    &--medium {
+        width: 100%;
+        max-width: 860px;
+    }
+
+    &--full {
+        width: 100%;
+        max-width: 1400px;
+    }
+
     &__wrapper {
         display: flex;
         flex-direction: column;
@@ -35,7 +45,7 @@ $sidebar-content-lg: 350px;
             width: calc(100% - #{$sidebar-content-md});
             margin: 0 30px 0 0;
             padding-right: 30px;
-            border-right: 1px solid $grey-400;
+            border-right: 1px solid var(--grey-400);
         }
 
         @include media-breakpoint('lg') {
@@ -80,9 +90,9 @@ $sidebar-content-lg: 350px;
         position: relative;
         display: block;
         width: 100%;
-        color: $color-brand;
-        font-weight: $font-weight-semibold;
-        font-size: $text-font-size;
+        color: var(--color-brand);
+        font-weight: var(--font-weight-semibold);
+        font-size: var(--text-font-size);
         text-align: center;
 
         &::before,
@@ -92,7 +102,7 @@ $sidebar-content-lg: 350px;
             top: 50%; // at the center
             width: 42%;
             height: 1px;
-            background-color: $base-border-color;
+            background-color: var(--base-border-color);
         }
 
         &::before {
@@ -104,11 +114,11 @@ $sidebar-content-lg: 350px;
         }
 
         &.is-active {
-            color: $color-brand;
+            color: var(--color-brand);
 
             &::before,
             &::after {
-                background-color: $color-brand;
+                background-color: var(--color-brand);
             }
         }
     }
@@ -118,15 +128,15 @@ $sidebar-content-lg: 350px;
         z-index: 1;
         margin-bottom: 20px;
         padding: 20px 0;
-        border-bottom: 1px solid $grey-300;
-        background-color: $color-white;
+        border-bottom: 1px solid var(--grey-300);
+        background-color: var(--white);
     }
 
     &__tab-list {
         display: flex;
         align-items: stretch;
         justify-content: space-between;
-        margin-bottom: rem(30);
+        margin-bottom: 1.875rem;
         padding: 0;
         list-style: none;
     }
@@ -134,10 +144,10 @@ $sidebar-content-lg: 350px;
     &__tab-item {
         display: flex;
         flex-direction: column;
-        padding: rem(12) rem(15);
-        border-radius: rem(5);
+        padding: .75rem .938rem;
+        border-radius: .313rem;
         background-color: #f7f7f7;
-        font-size: $text-font-size;
+        font-size: var(--text-font-size);
         letter-spacing: 1px;
         cursor: pointer;
         transition: background 300ms ease-in-out;
@@ -147,7 +157,7 @@ $sidebar-content-lg: 350px;
             content: attr(data-text) / '';
             overflow: hidden;
             height: 0;
-            font-weight: $font-weight-semibold;
+            font-weight: var(--font-weight-semibold);
             visibility: hidden;
             pointer-events: none;
             user-select: none;
@@ -158,9 +168,9 @@ $sidebar-content-lg: 350px;
         }
 
         &.is-active {
-            background-color: rgba($color: $color-info, $alpha: .2);
-            color: $color-info;
-            font-weight: $font-weight-semibold;
+            background-color: rgba($color: var(--color-info), $alpha: .2);
+            color: var(--color-info);
+            font-weight: var(--font-weight-semibold);
         }
     }
 
@@ -176,13 +186,12 @@ $sidebar-content-lg: 350px;
         }
     }
 
-    &--medium {
-        width: 100%;
-        max-width: 860px;
-    }
-
-    &--full {
-        width: 100%;
-        max-width: 1400px;
+    &__footer {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--grey-400);
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
     }
 }

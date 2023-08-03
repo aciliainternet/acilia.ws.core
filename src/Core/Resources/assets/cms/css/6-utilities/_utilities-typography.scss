@@ -18,27 +18,27 @@
  */
 
 .u-h1 {
-    font-size: $h1-font-size;
+    font-size: var(--h1-font-size);
 }
 
 .u-h2 {
-    font-size: $h2-font-size;
+    font-size: var(--h2-font-size);
 }
 
 .u-h3 {
-    font-size: $h3-font-size;
+    font-size: var(--h3-font-size);
 }
 
 .u-h4 {
-    font-size: $h4-font-size;
+    font-size: var(--h4-font-size);
 }
 
 .u-h5 {
-    font-size: $h5-font-size;
+    font-size: var(--h5-font-size);
 }
 
 .u-h6 {
-    font-size: $h6-font-size;
+    font-size: var(--h6-font-size);
 }
 
 /**
@@ -49,11 +49,11 @@
  * Text Colors
  */
 .u-text-mute {
-    color: $text-mute-color !important;
+    color: var(--text-mute-color) !important;
 }
 
 .u-text-danger {
-    color: $color-danger !important;
+    color: var(--color-danger) !important;
 }
 
 .u-text-success {
@@ -61,37 +61,37 @@
 }
 
 .u-text-dark {
-    color: $text-color;
+    color: var(--text-color);
 }
 
 .u-text-white {
-    color: $white;
+    color: var(--white);
 }
 
 /**
   * Text Sizes
   */
 .u-text-tiny {
-    font-size: $text-tiny-font-size !important;
+    font-size: var(--text-tiny-font-size) !important;
 }
 
 .u-text-xsmall {
-    font-size: $text-small-font-size !important;
+    font-size: var(--text-small-font-size) !important;
 }
 
 .u-text-small {
-    font-size: $text-font-size !important;
+    font-size: var(--text-font-size) !important;
 }
 
 .u-text-large {
-    font-size: $h6-font-size !important;
+    font-size: var(--h6-font-size) !important;
 }
 
 // This class is used for 404 text only, we just couldn't find a better way
 // for implementing it
 .u-text-big {
     font-size: 54px;
-    font-weight: $font-weight-bold;
+    font-weight: var(--font-weight-bold);
     line-height: 48px;
 }
 
@@ -100,11 +100,11 @@
   * Font Weights
   */
 .u-text-normal {
-    font-weight: $font-weight-normal !important;
+    font-weight: var(--font-weight-normal) !important;
 }
 
 .u-text-bold {
-    font-weight: $font-weight-bold !important;
+    font-weight: var(--font-weight-bold) !important;
 }
 
 /**

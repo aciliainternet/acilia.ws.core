@@ -8,11 +8,9 @@
 }
 
 .editor-toolbar {
-    opacity: .6;
-
-    &:hover {
-        opacity: .8;
-    }
+    border-top: 1px solid var(--grey-400);
+    border-left: 1px solid var(--grey-400);
+    border-right: 1px solid var(--grey-400);
 
     .svg-inline--fa {
         display: inline-block;
@@ -21,7 +19,7 @@
     }
 
     button {
-        font-size: rem(16);
+        font-size: 1rem;
 
         &:focus {
             outline: none;
@@ -71,15 +69,32 @@
 }
 
 .CodeMirror-code {
-    color: $gunmetal-200;
-    font-size: rem(14);
-    line-height: 1.5;
+    color: var(--gunmetal-200);
+    font-size: .875rem;
+    line-height: 1.5rem;
 }
 
 .CodeMirror-placeholder {
-    color: $input-placeholder-color !important;
-    font-weight: $input-placeholder-font-weight;
-    font-size: rem(14) !important;
+    color: var(--input-placeholder-color) !important;
+    font-weight: var(--input-placeholder-font-weight);
+    font-size: .875rem !important;
     opacity: .7;
     transition: opacity .3s;
+}
+
+.editor-statusbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 8px 0;
+
+    span {
+        min-width: inherit;
+        margin-left: 0;
+    }
+}
+
+.EasyMDEContainer .CodeMirror {
+    border: 1px solid var(--grey-400);
 }

@@ -32,13 +32,13 @@
 
         &:hover {
             #{ $self }__icon {
-                color: $blue-100;
+                color: var(--blue-100);
             }
         }
     }
 
     &__icon {
-        color: $grey-400;
+        color: var(--grey-400);
         transition: color .2s ease-in-out;
     }
 }

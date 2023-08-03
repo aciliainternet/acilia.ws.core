@@ -27,7 +27,7 @@
                                 <div class="u-flex u-mr-auto">
                                     <h4 class="c-toolbar__title u-mr-10">{{ 'title'|trans([], trans_prefix) }}</h4>
                                     {% if is_granted(view_roles['create']) %}
-                                        <a class="c-btn c-btn--brand u-mr-10" href="{{ ws_cms_path("#{route_prefix}_create") }}">
+                                        <a class="c-btn c-btn--primary" href="{{ ws_cms_path("#{route_prefix}_create") }}">
                                             {{ 'new'|trans({}, 'ws_cms') }}
                                         </a>
                                     {% endif %}
@@ -57,13 +57,13 @@
                                         autocomplete="off"
                                 >
                             </div>
-                            <button type="submit" class="c-btn c-btn--info u-mr-10 u-hidden@md--down">
+                            <button type="submit" class="c-btn c-btn--secondary u-hidden@md--down">
                                 {{ source('@WSCore/cms/icons/search.svg') }}
                                 {{ 'search'|trans({}, 'ws_cms') }}
                             </button>
 
                             {% if filter_extended_form is not null %}
-                                <button type="button" class="c-btn c-btn--secondary u-mr-10 u-hidden@md--down js-toggle-filter">
+                                <button type="button" class="c-btn c-btn--secondary u-hidden@md--down js-toggle-filter">
                                     {{ source('@WSCore/cms/icons/filter.svg') }}
                                     {{ 'filter'|trans({}, 'ws_cms') }}
                                 </button>

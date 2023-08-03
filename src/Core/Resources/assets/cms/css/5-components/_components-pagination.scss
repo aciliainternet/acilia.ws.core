@@ -42,15 +42,15 @@
     display: inline-block;
 
     &:not(:last-child) {
-        margin-right: rem(12);
+        margin-right: .75rem;
     }
 
     &:first-child {
-        margin-right: rem(24);
+        margin-right: 1.5rem;
     }
 
     &:last-child {
-        margin-left: rem(12);
+        margin-left: .75rem;
     }
 }
 
@@ -65,7 +65,7 @@
     height: $pagination-control-height; /* [1] */
     padding: $pagination-control-padding;
     border: $pagination-control-border-width solid $pagination-control-border-color;
-    border-radius: $base-border-radius;
+    border-radius: var(--base-border-radius);
     background-color: $pagination-control-background-color;
     color: $pagination-control-color;
     box-shadow: 0 7px 64px 0 rgba(0, 0, 0, .07);
@@ -89,11 +89,11 @@
 
     &:hover {
         background-color: rgba($color: $pagination-control-background-color, $alpha: .7);
-        color: $heading-color;
+        color: var(--heading-color);
         text-decoration: none;
 
         i {
-            color: $heading-color;
+            color: var(--heading-color);
         }
     }
 
@@ -109,17 +109,17 @@
     height: $pagination-link-height;
     padding: $pagination-link-padding;
     border: $pagination-link-border-width solid $pagination-link-border-color;
-    border-radius: $base-border-radius;
+    border-radius: var(--base-border-radius);
     background-color: $pagination-link-background-color;
-    color: $pagination-link-color;
+    color: var(--link-color);
     font-size: $pagination-link-font-size;
     line-height: $pagination-link-height;
     text-align: center;
     transition: all 275ms ease;
 
     &:hover {
-        background-color: rgba($color: $color-info, $alpha: .3);
-        color: $heading-color;
+        background-color: rgba($color: var(--color-info), $alpha: .3);
+        color: var(--heading-color);
         text-decoration: none;
         transition: background-color 275ms ease;
     }
@@ -130,12 +130,12 @@
     }
 
     &.is-active {
-        background-color: $color-info;
-        color: $white;
+        background-color: var(--color-info);
+        color: var(--white);
 
         &:hover {
-            background-color: rgba($color: $color-info, $alpha: .9);
-            color: $white;
+            background-color: rgba($color: var(--color-info), $alpha: .9);
+            color: var(--white);
         }
     }
 }

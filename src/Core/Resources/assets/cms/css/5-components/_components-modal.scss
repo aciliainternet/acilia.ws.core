@@ -39,9 +39,9 @@
     overflow: auto;
     width: 90vw;
     height: 90vh;
-    padding: rem(50) rem(30);
+    padding: 3.125rem 1.875rem;
     border-radius: 4px;
-    background: $color-white;
+    background: var(--white);
     opacity: 0;
     transition: 1ms opacity ease;
 
@@ -60,10 +60,10 @@
 #a-close {
     @include position(absolute, $top: 20px, $right: 30px);
     border: 0;
-    background: $color-transparent;
+    background: var(--color-transparent);
     color: #7f8fa4;
     outline: none;
-    font-size: rem(20);
+    font-size: 1.25rem;
     cursor: pointer;
 }
 /* stylelint-enable */

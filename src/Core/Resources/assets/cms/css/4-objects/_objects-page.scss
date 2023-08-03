@@ -21,7 +21,7 @@
  */
 
 .o-page--center {
-    padding-top: $spacer-xlarge;
+    padding-top: var(--spacer-xlarge);
 }
 
 
@@ -83,7 +83,7 @@
 
 .o-page__card {
     width: 450px;
-    margin: 0 auto $spacer-large;
+    margin: 0 auto var(--spacer-large);
 
     @include respond-to ($breakpoint-tablet) {
         width: 95%;
@@ -99,7 +99,7 @@
 
 .o-page__card--horizontal {
     width: 800px;
-    margin: 0 auto $spacer-large;
+    margin: 0 auto var(--spacer-large);
 
     @include respond-to ($breakpoint-desktop) {
         width: 95%;

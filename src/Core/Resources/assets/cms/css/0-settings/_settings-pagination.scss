@@ -5,36 +5,36 @@
 //   #PAGINATION
 //   ======================================================================== */
 
-$pagination-height: rem(35) !default; // [1]
-$pagination-margin-bottom: 15px !default;
-$pagination-border-radius: $base-border-radius !default;
-$pagination-background-color: $white !default;
-$pagination-color: #354052 !default;
+$pagination-height: 2.188rem; // [1]
+$pagination-margin-bottom: 15px;
+$pagination-border-radius: var(--base-border-radius);
+$pagination-background-color: var(--white);
+$pagination-color: #354052;
 
 
 // pagination control
-$pagination-control-height: $pagination-height !default; // [1]
-$pagination-control-padding: 0 16px !default;
-$pagination-control-border-width: $base-border-width !default;
-$pagination-control-border-color: $grey-300 !default;
-$pagination-control-border-radius: $base-border-radius !default;
-$pagination-control-background-color: $white !default;
-$pagination-control-color: #ced0da !default;
-$pagination-control-font-size: $text-font-size !default;
-$pagination-control-font-weight: $font-weight-bold !default;
+$pagination-control-height: $pagination-height; // [1]
+$pagination-control-padding: 0 16px;
+$pagination-control-border-width: var(--base-border-width);
+$pagination-control-border-color: var(--grey-300);
+$pagination-control-border-radius: var(--base-border-radius);
+$pagination-control-background-color: var(--white);
+$pagination-control-color: #ced0da;
+$pagination-control-font-size: var(--text-font-size);
+$pagination-control-font-weight: var(--font-weight-bold);
 
 // pagination link
-$pagination-link-height: $pagination-height !default; // [1]
-$pagination-link-padding: 0 16px !default;
+$pagination-link-height: $pagination-height; // [1]
+$pagination-link-padding: 0 16px;
 
-$pagination-link-border-width: $base-border-width !default;
-$pagination-link-border-color: $grey-300 !default;
+$pagination-link-border-width: var(--base-border-width);
+$pagination-link-border-color: var(--grey-300);
 
-$pagination-link-background-color: $white !default;
-$pagination-link-color: rgba(#354052, .5) !default;
-$pagination-link-active-color: rgba(#354052, 1) !default;
-$pagination-link-font-size: 14px !default;
+$pagination-link-background-color: var(--white);
+$pagination-link-color: rgba(#354052, .5);
+$pagination-link-active-color: rgba(#354052, 1);
+$pagination-link-font-size: 14px;
 
 // pagination counter
-$pagination-counter-padding: 8px 15px !default;
-$pagination-counter-color: $color-mute !default;
+$pagination-counter-padding: 8px 15px;
+$pagination-counter-color: var(--color-mute);

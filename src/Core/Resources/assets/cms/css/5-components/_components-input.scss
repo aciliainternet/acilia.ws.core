@@ -4,10 +4,10 @@
 @use '../1-tools/_tools-mixin-rem' as *;
 
 .c-input {
-    line-height: $base-line-height;
+    line-height: var(--base-line-height);
 
     &--small {
-        padding: $btn-padding;
+        padding: var(--btn-padding);
     }
 
     &--select {

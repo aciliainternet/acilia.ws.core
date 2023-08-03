@@ -4,7 +4,6 @@
             class="c-btn c-btn--secondary"
             title="{{ 'preview'|trans({}, 'ws_cms')}}"
             href="{{ ws_preview_path(entity, { 'id': entity.id}) }}"
-            style="color:#9fa9ba;"
             target="_blank"
         >
             <i class="fa-light fa-eye"></i>
@@ -14,8 +13,7 @@
             <button
                 class="c-btn c-btn--secondary has-dropdown dropdown-toggle"
                 type="button"
-                title="{{ 'preview'|trans({}, 'ws_cms')}}"
-                style="color:#9fa9ba;">
+                title="{{ 'preview'|trans({}, 'ws_cms')}}">
                 <i class="fa-light fa-eye"></i>
             </button>
             <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">

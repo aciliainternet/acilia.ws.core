@@ -20,20 +20,17 @@
  */
 
 .c-btn {
-    @include linear-gradient(to bottom, $gradient-info); /* [1] */
     position: relative;
     display: inline-block;
     vertical-align: middle;
     overflow: hidden;
     max-width: 100%;
     margin: 0;
-    padding: $btn-padding;
-    border: $btn-border-width solid;
-    border-color: $btn-border-color; /* [1] */
-    border-radius: $btn-border-radius;
-    color: $btn-color; /* [1] */
-    font-weight: $btn-font-weight;
-    font-size: $btn-font-size;
+    border: var(--btn-border-width) solid;
+    border-radius: var(--btn-border-radius);
+    padding: var(--btn-padding);
+    font-weight: var(--btn-font-weight);
+    font-size: var(--btn-font-size);
     line-height: 1.5;
     text-align: center;
     text-overflow: ellipsis;
@@ -45,7 +42,7 @@
 
     &:hover,
     &:focus {
-        color: $btn-hover-color;
+        color: var(--btn-hover-color);
         outline: 0;
         text-decoration: none;
     }
@@ -57,8 +54,15 @@
     }
 
     &.has-dropdown {
+        border-color: var(--grey-400);
         position: relative;
         padding-right: 2.5rem;
+        color: var(--grey-700);
+
+        &:hover {
+            background: color-mix(in srgb,var(--color-style, var(--btn-background-color-secondary-hover)),#fff 75%);
+            color: var(--color-secondary);
+        }
 
         &::after { /* [3] */
             content: '\f107'; // fa-angle-down
@@ -69,217 +73,141 @@
             height: 100%;
             margin-left: 1.25rem;
             padding: .5rem 8px;
-            border-left: 1px solid $grey-400;
+            border-left: 1px solid var(--grey-400);
             color: inherit;
-            font-family: $base-icon-font;
+            font-family: var(--base-icon-font);
         }
     }
 
     &.is-disabled,
     &:disabled { /* [4] */
-        border-color: $btn-disabled-border-color;
-        background: $btn-disabled-background-color;
-        color: $btn-disabled-color;
+        border-color: var(--btn-disabled-border-color);
+        background: var(--btn-disabled-background-color);
+        color: var(--btn-disabled-color);
         pointer-events: none;
 
         &:hover,
         &:focus {
-            border-color: $btn-disabled-border-color;
-            background: $btn-disabled-background-color;
-            color: $btn-disabled-color;
+            border-color: var(--btn-disabled-border-color);
+            background: var(--btn-disabled-background-color);
+            color: var(--btn-disabled-color);
             cursor: not-allowed;
         }
     }
 }
 
-.c-btn--fullwidth {
-    width: 100%;
-}
-
-.c-btn--no-transition {
-    transition: none;
-}
-
-/**
- * 1. Reduce spacing between the icon and text in small buttons.
- */
-
-.c-btn--small {
-    padding: $btn-small-padding;
-    font-size: $btn-small-font-size;
-
-    i {
-        margin-right: 5px; /* [1] */
-    }
-}
-
-.c-btn--large {
-    padding: $btn-large-padding;
-    font-size: $btn-large-font-size;
-}
-
-
-/* Style variants
-   ========================================================================== */
-
-/**
- * Buttons have a simple, nice gradient on the background, we use
- * sass's `darken()` method to generate a dark shade of the requested color,
- * then we use our `linear-gradient` mixin to generate the gradient background.
- */
-
+// Type
 .c-btn--primary {
-    @include linear-gradient(to bottom, $btn-primary-gradient);
-    border-color: $btn-primary-border-color;
+    background-color: var(--color-style, var(--btn-background-color-primary));
+    border-color: var(--color-style, var(--btn-border-color-primary));
+    color: var(--white);
 
     &:hover {
-        @include linear-gradient(to bottom, $btn-primary-hover-gradient);
+        background: color-mix(in srgb,var(--color-style, var(--btn-background-color-primary-hover)),#fff 25%);
     }
 
     &:focus {
-        @include linear-gradient(to bottom, $btn-primary-focus-gradient);
+        border-color: var(--color-style, var(--btn-border-color-primary-focus));
+        outline: 1px solid color-mix(in srgb,var(--color-style, var(--btn-border-color-primary-focus)),#000 25%);
     }
 }
 
 .c-btn--secondary {
-    @include linear-gradient(to bottom, $btn-secondary-gradient);
-    border-color: $btn-secondary-border-color;
-    color: $btn-secondary-color;
+    background-color: var(--btn-background-color-secondary);
+    border-color: var(--color-style, var(--btn-border-color-secondary));
+    color: var(--color-style, var(--color-secondary));
 
     &:hover {
-        @include linear-gradient(to bottom, $btn-secondary-hover-gradient);
-        color: $btn-secondary-hover-color;
+        background: color-mix(in srgb,var(--color-style, var(--btn-background-color-secondary-hover)),#fff 75%);
+        color: var(--color-style, var(--color-secondary));
     }
 
     &:focus {
-        @include linear-gradient(to bottom, $btn-secondary-focus-gradient);
-        color: $btn-secondary-hover-color;
-    }
-}
-
-.c-btn--success {
-    @include linear-gradient(to bottom, $green-300, $green-400);
-    border-color: $green-500;
-
-    &:hover {
-        @include linear-gradient(to bottom, darken($green-300, 4%), darken($green-400, 4%));
-    }
-
-    &:focus {
-        @include linear-gradient(to bottom, darken($green-300, 6%), darken($green-400, 6%));
-    }
-}
-
-.c-btn--fancy {
-    @include linear-gradient(to bottom, $purple-300, $purple-500);
-    border-color: $purple-500;
-
-    &:hover {
-        @include linear-gradient(to bottom, darken($purple-300, 4%), darken($purple-500, 4%));
-    }
-
-    &:focus {
-        @include linear-gradient(to bottom, darken($purple-300, 6%), darken($purple-500, 6%));
-    }
-}
-
-.c-btn--warning {
-    @include linear-gradient(to bottom, $orange-300, $orange-500);
-    border-color: $orange-500;
-
-    &:hover {
-        @include linear-gradient(to bottom, darken($orange-300, 4%), darken($orange-500, 4%));
-    }
-
-    &:focus {
-        @include linear-gradient(to bottom, darken($orange-300, 6%), darken($orange-500, 6%));
-    }
-}
-
-.c-btn--danger {
-    @include linear-gradient(to bottom, $red-100, $red-300);
-    border-color: $red-300;
-
-    &:hover {
-        @include linear-gradient(to bottom, darken($red-100, 4%), darken($red-300, 4%));
-    }
-
-    &:focus {
-        @include linear-gradient(to bottom, darken($red-100, 6%), darken($red-300, 6%));
-    }
-}
-
-.c-btn--brand {
-    @include linear-gradient(to bottom, $color-brand, $color-brand);
-    border-color: $color-brand;
-
-    &:hover {
-        @include linear-gradient(to bottom, darken($color-brand, 4%), darken($color-brand, 4%));
-    }
-
-    &:focus {
-        @include linear-gradient(to bottom, darken($color-brand, 6%), darken($color-brand, 6%));
-    }
-}
-
-.c-btn--cancel {
-    border: 0;
-    background-color: $color-transparent;
-    color: $gunmetal-200;
-    text-decoration: underline;
-
-    &:hover {
-        color: $gunmetal-500;
-    }
-}
-
-.c-btn--delete {
-    color: $grey-700;
-    transition: all .2s ease-in-out;
-
-    &:hover {
-        @include linear-gradient(to bottom, $red-100, $red-300);
-        border-color: $red-300;
-        color: $color-white;
+        border-color: var(--color-style, var(--btn-border-color-secondary-focus));
+        color: var(--color-style, var(--color-secondary));
+        outline: 1px solid var(--color-style, var(--color-secondary));
     }
 }
 
 .c-btn--ghost {
     padding: 0;
     border: 0;
-    background-color: $color-transparent;
-    color: $grey-700;
+    background-color: var(--color-transparent);
+    color: var(--grey-700);
 
     i {
-        color: $grey-700;
+        color: var(--grey-700);
     }
 
     &:hover,
     &:focus {
-        color: $color-primary;
+        color: var(--color-primary);
     }
 }
 
-.c-btn--grey {
+.c-btn--cancel {
     border: 0;
-    background-color: #716b67;
-    color: $color-white;
+    background-color: var(--color-transparent);
+    color: var(--gunmetal-200);
+    text-decoration: underline;
 
     &:hover {
-        background-color: #56524f;
+        color: var(--color-secondary);
+        background-color: var(--grey-400);
     }
+}
+
+// Syze
+
+.c-btn--small {
+    padding: var(--btn-small-padding);
+    font-size: var(--btn-small-font-size);
+
+    i {
+        margin-right: 4px;
+    }
+}
+
+.c-btn--large {
+    padding: var(--btn-large-padding);
+    font-size: var(--btn-large-font-size);
+}
+
+.c-btn--fullwidth {
+    width: 100%;
+}
+
+// Style
+.c-btn--success {
+    --color-style: var(--color-success);
 }
 
 .c-btn--info {
-    @include linear-gradient(to bottom, $color-info, $color-info);
-    border-color: $color-info;
+    --color-style: var(--color-info);
+}
+
+.c-btn--warning {
+    --color-style: var(--color-warning);
+}
+
+.c-btn--danger {
+    --color-style: var(--color-danger);
+}
+
+.c-btn--brand {
+    --color-style: var(--color-brand);
+}
+
+// Others
+.c-btn--delete {
+    --color-style: var(--grey-400);
+    color: var(--grey-700);
+    transition: all .2s ease-in-out;
 
     &:hover {
-        @include linear-gradient(to bottom, darken($color-info, 4%), darken($color-info, 10%));
-    }
-
-    &:focus {
-        @include linear-gradient(to bottom, darken($color-info, 6%), darken($color-info, 10%));
+        background-color: var(--red-100);
+        border-color: var(--red-300);
+        color: var(--white);
     }
 }
 
@@ -296,9 +224,17 @@
     }
 
     &:hover {
-        @include linear-gradient(to bottom, darken($red-100, 4%), darken($red-300, 4%));
-        border-color: $red-300;
-        color: $btn-hover-color;
+        background-color: color-mix(in srgb,var(--red-100),--red-300 25%);
+        border-color: var(--red-300);
+        color: var(--btn-hover-color);
     }
 }
 
+.c-btn--no-transition {
+    transition: none;
+}
+
+.c-btn--form {
+    min-height: 3.25rem;
+    padding: .5rem 1.125rem;
+}

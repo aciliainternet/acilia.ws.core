@@ -4,20 +4,102 @@
 @use '../1-tools/_tools-mixin-position' as *;
 
 /* stylelint-disable */
+#toast-container {
+    position: fixed;
+    z-index: 999999;
+}
+
+#toast-container * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#toast-container > div {
+    position: relative;
+    overflow: hidden;
+    width: 300px;
+    margin: 0;
+    padding: 12px 16px 24px 48px;
+    border-radius: var(--base-border-radius);
+    color: color-mix(in srgb, var(--color-toast), #000 25%);
+    box-shadow: 0px 4px 8px 0px rgba(49,113,89, .8);
+}
+
+#toast-container > .toast-info::before {
+    @include position(absolute, $top: 13px, $left: 16px);
+    content: '\f05a';
+    display: inline-block;
+    line-height: 1.125rem;
+    margin: auto;
+    font-weight: 300;
+    font-size: 1.125rem;
+    font-family: var(--base-icon-font);
+}
+
+#toast-container > .toast-error::before {
+    @include position(absolute, $top: 13px, $left: 16px);
+    content: '\f06a';
+    display: inline-block;
+    line-height: 1.125rem;
+    margin: auto;
+    font-weight: 300;
+    font-size: 1.125rem;
+    font-family: var(--base-icon-font);
+}
+
+#toast-container > .toast-success::before {
+    @include position(absolute, $top: 13px, $left: 16px);
+    content: '\f058';
+    display: inline-block;
+    line-height: 1.125rem;
+    margin: auto;
+    font-weight: 300;
+    font-size: 1.125rem;
+    font-family: var(--base-icon-font);
+}
+
+#toast-container > .toast-warning::before {
+    @include position(absolute, $top: 13px, $left: 16px);
+    content: '\f071';
+    display: inline-block;
+    line-height: 1.125rem;
+    margin: auto;
+    font-weight: 300;
+    font-size: 1.125rem;
+    font-family: var(--base-icon-font);
+}
+
+#toast-container.toast-top-center > div,
+#toast-container.toast-bottom-center > div {
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#toast-container.toast-top-full-width > div,
+#toast-container.toast-bottom-full-width > div {
+    width: 96%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .toast-title {
-    font-weight: $font-weight-semibold;
+    font-weight: var(--font-weight-semibold);
 }
 
 .toast-message {
-    font-weight: $font-weight-normal;
-    font-size: rem(14);
+    font-weight: var(--font-weight-normal);
+    font-size: .875rem;
+    line-height: 1.25rem;
     -ms-word-wrap: break-word;
     word-wrap: break-word;
+    color: color-mix(in srgb, var(--color-toast), #000 25%);
 }
 
 .toast-message a,
 .toast-message label {
-    color: $color-white;
+    color: var(--color-toast);
 }
 
 .toast-message a:hover {
@@ -25,15 +107,15 @@
 }
 
 .toast-close-button {
-    @include position(absolute, $top: 5px, $right: 10px);
+    @include position(absolute, $top: 14px, $right: 16px);
     display: inline-block;
     padding: 0;
     border: 0;
     background: transparent;
-    color: $color-white;
+    color: color-mix(in srgb, var(--color-toast), #000 25%);
     font-weight: 300;
-    font-size: rem(24);
-    line-height: rem(15);
+    font-size: 1.5rem;
+    line-height: .938rem;
     cursor: pointer;
     -webkit-appearance: none;
 }
@@ -82,110 +164,35 @@
     left: 12px;
 }
 
-#toast-container {
-    position: fixed;
-    z-index: 999999;
-    /*overrides*/
-}
-
-#toast-container * {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-#toast-container > div {
-    position: relative;
-    overflow: hidden;
-    width: 300px;
-    margin: 0 0 6px;
-    padding: 20px 20px 20px 50px;
-    border-radius: 3px;
-    color: $color-white;
-}
-
-#toast-container > .toast-info::before {
-    @include position(absolute, $top: 0, $left: 15px, $bottom: 0);
-    content: '\f05a';
-    display: inline-block;
-    height: 30px;
-    margin: auto;
-    font-weight: 300;
-    font-size: 1.5em;
-    font-family: 'Font Awesome 6 Pro';
-}
-
-#toast-container > .toast-error::before {
-    @include position(absolute, $top: 0, $left: 15px, $bottom: 0);
-    content: '\f06a';
-    display: inline-block;
-    height: 30px;
-    margin: auto;
-    font-weight: 300;
-    font-size: 1.5em;
-    font-family: 'Font Awesome 6 Pro';
-}
-
-#toast-container > .toast-success::before {
-    @include position(absolute, $top: 0, $left: 15px, $bottom: 0);
-    content: '\f00c';
-    display: inline-block;
-    height: 30px;
-    margin: auto;
-    font-weight: 300;
-    font-size: 1.5em;
-    font-family: 'Font Awesome 6 Pro';
-}
-
-#toast-container > .toast-warning::before {
-    @include position(absolute, $top: 0, $left: 15px, $bottom: 0);
-    content: '\f071';
-    display: inline-block;
-    height: 30px;
-    margin: auto;
-    font-weight: 300;
-    font-size: 1.5em;
-    font-family: 'Font Awesome 6 Pro';
-}
-
-#toast-container.toast-top-center > div,
-#toast-container.toast-bottom-center > div {
-    width: 300px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-#toast-container.toast-top-full-width > div,
-#toast-container.toast-bottom-full-width > div {
-    width: 96%;
-    margin-right: auto;
-    margin-left: auto;
-}
-
 .toast {
     background-color: #030303;
 }
 
 .toast-success {
-    background-color: rgba($color-success, .9);
+    --color-toast: var(--color-success);
+    background-color: color-mix(in srgb, var(--color-toast), #fff 85%);
 }
 
 .toast-error {
-    background-color: rgba($color-danger, .9);
+    --color-toast: var(--color-danger);
+    background-color: color-mix(in srgb, var(--color-toast), #fff 85%);
 }
 
 .toast-info {
-    background-color: rgba($color-info, .9);
+    --color-toast: var(--color-info);
+    background-color: color-mix(in srgb, var(--color-toast), #fff 85%);
 }
 
 .toast-warning {
-    background-color: rgba($color-warning, .9);
+    --color-toast: var(--color-warning);
+    background-color: color-mix(in srgb, var(--color-toast), #fff 85%);
 }
 
 .toast-progress {
     @include position(absolute, $left: 0, $bottom: 0);
     height: 4px;
-    background-color: $color-black;
-    opacity: .4;
+    border-radius: 0;
+    background-color: var(--color-toast);
+    opacity: .8;
 }
 /* stylelint-enable */

@@ -12,16 +12,16 @@
     position: relative;
     display: flex;
     width: 100%;
-    margin: $alert-margin;
-    padding: $alert-padding;
-    border-radius: $alert-border-radius;
-    color: $alert-color;
+    margin: var(--alert-margin);
+    padding: var(--alert-padding);
+    border-radius: var(--alert-border-radius);
+    color: var(--alert-color);
     transition: all .3s;
 
     .c-close {
         position: absolute;
-        top: $alert-close-top;
-        right: $alert-close-right;
+        top: var(--alert-close-top);
+        right: var(--alert-close-right);
     }
 
 
@@ -35,32 +35,32 @@
     }
 
     &[class*='--border'] {
-        font-weight: $font-weight-normal;
-        font-size: rem(13);
+        font-weight: var(--font-weight-normal);
+        font-size: .813rem;
     }
 
     &--border-success {
-        border: 1px solid $alert-success-background-color;
-        background-color: rgba($alert-success-background-color, .2);
-        color: $alert-success-background-color;
+        border: 1px solid var(--alert-success-background-color);
+        background-color: color-mix(in srgb, var(--alert-success-background-color), #fff 75%);
+        color: var(--alert-success-background-color);
     }
 
     &--border-info {
-        border: 1px solid $alert-info-background-color;
-        background-color: rgba($alert-info-background-color, .2);
-        color: $alert-info-background-color;
+        border: 1px solid var(--alert-info-background-color);
+        background-color: color-mix(in srgb, var(--alert-info-background-color), #fff 75%);
+        color: var(--alert-info-background-color);
     }
 
     &--border-warning {
-        border: 1px solid $alert-warning-background-color;
-        background-color: rgba($alert-warning-background-color, .2);
-        color: $alert-warning-background-color;
+        border: 1px solid var(--alert-warning-background-color);
+        background-color: color-mix(in srgb, var(--alert-warning-background-color), #fff 75%);
+        color: var(--alert-warning-background-color);
     }
 
     &--border-danger {
-        border: 1px solid $alert-danger-background-color;
-        background-color: rgba($alert-danger-background-color, .2);
-        color: $alert-danger-background-color;
+        border: 1px solid var(--alert-danger-background-color);
+        background-color: color-mix(in srgb, var(--alert-danger-background-color), #fff 75%);
+        color: var(--alert-danger-background-color);
     }
 }
 
@@ -72,9 +72,9 @@
 .c-alert__icon {
     position: relative;
     bottom: -4px; /* [1] */
-    margin-right: $alert-icon-margin-right;
-    font-size: $alert-icon-font-size;
-    opacity: $alert-icon-opacity;
+    margin-right: var(--alert-icon-margin-right);
+    font-size: var(--alert-icon-font-size);
+    opacity: var(--alert-icon-opacity);
 }
 
 
@@ -82,17 +82,17 @@
    ========================================================================== */
 
 .c-alert--success {
-    background-color: $alert-success-background-color;
+    background-color: var(--alert-success-background-color);
 }
 
 .c-alert--info {
-    background-color: $alert-info-background-color;
+    background-color: var(--alert-info-background-color);
 }
 
 .c-alert--warning {
-    background-color: $alert-warning-background-color;
+    background-color: var(--alert-warning-background-color);
 }
 
 .c-alert--danger {
-    background-color: $alert-danger-background-color;
+    background-color: var(--alert-danger-background-color);
 }

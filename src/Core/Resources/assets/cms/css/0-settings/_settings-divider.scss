@@ -4,10 +4,10 @@
 //   #DIVIDER
 //   ======================================================================== */
 
-$divider-color: $grey-800 !default;
-$divider-font-size: $text-small-font-size !default;
-$divider-font-weight: $font-weight-normal !default;
+$divider-color: var(--grey-800);
+$divider-font-size: var(--text-small-font-size);
+$divider-font-weight: var(--font-weight-normal);
 
-$divider-line-height: 1px !default;
-$divider-line-background-color: $grey-400 !default;
+$divider-line-height: 1px;
+$divider-line-background-color: var(--grey-400);
 

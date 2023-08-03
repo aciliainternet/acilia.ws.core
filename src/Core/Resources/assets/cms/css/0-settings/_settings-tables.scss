@@ -4,24 +4,24 @@
 //   #TABLES
 //   ======================================================================== */
 
-$table-border-width: 1px !default;
-$table-border-color: #e6eaee !default;
+$table-border-width: 1px;
+$table-border-color: #e6eaee;
 
-$table-border-radius: $base-border-radius !default;
-$table-background-color: $white !default;
+$table-border-radius: var(--base-border-radius);
+$table-background-color: var(--white);
 
 $table-title-background-color: #ffffff;
-$table-title-color: $heading-color !default;
+$table-title-color: var(--heading-color);
 
 
-$table-head-slim-background-color: #f5f8fa !default;
-$table-head-cell-padding: 10px 0 10px 30px !default;
+$table-head-slim-background-color: #f5f8fa;
+$table-head-cell-padding: 10px 0 10px 30px;
 
 
-$table-cell-padding: 20px 0 20px 30px !default;
-$table-cell-color: $text-color !default;
-$table-cell-font-size: $text-font-size !default;
-$table-cell-font-weight: $font-weight-semibold !default;
+$table-cell-padding: 20px 0 20px 30px;
+$table-cell-color: var(--text-color);
+$table-cell-font-size: var(--text-font-size);
+$table-cell-font-weight: var(--font-weight-semibold);
 
-$table-zebra-row-background-color: rgba($table-border-color, .3) !default;
-$table-highlight-row-background-color: rgba($table-border-color, .3) !default;
+$table-zebra-row-background-color: rgba($table-border-color, .3);
+$table-highlight-row-background-color: rgba($table-border-color, .3);

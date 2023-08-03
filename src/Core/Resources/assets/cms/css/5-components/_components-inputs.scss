@@ -11,26 +11,26 @@
     display: block;
     width: 100%;
     margin: 0;
-    padding: $input-padding;
-    border: $input-border-width solid $input-border-color;
-    border-radius: $input-border-radius;
-    background-color: $input-background-color;
-    color: $input-focus-color;
-    font-weight: $input-font-weight;
-    font-size: $input-font-size;
-    line-height: $base-line-height;
+    padding: var(--input-padding);
+    border: var(--input-border-width) solid var(--input-border-color);
+    border-radius: var(--input-border-radius);
+    background-color: var(--input-background-color);
+    color: var(--input-focus-color);
+    font-weight: var(--input-font-weight);
+    font-size: var(--input-font-size);
+    line-height: var(--base-line-height);
     resize: none;
     transition: all .3s;
 
     &::placeholder {
-        color: $input-placeholder-color;
-        font-weight: $input-placeholder-font-weight;
+        color: var(--input-placeholder-color);
+        font-weight: var(--input-placeholder-font-weight);
         opacity: .7;
         transition: opacity .3s;
     }
 
     &:focus {
-        border-color: $input-focus-border-color;
+        border-color: var(--input-focus-border-color);
         outline: none;
 
         &::placeholder {
@@ -40,14 +40,14 @@
 
     &.is-disabled,
     &:disabled {
-        border-color: $input-disabled-border-color;
-        background-color: $input-disabled-background-color;
-        color: $input-disabled-color;
+        border-color: var(--input-disabled-border-color);
+        background-color: var(--input-disabled-background-color);
+        color: var(--input-disabled-color);
         cursor: not-allowed;
     }
 
     &--small {
-        padding: $btn-padding;
+        padding: var(--btn-padding);
     }
 
     &--select {
@@ -66,8 +66,8 @@
 
 textarea.c-input {
     min-height: 250px;
-    font-weight: $textarea-font-weight;
-    font-size: $textarea-font-size;
+    font-weight: var(--textarea-font-weight);
+    font-size: var(--textarea-font-size);
     resize: vertical;
 
     &.c-input--textarea-small {
@@ -80,27 +80,27 @@ textarea.c-input {
    ========================================================================== */
 
 .c-input--success {
-    border-color: $input-success-border-color;
+    border-color: var(--input-success-border-color);
 
     &:focus {
-        border-color: $input-success-border-color;
+        border-color: var(--input-success-border-color);
     }
 }
 
 .c-input--warning {
-    border-color: $input-warning-border-color;
+    border-color: var(--input-warning-border-color);
 
     &:focus {
-        border-color: $input-warning-border-color;
+        border-color: var(--input-warning-border-color);
     }
 }
 
 .c-input--danger {
-    border-color: $input-danger-border-color;
-    color: $input-danger-color;
+    border-color: var(--input-danger-border-color);
+    color: var(--input-danger-color);
 
     &:focus {
-        border-color: $input-danger-border-color;
-        color: $input-danger-color;
+        border-color: var(--input-danger-border-color);
+        color: var(--input-danger-color);
     }
 }

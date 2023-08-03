@@ -5,20 +5,20 @@
 //   #CARD
 //   ======================================================================== */
 
-$card-border-width: $base-border-width !default;
-$card-border-color: $base-border-color !default;
-$card-border-radius: $base-border-radius !default;
-$card-background-color: $base-background-color !default;
+$card-border-width: var(--base-border-width);
+$card-border-color: var(--base-border-color);
+$card-border-radius: var(--base-border-radius);
+$card-background-color: var(--base-background-color);
 
-$card-header-padding: rem(30) rem(25) !default;
-$card-header-background-color: $secondary-background-color !default;
+$card-header-padding: 1.875rem 1.563rem;
+$card-header-background-color: var(--secondary-background-color);
 
-$card-title-font-size: $h5-font-size !default;
-$card-meta-color: $color-mute !default;
-$card-meta-font-size: $text-small-font-size !default;
+$card-title-font-size: var(--h5-font-size);
+$card-meta-color: var(--color-mute);
+$card-meta-font-size: var(--text-small-font-size);
 
-$card-icon-font-size: $h2-font-size !default;
-$card-icon-color: $white !default;
-$card-icon-background-color: $orange-400 !default;
+$card-icon-font-size: var(--h2-font-size);
+$card-icon-color: var(--white);
+$card-icon-background-color: var(--orange-400);
 
-$card-body-padding: $spacer !default;
+$card-body-padding: var(--spacer);

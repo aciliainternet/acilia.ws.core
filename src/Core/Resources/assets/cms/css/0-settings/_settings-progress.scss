@@ -4,23 +4,23 @@
 //   #PROGRESS
 //   ======================================================================== */
 
-$progress-height: 20px !default;
-$progress-margin: 0 0 15px 0 !default;
-$progress-border-radius: 20px !default;
-$progress-background-color: #e2e7ee !default;
+$progress-height: 20px;
+$progress-margin: 0 0 15px 0;
+$progress-border-radius: 20px;
+$progress-background-color: #e2e7ee;
 
 // size variations
-$progress-xsmall-height: 2px !default;
-$progress-small-height: 4px !default;
-$progress-medium-height: 8px !default;
+$progress-xsmall-height: 2px;
+$progress-small-height: 4px;
+$progress-medium-height: 8px;
 
 // color variations
-$progress-bar-primary-gradient: $gunmetal-100, $gunmetal-400 !default;
-$progress-bar-success-gradient: #5ad946, #2bb415 !default;
-$progress-bar-info-gradient: #2da1f8, #1991eb !default;
-$progress-bar-danger-gradient: $red-100, $red-300 !default;
-$progress-bar-warning-gradient: #f8cf5d, #fdc018 !default;
-$progress-bar-fancy-gradient: #9d90e4, #8261e6 !default;
+$progress-bar-primary-gradient: var(--gunmetal-100), var(--gunmetal-400);
+$progress-bar-success-gradient: #5ad946, #2bb415;
+$progress-bar-info-gradient: #2da1f8, #1991eb;
+$progress-bar-danger-gradient: var(--red-100), var(--red-300);
+$progress-bar-warning-gradient: #f8cf5d, #fdc018;
+$progress-bar-fancy-gradient: #9d90e4, #8261e6;
 
 
 

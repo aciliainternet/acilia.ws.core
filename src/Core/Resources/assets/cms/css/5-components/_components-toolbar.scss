@@ -53,7 +53,7 @@
     font-size: $toolbar-icon-font-size;
 
     &.is-active {
-        color: $blue-300;
+        color: var(--blue-300);
     }
 
     &.has-divider::after {
@@ -69,7 +69,7 @@
 }
 
 .c-toolbar__link {
-    color: $toolbar-link-color;
+    color: var(--link-color);
     font-size: $toolbar-link-font-size;
 
     &.has-dropdown::after {
@@ -78,7 +78,7 @@
         margin-left: 10px;
         color: inherit;
         font-size: 12px;
-        font-family: $base-icon-font;
+        font-family: var(--base-icon-font);
     }
 }
 
@@ -99,7 +99,7 @@
 .c-toolbar__nav-item {
     margin-right: 25px;
     padding: 0 0 27px;
-    color: $tabs-link-color;
+    color: var(--link-color);
     font-size: $tabs-link-font-size;
 
     @media only screen and (max-width: $breakpoint-mobile) {
@@ -118,7 +118,7 @@
     &.is-active {
         border-bottom: $tabs-link-active-border-width solid $tabs-link-active-border-color;
         color: $tabs-link-active-color;
-        font-weight: $font-weight-bold;
+        font-weight: var(--font-weight-bold);
     }
 }
 
@@ -129,11 +129,11 @@
  */
 
 .c-toolbar__state {
-    border-right: $base-border-width solid $base-border-color;
+    border-right: var(--base-border-width) solid var(--base-border-color);
     text-align: center;
 
     @include respond-to($breakpoint-tablet) {
-        margin-bottom: $spacer;
+        margin-bottom: var(--spacer);
         border-right: 0;
 
         &:nth-child(3),
@@ -149,12 +149,12 @@
 
 .c-toolbar__state-number {
     margin-bottom: 0;
-    font-size: $h2-font-size;
+    font-size: var(--h2-font-size);
 }
 
 .c-toolbar__state-title {
-    color: $color-mute;
-    font-size: $text-font-size;
+    color: var(--color-mute);
+    font-size: var(--text-font-size);
     text-transform: uppercase;
 }
 
@@ -170,21 +170,21 @@
     }
 
     &--caption {
-        border: 1px solid $grey-300;
+        border: 1px solid var(--grey-300);
         border-bottom: 0;
         border-radius: 4px 4px 0 0;
     }
 
     &--empty {
-        border-bottom: 1px solid $grey-300;
+        border-bottom: 1px solid var(--grey-300);
         border-radius: 4px;
     }
 
     .choices__inner,
     .c-input {
         min-height: initial;
-        max-height: rem(39);
-        padding: $btn-padding;
+        max-height: 2.438rem;
+        padding: var(--btn-padding);
     }
 
     .c-choice-wrapper--small {
@@ -194,6 +194,6 @@
     }
 
     .choices[data-type='select-one'] .choices__inner {
-        padding: $btn-padding;
+        padding: var(--btn-padding);
     }
 }

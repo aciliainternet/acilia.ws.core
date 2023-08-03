@@ -14,7 +14,7 @@ trait SaveAndBackFormTrait
                 'translation_domain' => 'ws_cms',
                 'label' => 'save.back',
                 'attr' => [
-                    'class' => 'c-btn c-btn--info',
+                    'class' => 'c-btn c-btn--secondary',
                 ]
             ])
         ;

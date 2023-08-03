@@ -19,11 +19,11 @@
 .c-sidebar {
     @include scrollbar;
     position: relative;
-    z-index: $z-index-200; // DEV NOTE: COMPARE WITH `o-page__sidebar`
+    z-index: var(--z-index-200); // DEV NOTE: COMPARE WITH `o-page__sidebar`
     overflow: auto;
     height: 100%;
     margin: 0;
-    padding-bottom: $spacer;
+    padding-bottom: var(--spacer);
     background-color: #222c3c;
 }
 
@@ -39,13 +39,13 @@
     vertical-align: middle;
     align-items: center;
     height: $navbar-height; /* [1] */
-    padding-left: $spacer;
-    border-bottom: $base-border-width solid #2a3547;
-    color: $grey-300;
-    font-size: rem(16);
+    padding-left: var(--spacer);
+    border-bottom: var(--base-border-width) solid #2a3547;
+    color: var(--grey-300);
+    font-size: 1rem;
 
     &:hover {
-        color: $grey-300;
+        color: var(--grey-300);
         text-decoration: none;
     }
 }
@@ -53,14 +53,14 @@
 .c-sidebar__brand-img {
     display: inline-block;
     height: 44px; /* [2] */
-    margin-right: $spacer-xsmall;
+    margin-right: var(--spacer-xsmall);
 }
 
 .c-sidebar__title {
     margin-top: 25px;
     margin-bottom: 15px;
     padding-left: 30px;
-    color: $color-mute;
+    color: var(--color-mute);
     font-size: 12px;
     text-transform: uppercase;
 }
@@ -91,7 +91,7 @@
         right: 30px;
         display: inline-block;
         color: #b7c0cd;
-        font-family: $base-icon-font;
+        font-family: var(--base-icon-font);
     }
 
     &.is-open {
@@ -119,7 +119,7 @@
     }
 
     &:hover {
-        color: $white;
+        color: var(--white);
         text-decoration: none;
     }
 }
@@ -154,8 +154,8 @@
    ========================================================================== */
 
 .c-sidebar--light {
-    border-right: $base-border-width solid $base-border-color;
-    background-color: $white;
+    border-right: var(--base-border-width) solid var(--base-border-color);
+    background-color: var(--white);
 
     /**
      * 1. Add a slight shadow to the sidebar to make it popup a little bit
@@ -166,11 +166,11 @@
     }
 
     .c-sidebar__divider {
-        background-color: $base-border-color;
+        background-color: var(--base-border-color);
     }
 
     .c-sidebar__brand {
-        color: $heading-color;
+        color: var(--heading-color);
     }
 
     .c-sidebar__item {
@@ -185,14 +185,14 @@
     }
 
     .c-sidebar__link {
-        color: $color-mute;
+        color: var(--color-mute);
 
         &.is-active {
             background-color: transparent;
-            color: $heading-color;
+            color: var(--heading-color);
 
             i {
-                color: $link-color;
+                color: var(--link-color);
             }
 
             &:hover {
@@ -201,7 +201,7 @@
         }
 
         &:hover {
-            color: $heading-color;
+            color: var(--heading-color);
         }
     }
 }
@@ -221,7 +221,7 @@
     display: none;
     width: $nav-toggle-width;
     height: $nav-toggle-height;
-    margin: 0 $spacer-small 0 0; /* [1] */
+    margin: 0 var(--spacer-small) 0 0; /* [1] */
     padding: 0; /* [1] */
     border: 0; /* [1] */
     background-color: transparent; /* [1] */
@@ -266,7 +266,7 @@
 
     &__text {
         padding-left: 10px;
-        color: $color-default-text;
+        color: var(--color-default-text);
     }
 
     &__item {
@@ -281,7 +281,7 @@
                 content: '';
                 width: 3px;
                 height: 100%;
-                background-color: $color-sidebar-active;
+                background-color: var(--color-sidebar-active);
             }
         }
 
@@ -310,30 +310,30 @@
         #{ $self }__item {
 
             &.is-open {
-                background-color: $color-white;
+                background-color: var(--white);
             }
         }
 
         #{ $self }__link {
             margin: 10px 0;
-            color: $grey-700;
+            color: var(--grey-700);
 
             &.is-active {
                 position: relative;
-                color: $color-sidebar-active;
+                color: var(--color-sidebar-active);
                 box-shadow: none;
-                font-weight: $font-weight-bold;
+                font-weight: var(--font-weight-bold);
 
                 &::before {
                     @include position(absolute, $top: 0, $left: 15px);
                     content: '';
                     width: 3px;
                     height: 100%;
-                    background-color: $color-sidebar-active;
+                    background-color: var(--color-sidebar-active);
                 }
 
                 i {
-                    color: $color-sidebar-active;
+                    color: var(--color-sidebar-active);
                 }
 
                 &:hover {
@@ -362,8 +362,8 @@
 
     &__close {
         @include position(absolute, $top: 25px, $right: 20px);
-        color: $grey-800;
-        font-size: rem(20);
+        color: var(--grey-800);
+        font-size: 1.25rem;
         cursor: pointer;
     }
 }

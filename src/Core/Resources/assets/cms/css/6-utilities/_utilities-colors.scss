@@ -15,35 +15,35 @@
  */
 
 .u-color-success {
-    color: $color-success !important;
+    color: var(--color-success) !important;
 }
 
 .u-color-info {
-    color: $color-info !important;
+    color: var(--color-info) !important;
 }
 
 .u-color-danger {
-    color: $color-danger !important;
+    color: var(--color-danger) !important;
 }
 
 .u-color-warning  {
-    color: $color-warning !important;
+    color: var(--color-warning) !important;
 }
 
 .u-color-primary {
-    color: $heading-color !important;
+    color: var(--heading-color) !important;
 }
 
 .u-color-secondary {
-    color: $white !important;
+    color: var(--white) !important;
 }
 
 .u-color-white {
-    color: $white !important;
+    color: var(--white) !important;
 }
 
 .u-color-mute {
-    color: $color-mute !important;
+    color: var(--color-mute) !important;
 }
 
 
@@ -52,43 +52,43 @@
   */
 
 .u-bg-success {
-    background: $green-200 !important;
-    background-color: $green-200 !important;
+    background: var(--green-200) !important;
+    background-color: var(--green-200) !important;
 }
 
 .u-bg-info {
-    background: $blue-500 !important;
-    background-color: $blue-500 !important;
+    background: var(--blue-500) !important;
+    background-color: var(--blue-500) !important;
 }
 
 .u-bg-danger {
-    background: $red-400 !important;
-    background-color: $red-400 !important;
+    background: var(--red-400) !important;
+    background-color: var(--red-400) !important;
 }
 
 .u-bg-fancy {
-    background: $purple-200 !important;
-    background-color: $purple-200 !important;
+    background: var(--purple-200) !important;
+    background-color: var(--purple-200) !important;
 }
 
 .u-bg-warning {
-    background: $orange-300 !important;
-    background-color: $orange-300 !important;
+    background: var(--orange-300) !important;
+    background-color: var(--orange-300) !important;
 }
 
 .u-bg-primary {
-    background: $gunmetal-100 !important;
-    background-color: $gunmetal-100 !important;
+    background: var(--gunmetal-100) !important;
+    background-color: var(--gunmetal-100) !important;
 }
 
 .u-bg-secondary {
-    background: $secondary-background-color !important;
-    background-color: $secondary-background-color !important;
+    background: var(secondary-background-color) !important;
+    background-color: var(secondary-background-color) !important;
 }
 
 .u-bg-white {
-    background: $white !important;
-    background-color: $white !important;
+    background: var(--white) !important;
+    background-color: var(--white) !important;
 }
 
 
@@ -102,27 +102,27 @@
  */
 
 .u-color-facebook {
-    color:  $color-facebook !important;
+    color: var(--color-facebook) !important;
 }
 
 .u-color-twitter {
-    color:  $color-twitter !important;
+    color: var(--color-twitter) !important;
 }
 
 .u-color-pinterest {
-    color:  $color-pinterest !important;
+    color: var(--color-pinterest) !important;
 }
 
 .u-color-behance {
-    color: $color-behance !important;
+    color:var(--color-behance) !important;
 }
 
 .u-color-dribbble {
-    color: $color-dribbble !important;
+    color:var(--color-dribbble) !important;
 }
 
 .u-color-linkedin {
-    color: $color-linkedin !important;
+    color:var(--color-linkedin) !important;
 }
 
 
@@ -134,33 +134,33 @@
  */
 
 .u-bg-facebook {
-    border-color: $color-facebook !important; /* [1] */
-    background:  $color-facebook !important;
+    border-color:var(--color-facebook) !important; /* [1] */
+    background: var(--color-facebook) !important;
 }
 
 .u-bg-twitter {
-    border-color: $color-twitter !important;
-    background:  $color-twitter !important;
+    border-color:var(--color-twitter) !important;
+    background: var(--color-twitter) !important;
 }
 
 .u-bg-pinterest {
-    border-color: $color-pinterest !important;
-    background:  $color-pinterest !important;
+    border-color:var(--color-pinterest) !important;
+    background: var(--color-pinterest) !important;
 }
 
 .u-bg-behance {
-    border-color: $color-behance !important;
-    background: $color-behance !important;
+    border-color:var(--color-behance) !important;
+    background:var(--color-behance) !important;
 }
 
 .u-bg-dribbble {
-    border-color: $color-dribbble !important;
-    background: $color-dribbble !important;
+    border-color:var(--color-dribbble) !important;
+    background:var(--color-dribbble) !important;
 }
 
 .u-bg-linkedin {
-    border-color: $color-linkedin;
-    background-color: $color-linkedin !important;
+    border-color:var(--color-linkedin);
+    background-color:var(--color-linkedin) !important;
 }
 
 /**
@@ -171,7 +171,7 @@
  */
 
 .u-color-disable {
-    color: $grey-800 !important;
+    color: var(--grey-800) !important;
 }
 
 .u-color-in-progress {

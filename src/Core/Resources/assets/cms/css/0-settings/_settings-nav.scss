@@ -5,22 +5,22 @@
 //   ======================================================================== */
 
 
-$nav-item-margin: 0 40px 0 0 !default;
+$nav-item-margin: 0 40px 0 0;
 
 
-$nav-link-color: #9fa9ba !default;
-$nav-link-active-color: $link-color !default;
-$nav-link-font-size: $text-font-size !default;
-$nav-link-font-weight: $font-weight-normal !default;
+$nav-link-color: #9fa9ba;
+$nav-link-active-color: var(--link-color);
+$nav-link-font-size: var(--text-font-size);
+$nav-link-font-weight: var(--font-weight-normal);
 
 
 // Nav toggle (hamburger icon)
-$nav-toggle-width: 30px !default; // [1] same as bar's width
-$nav-toggle-height: 30px !default;
+$nav-toggle-width: 30px; // [1] same as bar's width
+$nav-toggle-height: 30px;
 
 // Nav toggle bar
-$nav-toggle-bar-width: 30px !default; // [1] same as icon's width
-$nav-toggle-bar-height: 4px !default;
-$nav-toggle-bar-border-radius: $base-border-radius !default;
-$nav-toggle-bar-background-color: $gunmetal-200 !default; // the opposite of the background color
+$nav-toggle-bar-width: 30px; // [1] same as icon's width
+$nav-toggle-bar-height: 4px;
+$nav-toggle-bar-border-radius: var(--base-border-radius);
+$nav-toggle-bar-background-color: var(--gunmetal-200); // the opposite of the background color
 
