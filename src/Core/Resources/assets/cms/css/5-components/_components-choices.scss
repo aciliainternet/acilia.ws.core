@@ -170,6 +170,10 @@
 
     &.is-focused {
         border-color: var(--input-focus-border-color);
+
+        .choices__inner {
+            border-color: var(--input-focus-border-color);
+        }
     }
 }
 
