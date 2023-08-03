@@ -1,24 +1,22 @@
-@use '../0-settings/_settings-global' as *;
-@use '../1-tools/_tools-mixin-rem' as *;
-
 ///* ========================================================================
 //   #ALERTS
 //   ======================================================================== */
 
+:root {
+    --alert-margin: 0 0 .938rem 0;
+    --alert-padding: .75rem 2rem .75rem .75rem;
+    --alert-border-radius: var(--base-border-radius);
+    --alert-color: var(--white);
 
-$alert-margin: 0 0 .938rem 0 !default;
-$alert-padding: .75rem 2rem .75rem .75rem !default;
-$alert-border-radius: var(--base-border-radius) !default;
-$alert-color: var(--white) !default;
+    --alert-close-top: .75rem;
+    --alert-close-right: 1rem;
 
-$alert-close-top: .75rem !default;
-$alert-close-right: 1rem !default;
+    --alert-icon-margin-right: .625rem;
+    --alert-icon-font-size: 1.125rem;
+    --alert-icon-opacity: .7;
 
-$alert-icon-margin-right: .625rem !default;
-$alert-icon-font-size: 1.125rem !default;
-$alert-icon-opacity: .7 !default;
-
-$alert-success-background-color: var(--color-success) !default;
-$alert-info-background-color: var(--color-info) !default;
-$alert-warning-background-color: var(--color-warning) !default;
-$alert-danger-background-color: var(--color-danger) !default;
+    --alert-success-background-color: var(--color-success);
+    --alert-info-background-color: var(--color-info);
+    --alert-warning-background-color: var(--color-warning);
+    --alert-danger-background-color: var(--color-danger);
+}
