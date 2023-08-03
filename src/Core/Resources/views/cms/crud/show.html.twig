@@ -35,8 +35,6 @@
                 {{ form_widget(form) }}
             {% endblock %}
 
-            <div class="c-divider u-mv-small"></div>
-
             {% block crud_show_action %}
                 <div class="c-form__footer">
                     <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
