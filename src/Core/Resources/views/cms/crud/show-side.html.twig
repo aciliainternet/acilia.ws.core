@@ -19,7 +19,7 @@
                 <div class="c-divider u-mv-small"></div>
 
                 {% block crud_show_action %}
-                    <div>
+                    <div class="c-form__footer">
                         <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
                         {% if form.saveAndBack is defined %}
                             {{ form_widget(form.saveAndBack) }}
