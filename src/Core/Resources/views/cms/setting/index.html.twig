@@ -40,8 +40,9 @@
                     </div>
                 {% endfor %}
                 <small class="c-field__message u-mt-5"><i class="fa fa-info-circle"></i>{{ 'required'|trans({}, 'ws_cms_setting')|raw }}</small>
-                <div class="c-divider u-mv-small"></div>
-                <button class="c-btn c-btn--primary" data-save-url="{{ path('ws_setting_save', { 'section': section.code }) }}" id="ws-settings-save">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                <div class="c-form__footer">
+                    <button class="c-btn c-btn--primary" data-save-url="{{ path('ws_setting_save', { 'section': section.code }) }}" id="ws-settings-save">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                </div>
             </div>
         </div>
     </div>
