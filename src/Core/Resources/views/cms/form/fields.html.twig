@@ -281,7 +281,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
     {%- set type = type|default('text') -%}
     {%- set ws_block = block('form_widget_simple') -%}
 
-    {{ _self.ws_addon(ws_block, row_attr, '', 'fa fa-percent') }}
+    {{ _self.ws_addon(ws_block, row_attr, '', 'fa-regular fa-percent') }}
     {%- endblock percent_widget -%}
 
     {%- block password_widget -%}
@@ -705,7 +705,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                         data-id="{{ form.children.asset.vars.id }}">
                         {{ 'next'|trans({}, 'ws_cms') }}
                     </button>
-                    <button class="c-btn c-btn--info c-btn--no-transition ws-cropper_confirm ws-cropper_save u-mr-5"
+                    <button class="c-btn c-btn--primary c-btn--no-transition ws-cropper_confirm ws-cropper_save u-mr-5"
                         data-id="{{ form.children.asset.vars.id }}">
                         {{ 'confirm'|trans({}, 'ws_cms') }}
                     </button>
@@ -744,7 +744,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                                 <input class="c-input c-input--small js-search-input" autocomplete="off" name="f"
                                     placeholder="Search" type="text" value="">
                             </div>
-                            <button type="submit" class="c-btn c-btn--info c-btn--no-transition js-search-submit">
+                            <button type="submit" class="c-btn c-btn--primary c-btn--no-transition js-search-submit">
                                 <i class="fa fa-search u-mr-xsmall"></i>
                                 {{ 'search'|trans({}, 'ws_cms') }}
                             </button>
@@ -781,7 +781,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                 <i class="fal fa-trash-alt"></i>
             </button>
             <div class="c-img-modal__img-actions">
-                <button class="c-btn c-btn--info c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"
+                <button class="c-btn c-btn--primary c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"
                     data-image-id="#image-id" data-image-url="#image-thumb" data-image-original="#image-original"
                     type="button">
                     {{ 'assets_image.image_list.use'|trans({}, 'ws_cms') }}

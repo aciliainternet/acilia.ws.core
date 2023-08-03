@@ -184,7 +184,7 @@
     .c-input {
         min-height: initial;
         max-height: 2.438rem;
-        padding: $btn-padding;
+        padding: var(--btn-padding);
     }
 
     .c-choice-wrapper--small {
@@ -194,6 +194,6 @@
     }
 
     .choices[data-type='select-one'] .choices__inner {
-        padding: $btn-padding;
+        padding: var(--btn-padding);
     }
 }

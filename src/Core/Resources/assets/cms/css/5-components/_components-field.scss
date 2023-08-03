@@ -26,7 +26,7 @@
         flex-flow: row nowrap;
 
         > .c-input {
-            flex-basis: calc(100% - $field-addon-width); /* [1] */
+            flex-basis: calc(100% - var(--field-addon-width)); /* [1] */
         }
     }
 
@@ -64,8 +64,8 @@
         > .c-field__icon {
             position: absolute;
             top: 50%;
-            color: $field-icon-color;
-            font-size: $field-icon-font-size;
+            color: var(--field-icon-color);
+            font-size: var(--field-icon-font-size);
             transform: translateY(-50%);
         }
     }
@@ -123,10 +123,10 @@
 .c-field__label {
     display: block;
     flex-basis: auto;
-    margin: $field-label-margin;
-    color: $field-label-color;
-    font-weight: $field-label-font-weight;
-    font-size: $field-label-font-size;
+    margin: var(--field-label-margin);
+    color: var(--field-label-color);
+    font-weight: var(--field-label-font-weight);
+    font-size: var(--field-label-font-size);
 }
 
 
@@ -135,17 +135,21 @@
  */
 
 .c-field__addon {
-    @include linear-gradient(to bottom, $field-addon-gradient);
+    @include linear-gradient(to bottom, var(--field-addon-gradient));
     display: inline-flex;
-    flex-basis: $field-addon-width;
+    flex-basis: var(--field-addon-width);
     align-content: center;
     align-items: center;
     justify-content: center;
-    border: $field-addon-border-width solid $field-addon-border-color;
+    border: var(--field-addon-border-width) solid var(--field-addon-border-color);
     border-radius: var(--base-border-radius);
-    color: $field-addon-color;
-    font-size: 1.125rem;
+    color: var(--field-addon-color);
+    font-size: var(--field-addon-font-size);
     text-align: center;
+
+    i {
+        font-size: var(--field-icon-font-size);
+    }
 }
 
 
@@ -155,10 +159,10 @@
 
 .c-field__message {
     display: inline-block;
-    margin: $field-message-margin;
-    padding: $field-message-padding;
-    color: $field-message-color;
-    font-size: $field-message-font-size;
+    margin: var(--field-message-margin);
+    padding: var(--field-message-padding);
+    color: var(--field-message-color);
+    font-size: var(--field-message-font-size);
     line-height: 1rem;
 
     > i {

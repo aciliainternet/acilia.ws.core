@@ -75,15 +75,21 @@
     --black: #000000;
 
     --color-primary: #252529;
-    --color-secondary: #43ab34;
-    --color-brand: #ffa600;
+    --color-secondary: #252529;
+    --color-brand: #007c89;
     --color-default-text: #475364;
     --color-sidebar-active: --color-primary;
 
     // Common
     --color-transparent: transparent;
     --body-color: var(--color-default-text);
+
+    // Border
     --border-color: #dadae4;
+    --primary-border-color: var(--color-info);
+    --primary-border-color-focus: var(--color-info);
+    --secondary-border-color: var(--grey-400);
+    --secondary-border-color-focus: var(--grey-700);
 
     // states
     --color-success: #55b45a;
@@ -103,7 +109,6 @@
     // backgrounds
     --body-background-color: #eff3f6;
     --base-background-color: var(--white);
-    --secondary-background-color: #fafbfc;
     --background-color: #f2f2f6;
 
     //

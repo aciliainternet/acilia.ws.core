@@ -20,21 +20,18 @@
  */
 
 .c-btn {
-    background: color-mix(in srgb,var(--color-info),#000 25%);
     position: relative;
     display: inline-block;
     vertical-align: middle;
     overflow: hidden;
     max-width: 100%;
     margin: 0;
-    padding: $btn-padding;
-    border: $btn-border-width solid;
-    border-color: $btn-border-color; /* [1] */
-    border-radius: $btn-border-radius;
-    color: $btn-color; /* [1] */
-    font-weight: $btn-font-weight;
-    font-size: $btn-font-size;
-    line-height: 1.5rem;
+    border: var(--btn-border-width) solid;
+    border-radius: var(--btn-border-radius);
+    padding: var(--btn-padding);
+    font-weight: var(--btn-font-weight);
+    font-size: var(--btn-font-size);
+    line-height: 1.5;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -45,7 +42,7 @@
 
     &:hover,
     &:focus {
-        color: $btn-hover-color;
+        color: var(--btn-hover-color);
         outline: 0;
         text-decoration: none;
     }
@@ -57,8 +54,15 @@
     }
 
     &.has-dropdown {
+        border-color: var(--grey-400);
         position: relative;
         padding-right: 2.5rem;
+        color: var(--grey-700);
+
+        &:hover {
+            background: color-mix(in srgb,var(--color-style, var(--btn-background-color-secondary-hover)),#fff 75%);
+            color: var(--color-secondary);
+        }
 
         &::after { /* [3] */
             content: '\f107'; // fa-angle-down
@@ -77,167 +81,51 @@
 
     &.is-disabled,
     &:disabled { /* [4] */
-        border-color: $btn-disabled-border-color;
-        background: $btn-disabled-background-color;
-        color: $btn-disabled-color;
+        border-color: var(--btn-disabled-border-color);
+        background: var(--btn-disabled-background-color);
+        color: var(--btn-disabled-color);
         pointer-events: none;
 
         &:hover,
         &:focus {
-            border-color: $btn-disabled-border-color;
-            background: $btn-disabled-background-color;
-            color: $btn-disabled-color;
+            border-color: var(--btn-disabled-border-color);
+            background: var(--btn-disabled-background-color);
+            color: var(--btn-disabled-color);
             cursor: not-allowed;
         }
     }
 }
 
-.c-btn--fullwidth {
-    width: 100%;
-}
-
-.c-btn--no-transition {
-    transition: none;
-}
-
-/**
- * 1. Reduce spacing between the icon and text in small buttons.
- */
-
-.c-btn--small {
-    padding: $btn-small-padding;
-    font-size: $btn-small-font-size;
-
-    i {
-        margin-right: 5px; /* [1] */
-    }
-}
-
-.c-btn--large {
-    padding: $btn-large-padding;
-    font-size: $btn-large-font-size;
-}
-
-
-/* Style variants
-   ========================================================================== */
-
-/**
- * Buttons have a simple, nice gradient on the background, we use
- * sass's `darken()` method to generate a dark shade of the requested color,
- * then we use our `linear-gradient` mixin to generate the gradient background.
- */
-
+// Type
 .c-btn--primary {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+    background-color: var(--color-style, var(--btn-background-color-primary));
+    border-color: var(--color-style, var(--btn-border-color-primary));
+    color: var(--white);
 
     &:hover {
-        background: color-mix(in srgb,var(--color-primary),#000 25%);
+        background: color-mix(in srgb,var(--color-style, var(--btn-background-color-primary-hover)),#fff 25%);
     }
 
     &:focus {
-        border-color: color-mix(in srgb,var(--color-primary),#000 25%);
+        border-color: var(--color-style, var(--btn-border-color-primary-focus));
+        outline: 1px solid color-mix(in srgb,var(--color-style, var(--btn-border-color-primary-focus)),#000 25%);
     }
 }
 
 .c-btn--secondary {
-    background: var(--white);
-    border-color: var(--grey-400);
+    background-color: var(--btn-background-color-secondary);
+    border-color: var(--color-style, var(--btn-border-color-secondary));
+    color: var(--color-style, var(--color-secondary));
 
     &:hover {
-        background: color-mix(in srgb,var(--color-secondary),#000 25%);
+        background: color-mix(in srgb,var(--color-style, var(--btn-background-color-secondary-hover)),#fff 75%);
+        color: var(--color-style, var(--color-secondary));
     }
 
     &:focus {
-        border-color: color-mix(in srgb,var(--color-secondary),#000 25%);
-    }
-}
-
-.c-btn--success {
-    background: var(--color-success);
-    border-color: var(--color-success);
-
-    &:hover {
-        background: color-mix(in srgb,var(--color-success),#000 25%);
-    }
-
-    &:focus {
-        border-color: color-mix(in srgb,var(--color-success),#000 25%);
-    }
-}
-
-.c-btn--info {
-    background: var(--color-info);
-    border-color: var(--color-info);
-
-    &:hover {
-        background: color-mix(in srgb,var(--color-info),#000 25%);
-    }
-
-    &:focus {
-        border-color: color-mix(in srgb,var(--color-info),#000 25%);
-    }
-}
-
-.c-btn--warning {
-    background: var(--color-warning);
-    border-color: var(--color-warning);
-
-    &:hover {
-        background: color-mix(in srgb,var(--color-warning),#000 25%);
-    }
-
-    &:focus {
-        border-color: color-mix(in srgb,var(--color-warning),#000 25%);
-    }
-}
-
-.c-btn--danger {
-    background: var(--color-danger);
-    border-color: var(--color-danger);
-
-    &:hover {
-        background: color-mix(in srgb,var(--color-danger),#000 25%);
-    }
-
-    &:focus {
-        border-color: color-mix(in srgb,var(--color-danger),#000 25%);
-    }
-}
-
-.c-btn--brand {
-    background: var(--color-brand);
-    border-color: var(--color-brand);
-
-    &:hover {
-        background: color-mix(in srgb,var(--color-brand),#000 25%);
-    }
-
-    &:focus {
-        border-color: color-mix(in srgb,var(--color-brand),#000 25%);
-    }
-}
-
-.c-btn--cancel {
-    border: 0;
-    background-color: var(--color-transparent);
-    color: var(--gunmetal-200);
-    text-decoration: underline;
-
-    &:hover {
-        color: var(--gunmetal-500);
-    }
-}
-
-.c-btn--delete {
-    color: var(--grey-700);
-    transition: all .2s ease-in-out;
-
-    &:hover {
-        background-color: var(--red-100);
-        border-color: var(--red-300);
-        color: var(--white);
+        border-color: var(--color-style, var(--btn-border-color-secondary-focus));
+        color: var(--color-style, var(--color-secondary));
+        outline: 1px solid var(--color-style, var(--color-secondary));
     }
 }
 
@@ -257,13 +145,69 @@
     }
 }
 
-.c-btn--grey {
+.c-btn--cancel {
     border: 0;
-    background-color: #716b67;
-    color: var(--white);
+    background-color: var(--color-transparent);
+    color: var(--gunmetal-200);
+    text-decoration: underline;
 
     &:hover {
-        background-color: #56524f;
+        color: var(--color-secondary);
+        background-color: var(--grey-400);
+    }
+}
+
+// Syze
+
+.c-btn--small {
+    padding: var(--btn-small-padding);
+    font-size: var(--btn-small-font-size);
+
+    i {
+        margin-right: 4px;
+    }
+}
+
+.c-btn--large {
+    padding: var(--btn-large-padding);
+    font-size: var(--btn-large-font-size);
+}
+
+.c-btn--fullwidth {
+    width: 100%;
+}
+
+// Style
+.c-btn--success {
+    --color-style: var(--color-success);
+}
+
+.c-btn--info {
+    --color-style: var(--color-info);
+}
+
+.c-btn--warning {
+    --color-style: var(--color-warning);
+}
+
+.c-btn--danger {
+    --color-style: var(--color-danger);
+}
+
+.c-btn--brand {
+    --color-style: var(--color-brand);
+}
+
+// Others
+.c-btn--delete {
+    --color-style: var(--grey-400);
+    color: var(--grey-700);
+    transition: all .2s ease-in-out;
+
+    &:hover {
+        background-color: var(--red-100);
+        border-color: var(--red-300);
+        color: var(--white);
     }
 }
 
@@ -282,7 +226,15 @@
     &:hover {
         background-color: color-mix(in srgb,var(--red-100),--red-300 25%);
         border-color: var(--red-300);
-        color: $btn-hover-color;
+        color: var(--btn-hover-color);
     }
 }
 
+.c-btn--no-transition {
+    transition: none;
+}
+
+.c-btn--form {
+    min-height: 3.25rem;
+    padding: .5rem 1.125rem;
+}

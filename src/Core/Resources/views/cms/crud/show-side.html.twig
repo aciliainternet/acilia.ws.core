@@ -20,11 +20,11 @@
 
                 {% block crud_show_action %}
                     <div>
-                        <button type="submit" class="c-btn c-btn--info">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                        <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
                         {% if form.saveAndBack is defined %}
                             {{ form_widget(form.saveAndBack) }}
                         {% endif %}
-                        <a href="{{ ws_cms_path("#{route_prefix}_index") }}" class="c-btn c-btn--cancel">{{ 'cancel'|trans({}, 'ws_cms') }}</a>
+                        <button type="submit" class="c-btn c-btn--primary">{{ 'save'|trans({}, 'ws_cms') }}</button>
                     </div>
                 {% endblock %}
             </div>

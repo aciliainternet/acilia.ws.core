@@ -5,30 +5,32 @@
 //   #FIELD
 //   ======================================================================== */
 
+:root {
+    // Field
+    --field-margin: 0 0 1.25rem 0;
 
-// Field
-$field-margin: 0 0 1.25rem 0 !default;
+    // Field label
+    --field-label-font-weight: var(--font-weight-medium);
+    --field-label-font-size: var(--text-font-size);
+    --field-label-color: #38383d;
+    --field-label-margin: 0 0 .75rem 0;
 
-// Field label
-$field-label-font-weight: var(--font-weight-medium) !default;
-$field-label-font-size: var(--text-font-size) !default;
-$field-label-color: #38383d !default;
-$field-label-margin: 0 0 .75rem 0 !default;
+    // Field addon
+    --field-addon-width: 2.625rem;
+    --field-addon-border-width: var(--base-border-width);
+    --field-addon-border-color: var(--grey-400);
+    --field-addon-color: #ced0da;
+    --field-addon-gradient: #ffffff, #f2f4f7;
+    --field-addon-font-size: .875rem;
 
-// Field addon
-$field-addon-width: 2.625rem !default;
-$field-addon-border-width: var(--base-border-width) !default;
-$field-addon-border-color: var(--grey-400) !default;
-$field-addon-color: #ced0da !default;
-$field-addon-gradient: #ffffff, #f2f4f7 !default;
+    // Field icon
+    --field-icon-color: #ced0da;
+    --field-icon-font-size: 1.125rem;
 
-// Field icon
-$field-icon-color: #ced0da !default;
-$field-icon-font-size: 1.125rem !default;
+    // Field message
+    --field-message-margin: 0 .313rem 0 0;
+    --field-message-padding: 0;
 
-// Field message
-$field-message-margin: 0 .313rem 0 0 !default;
-$field-message-padding: 0 !default;
-
-$field-message-color: var(--text-color) !default;
-$field-message-font-size: var(--text-small-font-size) !default;
+    --field-message-color: var(--text-color);
+    --field-message-font-size: var(--text-small-font-size);
+}

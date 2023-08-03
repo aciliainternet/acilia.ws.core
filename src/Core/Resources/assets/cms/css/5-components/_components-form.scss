@@ -18,6 +18,16 @@ $sidebar-content-lg: 350px;
         padding: 40px;
     }
 
+    &--medium {
+        width: 100%;
+        max-width: 860px;
+    }
+
+    &--full {
+        width: 100%;
+        max-width: 1400px;
+    }
+
     &__wrapper {
         display: flex;
         flex-direction: column;
@@ -176,13 +186,9 @@ $sidebar-content-lg: 350px;
         }
     }
 
-    &--medium {
-        width: 100%;
-        max-width: 860px;
-    }
-
-    &--full {
-        width: 100%;
-        max-width: 1400px;
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
     }
 }

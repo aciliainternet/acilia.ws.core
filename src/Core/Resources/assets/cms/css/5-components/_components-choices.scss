@@ -10,8 +10,8 @@
     margin-bottom: 0;
 
     &__placeholder {
-        color: $input-placeholder-color;
-        font-weight: $input-placeholder-font-weight;
+        color: var(--input-placeholder-color);
+        font-weight: var(--input-placeholder-font-weight);
         opacity: .7;
         transition: opacity .3s;
     }
@@ -27,7 +27,7 @@
         }
 
         #{ $self }__button {
-            color: var(--color-info);
+            color: var(--color-brand);
         }
 
         #{ $self }__inner {
@@ -39,14 +39,14 @@
     &[data-type*=text],
     &[data-type*=select-multiple] {
         #{ $self }__button {
-            color: var(--color-info);
+            color: var(--color-brand);
             background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==);
         }
     }
 
     &[data-type='select-one'] {
         #{$self}__inner {
-            padding: $input-padding;
+            padding: var(--input-padding);
         }
     }
 
@@ -57,7 +57,7 @@
         box-sizing: border-box;
         width: 100%;
         min-height: 3.25rem;
-        border: $input-border-width solid $input-border-color;
+        border: var(--input-border-width) solid var(--input-border-color);
         border-radius: var(--base-border-radius);
         background-color: var(--white);
         color: var(--color-default-text);
@@ -69,7 +69,7 @@
         appearance: none;
 
         &.is-focused {
-            border-color: $input-focus-border-color;
+            border-color: var(--input-focus-border-color);
         }
 
         input.choices__input.choices__input--cloned {
@@ -84,7 +84,7 @@
     }
 
     &__list {
-        border-color: $input-border-color !important;
+        border-color: var(--input-border-color) !important;
 
         #{ $self }__item {
 
@@ -94,7 +94,7 @@
         }
 
         &--dropdown {
-            border-color: $input-border-color !important;
+            border-color: var(--input-border-color) !important;
         }
 
         &--single {
@@ -110,8 +110,7 @@
             .choices__item {
                 border-color: transparent;
                 border-radius: .313rem;
-                // background-color: rgba($color: var(--color-info), $alpha: .1);
-                background: color-mix(in srgb,var(--color-info),#fff 75%);
+                background: color-mix(in srgb,var(--color-brand),#fff 75%);
                 color: var(--color-default-text);
                 font-weight: var(--font-weight-normal);
                 font-size: var(--text-font-size);
@@ -119,16 +118,16 @@
                 transition: background 300ms ease-in-out;
 
                 &:hover {
-                    background: color-mix(in srgb,var(--color-info),#fff 50%);
+                    background: color-mix(in srgb,var(--color-brand),#fff 50%);
 
                 }
 
                 &:focus {
-                    background: color-mix(in srgb,var(--color-info),#fff 50%);
+                    background: color-mix(in srgb,var(--color-brand),#fff 50%);
                 }
 
                 &.is-highlighted {
-                    background: color-mix(in srgb,var(--color-info),#fff 50%);
+                    background: color-mix(in srgb,var(--color-brand),#fff 50%);
                 }
             }
         }
@@ -139,19 +138,19 @@
         z-index: 3;
 
         #{ $self }__inner {
-            border-color: $input-border-color;
+            border-color: var(--input-border-color);
             border-radius: var(--base-border-radius);
             color: var(--color-default-text);
 
             &::placeholder {
-                color: $input-placeholder-color;
-                font-weight: $input-placeholder-font-weight;
+                color: var(--input-placeholder-color);
+                font-weight: var(--input-placeholder-font-weight);
                 opacity: .7;
                 transition: opacity .3s;
             }
 
             &:focus {
-                border-color: $input-focus-border-color;
+                border-color: var(--input-focus-border-color);
                 outline: none;
 
                 &::placeholder {
@@ -161,16 +160,16 @@
 
             &.is-disabled,
             &:disabled {
-                border-color: $input-disabled-border-color;
-                background-color: $input-disabled-background-color;
-                color: $input-disabled-color;
+                border-color: var(--input-disabled-border-color);
+                background-color: var(--input-disabled-background-color);
+                color: var(--input-disabled-color);
                 cursor: not-allowed;
             }
         }
     }
 
     &.is-focused {
-        border-color: $input-focus-border-color;
+        border-color: var(--input-focus-border-color);
     }
 }
 
