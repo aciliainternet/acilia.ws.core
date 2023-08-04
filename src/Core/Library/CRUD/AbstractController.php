@@ -276,13 +276,23 @@ abstract class AbstractController extends BaseController
         $this->denyAccessUnlessAllowed('create');
 
         // Create new Entity
-        $entity = $this->createEntity();
+        $entity = $this->createEntityAjax();
         if ($entity === null) {
             throw new BadRequestHttpException($this->trans('bad_request', [], 'ws_cms'));
         }
 
+        if ($request->request->get('formClass')) {
+            $formClass = $request->request->get('formClass');
+        } else {
+            $formClass = $this->getFormClass();
+        }
+
         // Create entity Form
-        $form = $this->createEntityForm($entity);
+        $form = $this->createForm(
+            $formClass,
+            $entity,
+            ['translation_domain' => $this->getTranslatorPrefix()]
+        );
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -295,30 +305,19 @@ abstract class AbstractController extends BaseController
 
                     $this->handleFiles($form, $entity);
 
-                    $this->addFlash('cms_success', $this->trans('create_success', [], $this->getTranslatorPrefix()));
+                    return $this->json(array_merge(
+                        [
+                            'title' => $this->trans('create_title_success', [], 'ws_cms'),
+                            'msg' => $this->trans('create_success', [], $this->getTranslatorPrefix())
+                        ],
+                        $this->createdSuccessAjaxExtraData()
+                    ), Response::HTTP_CREATED);
 
-                    if ($form->has('saveAndBack')) {
-                        $submitButton = $form->get('saveAndBack');
-                        if ($submitButton instanceof SubmitButton && $submitButton->isClicked()) {
-                            if ($form->has('referer')) {
-                                return $this->redirect(\strval($form->get('referer')->getData()));
-                            }
-
-                            return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
-                        }
-                    }
-
-                    if ($this->isGranted($this->calculateRole($this->getService()->getEntityClass(), 'edit'))) {
-                        return $this->redirect(
-                            $this->wsGenerateUrl($this->getRouteNamePrefix() . '_edit', [
-                                'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
-                            ])
-                        );
-                    } else {
-                        return $this->redirect($this->wsGenerateUrl($this->getRouteNamePrefix() . '_index'));
-                    }
                 } catch (\Exception) {
-                    $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
+                    return $this->json([
+                        'msg' => $this->trans('create_failed', [], 'ws_cms'),
+                        'errors' => $this->getFormErrorMessagesList($form)
+                    ], Response::HTTP_INTERNAL_SERVER_ERROR);
                 }
             } else {
                 $this->addFlash('cms_error', $this->getFormErrorMessagesList($form));
@@ -333,7 +332,7 @@ abstract class AbstractController extends BaseController
             array_merge(
                 [
                     'form' => $form->createView(),
-                    'isCreate' => true,
+                    'formClass' => $formClass,
                     'trans_prefix' => $this->getTranslatorPrefix(),
                     'route_prefix' => $this->getRouteNamePrefix(),
                 ],

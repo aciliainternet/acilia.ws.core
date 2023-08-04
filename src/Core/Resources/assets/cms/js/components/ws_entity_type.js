@@ -1,6 +1,7 @@
 import Modal from '../modules/a_modal';
 
 const componentSelector = '[data-component="ws-entity-type"]';
+let dataset;
 
 const modal = new Modal({
   autoOpen: false,
@@ -16,12 +17,20 @@ function loadForm(event) {
 
   event.preventDefault();
   const elem = event.currentTarget;
-  const url = elem.dataset.url;
+  dataset = elem.dataset;
+  const url = dataset.url;
 
-  fetch(url).then(function (response) {
+  const data = new URLSearchParams();
+  if (dataset.formclass) {
+    data.append('formClass', dataset.formclass);
+  }
+
+  fetch(url, {
+    method: 'POST',
+    body: data
+  }).then(function (response) {
     // html response
     return response.text();
-
   }).then(function (html) {
     processResponse(html);
 
@@ -33,20 +42,54 @@ function loadForm(event) {
 function processResponse(html) {
 
   const modalContainer = document.getElementById('ws-entity-type-modal');
-  console.log(modalContainer);
-  modalContainer.innerHTML = html;
 
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+
+  modalContainer.replaceChildren(doc.forms[0]);
   initForm(modalContainer);
 
   modal.open('#ws-entity-type-modal');
 }
 
-function submitForm(event) {
-  console.log('submitForm');
+function submitButtonClick(event) {
+  event.preventDefault();
   const submitButton =  event.currentTarget;
-  console.log(submitButton);
   const form = submitButton.closest('form');
-  console.log(form);
+  submitForm(form);
+}
+
+function submitForm(form) {
+
+  const data = new URLSearchParams();
+  for (const pair of new FormData(form)) {
+      data.append(pair[0], pair[1]);
+  }
+  data.append('formClass', dataset.formclass);
+
+  fetch(dataset.url, {
+    method: 'POST',
+    body: data
+  }).then(function (response) {
+    if (response.status == 201) {
+      response.json().then( function (json) {
+        console.log(json);
+      });
+      // close modal
+      // load new entities and populate select
+      return;
+    } else if ( response.status == 500 ) {
+      console.error(response.json());
+      return;
+    }
+
+    response.text().then(function (html) {
+      processResponse(html);
+    });
+
+  }).catch(function (err) {
+    console.warn('Something went wrong.', err);
+  });
 }
 
 function cancelForm() {
@@ -55,7 +98,7 @@ function cancelForm() {
 
 function initForm(container) {
   container.querySelectorAll('[type="submit"]').forEach((elm) => {
-    elm.addEventListener('click', submitForm);
+    elm.addEventListener('click', submitButtonClick);
   });
   container.querySelectorAll('[type="cancel"]').forEach((elm) => {
     elm.addEventListener('click', cancelForm);

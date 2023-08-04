@@ -27,6 +27,11 @@ trait CrudTrait
         return $this->getService()->getEntity();
     }
 
+    protected function createEntityAjax(): ?object
+    {
+        return $this->createEntity();
+    }
+
     protected function createEntityForm(object $entity): FormInterface
     {
         return $this->createForm(
@@ -37,6 +42,11 @@ trait CrudTrait
     }
 
     protected function createExtraData(): array
+    {
+        return [];
+    }
+
+    protected function createdSuccessAjaxExtraData(): array
     {
         return [];
     }

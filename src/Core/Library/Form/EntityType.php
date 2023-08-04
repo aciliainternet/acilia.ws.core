@@ -14,11 +14,10 @@ class EntityType extends BaseEntityType
     {
         $view->vars = array_replace($view->vars, [
             'ws' => [
-                // 'entity' => $options['ws']['entity']
-                'path' => $options['ws']['path']
+                'path' => $options['ws']['path'],
+                'formClass' => $options['ws']['formClass']
             ],
             'class' => $options['class'],
-            // todo
             'type' => 'ws-entity-type',
         ]);
     }
@@ -26,7 +25,7 @@ class EntityType extends BaseEntityType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('ws',[
-            // 'entity' => null
+            'formClass' => null,
             'path' => null
         ]);
 

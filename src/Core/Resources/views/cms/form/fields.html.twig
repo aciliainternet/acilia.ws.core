@@ -868,6 +868,9 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
             <button class="ws-entity-type-add-trigger c-btn c-btn--brand c-btn--small"
                 data-component="ws-entity-type"
                 data-url="{{ path(form.vars.ws.path) }}"
+                {% if form.vars.ws.formClass is defined %}
+                data-formclass="{{ form.vars.ws.formClass }}"
+                {% endif %}
             >
                 <i class="fa fa-plus u-mr-10" aria-hidden="true"></i>
             </button>
