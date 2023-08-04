@@ -1,5 +1,4 @@
 .c-asset-upload {
-
     &__wrapper {
         position: relative;
         display: flex;
@@ -10,8 +9,32 @@
     }
 
     &__asset {
-        width: 100%;
-        height: auto;
-        margin-bottom: 20px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        padding: 16px;
+        border: 1px solid var(--input-border-color);
+        border-radius: 8px;
+        color: var(--color-default-text);
+
+        .c-input {
+            padding: 0;
+            border: 0;
+        }
+    }
+
+    &__text {
+        display: block;
+        color: var(--field-label-color);
+        font-weight: var(--field-label-font-weight);
+        font-size: var(--field-label-font-size);
+    }
+
+    .c-btn-upload-image-container {
+        display: flex;
+        gap: 8px;
+        padding: 16px 0;
     }
 }

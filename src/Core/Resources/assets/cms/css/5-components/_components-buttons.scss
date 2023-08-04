@@ -4,11 +4,9 @@
 @use '../1-tools/_tools-mixin-rem' as *;
 @use '../1-tools/_tools-mixin-linear-gradient' as *;
 @use '../1-tools/_tools-mixin-position' as *;
-
 /* ==========================================================================
    #BUTTONS
    ========================================================================== */
-
 /**
  * 1. Apply (c-btn--info) background if `c-btn--{style}` class isn't specified.
  * 2. Align icon (if placed inside button) with text properly.
@@ -26,9 +24,9 @@
     overflow: hidden;
     max-width: 100%;
     margin: 0;
+    padding: var(--btn-padding);
     border: var(--btn-border-width) solid;
     border-radius: var(--btn-border-radius);
-    padding: var(--btn-padding);
     font-weight: var(--btn-font-weight);
     font-size: var(--btn-font-size);
     line-height: 1.5;
@@ -54,13 +52,13 @@
     }
 
     &.has-dropdown {
-        border-color: var(--grey-400);
         position: relative;
         padding-right: 2.5rem;
+        border-color: var(--grey-400);
         color: var(--grey-700);
 
         &:hover {
-            background: color-mix(in srgb,var(--color-style, var(--btn-background-color-secondary-hover)),#fff 75%);
+            background: color-mix(in srgb, var(--color-style, var(--btn-background-color-secondary-hover)), #ffffff 75%);
             color: var(--color-secondary);
         }
 
@@ -98,27 +96,27 @@
 
 // Type
 .c-btn--primary {
-    background-color: var(--color-style, var(--btn-background-color-primary));
     border-color: var(--color-style, var(--btn-border-color-primary));
+    background-color: var(--color-style, var(--btn-background-color-primary));
     color: var(--white);
 
     &:hover {
-        background: color-mix(in srgb,var(--color-style, var(--btn-background-color-primary-hover)),#fff 25%);
+        background: color-mix(in srgb, var(--color-style, var(--btn-background-color-primary-hover)), #ffffff 25%);
     }
 
     &:focus {
         border-color: var(--color-style, var(--btn-border-color-primary-focus));
-        outline: 1px solid color-mix(in srgb,var(--color-style, var(--btn-border-color-primary-focus)),#000 25%);
+        outline: 1px solid color-mix(in srgb, var(--color-style, var(--btn-border-color-primary-focus)), #000000 25%);
     }
 }
 
 .c-btn--secondary {
-    background-color: var(--btn-background-color-secondary);
     border-color: var(--color-style, var(--btn-border-color-secondary));
+    background-color: var(--btn-background-color-secondary);
     color: var(--color-style, var(--color-secondary));
 
     &:hover {
-        background: color-mix(in srgb,var(--color-style, var(--btn-background-color-secondary-hover)),#fff 75%);
+        background: color-mix(in srgb, var(--color-style, var(--btn-background-color-secondary-hover)), #ffffff 75%);
         color: var(--color-style, var(--color-secondary));
     }
 
@@ -152,8 +150,8 @@
     text-decoration: underline;
 
     &:hover {
-        color: var(--color-secondary);
         background-color: var(--grey-400);
+        color: var(--color-secondary);
     }
 }
 
@@ -205,14 +203,10 @@
     transition: all .2s ease-in-out;
 
     &:hover {
-        background-color: var(--red-100);
         border-color: var(--red-300);
+        background-color: var(--red-100);
         color: var(--white);
     }
-}
-
-.c-btn--upload-image {
-    flex-grow: .9;
 }
 
 .c-btn--delete-image {
@@ -224,8 +218,8 @@
     }
 
     &:hover {
-        background-color: color-mix(in srgb,var(--red-100),--red-300 25%);
         border-color: var(--red-300);
+        background-color: color-mix(in sRGB, var(--red-100), --red-300 25%);
         color: var(--btn-hover-color);
     }
 }
