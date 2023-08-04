@@ -29,7 +29,9 @@ import translationCntrl from './controllers/translation';
 import sidebarCntrl from './controllers/sidebar';
 import tabsCntrl from './controllers/tabs';
 import accordionCntrl from "./controllers/accordion";
+import dropDragCntrl from "./controllers/dropdrag";
 
+dropDragCntrl();
 accordionCntrl();
 tabsCntrl();
 sidebarCntrl();

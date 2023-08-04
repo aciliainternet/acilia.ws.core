@@ -585,7 +585,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                     form.children.asset_file.vars.data)
                     }}
                     {% endif %}
-                    {{ form.children.asset_file.vars.data.filename }}
+                    <span class="c-asset-upload__text">{{ form.children.asset_file.vars.data.filename }}</span>
                 </span>
                 {% endif %}
                 <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}"
@@ -596,7 +596,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                 </div>
                 {% if form.children.asset_file.vars.data != null %}
                 <div class="c-btn-upload-image-container">
-                    <button class="c-btn c-btn--secondary c-btn--upload-image js-delete-asset" type="button"
+                    <button class="c-btn c-btn--primary js-delete-asset" type="button"
                         data-id-asset-component="{{ id }}">
                         {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
                     </button>
@@ -628,7 +628,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
             </div>
         </div>
         <div class="c-btn-upload-image-container {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
-            <button class="c-btn c-btn--secondary c-btn--upload-image js-open-modal" type="button"
+            <button class="c-btn c-btn--secondary js-open-modal" type="button"
                 data-id-asset-component="{{ form.children.asset.vars.id }}">
                 {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
             </button>
