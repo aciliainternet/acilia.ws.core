@@ -204,7 +204,7 @@ abstract class AbstractController extends BaseController
         $this->denyAccessUnlessAllowed('create');
 
         // Create new Entity
-        $entity = $this->createEntity();
+        $entity = $this->createEntity($request);
         if ($entity === null) {
             throw new BadRequestHttpException($this->trans('bad_request', [], 'ws_cms'));
         }
