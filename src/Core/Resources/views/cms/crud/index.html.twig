@@ -129,7 +129,7 @@
 
                                 {% for field in list_fields %}
                                     {% set sortClass = 'no-sort' %}
-                                    {% if field.sortable %}
+                                    {% if field.sortable|default(false) %}
                                         {% set sortClass = 'sorting' %}
                                         {% if field.name in sortedField %}
                                             {% set sortClass = sortClass ~ dirClass %}
@@ -141,7 +141,7 @@
                                             {{ field.width is defined ? "width=#{field.width}" }}
                                     >
 
-                                        {% if field.sortable %}
+                                        {% if field.sortable|default(false) %}
                                             {% set sortableParams = {
                                                 "sort":field.name,
                                                 "dir":newDir

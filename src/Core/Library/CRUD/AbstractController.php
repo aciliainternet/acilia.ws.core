@@ -214,7 +214,6 @@ abstract class AbstractController extends BaseController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $this->handleImages($form, $entity);
             if ($form->isValid()) {
                 try {
                     $this->getService()->create($entity);
