@@ -13,7 +13,7 @@
 
     <link rel="shortcut icon" href="{{ asset('cms/favicon.ico', 'core') }}" type="image/x-icon">
     <style>a{color: #475364;}</style>
-    <link type="text/css" href="{{ asset('core.css', 'core') }}" rel="stylesheet" />
+    <link type="text/css" href="{{ asset('cms/css/app.css', 'cms') }}" rel="stylesheet"/>
     {% block stylesheets %}{% endblock %}
 </head>
 <body class="o-page {{ bodyClass is defined ? bodyClass }}">
@@ -92,7 +92,7 @@
         };
     </script>
 
-    <script type="text/javascript" src="{{ asset('core.js', 'core') }}"></script>
+    <script type="text/javascript" src="{{ asset('cms/js/app.js', 'cms') }}"></script>
 
     <!-- Custom JavaScript -->
     {% block javascript %}{% endblock %}
