@@ -3,6 +3,7 @@
 namespace WS\Core\Library\Traits\CRUD;
 
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 trait CrudTrait
 {
@@ -22,7 +23,7 @@ trait CrudTrait
         return [];
     }
 
-    protected function createEntity(): ?object
+    protected function createEntity(Request $request): ?object
     {
         return $this->getService()->getEntity();
     }
