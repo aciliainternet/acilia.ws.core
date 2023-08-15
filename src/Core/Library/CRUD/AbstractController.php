@@ -104,6 +104,8 @@ abstract class AbstractController extends BaseController
     {
         $this->denyAccessUnlessAllowed('view');
 
+        $this->preIndexFetchData($request);
+
         $page = intval($request->get('page', 1));
         if ($page < 1) {
             $page = 1;
@@ -275,7 +277,7 @@ abstract class AbstractController extends BaseController
         $this->denyAccessUnlessAllowed('edit');
 
         // Get entity
-        $entity = $this->editEntity($id);
+        $entity = $this->editEntity($request, $id);
         if ($entity === null || get_class($entity) !== $this->getService()->getEntityClass()) {
             throw new NotFoundHttpException(sprintf($this->trans('not_found', [], $this->getTranslatorPrefix()), $id));
         }

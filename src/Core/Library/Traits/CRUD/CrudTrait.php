@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 trait CrudTrait
 {
+    protected function preIndexFetchData(Request $request): void
+    {
+    }
+
     protected function indexFetchData(
         ?string $search,
         ?array $filter,
@@ -42,7 +46,7 @@ trait CrudTrait
         return [];
     }
 
-    protected function editEntity(int $id): ?object
+    protected function editEntity(Request $request, mixed $id): ?object
     {
         return $this->getService()->get($id);
     }
