@@ -12,7 +12,7 @@
     } %}
 
 {% block content %}
-    <div class="row u-mb-large">
+    <div class="row u-mb-large" {% block crud_attributes %}{% endblock %}>
         <div class="col-sm-12">
             <div class="c-table-responsive@desktop">
                 {% block crud_filter %}
@@ -99,7 +99,7 @@
                 </div>
 
                 {% if data|length > 0 %}
-                    <table class="{% block crud_table_class %}c-table c-table--highlight{% endblock %}">
+                    <table class="{% block crud_table_class %}c-table c-table--highlight{% endblock %}" {% block crud_table_attributes %}{% endblock %}>
                         {% if dir == 'asc' %}
                             {% set dirClass = '_asc' %}
                             {% set newDir = 'desc' %}
@@ -247,6 +247,6 @@
                 ) }}
             </div>
         </div>
-
+        {% block crud_extra %}{% endblock %}
     </div>
 {% endblock %}

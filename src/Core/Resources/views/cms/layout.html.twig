@@ -20,7 +20,10 @@
 
         </div>
 
-        {# Footer #}
-        {{ include('@WSCore/cms/general/footer.html.twig') }}
+        {% block footer %}
+            {{ include('@WSCore/cms/general/footer.html.twig') }}
+        {% endblock %}
     </main>
+
+    {% block extra %}{% endblock %}
 {% endblock %}
