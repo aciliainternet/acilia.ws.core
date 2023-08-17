@@ -846,7 +846,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
             {% for choice in choices %}
             <div class="c-toggle__btn js-toggle-btn {{ choice is selectedchoice(value) ? 'is-active' }}">
                 <label class="c-toggle__label" for={{ "#{id}#{loop.index}" }}>
-                    <input id="{{ " #{id}#{loop.index}" }}" class="c-toggle__input js-toggle-input"
+                    <input id="{{ "#{id}#{loop.index}" }}" class="c-toggle__input js-toggle-input"
                         name="{{ full_name }}" type="radio" value="{{ choice.value }}" {{ choice is
                         selectedchoice(value) ? 'checked' }}>
                     {% if choice_translation_domain is same as(false) %}
