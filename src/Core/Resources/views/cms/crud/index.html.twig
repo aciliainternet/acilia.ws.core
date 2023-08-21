@@ -1,4 +1,4 @@
-{% extends('@WSCore/cms/layout.html.twig') %}
+{% extends(['layout.html.twig', '@WSCore/cms/layout.html.twig']) %}
 
 {% page_configuration {
     'title': 'title'|trans([], trans_prefix),
