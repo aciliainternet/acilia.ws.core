@@ -1,77 +1,49 @@
 @use '../0-settings/_settings-global' as *;
-@use '../0-settings/_settings-badges' as *;
-@use '../1-tools/_tools-mixin-rem' as *;
-
 /* ==========================================================================
    #BADGES
    ========================================================================== */
 
 .c-badge {
-    display: inline-block;
-    margin: 0;
-    padding: $badge-padding;
-    border-radius: $badge-border-radius;
-    color: $badge-color;
-    font-weight: $badge-font-weight;
-    font-size: $badge-font-size;
-
-    /**
-     * Badges with icons
-     */
-
-    > i {
-        margin-right: .313rem;
-    }
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 26px;
+    padding: 8px;
+    border-radius: var(--border-radious-m);
+    font-weight: var(--font-weight-semibold);
+    font-size: 12px;
+    line-height: 12px;
+    transition: all 300ms ease-in-out;
 }
-
-.c-badge--small {
-    padding: $badge-small-padding;
-    font-size: $badge-small-font-size;
-}
-
-.c-badge--xsmall {
-    padding: $badge-xsmall-padding;
-    font-size: $badge-small-font-size;
-}
-
-
 /* Style variants
    ========================================================================== */
-
-.c-badge--success {
-    background-color: $badge-success-background-color;
+.c-badge--success,
+.c-badge[data-badge='Beginner'] {
+    background: color-mix(in srgb, var(--color-success, var(--btn-background-color-secondary-hover)), #ffffff 90%);
+    color: var(--color-success);
 }
 
-.c-badge--info {
-    background-color: $badge-info-background-color;
+.c-badge--info,
+.c-badge--published,
+.c-badge[data-badge='Intermediate'] {
+    background: color-mix(in srgb, var(--color-info, var(--btn-background-color-secondary-hover)), #ffffff 90%);
+    color: var(--color-info);
 }
 
 .c-badge--warning {
-    background-color: $badge-warning-background-color;
+    background: color-mix(in srgb, var(--color-warning, var(--btn-background-color-secondary-hover)), #ffffff 90%);
+    color: var(--color-warning);
 }
 
-.c-badge--danger {
-    background-color: $badge-danger-background-color;
-}
-
-.c-badge--primary {
-    background-color: $badge-primary-background-color;
-}
-
-.c-badge--secondary {
-    background-color: $badge-secondary-background-color;
-    color: $badge-secondary-color;
-}
-
-.c-badge--published {
-    background-color: $badge-info-background-color;
+.c-badge--danger,
+.c-badge[data-badge='Advanced'] {
+    background: color-mix(in srgb, var(--color-danger, var(--btn-background-color-secondary-hover)), #ffffff 90%);
+    color: var(--color-danger);
 }
 
 .c-badge--unpublished {
-    background-color: $badge-primary-background-color;
-}
-
-.c-badge--draft {
-    background-color: $badge-secondary-background-color;
-    color: $badge-secondary-color;
+    background: color-mix(in srgb, var(--color-primary, var(--btn-background-color-secondary-hover)), #ffffff 90%);
+    color: var(--color-primary);
 }

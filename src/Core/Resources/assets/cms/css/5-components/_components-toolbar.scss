@@ -181,15 +181,17 @@
     }
 
     .choices__inner,
-    .c-input {
+    .c-input,
+    .c-btn {
         min-height: initial;
         max-height: 2.438rem;
         padding: var(--btn-padding);
+        line-height: 1;
     }
 
     .c-choice-wrapper--small {
         .choices__inner {
-            min-height: 39px;
+            min-height: 2.4375rem;
         }
     }
 

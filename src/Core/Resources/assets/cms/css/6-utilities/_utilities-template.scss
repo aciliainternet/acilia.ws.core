@@ -14,7 +14,8 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+
+        // justify-content: space-between;
         width: 100%;
         margin-bottom: 20px;
 
@@ -89,6 +90,34 @@
 
         section:nth-child(2n) {
             order: 1;
+        }
+    }
+}
+
+.l-form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px 16px;
+    width: 100%;
+    max-width: 860px;
+
+    > .l-form__item {
+        grid-column: span 4;
+        margin-bottom: 0;
+
+        &--xsmall {
+            grid-column: span 1;
+            width: 100%;
+        }
+
+        &--small {
+            grid-column: span 2;
+            width: 100%;
+        }
+
+        &--medium {
+            grid-column: span 3;
+            width: 100%;
         }
     }
 }

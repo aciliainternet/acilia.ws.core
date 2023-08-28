@@ -5,19 +5,15 @@
         <span class="c-sidebar-toggle__bar"></span>
     </button>
     <div class="u-ml-auto">
-        {{ include(['general/navbar_menu.html.twig', '@WSCore/cms/general/navbar_menu.html.twig']) }}
+        {{ include(['components/navbar/navbar_menu.html.twig', '@WSCore/cms/general/navbar_menu.html.twig']) }}
 
-        {{ include('@WSCore/cms/general/language.html.twig') }}
+        {{ include(['components/navbar/language.html.twig', '@WSCore/cms/general/language.html.twig']) }}
 
-        {{ include('@WSCore/cms/general/alerts.html.twig') }}
+        {{ include(['components/navbar/alerts.html.twig', '@WSCore/cms/general/alerts.html.twig']) }}
 
-        {% if ws_activity_log_enabled() and is_granted('ROLE_WS_CORE_ACTIVITY_LOG') %}
-            <a class="u-mr-20" href="{{ path('ws_activity_log_index') }}" title="{{ 'title'|trans({}, 'ws_cms_activity_log') }}">
-                <i class="fal fa-history"></i>
-            </a>
-        {% endif %}
+        {{ include(['components/navbar/activity_log.html.twig', '@WSCore/cms/general/activity_log.html.twig']) }}
 
-        {{ include(['general/dropdown_profile.html.twig', '@WSCore/cms/general/dropdown_profile.html.twig']) }}
+        {{ include(['components/navbar/dropdown_profile.html.twig', '@WSCore/cms/general/dropdown_profile.html.twig']) }}
     </div>
 
     {% set breadcrumbs = [{ 'name': 'dashboard.menu'|trans({}, 'ws_cms'), 'path': path('ws_dashboard') }]|merge(get_breadcrumbs()) %}

@@ -1,4 +1,4 @@
-{% extends('layout.html.twig') %}
+{% extends(['layout.html.twig', '@WSCore/cms/layout.html.twig']) %}
 
 {% page_configuration {
     'title': 'title'|trans([], trans_prefix),
@@ -12,7 +12,7 @@
     } %}
 
 {% block content %}
-    <div class="row u-mb-large">
+    <div class="row u-mb-large" {% block crud_attributes %}{% endblock %}>
         <div class="col-sm-12">
             <div class="c-table-responsive@desktop">
                 {% block crud_filter %}
@@ -25,9 +25,12 @@
                         <div class="c-toolbar__row">
                             {% block crud_create_action %}
                                 <div class="u-flex u-mr-auto">
-                                    <h4 class="c-toolbar__title u-mr-10">{{ 'title'|trans([], trans_prefix) }}</h4>
+                                    {% block crud_title %}
+                                        <h4 class="c-toolbar__title u-mr-10">{{ 'title'|trans([], trans_prefix) }}</h4>
+                                    {% endblock %}
                                     {% if is_granted(view_roles['create']) %}
-                                        <a class="c-btn c-btn--primary" href="{{ ws_cms_path("#{route_prefix}_create") }}">
+                                        <a class="c-btn c-btn--solid" href="{{ ws_cms_path("#{route_prefix}_create") }}">
+                                            <i class="fa-regular fa-plus"></i>
                                             {{ 'new'|trans({}, 'ws_cms') }}
                                         </a>
                                     {% endif %}
@@ -57,13 +60,12 @@
                                         autocomplete="off"
                                 >
                             </div>
-                            <button type="submit" class="c-btn c-btn--secondary u-hidden@md--down">
-                                {{ source('@WSCore/cms/icons/search.svg') }}
+                            <button type="submit" class="c-btn c-btn--cta c-btn--success u-hidden@md--down">
                                 {{ 'search'|trans({}, 'ws_cms') }}
                             </button>
 
                             {% if filter_extended_form is not null %}
-                                <button type="button" class="c-btn c-btn--secondary u-hidden@md--down js-toggle-filter">
+                                <button type="button" class="c-btn c-btn--cta c-btn--success u-hidden@md--down js-toggle-filter">
                                     {{ source('@WSCore/cms/icons/filter.svg') }}
                                     {{ 'filter'|trans({}, 'ws_cms') }}
                                 </button>
@@ -91,15 +93,15 @@
 
                 <div class="c-toolbar c-toolbar--caption c-toolbar--empty u-mt-30 {{ data|length > 0 ? 'u-hidden' }}">
                     <div class="c-form__content-full">
-                        <p>
-                            <i class="fa fa-info-circle u-color-warning">
-                            </i> {{ 'no_rows_found'|trans([], trans_prefix) }}
+                        <p class="c-alert c-alert--cta c-alert--info">
+                            <i class="fa-regular fa-circle-info"></i>
+                            <span>{{ 'no_rows_found'|trans([], trans_prefix)|raw }}</span>
                         </p>
                     </div>
                 </div>
 
                 {% if data|length > 0 %}
-                    <table class="{% block crud_table_class %}c-table c-table--highlight{% endblock %}">
+                    <table class="{% block crud_table_class %}c-table c-table--highlight{% endblock %}" {% block crud_table_attributes %}{% endblock %}>
                         {% if dir == 'asc' %}
                             {% set dirClass = '_asc' %}
                             {% set newDir = 'desc' %}
@@ -129,7 +131,7 @@
 
                                 {% for field in list_fields %}
                                     {% set sortClass = 'no-sort' %}
-                                    {% if field.sortable %}
+                                    {% if field.sortable|default(false) %}
                                         {% set sortClass = 'sorting' %}
                                         {% if field.name in sortedField %}
                                             {% set sortClass = sortClass ~ dirClass %}
@@ -141,7 +143,7 @@
                                             {{ field.width is defined ? "width=#{field.width}" }}
                                     >
 
-                                        {% if field.sortable %}
+                                        {% if field.sortable|default(false) %}
                                             {% set sortableParams = {
                                                 "sort":field.name,
                                                 "dir":newDir
@@ -222,13 +224,13 @@
 
                                             {% if is_granted(view_roles['delete']) %}
                                                 <button
-                                                        class="c-btn c-btn--secondary c-btn--delete js-genericDelete"
+                                                        class="c-btn c-btn--border c-btn--delete js-genericDelete"
                                                         data-id="{{ entity.id }}"
                                                         data-url="{{ ws_cms_path("#{route_prefix}_delete", { 'id': entity.id }) }}"
                                                         data-title="{{ 'title'|trans([], trans_prefix) }}"
                                                         data-message="{{ 'delete_warning'|trans([], trans_prefix) }}"
                                                 >
-                                                    <i class="fal fa-trash-alt u-mr-5"></i>
+                                                    <i class="fal fa-trash-alt"></i>
                                                     {{ 'delete'|trans({}, 'ws_cms') }}
                                                 </button>
                                             {% endif %}
@@ -247,6 +249,6 @@
                 ) }}
             </div>
         </div>
-
+        {% block crud_extra %}{% endblock %}
     </div>
 {% endblock %}

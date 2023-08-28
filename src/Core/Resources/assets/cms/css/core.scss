@@ -13,7 +13,6 @@
 
 @use '0-settings/_settings-global';
 @use '0-settings/_settings-alerts';
-@use '0-settings/_settings-badges';
 @use '0-settings/_settings-breadcrumb';
 @use '0-settings/_settings-buttons';
 @use '0-settings/_settings-card';
@@ -51,6 +50,7 @@
 @use '4-objects/_objects-page';
 @use '4-objects/_objects-svg';
 
+@use '5-components/_components-accordion';
 @use '5-components/_components-alerts';
 @use '5-components/_components-avatars';
 @use '5-components/_components-assets-upload';
@@ -69,7 +69,7 @@
 @use '5-components/_components-form';
 @use '5-components/_components-footer';
 @use '5-components/_components-inputs';
-
+@use '5-components/_components-language';
 @use '5-components/_components-img-upload';
 @use '5-components/_components-img-modal';
 @use '5-components/_components-markdown';
@@ -80,12 +80,14 @@
 @use '5-components/_components-notifications';
 @use '5-components/_components-pagination';
 @use '5-components/_components-progress';
+@use '5-components/_components-radio';
 @use '5-components/_components-sidebar';
 @use '5-components/_components-tables';
 @use '5-components/_components-toastr';
 @use '5-components/_components-toc';
 @use '5-components/_components-toggle';
 @use '5-components/_components-toolbar';
+@use '5-components/_components-tooltip';
 @use '5-components/_components-graph-card';
 @use '5-components/_components-progress-card';
 @use '5-components/_components-widget-modal';
@@ -110,6 +112,3 @@
 @use '6-utilities/_utilities-text';
 @use '6-utilities/_utilities-template';
 @use '6-utilities/_utilities-typography';
-
-
-

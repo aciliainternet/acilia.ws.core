@@ -65,7 +65,7 @@
     }
 }
 
-.c-progress--primary {
+.c-progress--solid {
 
     .c-progress__bar {
         @include linear-gradient(to bottom, $progress-bar-primary-gradient);

@@ -24,7 +24,7 @@
                     <input class="c-input" type="password" id="password" placeholder="{{ 'login.password'|trans({}, 'ws_cms') }}" name="_password">
                 </div>
 
-                <button class="c-btn c-btn--primary c-btn--fullwidth u-mb-small" type="submit">{{ 'login.button'|trans({}, 'ws_cms') }}</button>
+                <button class="c-btn c-btn--solid c-btn--fullwidth u-mb-small" type="submit">{{ 'login.button'|trans({}, 'ws_cms') }}</button>
 
                 <input type="hidden" name="_target_path" value="{{ path('ws_dashboard') }}" />
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

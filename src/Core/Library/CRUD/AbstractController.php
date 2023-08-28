@@ -89,12 +89,18 @@ abstract class AbstractController extends BaseController
 
         /** @var FormError $error */
         foreach ($form->getErrors(true) as $error) {
-            $errors[] = $error->getMessage();
+            $errors[] = sprintf('%s %s', $error->getOrigin()->getName(), $error->getMessage());
         }
 
         if ($output == 0) {
-            return implode(PHP_EOL, $errors);
+            array_walk($errors, function (&$value) {
+                $value = sprintf('<li>%s</li>', $value);
+            });
+            return sprintf('<ul>%s</ul>', implode(PHP_EOL, $errors));
         }
+        // if ($output == 0) {
+        //     return $this->trans('form_error', [], 'ws_cms');
+        // }
 
         return $errors;
     }
@@ -103,6 +109,8 @@ abstract class AbstractController extends BaseController
     public function index(Request $request): Response
     {
         $this->denyAccessUnlessAllowed('view');
+
+        $this->preIndexFetchData($request);
 
         $page = intval($request->get('page', 1));
         if ($page < 1) {
@@ -204,7 +212,7 @@ abstract class AbstractController extends BaseController
         $this->denyAccessUnlessAllowed('create');
 
         // Create new Entity
-        $entity = $this->createEntity();
+        $entity = $this->createEntity($request);
         if ($entity === null) {
             throw new BadRequestHttpException($this->trans('bad_request', [], 'ws_cms'));
         }
@@ -214,7 +222,6 @@ abstract class AbstractController extends BaseController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $this->handleImages($form, $entity);
             if ($form->isValid()) {
                 try {
                     $this->getService()->create($entity);
@@ -276,7 +283,7 @@ abstract class AbstractController extends BaseController
         $this->denyAccessUnlessAllowed('edit');
 
         // Get entity
-        $entity = $this->editEntity($id);
+        $entity = $this->editEntity($request, $id);
         if ($entity === null || get_class($entity) !== $this->getService()->getEntityClass()) {
             throw new NotFoundHttpException(sprintf($this->trans('not_found', [], $this->getTranslatorPrefix()), $id));
         }

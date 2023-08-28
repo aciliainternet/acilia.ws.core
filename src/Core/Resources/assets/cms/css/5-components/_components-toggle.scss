@@ -2,11 +2,9 @@
 @use '../0-settings/_settings-toggle' as *;
 @use '../1-tools/_tools-mixin-breakpoint' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
-
 /* ==========================================================================
    #TOGGLE
    ========================================================================== */
-
 /**
  * Toggles are a pair of buttons useful for (Yes/No)-like questions.
  *
@@ -92,8 +90,6 @@
     line-height: $toggle-label-line-height;
     cursor: inherit;
 }
-
-
 /**
  * 1. Hide default radio button
  */

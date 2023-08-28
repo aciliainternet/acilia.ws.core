@@ -7,14 +7,14 @@
 //   ======================================================================== */
 
 :root {
-    --btn-padding: .5rem 1rem;
+    --btn-padding: .75rem;
     --btn-border-width: var(--base-border-width);
     --btn-border-color-primary: var(--color-primary);
     --btn-border-color-primary-hover: var(--color-primary);
     --btn-border-color-secondary: var(--color-secondary);
     --btn-border-color-secondary-hover: var(--color-secondary);
     --btn-border-color-secondary-focus: var(--color-secondary);
-    --btn-border-radius: var(--base-border-radius);
+    --btn-border-radius: .5rem;
     --btn-font-size: .875rem;
     --btn-font-weight: var(--font-weight-normal);
     --btn-line-height: 1.5rem;
@@ -24,12 +24,10 @@
     --btn-background-color-secondary: var(--white);
     --btn-background-color-secondary-hover: var(--color-secondary);
     --btn-background-color-secondary-focus: var(--color-secondary);
-
     --btn-small-font-size: var(--text-small-font-size);
-    --btn-small-padding: .25rem 1.125rem;
-
+    --btn-small-padding: .5rem .75rem;
     --btn-large-font-size: var(--text-large-font-size);
-    --btn-large-padding: .5 1.875rem;
+    --btn-large-padding: .75rem 1.875rem;
 
     // Disabled State
     --btn-disabled-color: rgba(var(--gunmetal-200), .5);
