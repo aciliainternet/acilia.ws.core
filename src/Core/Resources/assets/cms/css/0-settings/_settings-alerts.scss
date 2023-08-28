@@ -2,10 +2,6 @@
 @use '../0-settings/_settings-global' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 
-///* ========================================================================
-//   #BUTTONS
-//   ======================================================================== */
-
 :root {
     --alert-padding: .75rem;
     --alert-border-width: var(--base-border-width);
