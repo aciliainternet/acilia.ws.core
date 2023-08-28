@@ -62,9 +62,9 @@ trait AssetTrait
                 // Hanlde asset image post delete
                 $this->handleImageField($entity, $imageField, null);
             }
-
-            $this->doctrine->flush();
         }
+
+        $this->doctrine->flush();
     }
 
     protected function handleFiles(FormInterface $form, object $entity): void
@@ -95,9 +95,9 @@ trait AssetTrait
                 // Hanlde asset file post delete
                 $this->handleFileField($entity, $fileField, null);
             }
-
-            $this->doctrine->flush();
         }
+
+        $this->doctrine->flush();
     }
 
     protected function handleImageField(object $entity, string $imageField, ?AssetImage $assetImage): void

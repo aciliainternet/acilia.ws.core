@@ -144,12 +144,7 @@ class MetadataConsumerService
                 }
             }
         }
-
-        //$config['title'] = $this->sanitize($config['title']);
-        //$config['description'] = $this->sanitize($config['description']);
-        //$config['keywords'] = $this->sanitize($config['keywords']);
-        //$config['og_title'] = isset($config['og_title']) ? $this->sanitize($config['og_title']) : $this->sanitize($config['title']);
-
+        
         return $config;
     }
 }
