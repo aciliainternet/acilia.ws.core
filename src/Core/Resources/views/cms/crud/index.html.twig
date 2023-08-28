@@ -25,9 +25,12 @@
                         <div class="c-toolbar__row">
                             {% block crud_create_action %}
                                 <div class="u-flex u-mr-auto">
-                                    <h4 class="c-toolbar__title u-mr-10">{{ 'title'|trans([], trans_prefix) }}</h4>
+                                    {% block crud_title %}
+                                        <h4 class="c-toolbar__title u-mr-10">{{ 'title'|trans([], trans_prefix) }}</h4>
+                                    {% endblock %}
                                     {% if is_granted(view_roles['create']) %}
-                                        <a class="c-btn c-btn--primary" href="{{ ws_cms_path("#{route_prefix}_create") }}">
+                                        <a class="c-btn c-btn--solid" href="{{ ws_cms_path("#{route_prefix}_create") }}">
+                                            <i class="fa-regular fa-plus"></i>
                                             {{ 'new'|trans({}, 'ws_cms') }}
                                         </a>
                                     {% endif %}
@@ -57,13 +60,12 @@
                                         autocomplete="off"
                                 >
                             </div>
-                            <button type="submit" class="c-btn c-btn--secondary u-hidden@md--down">
-                                {{ source('@WSCore/cms/icons/search.svg') }}
+                            <button type="submit" class="c-btn c-btn--cta c-btn--success u-hidden@md--down">
                                 {{ 'search'|trans({}, 'ws_cms') }}
                             </button>
 
                             {% if filter_extended_form is not null %}
-                                <button type="button" class="c-btn c-btn--secondary u-hidden@md--down js-toggle-filter">
+                                <button type="button" class="c-btn c-btn--cta c-btn--success u-hidden@md--down js-toggle-filter">
                                     {{ source('@WSCore/cms/icons/filter.svg') }}
                                     {{ 'filter'|trans({}, 'ws_cms') }}
                                 </button>
@@ -91,9 +93,9 @@
 
                 <div class="c-toolbar c-toolbar--caption c-toolbar--empty u-mt-30 {{ data|length > 0 ? 'u-hidden' }}">
                     <div class="c-form__content-full">
-                        <p>
-                            <i class="fa fa-info-circle u-color-warning">
-                            </i> {{ 'no_rows_found'|trans([], trans_prefix) }}
+                        <p class="c-alert c-alert--cta c-alert--info">
+                            <i class="fa-regular fa-circle-info"></i>
+                            <span>{{ 'no_rows_found'|trans([], trans_prefix)|raw }}</span>
                         </p>
                     </div>
                 </div>
@@ -222,13 +224,13 @@
 
                                             {% if is_granted(view_roles['delete']) %}
                                                 <button
-                                                        class="c-btn c-btn--secondary c-btn--delete js-genericDelete"
+                                                        class="c-btn c-btn--border c-btn--delete js-genericDelete"
                                                         data-id="{{ entity.id }}"
                                                         data-url="{{ ws_cms_path("#{route_prefix}_delete", { 'id': entity.id }) }}"
                                                         data-title="{{ 'title'|trans([], trans_prefix) }}"
                                                         data-message="{{ 'delete_warning'|trans([], trans_prefix) }}"
                                                 >
-                                                    <i class="fal fa-trash-alt u-mr-5"></i>
+                                                    <i class="fal fa-trash-alt"></i>
                                                     {{ 'delete'|trans({}, 'ws_cms') }}
                                                 </button>
                                             {% endif %}

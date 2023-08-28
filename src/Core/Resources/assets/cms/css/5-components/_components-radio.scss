@@ -1,0 +1,82 @@
+.c-radio {
+    --radio-color: var(--color-primary);
+    display: flex;
+    gap: 8px;
+
+    &__item {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        padding: var(--btn-padding);
+        border: var(--btn-border-width) solid;
+        border-color: var(--input-border-color);
+        border-radius: var(--btn-border-radius);
+        background: var(--white);
+        color: var(--color-mute);
+        font-weight: var(--btn-font-weight);
+        font-size: var(--btn-font-size);
+        line-height: 1.5;
+        cursor: pointer;
+        transition: all .15s ease-in-out;
+
+        &--open {
+            --radio-color: var(--color-success);
+        }
+
+        &--cancelled {
+            --radio-color: var(--color-danger);
+        }
+
+        &--closed {
+            --radio-color: var(--color-primary);
+        }
+
+        &:focus-within {
+            color: var(--radio-color);
+        }
+
+        &:hover {
+            border-color: color-mix(in srgb, var(--radio-color, var(--btn-background-color-secondary-hover)), #ffffff 50%);
+        }
+
+        &:has(.c-radio__input:checked) {
+            border-color: var(--radio-color);
+            color: var(--radio-color);
+        }
+    }
+
+    &__input {
+        all: revert;
+        display: grid;
+        width: 1rem;
+        height: 1rem;
+        margin: 0;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        color: currentColor;
+        font: inherit;
+        -webkit-appearance: none;
+        appearance: none;
+        place-content: center;
+
+        &::before {
+            content: '';
+            width: .5rem;
+            height: .5rem;
+            border-radius: 50%;
+            background-color: var(--radio-color);
+            box-shadow: inset 1em 1em var(--form-control-color);
+            transition: 120ms transform ease-in-out;
+            transform: scale(0);
+        }
+
+        &:checked::before {
+            transform: scale(1);
+        }
+
+        &:focus {
+            outline: 2px dotted currentColor;
+            outline-offset: 2px;
+        }
+    }
+}

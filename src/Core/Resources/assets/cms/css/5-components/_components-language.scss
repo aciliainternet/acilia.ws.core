@@ -1,0 +1,76 @@
+.c-language {
+    $self: &;
+
+    --btn-background-color: #d6f3e7;
+    --btn-background-color-active: var(--color-success);
+    --btn-background-color-hover: #c8f1e0;
+    --btn-border-color: #c6f2e0;
+    --btn-border-color-active: var(--color-success);
+    --btn-border-color-hover: #a0dcc4;
+    --btn-color: var(--color-success);
+    --btn-color-active: var(--white);
+    --btn-color-hover: var(--color-success);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    &__list {
+        display: flex;
+    }
+
+    &__item {
+        display: flex;
+        gap: 16px;
+
+        &:first-child {
+            #{$self}__btn {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        &:nth-child(2) {
+            #{$self}__btn {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
+
+    &__btn {
+        position: relative;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        margin: 0;
+        padding: 4px var(--btn-padding);
+        border: var(--btn-border-width) solid;
+        border-color: var(--btn-border-color);
+        border-radius: var(--btn-border-radius);
+        background-color: var(--btn-background-color);
+        color: var(--btn-color);
+        font-weight: var(--btn-font-weight);
+        font-size: var(--btn-font-size);
+        line-height: 1.5;
+        text-align: center;
+        transition: all .15s ease-in-out;
+
+        &:hover {
+            border: 1px solid var(--btn-border-color-hover);
+            background-color: var(--btn-background-color-hover);
+            color: var(--btn-color-hover);
+        }
+
+        &.is-active {
+            border-color: var(--btn-border-color-active);
+            background-color: var(--btn-background-color-active);
+            color: var(--btn-color-active);
+        }
+    }
+
+    &__label {
+        color: var(--field-label-color);
+        font-weight: var(--field-label-font-weight);
+        font-size: var(--field-label-font-size);
+    }
+}

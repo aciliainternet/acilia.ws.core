@@ -1,0 +1,73 @@
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-breakpoint' as *;
+
+.c-tooltip {
+    position: relative;
+
+    &::after {
+        content: attr(aria-label);
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        overflow: hidden;
+        width: max-content;
+        padding: var(--content-spacing-xs) var(--content-spacing-s);
+        border-radius: var(--border-radious-m);
+        background-color: var(--color-primary);
+        color: var(--white);
+        box-shadow: 0 4px 8px rgba(16, 24, 64, 8%), 0 4px 8px rgba(16, 24, 64, 8%);
+        font-size: var(--text-small-font-size);
+        line-height: 1.3125rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .3s;
+    }
+
+    &:hover {
+
+        &::after {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    /* stylelint-disable */
+    &--top {
+        &::after {
+            bottom: 100%;
+            left: 0;
+            @include media-breakpoint('md') {
+                left: 50%;
+                transform: translate(-50%, -12px);
+            }
+        }
+    }
+    /* stylelint-enable */
+
+    &--bottom {
+
+        &::after {
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 12px);
+        }
+    }
+
+    &--right {
+
+        &::after {
+            top: 0;
+            left: 105%;
+            transform: translate(12px, -50%);
+        }
+    }
+
+    &--left {
+
+        &::after {
+            top: 0;
+            right: 105%;
+            transform: translate(-12px, -50%);
+        }
+    }
+}

@@ -19,8 +19,10 @@
 
 .c-btn {
     position: relative;
-    display: inline-block;
-    vertical-align: middle;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
     max-width: 100%;
     margin: 0;
@@ -38,29 +40,27 @@
     transition: all .15s ease-in-out;
     appearance: none;
 
-    &:hover,
-    &:focus {
-        color: var(--btn-hover-color);
+    &:hover {
         outline: 0;
         text-decoration: none;
     }
 
+    &:focus {
+        border-radius: var(--btn-border-radius);
+        outline: 2px dotted var(--color-style);
+        outline-offset: 2px;
+        text-decoration: none;
+    }
+
     i {
-        position: relative;
-        bottom: -1px; /* [2] */
-        font-size: 16px;
+        // position: relative;
+        // bottom: -1px; /* [2] */
+        // font-size: 16px;
     }
 
     &.has-dropdown {
         position: relative;
         padding-right: 2.5rem;
-        border-color: var(--grey-400);
-        color: var(--grey-700);
-
-        &:hover {
-            background: color-mix(in srgb, var(--color-style, var(--btn-background-color-secondary-hover)), #ffffff 75%);
-            color: var(--color-secondary);
-        }
 
         &::after { /* [3] */
             content: '\f107'; // fa-angle-down
@@ -68,12 +68,14 @@
             top: 0;
             right: 0;
             display: inline-block;
+            display: grid;
             height: 100%;
             margin-left: 1.25rem;
             padding: .5rem 8px;
             border-left: 1px solid var(--grey-400);
             color: inherit;
             font-family: var(--base-icon-font);
+            place-content: center;
         }
     }
 
@@ -95,35 +97,35 @@
 }
 
 // Type
-.c-btn--primary {
+.c-btn--solid {
     border-color: var(--color-style, var(--btn-border-color-primary));
     background-color: var(--color-style, var(--btn-background-color-primary));
     color: var(--white);
 
     &:hover {
         background: color-mix(in srgb, var(--color-style, var(--btn-background-color-primary-hover)), #ffffff 25%);
-    }
-
-    &:focus {
-        border-color: var(--color-style, var(--btn-border-color-primary-focus));
-        outline: 1px solid color-mix(in srgb, var(--color-style, var(--btn-border-color-primary-focus)), #000000 25%);
+        color: var(--white);
     }
 }
 
-.c-btn--secondary {
+.c-btn--cta {
+    border-color: color-mix(in srgb, var(--color-style, var(--btn-background-color-secondary-hover)), #ffffff 80%);
+    background: color-mix(in srgb, var(--color-style, var(--btn-background-color-secondary-hover)), #ffffff 90%);
+    color: var(--color-style);
+
+    &:hover {
+        border-color: color-mix(in srgb, var(--color-style, var(--btn-background-color-secondary-hover)), #ffffff 50%);
+    }
+}
+
+.c-btn--border {
     border-color: var(--color-style, var(--btn-border-color-secondary));
     background-color: var(--btn-background-color-secondary);
     color: var(--color-style, var(--color-secondary));
 
     &:hover {
-        background: color-mix(in srgb, var(--color-style, var(--btn-background-color-secondary-hover)), #ffffff 75%);
-        color: var(--color-style, var(--color-secondary));
-    }
-
-    &:focus {
-        border-color: var(--color-style, var(--btn-border-color-secondary-focus));
-        color: var(--color-style, var(--color-secondary));
-        outline: 1px solid var(--color-style, var(--color-secondary));
+        background: var(--color-style, var(--color-secondary));
+        color: var(--white);
     }
 }
 
@@ -160,10 +162,6 @@
 .c-btn--small {
     padding: var(--btn-small-padding);
     font-size: var(--btn-small-font-size);
-
-    i {
-        margin-right: 4px;
-    }
 }
 
 .c-btn--large {
@@ -176,6 +174,14 @@
 }
 
 // Style
+.c-btn--primary {
+    --color-style: var(--color-primary);
+}
+
+.c-btn--secondary {
+    --color-style: var(--color-secondary);
+}
+
 .c-btn--success {
     --color-style: var(--color-success);
 }
@@ -192,15 +198,11 @@
     --color-style: var(--color-danger);
 }
 
-.c-btn--brand {
-    --color-style: var(--color-brand);
-}
-
 // Others
 .c-btn--delete {
-    --color-style: var(--grey-400);
-    color: var(--grey-700);
-    transition: all .2s ease-in-out;
+    // --color-style: var(--grey-400);
+    // color: var(--grey-700);
+    // transition: all .2s ease-in-out;
 
     &:hover {
         border-color: var(--red-300);

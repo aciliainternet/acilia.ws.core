@@ -7,6 +7,7 @@
 
 .choices {
     $self: &;
+    --choices-color: var(--color-primary);
     margin-bottom: 0;
 
     &__placeholder {
@@ -27,7 +28,7 @@
         }
 
         #{ $self }__button {
-            color: var(--color-brand);
+            color: var(--choices-color);
         }
 
         #{ $self }__inner {
@@ -39,7 +40,8 @@
     &[data-type*=text],
     &[data-type*=select-multiple] {
         #{ $self }__button {
-            color: var(--color-brand);
+            border-left: 1px solid var(--choices-color);
+            color: var(--choices-color);
             background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==);
         }
     }
@@ -56,7 +58,7 @@
         overflow: visible;
         box-sizing: border-box;
         width: 100%;
-        min-height: 3.25rem;
+        min-height: 3.625rem;
         border: var(--input-border-width) solid var(--input-border-color);
         border-radius: var(--base-border-radius);
         background-color: var(--white);
@@ -108,18 +110,17 @@
             height: 100%;
 
             .choices__item {
-                border-color: transparent;
-                border-radius: .313rem;
-                background: color-mix(in srgb,var(--color-brand),#fff 75%);
-                color: var(--color-default-text);
+                border-color: color-mix(in srgb, var(--choices-color, var(--btn-background-color-secondary-hover)), #ffffff 80%);
+                background: color-mix(in srgb, var(--choices-color, var(--btn-background-color-secondary-hover)), #ffffff 90%);
+                border-radius: var(--base-border-radius);
+                color: var(--choices-color);
                 font-weight: var(--font-weight-normal);
                 font-size: var(--text-font-size);
                 font-family: var(--base-font-family);
                 transition: background 300ms ease-in-out;
 
                 &:hover {
-                    background: color-mix(in srgb,var(--color-brand),#fff 50%);
-
+                    border-color: color-mix(in srgb, var(--choices-color, var(--btn-background-color-secondary-hover)), #ffffff 50%);
                 }
 
                 &:focus {
@@ -132,7 +133,6 @@
             }
         }
     }
-
 
     &.is-open {
         z-index: 3;
@@ -226,3 +226,4 @@
 }
 
 /* stylelint-enable */
+

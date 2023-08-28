@@ -21,6 +21,9 @@
     <div class="container">
         <div class="{% block crud_show_form_class %}c-form{% endblock crud_show_form_class %}" {% block crud_show_form_attributes %}{% endblock crud_show_form_attributes %}>
 
+            {% block crud_show_header %}
+            {% endblock %}
+
             {% block crud_show_title %}
                 <div class="u-flex u-mr-auto">
                     <h2 class="c-form__title u-h2 u-mb-30">{{ 'title'|trans({}, trans_prefix) }}</h2>
@@ -41,7 +44,7 @@
                     {% if form.saveAndBack is defined %}
                         {{ saveAndBackField|raw }}
                     {% endif %}
-                    <button type="submit" class="c-btn c-btn--primary">{{ 'save'|trans({}, 'ws_cms') }}</button>
+                    <button type="submit" class="c-btn c-btn--solid">{{ 'save'|trans({}, 'ws_cms') }}</button>
                 </div>
             {% endblock %}
 

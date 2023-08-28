@@ -4,19 +4,15 @@
 //   #CHOICE
 //   ======================================================================== */
 
-
 // Choice (shared settings between checkboxes and radios)
 $choice-margin: 0 0 .938rem 0;
 $choice-color: var(--gunmetal-200);
-
 $choice-font-size: var(--text-font-size);
 $choice-font-weight: var(--font-weight-normal);
-
 $choice-disabled-color: rgba(#354052, .5);
 $choice-disabled-border-color: var(--grey-400);
 $choice-disabled-background-color: var(--grey-300);
-
-$choice-input-margin: 0 .5 0 0;
+$choice-input-margin: 0 .5rem 0 0;
 $choice-input-border-width: var(--base-border-width);
 $choice-input-border-color: var(--grey-500);
 $choice-input-background-color: var(--white);

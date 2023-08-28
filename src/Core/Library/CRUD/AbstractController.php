@@ -89,12 +89,18 @@ abstract class AbstractController extends BaseController
 
         /** @var FormError $error */
         foreach ($form->getErrors(true) as $error) {
-            $errors[] = $error->getMessage();
+            $errors[] = sprintf('%s %s', $error->getOrigin()->getName(), $error->getMessage());
         }
 
         if ($output == 0) {
-            return implode(PHP_EOL, $errors);
+            array_walk($errors, function (&$value) {
+                $value = sprintf('<li>%s</li>', $value);
+            });
+            return sprintf('<ul>%s</ul>', implode(PHP_EOL, $errors));
         }
+        // if ($output == 0) {
+        //     return $this->trans('form_error', [], 'ws_cms');
+        // }
 
         return $errors;
     }

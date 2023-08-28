@@ -33,50 +33,40 @@
     --grey-600: #b7c0cd;
     --grey-700: #9fa9ba;
     --grey-800: #7f8fa4;
-
     --gunmetal-100: #475364;
     --gunmetal-200: #354052;
     --gunmetal-300: #2d3848;
     --gunmetal-400: #273142;
     --gunmetal-500: #1d2531;
-
     --blue-100: #86caff;
     --blue-200: #53b2f9;
     --blue-300: #2083fe; // main
     --blue-400: #1990ea;
     --blue-500: #1a91eb;
-
     --green-100: #65dc52;
     --green-200: #1bb934;
     --green-300: #39b54a;
     --green-400: #34aa44;
     --green-500: #249533;
-
     --purple-100: #9d8fe3;
     --purple-200: #a388e3;
     --purple-300: #886ce6;
     --purple-400: #8261e6;
     --purple-500: #7d5be2;
-
     --red-100: #f95359;
     --red-200: #ed1c24;
     --red-300: #d35847;
     --red-400: #ed1c24;
     --red-500: #db161e;
-
     --orange-100: #f8c95d;
     --orange-200: #f7bf47;
     --orange-300: #fd9a18;
     --orange-400: #ff7800;
     --orange-500: #f16911;
-
-
     --white: #ffffff;
     --black: #000000;
-
     --color-primary: #252529;
     --color-secondary: #252529;
-    --color-brand: #007c89;
     --color-default-text: #475364;
     --color-sidebar-active: --color-primary;
 
@@ -86,10 +76,10 @@
 
     // Border
     --border-color: #dadae4;
-    --primary-border-color: var(--color-info);
-    --primary-border-color-focus: var(--color-info);
-    --secondary-border-color: var(--grey-400);
-    --secondary-border-color-focus: var(--grey-700);
+    --solid-border-color: var(--color-info);
+    --solid-border-color-focus: var(--color-info);
+    --cta-border-color: var(--grey-400);
+    --cta-border-color-focus: var(--grey-700);
 
     // states
     --color-success: #55b45a;
@@ -132,7 +122,6 @@
     --text-small-font-size: .75rem;
     --text-font-size: .875rem;
     --text-large-font-size: 1rem;
-
     --text-color: var(--color-primary);
     --text-strong-color: var(--color-primary);
     --text-mark-color: var(--white);
@@ -146,7 +135,6 @@
     --h4-font-size: 1.25rem;
     --h5-font-size: 1.125rem;
     --h6-font-size: 1rem;
-
     --heading-margin-bottom: .5rem;
     --heading-color: var(--color-primary);
     --heading-font-weight: var(--font-weight-semibold);
@@ -157,7 +145,6 @@
     --link-hover-color: var(--color-default-text);
     --link-hover-text-decoration: none;
 
-
     //
     // 3. Borders
     // ========================================================================== */
@@ -166,12 +153,10 @@
     --base-border-color: var(--grey-300);
     --base-border-width: 1px;
 
-
     //
     // 4. Icon Fonts
     // ========================================================================== */
     --base-icon-font: 'Font Awesome 6 Pro';
-
 
     //
     // 5. Z-index System
@@ -182,7 +167,6 @@
     --z-index-400: 400; // over screen
     --z-index-500: 500; // over everything
 
-
     //
     // 6. Spacing
     // ========================================================================== */
@@ -192,16 +176,32 @@
     --spacer: 1.875rem;
     --spacer-large: 3.125rem;
     --spacer-xlarge: 6.25rem;
+
+    // content
+    --content-spacing-xxs: .25rem;  // 4px;
+    --content-spacing-xs: .5rem;   // 8px;
+    --content-spacing-s: .75rem;   //12px;
+    --content-spacing-m: 1rem;   //16px;
+    --content-spacing-l: 1.5rem;   //24px;
+    --content-spacing-xl: 2.25rem;  //36px;
+    --content-spacing-xxl: 3rem; //48px;
+    --content-spacing-3xl: 3.75rem; //60px;
+
+    // border
+    --border-radious-s: .25rem;  // 4px;
+    --border-radious-m: .5rem;   // 8px;
+    --border-radious-l: .75rem;   //12px;
+    --border-radious-xl: 1rem;   //16px;
 }
 
 //
 // 6. Spacing
 // ========================================================================== */
-    $spacer-xsmall: var(--spacer-xsmall);
-    $spacer-small: var(--spacer-small);
-    $spacer: var(--spacer);
-    $spacer-large: var(--spacer-large);
-    $spacer-xlarge: var(--spacer-xlarge);
+$spacer-xsmall: var(--spacer-xsmall);
+$spacer-small: var(--spacer-small);
+$spacer: var(--spacer);
+$spacer-large: var(--spacer-large);
+$spacer-xlarge: var(--spacer-xlarge);
 
 //
 // 7. Breakpoints
@@ -215,7 +215,6 @@ $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
-
 $breakpoint-mobile: $breakpoint-sm;
 $breakpoint-tablet: $breakpoint-md;
 $breakpoint-desktop: $breakpoint-lg;
@@ -227,10 +226,8 @@ $breakpoint-wide: $breakpoint-xl;
 
 $max-width-container: 1140;
 $max-width-container-px: $max-width-container + px;
-
 $height-navbar: 70px;
 $margin-navbar: 30px;
 $height-toolbar: 80px;
 $height-pagination: 30px;
 $height-footer: 130px;
-

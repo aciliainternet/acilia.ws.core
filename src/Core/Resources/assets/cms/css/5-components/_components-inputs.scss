@@ -54,6 +54,15 @@
         -moz-appearance: none;
         appearance: none;
     }
+
+    &--addon {
+        &::after {
+            border: 1px solid var(--grey-400);
+            border-radius: var(--border-radius-xxs);
+            font-size: 1.125rem;
+            text-align: center;
+        }
+    }
 }
 /**
  * Textarea

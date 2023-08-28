@@ -596,13 +596,15 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                 </div>
                 {% if form.children.asset_file.vars.data != null %}
                 <div class="c-btn-upload-image-container">
-                    <button class="c-btn c-btn--primary js-delete-asset" type="button"
-                        data-id-asset-component="{{ id }}">
-                        {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
-                    </button>
-                    <button class="c-btn c-btn--secondary js-delete-asset" type="button"
+                    <button class="c-btn c-btn--border c-btn--small c-btn--delete js-delete-asset" type="button"
                         data-id-asset-component="{{ id }}">
                         <i class="fal fa-trash-alt"></i>
+                        {{ 'delete'|trans({}, 'ws_cms') }}
+                    </button>
+                    <button class="c-btn c-btn--solid c-btn--small c-btn--success js-delete-asset" type="button"
+                        data-id-asset-component="{{ id }}">
+                        <i class="fa-sharp fa-light fa-pen"></i>
+                        {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
                     </button>
                 </div>
                 {% endif %}
@@ -628,11 +630,11 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
             </div>
         </div>
         <div class="c-btn-upload-image-container {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
-            <button class="c-btn c-btn--secondary js-open-modal" type="button"
+            <button class="c-btn c-btn--cta js-open-modal" type="button"
                 data-id-asset-component="{{ form.children.asset.vars.id }}">
                 {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
             </button>
-            <button class="c-btn c-btn--secondary js-delete-asset-image" type="button"
+            <button class="c-btn c-btn--cta js-delete-asset-image" type="button"
                 data-id-asset-component="{{ id }}">
                 <i class="fal fa-trash-alt"></i>
             </button>
@@ -642,7 +644,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
         {{ form_widget(form.children.asset) }}
 
         <button type="button"
-            class="c-btn c-btn--brand c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
+            class="c-btn c-btn--solid c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
             data-id-asset-component="{{ form.children.asset.vars.id }}">
             {{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}
         </button>
@@ -705,7 +707,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                         data-id="{{ form.children.asset.vars.id }}">
                         {{ 'next'|trans({}, 'ws_cms') }}
                     </button>
-                    <button class="c-btn c-btn--primary c-btn--no-transition ws-cropper_confirm ws-cropper_save u-mr-5"
+                    <button class="c-btn c-btn--solid c-btn--no-transition ws-cropper_confirm ws-cropper_save u-mr-5"
                         data-id="{{ form.children.asset.vars.id }}">
                         {{ 'confirm'|trans({}, 'ws_cms') }}
                     </button>
@@ -744,7 +746,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                                 <input class="c-input c-input--small js-search-input" autocomplete="off" name="f"
                                     placeholder="Search" type="text" value="">
                             </div>
-                            <button type="submit" class="c-btn c-btn--primary c-btn--no-transition js-search-submit">
+                            <button type="submit" class="c-btn c-btn--solid c-btn--no-transition js-search-submit">
                                 <i class="fa fa-search u-mr-xsmall"></i>
                                 {{ 'search'|trans({}, 'ws_cms') }}
                             </button>
@@ -776,17 +778,17 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
 
         <figure class="c-img-modal__figure js-image-item #extra-class" data-id="{{ form.children.asset.vars.id }}">
             <button
-                class="c-btn c-btn--secondary c-btn--small c-btn--no-transition c-btn--delete-image js-list-image-delete"
+                class="c-btn c-btn--cta c-btn--small c-btn--no-transition c-btn--delete-image js-list-image-delete"
                 data-image-id="#image-id" data-path="{{ path('ws_asset_image_soft_delete') }}" type="button">
                 <i class="fal fa-trash-alt"></i>
             </button>
             <div class="c-img-modal__img-actions">
-                <button class="c-btn c-btn--primary c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"
+                <button class="c-btn c-btn--solid c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"
                     data-image-id="#image-id" data-image-url="#image-thumb" data-image-original="#image-original"
                     type="button">
                     {{ 'assets_image.image_list.use'|trans({}, 'ws_cms') }}
                 </button>
-                <button class="c-btn c-btn--secondary c-btn--small c-btn--no-transition js-list-image-crop"
+                <button class="c-btn c-btn--cta c-btn--small c-btn--no-transition js-list-image-crop"
                     data-id="#id" data-image-id="#image-id" data-image-url="#image-original" type="button">
                     {{ 'assets_image.image_list.crop'|trans({}, 'ws_cms') }}
                 </button>

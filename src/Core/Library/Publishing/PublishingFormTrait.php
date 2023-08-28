@@ -27,9 +27,7 @@ trait PublishingFormTrait
                 'translation_domain' => 'ws_cms',
                 'label' => 'publishing.publishStatus.label',
                 'choices' => $publishingOptions,
-                'required' => $required,
                 'attr' => [
-                    'placeholder' => 'publishing.publishStatus.placeholder',
                     'data-component' => 'ws_select',
                 ],
             ])

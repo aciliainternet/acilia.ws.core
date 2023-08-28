@@ -1,22 +1,29 @@
-///* ========================================================================
-//   #ALERTS
-//   ======================================================================== */
+@use 'sass:math';
+@use '../0-settings/_settings-global' as *;
+@use '../1-tools/_tools-mixin-rem' as *;
 
 :root {
-    --alert-margin: 0 0 .938rem 0;
-    --alert-padding: .75rem 2rem .75rem .75rem;
-    --alert-border-radius: var(--base-border-radius);
-    --alert-color: var(--white);
+    --alert-padding: .75rem;
+    --alert-border-width: var(--base-border-width);
+    --alert-border-color-primary: var(--color-primary);
+    --alert-border-color-primary-hover: var(--color-primary);
+    --alert-border-color-secondary: var(--color-secondary);
+    --alert-border-color-secondary-hover: var(--color-secondary);
+    --alert-border-color-secondary-focus: var(--color-secondary);
+    --alert-border-radius: .75rem;
+    --alert-font-size: .875rem;
+    --alert-font-weight: var(--font-weight-normal);
+    --alert-line-height: 1.5rem;
+    --alert-hover-color: var(--white);
+    --alert-background-color-primary: var(--color-primary);
+    --alert-background-color-primary-hover: var(--color-primary);
+    --alert-background-color-secondary: var(--white);
+    --alert-background-color-secondary-hover: var(--color-secondary);
+    --alert-background-color-secondary-focus: var(--color-secondary);
 
-    --alert-close-top: .75rem;
-    --alert-close-right: 1rem;
+    --alert-small-font-size: var(--text-small-font-size);
+    --alert-small-padding: .5rem .75rem;
 
-    --alert-icon-margin-right: .625rem;
-    --alert-icon-font-size: 1.125rem;
-    --alert-icon-opacity: .7;
-
-    --alert-success-background-color: var(--color-success);
-    --alert-info-background-color: var(--color-info);
-    --alert-warning-background-color: var(--color-warning);
-    --alert-danger-background-color: var(--color-danger);
+    --alert-large-font-size: var(--text-large-font-size);
+    --alert-large-padding: .75rem 1.875rem;
 }
