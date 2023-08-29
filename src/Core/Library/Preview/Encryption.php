@@ -4,8 +4,8 @@ namespace WS\Core\Library\Preview;
 
 class Encryption
 {
-    //public const ALGORITHM = 'blowfish';
-    //public const SECRET = '3bf1e30f73c17405883d4e6bf6781f7095fc1c62';
+    public const ALGORITHM = 'blowfish';
+    public const SECRET = '3bf1e30f73c17405883d4e6bf6781f7095fc1c62';
 
     public static function encrypt(string $plainData, string $secret, string $algorithm): string
     {
