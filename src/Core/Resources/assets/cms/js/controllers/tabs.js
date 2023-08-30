@@ -1,3 +1,5 @@
+// data-tabsection and data-tablink should have the same name, this data allow you create more than one tab control in the same page
+
 function changeTab(event) {
   const tab = event.currentTarget;
   if (tab.classList.contains('is-active')) {

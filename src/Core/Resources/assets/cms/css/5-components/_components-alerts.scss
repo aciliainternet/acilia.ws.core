@@ -11,8 +11,7 @@
     align-items: center;
     max-width: 100%;
     margin: 0;
-    padding: var(--alert-padding);
-    border: var(--alert-border-width) solid;
+    border: var(--alert-border-width) solid transparent;
     border-radius: var(--alert-border-radius);
     font-weight: var(--alert-font-weight);
     font-size: var(--alert-font-size);
@@ -30,18 +29,21 @@
 
 // Type
 .c-alert--solid {
+    padding: var(--alert-padding);
     border-color: var(--color-style, var(--alert-border-color-primary));
     background-color: var(--color-style, var(--alert-background-color-primary));
     color: var(--white);
 }
 
 .c-alert--cta {
+    padding: var(--alert-padding);
     border-color: color-mix(in srgb, var(--color-style, var(--alert-background-color-secondary-hover)), #ffffff 80%);
     background: color-mix(in srgb, var(--color-style, var(--alert-background-color-secondary-hover)), #ffffff 90%);
     color: var(--color-style);
 }
 
 .c-alert--border {
+    padding: var(--alert-padding);
     border-color: var(--color-style, var(--alert-border-color-secondary));
     background-color: var(--alert-background-color-secondary);
     color: var(--color-style, var(--color-secondary));
