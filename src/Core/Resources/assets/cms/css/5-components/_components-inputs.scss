@@ -71,13 +71,13 @@
 // sass-lint:disable no-qualifying-elements
 
 textarea.c-input {
-    min-height: 250px;
+    min-height: 85px;
     font-weight: var(--textarea-font-weight);
     font-size: var(--textarea-font-size);
     resize: vertical;
 
     &.c-input--textarea-small {
-        min-height: 52px;
+        min-height: 58px;
     }
 }
 

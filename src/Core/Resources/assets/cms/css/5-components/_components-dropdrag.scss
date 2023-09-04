@@ -1,14 +1,24 @@
 .c-drop {
     position: relative;
     display: flex;
-    flex-direction: column;
-    height: 200px;
-    padding: 16px;
-    border: 2px dashed var(--input-border-color);
-    border-radius: var(--border-radious-m);
-    color: var(--color-default-text);
-    cursor: pointer;
-    transition: background .2s ease-in-out, border .2s ease-in-out;
+
+    &__zone {
+        display: none;
+
+        &.is-active {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 200px;
+            padding: 16px;
+            border: 2px dashed var(--input-border-color);
+            border-radius: var(--border-radious-m);
+            color: var(--color-default-text);
+            cursor: pointer;
+            transition: background .2s ease-in-out, border .2s ease-in-out;
+        }
+    }
 
     &:hover,
     &.drag-active {
@@ -17,12 +27,36 @@
     }
 
     &__title {
+        display: flex;
+        flex-direction: column;
         margin-bottom: 16px;
         color: var(--color-default-text);
         font-weight: var(--font-weight-semibold);
         font-size: 1rem;
         text-align: center;
         transition: color .2s ease-in-out;
+    }
+
+    &__help {
+        color: #767676;
+        font-weight: var(--font-weight-normal);
+        font-size: .8125rem;
+        text-align: center;
+    }
+
+    &__figure {
+        display: none;
+
+        &.is-active {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+    }
+
+    &__image {
+        display: flex;
+        width: 50%;
     }
 
     // input[type='file'] {
@@ -44,9 +78,9 @@
         margin: 0 16px 0 0;
         padding: var(--btn-padding);
         border: var(--btn-border-width) solid;
-        border-color: var(--color-style, var(--btn-border-color-primary));
+        border-color: var(--color-primary, var(--btn-border-color-primary));
         border-radius: var(--btn-border-radius);
-        background-color: var(--color-style, var(--btn-background-color-primary));
+        background-color: var(--color-primary, var(--btn-background-color-primary));
         color: var(--white);
         font-weight: var(--btn-font-weight);
         font-size: var(--btn-font-size);
@@ -61,7 +95,7 @@
     }
 
     input[type='file']::file-selector-button:hover {
-        background: color-mix(in srgb, var(--color-style, var(--btn-background-color-primary-hover)), #ffffff 25%);
+        background: color-mix(in srgb, var(--color-primary, var(--btn-background-color-primary-hover)), #ffffff 25%);
     }
 
     // input[type='file']::before {

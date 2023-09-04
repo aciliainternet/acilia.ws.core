@@ -121,3 +121,7 @@ input_multiple.invalid_item_message: 'El valor ingresado no es válido'
 
 # Markdown
 markdown.autosave: 'Guardado: '
+
+# Drag and drop
+drag.title: Arrastra y suelta una imagen o navega para elegir un archivo
+drag.help: JPEG, PNG and WEBP solo

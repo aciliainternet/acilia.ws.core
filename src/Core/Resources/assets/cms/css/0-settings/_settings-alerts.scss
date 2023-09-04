@@ -3,14 +3,14 @@
 @use '../1-tools/_tools-mixin-rem' as *;
 
 :root {
-    --alert-padding: .75rem;
+    --alert-padding: 1.5rem;
     --alert-border-width: var(--base-border-width);
     --alert-border-color-primary: var(--color-primary);
     --alert-border-color-primary-hover: var(--color-primary);
     --alert-border-color-secondary: var(--color-secondary);
     --alert-border-color-secondary-hover: var(--color-secondary);
     --alert-border-color-secondary-focus: var(--color-secondary);
-    --alert-border-radius: .75rem;
+    --alert-border-radius: .5rem;
     --alert-font-size: .875rem;
     --alert-font-weight: var(--font-weight-normal);
     --alert-line-height: 1.5rem;
@@ -20,10 +20,8 @@
     --alert-background-color-secondary: var(--white);
     --alert-background-color-secondary-hover: var(--color-secondary);
     --alert-background-color-secondary-focus: var(--color-secondary);
-
     --alert-small-font-size: var(--text-small-font-size);
     --alert-small-padding: .5rem .75rem;
-
     --alert-large-font-size: var(--text-large-font-size);
     --alert-large-padding: .75rem 1.875rem;
 }

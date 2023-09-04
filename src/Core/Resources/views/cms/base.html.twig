@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="{{ app.request.locale }}">
 <head>
     <title>{% block title %}{{ get_title() }} | {{ 'name'|trans({}, 'cms') }}{% endblock %}</title>
     <meta charset="utf-8">

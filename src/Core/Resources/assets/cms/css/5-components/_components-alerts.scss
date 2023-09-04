@@ -9,6 +9,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    width: 100%;
     max-width: 100%;
     margin: 0;
     border: var(--alert-border-width) solid transparent;
@@ -20,6 +21,7 @@
     i {
         margin-right: var(--content-spacing-xs);
         font-size: 1.3125rem;
+        line-height: 1.5;
     }
 
     strong {
@@ -47,6 +49,16 @@
     border-color: var(--color-style, var(--alert-border-color-secondary));
     background-color: var(--alert-background-color-secondary);
     color: var(--color-style, var(--color-secondary));
+}
+
+.c-alert--inline {
+    padding: 0;
+    border-color: transparent;
+    background-color: transparent;
+
+    i {
+        font-size: 1rem;
+    }
 }
 
 // Style
