@@ -256,7 +256,9 @@ abstract class AbstractController extends BaseController
                     $this->addFlash('cms_error', $this->trans('create_error', [], $this->getTranslatorPrefix()));
                 }
             } else {
-                $this->addFlash('cms_error', $this->getFormErrorMessagesList($form));
+                foreach ($this->getFormErrorMessagesList($form, 1) as $error) {
+                    $this->addFlash('cms_error', $error);
+                }
             }
         }
 
@@ -323,7 +325,9 @@ abstract class AbstractController extends BaseController
                     $this->addFlash('cms_error', $this->trans('edit_error', [], $this->getTranslatorPrefix()));
                 }
             } else {
-                $this->addFlash('cms_error', $this->getFormErrorMessagesList($form));
+                foreach ($this->getFormErrorMessagesList($form, 1) as $error) {
+                    $this->addFlash('cms_error', $error);
+                }
             }
         }
 
