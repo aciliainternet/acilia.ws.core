@@ -111,39 +111,31 @@ textarea.c-input {
     }
 }
 
-.c-input--file {
-    &::file-selector-button {
-        position: relative;
-        display: inline-block;
-        vertical-align: middle;
-        overflow: hidden;
-        max-width: 100%;
-        margin: 0 16px 0 0;
-        padding: var(--btn-small-padding);
-        border: var(--btn-border-width) solid;
-        border-color: var(--color-success, var(--btn-border-color-primary));
-        border-radius: var(--btn-small-border-radius);
-        background-color: var(--color-success, var(--btn-background-color-primary));
-        color: var(--white);
-        font-weight: var(--btn-font-weight);
-        font-size: var(--btn-font-size);
-        line-height: 1;
-        text-align: center;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        cursor: pointer;
-        user-select: none;
-        transition: all .15s ease-in-out;
-        appearance: none;
-    }
-
-    &::file-selector-button:hover {
-        background: color-mix(in srgb, var(--color-success, var(--btn-background-color-primary-hover)), #ffffff 25%);
-    }
+input[type='file']::file-selector-button {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 0 16px 0 0;
+    padding: var(--btn-small-padding);
+    border: var(--btn-border-width) solid;
+    border-color: var(--color-success, var(--btn-border-color-primary));
+    border-radius: var(--btn-small-border-radius);
+    background-color: var(--color-success, var(--btn-background-color-primary));
+    color: var(--white);
+    font-weight: var(--btn-font-weight);
+    font-size: var(--btn-font-size);
+    line-height: 1;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s ease-in-out;
+    appearance: none;
 }
 
-.c-input--file-button {
-    padding: 0;
-    border: 0;
-    font-size: 0;
+input[type='file']::file-selector-button:hover {
+    background: color-mix(in srgb, var(--color-success, var(--btn-background-color-primary-hover)), #ffffff 25%);
 }

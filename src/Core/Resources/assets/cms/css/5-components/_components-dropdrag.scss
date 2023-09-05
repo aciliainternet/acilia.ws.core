@@ -62,47 +62,7 @@
         align-self: start;
     }
 
-    // input[type='file'] {
-    //     width: 350px;
-    //     max-width: 100%;
-    //     padding: 5px;
-    //     border: 1px solid #555555;
-    //     border-radius: 10px;
-    //     background: #ffffff;
-    //     color: var(--color-default-text);
-    // }
-
-    input[type='file']::file-selector-button {
-        position: relative;
-        display: inline-block;
-        vertical-align: middle;
-        overflow: hidden;
-        max-width: 100%;
-        margin: 0 16px 0 0;
-        padding: var(--btn-padding);
-        border: var(--btn-border-width) solid;
-        border-color: var(--color-primary, var(--btn-border-color-primary));
-        border-radius: var(--btn-border-radius);
-        background-color: var(--color-primary, var(--btn-background-color-primary));
-        color: var(--white);
-        font-weight: var(--btn-font-weight);
-        font-size: var(--btn-font-size);
-        line-height: 1.5;
-        text-align: center;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        cursor: pointer;
-        user-select: none;
-        transition: all .15s ease-in-out;
-        appearance: none;
+    .c-input--file {
+        padding: 10px 16px;
     }
-
-    input[type='file']::file-selector-button:hover {
-        background: color-mix(in srgb, var(--color-primary, var(--btn-background-color-primary-hover)), #ffffff 25%);
-    }
-
-    // input[type='file']::before {
-    //     content: '\e590';
-    //     font-family: var(--base-icon-font);
-    // }
 }

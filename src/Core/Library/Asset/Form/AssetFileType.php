@@ -27,7 +27,6 @@ class AssetFileType extends AbstractType
             $assetAttributes = [
                 'attr' => [
                     'accept' => $options['ws']['accept'],
-                    'class' => $options['ws']['class'],
                 ],
             ];
         }
