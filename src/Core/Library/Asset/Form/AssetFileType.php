@@ -22,12 +22,23 @@ class AssetFileType extends AbstractType
             throw new InvalidConfigurationException('The options "ws[entity]" is required.');
         }
 
+        $assetAttributes = ['attr' => []];
+        if (isset($options['ws']['accept'])) {
+            $assetAttributes = [
+                'attr' => [
+                    'accept' => $options['ws']['accept'],
+                    'class' => $options['ws']['class'],
+                ],
+            ];
+        }
+
         $builder
             ->add('asset', FileType::class, [
                 'label' => false,
                 'constraints' => $options['ws']['constraints'] ?? null,
                 'mapped' => $options['mapped'] ?? false,
                 'required' => $options['required'] ?? false,
+                'attr' => $assetAttributes['attr']
             ])
             ->add('asset_remove', HiddenType::class)
         ;

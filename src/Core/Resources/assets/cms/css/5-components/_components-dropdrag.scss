@@ -18,12 +18,12 @@
             cursor: pointer;
             transition: background .2s ease-in-out, border .2s ease-in-out;
         }
-    }
 
-    &:hover,
-    &.drag-active {
-        border-color: var(--input-focus-border-color);
-        background: var(--grey-200);
+        &:hover,
+        &.drag-active {
+            border-color: var(--input-focus-border-color);
+            background: var(--grey-200);
+        }
     }
 
     &__title {
@@ -56,7 +56,10 @@
 
     &__image {
         display: flex;
-        width: 50%;
+    }
+
+    &__btn {
+        align-self: start;
     }
 
     // input[type='file'] {

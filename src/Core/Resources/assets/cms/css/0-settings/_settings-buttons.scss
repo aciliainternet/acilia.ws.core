@@ -25,9 +25,10 @@
     --btn-background-color-secondary-hover: var(--color-secondary);
     --btn-background-color-secondary-focus: var(--color-secondary);
     --btn-small-font-size: var(--text-small-font-size);
-    --btn-small-padding: .5rem .75rem;
+    --btn-small-padding: .625rem;
     --btn-large-font-size: var(--text-large-font-size);
     --btn-large-padding: .75rem 1.875rem;
+    --btn-small-border-radius: var(--border-radious-s);
 
     // Disabled State
     --btn-disabled-color: rgba(var(--gunmetal-200), .5);
