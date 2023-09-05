@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use WS\Core\Library\Storage\StorageDriverInterface;
 use WS\Core\Service\FileService;
-use WS\Core\Service\StorageService;
 
 #[Route(path: '/asset-file', name: 'ws_asset_file_')]
 class AssetFileController extends AbstractController
@@ -25,7 +25,7 @@ class AssetFileController extends AbstractController
             $file = $request->files->get('asset');
 
             $assetFile = $this->service->handleStandalone($file, [
-                'context' => StorageService::CONTEXT_PUBLIC
+                'context' => StorageDriverInterface::CONTEXT_PUBLIC
             ]);
 
             return new JsonResponse([
