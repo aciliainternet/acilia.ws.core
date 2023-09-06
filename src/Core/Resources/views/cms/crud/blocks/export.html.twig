@@ -1,10 +1,10 @@
 <div class="c-dropdown dropdown u-hidden@md--down" data-toggle="dropdown-export" data-component="ws_dropdown">
-    <button class="c-btn c-btn--border has-dropdown dropdown-toggle"
+    <button class="c-btn c-btn--border has-dropdown dropdown-toggle u-pr-40"
             type="button"
             id="ExportDropdownButton"
             aria-haspopup="true" aria-expanded="false">
-            {{ source('@WSCore/cms/icons/export.svg') }}
-            {{ 'export'|trans({}, 'ws_cms') }}
+                {{ source('@WSCore/cms/icons/export.svg') }}
+                {{ 'export'|trans({}, 'ws_cms') }}
     </button>
     {% block crud_export_formats %}
         <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">

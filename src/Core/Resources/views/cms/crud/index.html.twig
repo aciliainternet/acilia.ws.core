@@ -60,12 +60,12 @@
                                         autocomplete="off"
                                 >
                             </div>
-                            <button type="submit" class="c-btn c-btn--cta c-btn--success u-hidden@md--down">
+                            <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
                                 {{ 'search'|trans({}, 'ws_cms') }}
                             </button>
 
                             {% if filter_extended_form is not null %}
-                                <button type="button" class="c-btn c-btn--cta c-btn--success u-hidden@md--down js-toggle-filter">
+                                <button type="button" class="c-btn c-btn--cta c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
                                     {{ source('@WSCore/cms/icons/filter.svg') }}
                                     {{ 'filter'|trans({}, 'ws_cms') }}
                                 </button>
