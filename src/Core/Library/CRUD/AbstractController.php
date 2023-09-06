@@ -83,13 +83,21 @@ abstract class AbstractController extends BaseController
         }
     }
 
+    protected function getErrorMessage(FormError $error): string
+    {
+        $label = $error->getOrigin()->getConfig()->getOption('label');
+        $message = $error->getMessage();
+
+        return sprintf('%s: "%s"', $this->trans($label, [], $this->getTranslatorPrefix()), $message);
+    }
+
     protected function getFormErrorMessagesList(FormInterface $form, int $output = 0): mixed
     {
         $errors = [];
 
         /** @var FormError $error */
         foreach ($form->getErrors(true) as $error) {
-            $errors[] = sprintf('%s %s', $error->getOrigin()->getName(), $error->getMessage());
+            $errors[] = $this->getErrorMessage($error);
         }
 
         if ($output == 0) {
@@ -98,9 +106,6 @@ abstract class AbstractController extends BaseController
             });
             return sprintf('<ul>%s</ul>', implode(PHP_EOL, $errors));
         }
-        // if ($output == 0) {
-        //     return $this->trans('form_error', [], 'ws_cms');
-        // }
 
         return $errors;
     }
@@ -353,7 +358,7 @@ abstract class AbstractController extends BaseController
     {
         try {
             $this->denyAccessUnlessAllowed('delete');
-        } catch (AccessDeniedException $exception) {
+        } catch (AccessDeniedException) {
             return $this->json(['msg' => $this->trans('not_allowed', [], 'ws_cms')], Response::HTTP_FORBIDDEN);
         }
 
