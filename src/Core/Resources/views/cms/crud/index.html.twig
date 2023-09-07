@@ -60,12 +60,12 @@
                                         autocomplete="off"
                                 >
                             </div>
-                            <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
+                            <button type="submit" class="c-btn c-btn--solid c-btn--success u-hidden@md--down">
                                 {{ 'search'|trans({}, 'ws_cms') }}
                             </button>
 
                             {% if filter_extended_form is not null %}
-                                <button type="button" class="c-btn c-btn--cta c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
+                                <button type="button" class="c-btn c-btn--solid c-btn--success u-hidden@md--down js-toggle-filter">
                                     {{ source('@WSCore/cms/icons/filter.svg') }}
                                     {{ 'filter'|trans({}, 'ws_cms') }}
                                 </button>
@@ -231,7 +231,7 @@
                                                         data-message="{{ 'delete_warning'|trans([], trans_prefix) }}"
                                                 >
                                                     <i class="fal fa-trash-alt"></i>
-                                                    {{ 'delete'|trans({}, 'ws_cms') }}
+                                                    {# {{ 'delete'|trans({}, 'ws_cms') }} #}
                                                 </button>
                                             {% endif %}
                                         </td>

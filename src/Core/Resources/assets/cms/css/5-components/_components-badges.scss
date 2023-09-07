@@ -20,13 +20,14 @@
 /* Style variants
    ========================================================================== */
 .c-badge--success,
+.c-badge--published,
 .c-badge[data-badge='Beginner'] {
     background: color-mix(in srgb, var(--color-success, var(--btn-background-color-secondary-hover)), #ffffff 90%);
     color: var(--color-success);
 }
 
 .c-badge--info,
-.c-badge--published,
+.c-badge--draft,
 .c-badge[data-badge='Intermediate'] {
     background: color-mix(in srgb, var(--color-info, var(--btn-background-color-secondary-hover)), #ffffff 90%);
     color: var(--color-info);
