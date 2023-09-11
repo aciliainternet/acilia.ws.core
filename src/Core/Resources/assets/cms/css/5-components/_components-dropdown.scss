@@ -1,11 +1,9 @@
 @use '../0-settings/_settings-global' as *;
 @use '../0-settings/_settings-dropdown' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
-
 /* ==========================================================================
    #DROPDOWN
    ========================================================================== */
-
 /**
  * A wrapper for the dropdown
  */
@@ -14,8 +12,6 @@
     position: relative;
     display: inline-block;
 }
-
-
 /**
  * Dropdown Menu
  *
@@ -28,12 +24,13 @@
     top: 100%; /* [1] */
     right: 0;
     z-index: var(--z-index-400);
-    width: $dropdown-menu-width;
+    width: max-content;
     margin: 5px 0 0;
     border: $dropdown-menu-border-width solid $dropdown-menu-border-color;
     border-radius: $dropdown-menu-border-radius;
     background-color: $dropdown-menu-background-color;
     box-shadow: $dropdown-menu-box-shadow;
+    box-shadow: rgba(0, 0, 0, .08) 0 2px 4px, rgba(0, 0, 0, .06) 0 2px 12px, rgba(0, 0, 0, .04) 0 8px 14px, rgba(0, 0, 0, .02) 0 12px 16px;
     text-align: left;
     transition: visibility .3s ease, opacity .3s ease;
 
@@ -53,8 +50,6 @@
         visibility: visible;
     }
 }
-
-
 /**
  * A larger dropdown menu for dropdowns used in navbar.
  */
@@ -66,7 +61,6 @@
         padding: $dropdown-item-large-padding;
     }
 }
-
 /**
  * 1. Remove border from last item to prevent it from collapsing with dropdown
  *    menu's last border.
@@ -76,7 +70,7 @@
     display: block;
     padding: $dropdown-item-padding;
     border-bottom: $dropdown-item-border-width solid $dropdown-item-border-color;
-    color: $dropdown-item-color;
+    color: currentColor;
     font-weight: $dropdown-item-font-weight;
     font-size: var(--text-font-size);
 
