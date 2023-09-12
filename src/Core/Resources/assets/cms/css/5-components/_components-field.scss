@@ -3,11 +3,9 @@
 @use '../1-tools/_tools-mixin-linear-gradient' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 @use '../1-tools/_tools-mixin-respond-to' as *;
-
 /* ==========================================================================
    #FIELD
    ========================================================================== */
-
 /**
  * Form field `c-field` component is used as a wrapper for more complex inputs
  * that contain an icon, addon, form feedback and form message.
@@ -92,7 +90,6 @@
         }
     }
 }
-
 /**
  * Inline fields don't take up whole width
  *
@@ -110,8 +107,6 @@
 .c-field--inline-medium {
     width: 220px;
 }
-
-
 /**
  * Labels are used with inputs, always use labels with inputs for better
  * accesibility. Hide labels using `u-hidden-visually` to display it for
@@ -127,9 +122,30 @@
     color: var(--field-label-color);
     font-weight: var(--field-label-font-weight);
     font-size: var(--field-label-font-size);
+
+    &--i18n {
+        &::before {
+            content: '\f1ab';
+            position: absolute;
+            right: 0;
+            display: inline-block;
+            color: inherit;
+            font-size: 1rem;
+            font-family: var(--base-icon-font);
+        }
+    }
+
+    &.required {
+        &::after {
+            content: '*';
+            display: inline-block;
+            vertical-align: super;
+            margin-left: 4px;
+            color: inherit;
+            font-size: 12px;
+        }
+    }
 }
-
-
 /**
  * Addon is an icon placed in box next to input, used as a visual indicator
  */
@@ -151,8 +167,6 @@
         font-size: var(--field-icon-font-size);
     }
 }
-
-
 /**
  * Field message used as a helper note or feedback.
  */

@@ -5,23 +5,19 @@
 //   #DROPDOWN
 //   ======================================================================== */
 
-
 $dropdown-menu-width: 12.5rem;
 $dropdown-menu-large-width: 18.75rem;
 $dropdown-menu-background-color: var(--white);
-
 $dropdown-menu-border-width: var(--base-border-width);
 $dropdown-menu-border-color: var(--grey-400);
 $dropdown-menu-border-radius: var(--base-border-radius);
 $dropdown-menu-box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
-
-$dropdown-item-padding: .938rem .625rem;
+$dropdown-item-padding: 1rem 1.5rem;
 $dropdown-item-large-padding: $dropdown-item-padding;
 $dropdown-item-font-size: var(--text-font-size);
 $dropdown-item-font-weight: var(--font-weight-normal);
 $dropdown-item-color: var(--grey-700);
 $dropdown-item-border-color: var(--grey-400);
 $dropdown-item-border-width: var(--base-border-width);
-
 $dropdown-item-hover-color: var(--color-primary);
 $dropdown-item-hover-background-color: var(--grey-200);
