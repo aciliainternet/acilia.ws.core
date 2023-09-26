@@ -46,6 +46,7 @@ view_profile: Perfil
 dashboard: Panel
 dashboard.menu: Panel
 preview: Previsualización
+sort: Ordenar
 
 # Cropper and assets
 cropper_preview: Previsualización

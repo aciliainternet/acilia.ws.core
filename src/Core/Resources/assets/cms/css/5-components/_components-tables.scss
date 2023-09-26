@@ -130,9 +130,14 @@
 
 .c-table--highlight {
 
-    tbody tr:hover {
+    > tbody tr:hover {
         background-color: $table-highlight-row-background-color;
     }
+}
+
+.c-table--child {
+    background-color: $table-highlight-row-background-color;
+    border-width: 0;
 }
 
 
@@ -242,6 +247,36 @@
     border-left-color: var(--color-warning);
 }
 
+// Collapsable row
+.c-table__collapsable-row {
+
+    // &:active {
+    //     cursor: grabbing;
+    //     cursor: -moz-grabbing;
+    //     cursor: -webkit-grabbing;
+    //     border: 1px solid var(--focus-input);
+    // }
+
+    td, th {
+        display: inline-block;
+        width: calc((100% - 110px) / 4);
+
+        &:first-child {
+            width: 110px;
+        }
+
+        &:last-child {
+            padding-right: var(--spacer);
+            text-align: left;
+        }
+    }
+
+    .c-table__cell--table {
+        width: 100%;
+        display: contents;
+    }
+}
+
 
 /**
  * Table Cell
@@ -256,7 +291,11 @@
     text-align: left;
     white-space: nowrap;
 
-    &:last-child {
+    &:has(+ .c-table__cell--table) {
+        padding-right: var(--spacer);
+    }
+
+    &:last-child:not(.c-table__cell--table) {
         padding-right: var(--spacer);
         text-align: right;
     }
@@ -417,5 +456,15 @@ $table-cell-line-height: var(--base-line-height);
 
 .ws-table-collapse {
     cursor: pointer;
+}
+
+.c-table__row-actions {
+    display: flex;
+}
+
+.c-table__actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
 }
 /* stylelint-enable */

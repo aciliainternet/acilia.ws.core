@@ -23,7 +23,8 @@
     gap: 8px;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+
+    // overflow: hidden;
     max-width: 100%;
     margin: 0;
     padding: var(--btn-padding);
@@ -72,7 +73,7 @@
             height: 100%;
             margin-left: 1.25rem;
             padding: .5rem 8px;
-            border-left: 1px solid currentColor;
+            border-left: 1px solid currentcolor;
             color: inherit;
             font-family: var(--base-icon-font);
             place-content: center;
@@ -84,7 +85,11 @@
         border-color: var(--btn-disabled-border-color);
         background: var(--btn-disabled-background-color);
         color: var(--btn-disabled-color);
-        pointer-events: none;
+        cursor: not-allowed;
+
+        i {
+            color: var(--btn-disabled-color);
+        }
 
         &:hover,
         &:focus {
@@ -119,28 +124,23 @@
 }
 
 .c-btn--border {
-    border-color: var(--color-style, var(--btn-border-color-secondary));
+    border-color: var(--color-style, var(--btn-border-color-primary));
     background-color: var(--btn-background-color-secondary);
-    color: var(--color-style, var(--color-secondary));
+    color: var(--color-style, var(--color-primary));
 
     &:hover {
-        background: var(--color-style, var(--color-secondary));
+        background: var(--color-style, var(--color-primary));
         color: var(--white);
     }
 }
 
 .c-btn--ghost {
-    padding: 0;
     border: 0;
     background-color: var(--color-transparent);
-    color: var(--grey-700);
+    color: var(--gunmetal-200);
 
-    i {
-        color: var(--grey-700);
-    }
-
-    &:hover,
-    &:focus {
+    &:hover {
+        background-color: var(--grey-400);
         color: var(--color-primary);
     }
 }
@@ -153,7 +153,7 @@
 
     &:hover {
         background-color: var(--grey-400);
-        color: var(--color-secondary);
+        color: var(--color-primary);
     }
 }
 
@@ -221,7 +221,7 @@
 
     &:hover {
         border-color: var(--red-300);
-        background-color: color-mix(in sRGB, var(--red-100), --red-300 25%);
+        background-color: color-mix(in srgb, var(--red-100), --red-300 25%);
         color: var(--btn-hover-color);
     }
 }

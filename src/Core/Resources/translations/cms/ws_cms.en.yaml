@@ -46,6 +46,7 @@ view_profile: View Profile
 dashboard: Dashboard
 dashboard.menu: Dashboard
 preview: Preview
+sort: Sort
 
 # Cropper and assets
 cropper_preview: Preview

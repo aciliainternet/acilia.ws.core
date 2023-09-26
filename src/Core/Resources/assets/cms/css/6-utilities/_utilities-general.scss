@@ -5,12 +5,12 @@
 // Screen reader only label
 .u-sr-only {
     position: absolute;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
     width: 1px;
     height: 1px;
-    padding: 0;
     margin: -1px;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
+    padding: 0;
     border: 0;
 }
 
@@ -22,3 +22,22 @@
     }
 }
 
+.u-btn-group {
+    display: flex;
+
+    &--xs {
+        gap: 4px;
+    }
+
+    &--s {
+        gap: 8px;
+    }
+
+    &--m {
+        gap: 12px;
+    }
+
+    &--l {
+        gap: 16px;
+    }
+}
