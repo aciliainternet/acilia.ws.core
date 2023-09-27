@@ -45,7 +45,7 @@ class MetadataConsumerService
                 'keywords' => $this->metadataProviderService->getKeywords($data),
                 'og_title' => $this->metadataProviderService->getOpenGraphTitle($data),
                 'og_image' => $this->metadataProviderService->getOpenGraphImage($data),
-                'og_image' => $this->metadataProviderService->getOpenGraphImageType($data),
+                'og_image_type' => $this->metadataProviderService->getOpenGraphImageType($data),
                 'og_image_width' => $this->metadataProviderService->getOpenGraphImageWidth($data),
                 'og_image_height' => $this->metadataProviderService->getOpenGraphImageHeight($data),
                 'og_type' => $this->metadataProviderService->getOpenGraphType($data),
@@ -144,7 +144,7 @@ class MetadataConsumerService
                 }
             }
         }
-        
+
         return $config;
     }
 }
