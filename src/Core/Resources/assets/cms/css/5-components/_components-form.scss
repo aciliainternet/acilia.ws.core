@@ -65,9 +65,9 @@ $sidebar-content-lg: 350px;
         justify-content: space-between;
         width: 100%;
         max-width: 860px;
-        margin-bottom: 24px;
-        padding-bottom: 12px;
+        margin-bottom: 30px;
         border-bottom: 1px solid var(--base-border-color);
+        padding-block: 30px 16px;
     }
 
     &__title-wrapper {
