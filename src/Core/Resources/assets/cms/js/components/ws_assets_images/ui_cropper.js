@@ -186,6 +186,7 @@ async function initCropper(event, loaderContainer) {
       const { error } = window.cmsTranslations.ws_cms_components.cropper;
       if (error) {
         const errorMsg = error.replace('%width%', imgValidator.minWidth).replace('%height%', imgValidator.minHeight);
+        elm.value = '';
         showMessage(`${messageCropperPrefix}-${id}`, errorMsg, 'warning');
       }
 
