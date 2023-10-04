@@ -1,4 +1,5 @@
 @use '../0-settings/_settings-global' as *;
+@use '../0-settings/_settings-navbar' as *;
 @use '../1-tools/_tools-mixin-breakpoint' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 @use '../1-tools/_tools-mixin-position' as *;
@@ -9,7 +10,7 @@ $sidebar-content-lg: 350px;
 .c-form {
     $self: &;
     max-width: 640px;
-    margin: auto;
+    margin: 30px auto 0;
     padding: 20px;
     border: 1px solid var(--grey-300);
     border-radius: 4px;
@@ -64,9 +65,9 @@ $sidebar-content-lg: 350px;
         justify-content: space-between;
         width: 100%;
         max-width: 860px;
-        margin-bottom: 24px;
-        padding-bottom: 12px;
+        margin-bottom: 30px;
         border-bottom: 1px solid var(--base-border-color);
+        padding-block: 30px 16px;
     }
 
     &__title-wrapper {
@@ -239,9 +240,9 @@ $sidebar-content-lg: 350px;
     &__cta {
         @include position(sticky, $top: 0);
         z-index: 1;
-        margin-bottom: 20px;
-        padding: 20px 0;
-        border-bottom: 1px solid var(--grey-300);
+        margin-bottom: 0;
+        padding: $navbar-padding;
+        border-bottom: 1px solid var(--grey-400);
         background-color: var(--white);
     }
 
@@ -304,7 +305,8 @@ $sidebar-content-lg: 350px;
         gap: 16px;
         justify-content: flex-end;
         width: 100%;
-        margin-top: 4rem;
+        max-width: 860px;
+        margin: 4rem auto 0;
         padding-top: 2rem;
         border-top: 1px solid var(--grey-400);
     }

@@ -4,8 +4,11 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    gap: 24px;
     width: 100%;
-    height: 600px;
+
+    // height: 600px;
+    height: 100%;
 }
 
 .ws-cropper_crop {
@@ -22,9 +25,9 @@
         width: 50%;
 
         .ws-cropper_preview {
+            overflow: hidden;
             height: 300px;
             margin: 0 auto;
-            overflow: hidden;
         }
     }
 
@@ -35,9 +38,14 @@
             display: block;
         }
     }
+}
 
-    .ws-cropper_actions {
-    }
+.ws-cropper_actions {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid var(--base-border-color);
 }
 
 .ws-cropper_aside .ws-cropper_preview_wrapper .ws-cropper_preview {

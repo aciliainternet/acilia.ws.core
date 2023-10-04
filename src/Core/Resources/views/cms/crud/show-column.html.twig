@@ -1,0 +1,45 @@
+{% extends(['layout.html.twig', '@WSCore/cms/layout.html.twig']) %}
+
+{% page_configuration {
+    'title': 'title'|trans({}, trans_prefix),
+    'header': isCreate ? 'new'|trans({}, 'ws_cms') : 'edit'|trans({}, 'ws_cms') ~ ' ' ~ 'title'|trans({}, trans_prefix),
+    'breadcrumbs': [
+        {
+            'name': 'title'|trans({}, trans_prefix),
+            'path': ws_cms_path("#{route_prefix}_index"),
+            'main': true
+        },
+        {
+            'name': isCreate ? 'new'|trans({}, 'ws_cms') : 'edit'|trans({}, 'ws_cms') ~ ' ' ~ 'title'|trans({}, trans_prefix)
+        }
+    ]
+} %}
+
+{% block content %}
+    {{ form_start(form) }}
+
+    <div class="container">
+        <div class="{% block crud_show_form_class %}c-form{% endblock crud_show_form_class %}" {% block crud_show_form_attributes %}{% endblock crud_show_form_attributes %}>
+
+            {% block crud_show_header %}
+            {% endblock %}
+
+            {% block crud_show_title %}
+                <div class="u-flex u-mr-auto">
+                    <h2 class="c-form__title u-h2 u-mb-30">{{ 'title'|trans({}, trans_prefix) }}</h2>
+                </div>
+            {% endblock %}
+
+            {% if form.saveAndBack is defined %}
+                {% set saveAndBackField = form_widget(form.saveAndBack) %}
+            {% endif %}
+
+            {% block crud_show_content %}
+                {{ form_widget(form) }}
+            {% endblock %}
+
+            {{ form_end(form, {'render_rest': false}) }}
+        </div>
+    </div>
+{% endblock %}
+

@@ -628,17 +628,23 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                         src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
                 {% endif %}
                 </figure>
+                <div class="c-img-upload__actions {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
+                    <button
+                        type="button"
+                        class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-open-modal"
+                        aria-label="{{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}"
+                        data-id-asset-component="{{ form.children.asset.vars.id }}">
+                        <i class="fa-regular fa-image"></i>
+                    </button>
+                    <button
+                        type="button"
+                        class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-delete-asset-image"
+                        aria-label="{{ 'assets_image.delete_modal_on_image'|trans({}, 'ws_cms') }}"
+                        data-id-asset-component="{{ id }}">
+                        <i class="fal fa-trash-alt"></i>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="c-btn-upload-image-container {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
-            <button class="c-btn c-btn--cta js-open-modal" type="button"
-                data-id-asset-component="{{ form.children.asset.vars.id }}">
-                {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
-            </button>
-            <button class="c-btn c-btn--cta js-delete-asset-image" type="button"
-                data-id-asset-component="{{ id }}">
-                <i class="fal fa-trash-alt"></i>
-            </button>
         </div>
 
         {# show file input field #}
@@ -662,10 +668,10 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
         <div class="ws-cropper_modal" data-id="{{ form.children.asset.vars.id }}" style="display:none"
             data-cropp-index="0">
             <div class="ws-cropper_container">
-                <div class="ws-cropper_crop u-mb-40">
+                <div class="ws-cropper_crop">
                     <img>
                 </div>
-                <div class="ws-cropper_aside u-mb-20">
+                <div class="ws-cropper_aside">
                     <div class="ws-cropper_preview_wrapper u-mr-30">
                         <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_preview'|trans({}, 'ws_cms') }}</h4>
                         <div class="ws-cropper_preview"></div>
@@ -703,18 +709,17 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                     </div>
                 </div>
                 <div class="ws-cropper_actions">
-                    <div class="c-divider u-mv-small"></div>
-                    <button class="c-btn c-btn--success c-btn--no-transition ws-cropper_confirm ws-cropper_next u-mr-5"
-                        data-id="{{ form.children.asset.vars.id }}">
-                        {{ 'next'|trans({}, 'ws_cms') }}
-                    </button>
-                    <button class="c-btn c-btn--solid c-btn--no-transition ws-cropper_confirm ws-cropper_save u-mr-5"
-                        data-id="{{ form.children.asset.vars.id }}">
-                        {{ 'confirm'|trans({}, 'ws_cms') }}
-                    </button>
                     <button class="c-btn c-btn--cancel c-btn--no-transition ws-cropper_cancel"
                         data-id="{{ form.children.asset.vars.id }}">
                         {{ 'cancel'|trans({}, 'ws_cms') }}
+                    </button>
+                    <button class="c-btn c-btn--solid c-btn--no-transition ws-cropper_confirm ws-cropper_next"
+                        data-id="{{ form.children.asset.vars.id }}">
+                        {{ 'next'|trans({}, 'ws_cms') }}
+                    </button>
+                    <button class="c-btn c-btn--solid c-btn--no-transition ws-cropper_confirm ws-cropper_save"
+                        data-id="{{ form.children.asset.vars.id }}">
+                        {{ 'confirm'|trans({}, 'ws_cms') }}
                     </button>
                 </div>
             </div>

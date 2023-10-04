@@ -61,6 +61,7 @@ cropper_widthHeightError: "This image does not have the minimum values for width
 assets_image.open_modal: Select an image
 assets_image.add_modal_on_image: Add
 assets_image.open_modal_on_image: Open
+assets_image.delete_modal_on_image: Delete
 assets_image.change_modal_on_image: Change
 assets_image.drag: Click here or drag to add a new image
 assets_image.image_list.use: Use

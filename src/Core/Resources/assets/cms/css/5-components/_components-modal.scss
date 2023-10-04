@@ -38,8 +38,8 @@
     display: none;
     overflow: auto;
     width: 90vw;
-    height: 90vh;
-    padding: 3.125rem 1.875rem;
+    height: 95vh;
+    padding: 48px 32px 16px;
     border-radius: 4px;
     background: var(--white);
     opacity: 0;
@@ -55,6 +55,10 @@
     position: relative;
     overflow: auto;
     height: 100%;
+
+    .ws-cropper_modal {
+        height: 100%;
+    }
 }
 
 #a-close {

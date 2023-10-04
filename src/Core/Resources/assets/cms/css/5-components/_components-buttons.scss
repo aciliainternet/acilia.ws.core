@@ -135,7 +135,9 @@
 }
 
 .c-btn--ghost {
-    border: 0;
+    --color-style: var(--color-primary);
+    min-width: 40px;
+    border: 1px solid transparent;
     background-color: var(--color-transparent);
     color: var(--gunmetal-200);
 
