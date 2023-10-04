@@ -4,10 +4,11 @@
 @use '../1-tools/_tools-mixin-position' as *;
 
 .c-img-upload {
+    $self: &;
     display: grid;
+    overflow: hidden;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 
     &__select {
         width: 100%;
@@ -28,6 +29,12 @@
 
         @include media-breakpoint('md') {
             width: 15.625rem;
+        }
+
+        &:hover {
+            #{ $self }__actions {
+                display: flex;
+            }
         }
     }
 
@@ -50,6 +57,16 @@
         width: 100%;
         height: auto;
         border-radius: .5;
+    }
+
+    &__actions {
+        position: absolute;
+        right: 0;
+        left: 0;
+        display: none;
+        gap: 8px;
+        justify-content: center;
+        margin: auto;
     }
 }
 

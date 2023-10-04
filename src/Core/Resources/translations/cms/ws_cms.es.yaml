@@ -62,6 +62,7 @@ assets_image.open_modal: Selecciona una imagen
 assets_image.add_modal_on_image: Añadir
 assets_image.open_modal_on_image: Abrir
 assets_image.change_modal_on_image: Cambiar
+assets_image.delete_modal_on_image: Borrar
 assets_image.drag: Click o arrastre aquí para agregar una nueva imagen
 assets_image.image_list.use: Usar
 assets_image.image_list.crop: Recortar

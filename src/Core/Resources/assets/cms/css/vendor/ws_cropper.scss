@@ -4,8 +4,11 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    gap: 24px;
     width: 100%;
-    height: 600px;
+
+    // height: 600px;
+    height: 100%;
 }
 
 .ws-cropper_crop {
@@ -41,7 +44,7 @@
     display: flex;
     gap: 16px;
     justify-content: flex-end;
-    padding-top: 2rem;
+    padding-top: 1rem;
     border-top: 1px solid var(--base-border-color);
 }
 
