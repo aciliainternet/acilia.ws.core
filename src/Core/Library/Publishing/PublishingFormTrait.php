@@ -14,7 +14,7 @@ trait PublishingFormTrait
         $this->addPublishingFieldDates($builder);
     }
 
-    protected function addPublishingFieldStatus(FormBuilderInterface $builder, bool $required)
+    protected function addPublishingFieldStatus(FormBuilderInterface $builder, bool $required = false)
     {
         $publishingOptions = [
             'publishing.publishStatus.draft.label' => PublishingEntityInterface::STATUS_DRAFT,
@@ -25,6 +25,7 @@ trait PublishingFormTrait
         $builder
             ->add('publishStatus', ChoiceType::class, [
                 'translation_domain' => 'ws_cms',
+                'required' => $required,
                 'label' => 'publishing.publishStatus.label',
                 'choices' => $publishingOptions,
                 'attr' => [
