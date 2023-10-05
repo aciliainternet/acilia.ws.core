@@ -47,6 +47,7 @@ dashboard: Dashboard
 dashboard.menu: Dashboard
 preview: Preview
 sort: Sort
+options: Options
 
 # Cropper and assets
 cropper_preview: Preview

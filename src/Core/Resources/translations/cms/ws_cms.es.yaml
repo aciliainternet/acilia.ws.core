@@ -47,6 +47,7 @@ dashboard: Panel
 dashboard.menu: Panel
 preview: Previsualización
 sort: Ordenar
+options: Opciones
 
 # Cropper and assets
 cropper_preview: Previsualización
