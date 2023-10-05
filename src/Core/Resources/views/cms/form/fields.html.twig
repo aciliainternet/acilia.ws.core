@@ -120,21 +120,21 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
     {%- endblock choice_widget_options -%}
 
     {%- block checkbox_widget -%}
-    {% set attr = attr|merge({ 'class': 'c-choice__input ' ~ attr.class|default('') }) %}
-    <div class="c-choice c-choice--checkbox">
-        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}" {% endif
-            %}{% if checked %} checked="checked" {% endif %} />
+        {% set attr = attr|merge({ 'class': 'c-choice__input ' ~ attr.class|default('') }) %}
+        <div class="c-choice c-choice--checkbox">
+            <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}" {% endif
+                %}{% if checked %} checked="checked" {% endif %} />
 
-        {% set label_attr = label_attr|merge({'class': 'c-choice__label'|trim}) %}
-        <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr} %}{{ block('attributes') }}{%
-            endwith %}{% endif %} for="{{ id }}">
-            {%- if translation_domain is same as(false) -%}
-            {{- label -}}
-            {%- else -%}
-            {{- label|trans(label_translation_parameters, translation_domain) -}}
-            {%- endif -%}
-        </{{ element|default('label') }}>
-    </div>
+            {% set label_attr = label_attr|merge({'class': 'c-choice__label'|trim}) %}
+            <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr} %}{{ block('attributes') }}{%
+                endwith %}{% endif %} for="{{ id }}">
+                {%- if translation_domain is same as(false) -%}
+                {{- label -}}
+                {%- else -%}
+                {{- label|trans(label_translation_parameters, translation_domain) -}}
+                {%- endif -%}
+            </{{ element|default('label') }}>
+        </div>
     {%- endblock checkbox_widget -%}
 
     {%- block radio_widget -%}
@@ -617,16 +617,17 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
         {# show image thumbnail if exists #}
         <div class="c-img-upload u-mb-20" data-id="{{ id }}">
             <div class="c-img-upload__wrapper-img">
-                <figure class="c-img-upload__figure js-open-modal js-not-on-preview"
+                <figure
+                    class="c-img-upload__figure js-open-modal js-not-on-preview"
                     data-id-asset-component="{{ form.children.asset.vars.id }}" />
-                {% if form.children.asset_image.vars.data == null %}
-                <i class="c-img-upload__figure-img fal fa-cloud-upload"></i>
-                {% endif %}
-                {% if form.children.asset_image.vars.data != null %}
-                    <img
-                        class="c-img-upload__img"
-                        src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
-                {% endif %}
+                    {% if form.children.asset_image.vars.data == null %}
+                        <i class="c-img-upload__figure-img fal fa-cloud-upload"></i>
+                    {% endif %}
+                    {% if form.children.asset_image.vars.data != null %}
+                        <img
+                            class="c-img-upload__img"
+                            src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
+                    {% endif %}
                 </figure>
                 <div class="c-img-upload__actions {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
                     <button
