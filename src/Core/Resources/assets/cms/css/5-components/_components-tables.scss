@@ -260,10 +260,14 @@
 
     td, th {
         display: inline-block;
-        width: calc((100% - 110px) / 4);
+        width: calc((100% - 110px - 70px) / 3);
 
         &:first-child {
             width: 110px;
+        }
+
+        &:nth-child(2) {
+            width: 70px;
         }
 
         &:last-child {

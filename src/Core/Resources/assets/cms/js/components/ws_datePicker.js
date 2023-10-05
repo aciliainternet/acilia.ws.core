@@ -8,8 +8,8 @@ import { aDatePicker, getADatePickerInstance } from '../modules/a_datePicker';
 function addEraseButton(elm) {
   const button = document.createElement('button');
 
-  button.className = 'choices__button ws_delete';
-  button.innerHTML = 'Remove Item';
+  button.className = "ws_delete fa-solid fa-circle-xmark";
+  // button.innerHTML = 'Remove Item';
 
   if (elm.value === '') {
     button.classList.add('hidden');

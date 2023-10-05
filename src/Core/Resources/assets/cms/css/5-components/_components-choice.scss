@@ -2,11 +2,9 @@
 @use '../0-settings/_settings-choice' as *;
 @use '../0-settings/_settings-inputs' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
-
 /* ==========================================================================
    #CHOICES (Checkboxes & Radios)
    ========================================================================== */
-
 /**
  * Checkboxes & Radios are controlled with a simple class called `c-choice`
  * because they are similar in styling, this class is used to share same
@@ -19,7 +17,6 @@
  *     <label class="c-choice__label" for="custom-checkbox">Checkbox 1</label>
  * </div>
  */
-
 /**
  * 1. Get rid of white space cause by using `inline-flex`.
  *
@@ -31,7 +28,6 @@
     color: $choice-color;
     font-weight: $choice-font-weight;
     font-size: 0; /* [1] */
-
     /**
 	 * Disabled state
 	 *
@@ -51,8 +47,6 @@
         }
     }
 }
-
-
 /**
  * 1. Hide default input and create a customized input.
  * 2. Align the customized input with label.
@@ -95,8 +89,6 @@
         transition: all .3s;
     }
 }
-
-
 /**
  * Checkboxes
  */
@@ -113,12 +105,10 @@
         content: '\f00c'; // fa-check
         border-color: $choice-checkbox-border-color;
         background-color: $choice-checkbox-background-color;
-        font-size: 10px;
+        font-size: 14px;
         font-family: var(--base-icon-font);
     }
 }
-
-
 /**
  * Radio buttons
  */
@@ -133,5 +123,60 @@
         border: $choice-radio-border-width solid $choice-radio-border-color;
         background-color: $choice-radio-background-color;
         box-shadow: 0 0 0 $choice-radio-shadow-width $choice-radio-shadow-color;
+    }
+}
+/**
+ * Switch
+ */
+
+.c-field.c-choice--switch {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .c-field__label {
+        margin-bottom: 0;
+    }
+
+    .c-choice__input {
+        width: 0;
+        height: 0;
+        visibility: hidden;
+    }
+
+    .c-choice__label {
+        position: relative;
+        display: block;
+        width: 46px;
+        height: 22px;
+        border-radius: 100px;
+        background: var(--grey-700);
+        text-indent: -9999px;
+        cursor: pointer;
+    }
+
+    .c-choice__label::after {
+        content: '';
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        width: 20px;
+        height: 20px;
+        border-radius: 20px;
+        background: var(--white);
+        transition: .3s;
+    }
+
+    .c-choice__input:checked + .c-choice__label {
+        background: var(--color-secondary);
+    }
+
+    .c-choice__input:checked + .c-choice__label::after {
+        left: calc(100% - 1px);
+        transform: translateX(-100%);
+    }
+
+    .c-choice__label:active::after {
+        width: 24px;
     }
 }

@@ -19,13 +19,13 @@ $choice-input-background-color: var(--white);
 $choice-input-color: var(--white);
 
 // Checkbox
-$choice-checkbox-border-radius: 4px;
-$choice-checkbox-border-color: var(--green-400);
-$choice-checkbox-background-color: var(--green-300);
+$choice-checkbox-border-radius: 2px;
+$choice-checkbox-border-color: var(--color-secondary);
+$choice-checkbox-background-color: var(--color-secondary);
 
 // Radio button
 $choice-radio-border-width: 4px;
-$choice-radio-border-color: var(--green-300);
+$choice-radio-border-color: var(--color-secondary);
 $choice-radio-background-color: var(--white);
 $choice-radio-shadow-width: 1px;
-$choice-radio-shadow-color: var(--green-400);
+$choice-radio-shadow-color: var(--color-secondary);
