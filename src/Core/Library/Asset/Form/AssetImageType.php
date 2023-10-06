@@ -12,7 +12,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use WS\Core\Entity\AssetImage;
@@ -22,6 +21,7 @@ class AssetImageType extends AbstractType
 {
     public const ASSET_IMAGE_DISPLAY_MODE_LIST = 'list';
     public const ASSET_IMAGE_DISPLAY_MODE_CROP = 'crop';
+    public const ASSET_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     public const ASSET_IMAGE_MAX_SIZE = '25M';
     public const ASSET_IMAGE_DEFAULT_THUMB_SIZE = '300x300';
 
@@ -48,13 +48,7 @@ class AssetImageType extends AbstractType
 
         $builder->add('asset', FileType::class, [
             'constraints' => new File([
-                'mimeTypes' => array_merge(
-                    (new MimeTypes())->getMimeTypes('jpeg'),
-                    (new MimeTypes())->getMimeTypes('jpg'),
-                    (new MimeTypes())->getMimeTypes('png'),
-                    (new MimeTypes())->getMimeTypes('gif'),
-                    (new MimeTypes())->getMimeTypes('webp'),
-                ),
+                'mimeTypes' => self::ASSET_IMAGE_MIME_TYPES,
                 'mimeTypesMessage' => 'ws.cms.image.invalid_type',
                 'maxSize' => self::ASSET_IMAGE_MAX_SIZE,
                 'maxSizeMessage' => 'ws.cms.image.max_size'

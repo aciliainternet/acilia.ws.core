@@ -1,7 +1,7 @@
 .c-radio {
-    --radio-color: var(--color-primary);
+    --radio-color: var(--color-success);
     display: flex;
-    gap: 8px;
+    gap: 12px;
 
     &__item {
         display: flex;
@@ -19,17 +19,17 @@
         cursor: pointer;
         transition: all .15s ease-in-out;
 
-        &--open {
-            --radio-color: var(--color-success);
-        }
+        // &--open {
+        //     --radio-color: var(--color-success);
+        // }
 
-        &--cancelled {
-            --radio-color: var(--color-danger);
-        }
+        // &--cancelled {
+        //     --radio-color: var(--color-danger);
+        // }
 
-        &--closed {
-            --radio-color: var(--color-primary);
-        }
+        // &--closed {
+        //     --radio-color: var(--color-primary);
+        // }
 
         &:focus-within {
             color: var(--radio-color);
@@ -40,7 +40,7 @@
         }
 
         &:has(.c-radio__input:checked) {
-            border-color: var(--radio-color);
+            // border-color: var(--radio-color);
             color: var(--radio-color);
         }
     }
@@ -51,9 +51,9 @@
         width: 1rem;
         height: 1rem;
         margin: 0;
-        border: 1px solid currentColor;
+        border: 1px solid currentcolor;
         border-radius: 50%;
-        color: currentColor;
+        color: currentcolor;
         font: inherit;
         -webkit-appearance: none;
         appearance: none;
@@ -75,7 +75,7 @@
         }
 
         &:focus {
-            outline: 2px dotted currentColor;
+            outline: 2px dotted currentcolor;
             outline-offset: 2px;
         }
     }

@@ -1,5 +1,5 @@
 ws.cms.image.max_size: El fichero de la imagen no puede superar los 25MB
-ws.cms.image.invalid_type: Solo imágenes de tipo JPG, PNG, WEBP y GIF están permitidas
+ws.cms.image.invalid_type: Solo imágenes de tipo JPG, PNG y GIF están permitidas
 
 ws.cms.author.name.not_blank: El "Nombre" de autor no puede ser vacío
 

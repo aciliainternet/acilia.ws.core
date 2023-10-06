@@ -1,10 +1,15 @@
 @use '../0-settings/_settings-global' as *;
 @use '../1-tools/_tools-mixin-breakpoint' as *;
 
-.container-fluid .container {
-    padding: 0;
+.container-fluid {
+    height: calc(100vh - 47px);
+
+    > form {
+        height: 100%;
+    }
 }
 
-.container-fluid {
-    min-height: calc(100vh - 100px - 145px);
+.container-fluid .container {
+    height: 100%;
+    padding: 0;
 }

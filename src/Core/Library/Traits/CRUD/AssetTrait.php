@@ -58,7 +58,6 @@ trait AssetTrait
             ) {
                 // Delete asset image
                 $this->imageService->delete($entity, $imageField);
-                $this->doctrine->persist($entity);
 
                 // Hanlde asset image post delete
                 $this->handleImageField($entity, $imageField, null);
@@ -92,7 +91,6 @@ trait AssetTrait
             ) {
                 // Delete asset file
                 $this->fileService->delete($entity, $fileField);
-                $this->doctrine->persist($entity);
 
                 // Hanlde asset file post delete
                 $this->handleFileField($entity, $fileField, null);

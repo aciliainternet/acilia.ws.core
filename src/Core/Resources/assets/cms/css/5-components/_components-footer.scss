@@ -3,12 +3,12 @@
 
 .c-footer {
     width: 100%;
-    margin: 3.125rem auto;
-    padding: 0 1.875rem 3.125rem;
+    margin: 0 auto;
+    padding: 0;
 }
 
 .c-footer__wrapper {
-    padding-top: 1.875rem;
+    padding: 16px 32px;
     border-top: 1px solid var(--border-color);
     color: var(--color-default-text);
     font-size: .75rem;
