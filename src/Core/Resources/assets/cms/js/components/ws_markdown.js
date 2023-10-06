@@ -35,9 +35,11 @@ function getConfig() {
       {
         name: 'Insert Image',
         action: function addImage(editor) {
-          document.querySelector('[data-component="ws_markdown_image"]').click();
+          const fileInput = document.querySelector('[data-component="ws_markdown_image"]')
+          fileInput.click();
           handleImage().then((image) => {
             editor.codemirror.replaceSelection(`![${image.name}](${image.path})`);
+            fileInput.value = null;
           });
         },
         className: 'fa fa-image',
@@ -46,9 +48,11 @@ function getConfig() {
       {
         name: 'Insert File',
         action: function addFile(editor) {
-          document.querySelector('[data-component="ws_markdown_file"]').click();
+          const fileInput =document.querySelector('[data-component="ws_markdown_file"]');
+          fileInput.click();
           handleFile().then((file) => {
             editor.codemirror.replaceSelection(`[${file.name}](${file.path})`);
+            fileInput.value = null;
           });
         },
         className: 'fa fa-file',
