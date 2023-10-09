@@ -69,8 +69,8 @@ class AssetImageController extends AbstractController
         if ($request->files->has('asset')) {
             /** @var UploadedFile */
             $imageFile = $request->files->get('asset');
-
-            $assetImage = $this->imageService->handleStandalone($imageFile, ['cropper' => []]);
+            $renditions = json_decode($request->get('renditions', null));
+            $assetImage = $this->imageService->handleStandalone($imageFile, ['cropper' => [], 'renditions' => $renditions ]);
 
             return new JsonResponse([
                 'path' => $this->imageService->getImageUrl($assetImage, 'original'),

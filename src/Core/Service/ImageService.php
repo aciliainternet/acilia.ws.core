@@ -196,6 +196,16 @@ class ImageService
             $options
         );
 
+        if (isset($options['renditions'])){
+            foreach ($options['renditions'] as $rendition) {
+                $this->createRendition(
+                    $assetImage,
+                    new RenditionDefinition('', '', $$rendition->name, $$rendition->width, $$rendition->height, RenditionDefinition::METHOD_CROP,  [] ),
+                    $options
+                );
+            }
+        }
+
         return $assetImage;
     }
 
