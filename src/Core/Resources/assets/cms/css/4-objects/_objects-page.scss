@@ -1,11 +1,9 @@
 @use '../0-settings/_settings-global' as *;
 @use '../1-tools/_tools-mixin-breakpoint' as *;
 @use '../1-tools/_tools-mixin-respond-to' as *;
-
 /* ==========================================================================
    #PAGE OBJECT
    ========================================================================== */
-
 /**
  * Use `o-page` to strucutre your page layout into sidebar, main content.
  */
@@ -14,8 +12,6 @@
     position: relative;
     height: 100%;
 }
-
-
 /**
  * Used with `o-page__card` for better alignment.
  */
@@ -23,8 +19,6 @@
 .o-page--center {
     padding-top: var(--spacer-xlarge);
 }
-
-
 /**
  * 1. Control the width of sidebar.
  * 2. Sidebar always on the top.
@@ -37,7 +31,6 @@
     z-index: 3;
     width: 250px; /* [1] */
     transition: transform .2s;
-
     /**
      * Hide sidebar once viewport is lower than $breakpoint-desktop (992px)
      *
@@ -52,8 +45,6 @@
         transform: translateX(0);
     }
 }
-
-
 /**
  * Page content is pushed to the right to provide space for the sidebar.
  *
@@ -62,6 +53,7 @@
 
 .o-page__content {
     overflow: visible;
+    height: 100%;
     margin-left: 250px; /* [1] */
 
     @include respond-to($breakpoint-desktop) {
@@ -72,8 +64,6 @@
         margin-left: 250px;
     }
 }
-
-
 /**
  * Page Card
  *
@@ -89,8 +79,6 @@
         width: 95%;
     }
 }
-
-
 /**
  * Horizontal Page Card
  *

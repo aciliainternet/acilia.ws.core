@@ -130,14 +130,6 @@
  */
 
 .c-field.c-choice--switch {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-
-    .c-field__label {
-        margin-bottom: 0;
-    }
-
     .c-choice__input {
         width: 0;
         height: 0;

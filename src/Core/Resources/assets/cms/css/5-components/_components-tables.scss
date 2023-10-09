@@ -260,14 +260,16 @@
 
     td, th {
         display: inline-block;
-        width: calc((100% - 110px - 70px) / 3);
+        width: calc((100% - 80px - 70px) / 3);
 
         &:first-child {
-            width: 110px;
+            width: 80px;
+            padding-left: 0;
         }
 
         &:nth-child(2) {
             width: 70px;
+            padding-left: 10px;
         }
 
         &:last-child {
@@ -471,5 +473,17 @@ $table-cell-line-height: var(--base-line-height);
     display: flex;
     gap: 8px;
     justify-content: flex-end;
+}
+
+.c-table__btn {
+    min-width: 40px;
+    display: grid;
+    place-content: center;
+    position: relative;
+    padding: var(--btn-padding);
+    font-size: var(--btn-font-size);
+    line-height: 1;
+    cursor: pointer;
+    appearance: none;
 }
 /* stylelint-enable */
