@@ -72,11 +72,20 @@ class AssetImageController extends AbstractController
             $renditions = json_decode($request->get('renditions', null));
             $assetImage = $this->imageService->handleStandalone($imageFile, ['cropper' => [], 'renditions' => $renditions ]);
 
-            return new JsonResponse([
+            $response = [
                 'path' => $this->imageService->getImageUrl($assetImage, 'original'),
                 'id' => $assetImage->getId(),
                 'name' => $assetImage->getFilename()
-            ]);
+            ];
+
+            if ($renditions !== null) {
+                $response['renditions'] = [];
+                foreach ($renditions as $r) {
+                    $response['renditions'][$r->name] = $this->imageService->getImageUrl($assetImage, $r->name);
+                }
+            }
+
+            return new JsonResponse($response);
         }
 
         return new JsonResponse(['msg' => 'No asset found'], Response::HTTP_INTERNAL_SERVER_ERROR);
