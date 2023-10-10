@@ -77,8 +77,11 @@ class LayoutExtension extends AbstractExtension
                         return '';
                     }
 
-                    if ($routeParameters) {
-                        $routeParams = (array) $this->requestStack->getMainRequest()->get('_route_params');
+                    if (!empty($routeParameters)) {
+                        $routeParams = array_merge(
+                            (array) $this->requestStack->getMainRequest()->get('_route_params'),
+                            (array) $this->requestStack->getMainRequest()->query->all()
+                        );
 
                         foreach ($routeParameters as $k => $v) {
                             if (!isset($routeParams[$k]) || $routeParams[$k] != $v) {
