@@ -200,7 +200,7 @@ class ImageService
             foreach ($options['renditions'] as $rendition) {
                 $this->createRendition(
                     $assetImage,
-                    new RenditionDefinition('', '', $rendition->name, $$rendition->width, $$rendition->height, RenditionDefinition::METHOD_CROP,  [] ),
+                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP,  [] ),
                     $options
                 );
             }
