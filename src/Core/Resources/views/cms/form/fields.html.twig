@@ -386,25 +386,25 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
     {# Help #}
 
     {% block form_help -%}
-    {%- if help is not empty -%}
-    {%- set help_attr = help_attr|merge({class: (help_attr.class|default('c-field__message u-mt-5') ~ '
-    help-text')|trim}) -%}
-    <small id="{{ id }}_help" {% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
-        {%- if translation_domain is same as(false) -%}
-        {%- if help_html is same as(false) -%}
-        <i class="fa fa-info-circle"></i>{{ help|trans }}
-        {%- else -%}
-        <i class="fa fa-info-circle"></i>{{ help|trans }}
+        {%- if help is not empty -%}
+            {%- set help_attr = help_attr|merge({class: (help_attr.class|default('c-field__message u-mt-5') ~ '
+            help-text')|trim}) -%}
+            <small id="{{ id }}_help" {% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
+                {%- if translation_domain is same as(false) -%}
+                    {%- if help_html is same as(false) -%}
+                        {{ help|trans }}
+                    {%- else -%}
+                        {{ help|trans }}
+                    {%- endif -%}
+                {%- else -%}
+                    {%- if help_html is same as(false) -%}
+                        {{ help|trans({}, translation_domain) }}
+                    {%- else -%}
+                        {{ help|trans }}
+                    {%- endif -%}
+                {%- endif -%}
+            </small>
         {%- endif -%}
-        {%- else -%}
-        {%- if help_html is same as(false) -%}
-        <i class="fa fa-info-circle"></i>{{ help|trans({}, translation_domain) }}
-        {%- else -%}
-        <i class="fa fa-info-circle"></i>{{ help|trans }}
-        {%- endif -%}
-        {%- endif -%}
-    </small>
-    {%- endif -%}
     {%- endblock form_help %}
 
     {# Rows #}
