@@ -572,238 +572,236 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
         {%- endblock ws_attributes -%}
 
         {%- block ws_asset_file_widget -%}
-        <div class="c-asset-upload" data-id="{{ id }}">
-            {# input to indicate if we are gonna to delete the asset image #}
-            {{ form_widget(form.children.asset_remove) }}
+            <div class="c-asset-upload" data-id="{{ id }}">
+                {# input to indicate if we are gonna to delete the asset image #}
+                {{ form_widget(form.children.asset_remove) }}
 
-            <div class="c-asset-upload__wrapper">
-                {% if form.children.asset_file.vars.data != null %}
-                <span class="c-asset-upload__asset" data-id="{{ id }}_link">
-                    {% if form.vars.ws.render is defined %}
-                    {{ ws_cms_crud_filter(
-                    form.vars.ws.render.filter,
-                    form.vars.ws.render.options|default([]),
-                    form.children.asset_file.vars.data)
-                    }}
+                <div class="c-asset-upload__wrapper">
+                    {% if form.children.asset_file.vars.data != null %}
+                    <span class="c-asset-upload__asset" data-id="{{ id }}_link">
+                        {% if form.vars.ws.render is defined %}
+                        {{ ws_cms_crud_filter(
+                        form.vars.ws.render.filter,
+                        form.vars.ws.render.options|default([]),
+                        form.children.asset_file.vars.data)
+                        }}
+                        {% endif %}
+                        <span class="c-asset-upload__text">{{ form.children.asset_file.vars.data.filename }}</span>
+                    </span>
                     {% endif %}
-                    <span class="c-asset-upload__text">{{ form.children.asset_file.vars.data.filename }}</span>
-                </span>
-                {% endif %}
-                <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}"
-                    data-id-asset-component="{{ id }}">
-                    {# show file input field #}
-                    {{ form_widget(form.children.asset) }}
-                    {{ form_errors(form.children.asset) }}
-                </div>
-                {% if form.children.asset_file.vars.data != null %}
-                <div class="c-btn-upload-image-container">
-                    <button class="c-btn c-btn--border c-btn--small c-btn--delete js-delete-asset" type="button"
+                    <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}"
                         data-id-asset-component="{{ id }}">
-                        <i class="fal fa-trash-alt"></i>
-                        {{ 'delete'|trans({}, 'ws_cms') }}
-                    </button>
-                    <button class="c-btn c-btn--solid c-btn--small c-btn--success js-delete-asset" type="button"
-                        data-id-asset-component="{{ id }}">
-                        <i class="fa-sharp fa-light fa-pen"></i>
-                        {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
-                    </button>
+                        {# show file input field #}
+                        {{ form_widget(form.children.asset) }}
+                        {{ form_errors(form.children.asset) }}
+                    </div>
+                    {% if form.children.asset_file.vars.data != null %}
+                    <div class="c-btn-upload-image-container">
+                        <button class="c-btn c-btn--border c-btn--small c-btn--delete js-delete-asset" type="button"
+                            data-id-asset-component="{{ id }}">
+                            <i class="fal fa-trash-alt"></i>
+                            {{ 'delete'|trans({}, 'ws_cms') }}
+                        </button>
+                        <button class="c-btn c-btn--solid c-btn--small c-btn--success js-delete-asset" type="button"
+                            data-id-asset-component="{{ id }}">
+                            <i class="fa-sharp fa-light fa-pen"></i>
+                            {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
+                        </button>
+                    </div>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
-        </div>
         {%- endblock ws_asset_file_widget -%}
 
         {%- block ws_asset_image_widget -%}
-        {# show image thumbnail if exists #}
-        <div class="c-img-upload" data-id="{{ id }}">
-            <div class="c-img-upload__wrapper-img">
-                <figure
-                    class="c-img-upload__figure js-open-modal js-not-on-preview"
-                    data-id-asset-component="{{ form.children.asset.vars.id }}" />
-                    {% if form.children.asset_image.vars.data == null %}
-                        <i class="c-img-upload__figure-img fal fa-cloud-upload"></i>
-                    {% endif %}
+            {# show image thumbnail if exists #}
+            <div class="c-img-upload" data-id="{{ id }}">
+                <div class="c-img-upload__wrapper-img">
                     {% if form.children.asset_image.vars.data != null %}
-                        <img
-                            class="c-img-upload__img"
-                            src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
+                        <figure
+                            class="c-img-upload__figure js-open-modal js-not-on-preview"
+                            data-id-asset-component="{{ form.children.asset.vars.id }}" />
+                            <img
+                                class="c-img-upload__img {{ form.children.asset_image.vars.data != null ? 'u-mb-0' }}"
+                                src="{{asset_get_image(form.children.asset_image.vars.data, 'thumb', form.vars.ws.thumb_size) }}">
+                        </figure>
                     {% endif %}
-                </figure>
-                <div class="c-img-upload__actions {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
-                    <button
-                        type="button"
-                        class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-open-modal"
-                        aria-label="{{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}"
+                    <div class="c-img-upload__actions {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
+                        <button
+                            type="button"
+                            class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-open-modal"
+                            aria-label="{{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}"
+                            data-id-asset-component="{{ form.children.asset.vars.id }}">
+                            <i class="fa-regular fa-image"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-delete-asset-image"
+                            aria-label="{{ 'assets_image.delete_modal_on_image'|trans({}, 'ws_cms') }}"
+                            data-id-asset-component="{{ id }}">
+                            <i class="fal fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="c-img-upload__wrapper-button">
+                    <button type="button"
+                        class="c-btn c-btn--solid c-btn--secondary c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
                         data-id-asset-component="{{ form.children.asset.vars.id }}">
-                        <i class="fa-regular fa-image"></i>
-                    </button>
-                    <button
-                        type="button"
-                        class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-delete-asset-image"
-                        aria-label="{{ 'assets_image.delete_modal_on_image'|trans({}, 'ws_cms') }}"
-                        data-id-asset-component="{{ id }}">
-                        <i class="fal fa-trash-alt"></i>
+                        {{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}
                     </button>
                 </div>
             </div>
-        </div>
 
-        {# show file input field #}
-        {{ form_widget(form.children.asset) }}
+            {# show file input field #}
+            {{ form_widget(form.children.asset) }}
 
-        <button type="button"
-            class="c-btn c-btn--solid c-img-upload__select js-open-modal js-not-on-preview {{ form.children.asset_image.vars.data != null ? 'u-hidden' }}"
-            data-id-asset-component="{{ form.children.asset.vars.id }}">
-            {{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}
-        </button>
+            {# show aspect ratios and minimums #}
+            {% for cropper in form.children.cropper %}
+                {{ form_widget(cropper) }}
+            {% endfor %}
 
-        {# show aspect ratios and minimums #}
-        {% for cropper in form.children.cropper %}
-        {{ form_widget(cropper) }}
-        {% endfor %}
+            {# input to indicate if we are gonna to delete the asset image #}
+            {{ form_widget(form.children.asset_remove) }}
 
-        {# input to indicate if we are gonna to delete the asset image #}
-        {{ form_widget(form.children.asset_remove) }}
-
-        {# show cropper modal #}
-        <div class="ws-cropper_modal" data-id="{{ form.children.asset.vars.id }}" style="display:none"
-            data-cropp-index="0">
-            <div class="ws-cropper_container">
-                <div class="ws-cropper_crop">
-                    <img>
-                </div>
-                <div class="ws-cropper_aside">
-                    <div class="ws-cropper_preview_wrapper u-mr-30">
-                        <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_preview'|trans({}, 'ws_cms') }}</h4>
-                        <div class="ws-cropper_preview"></div>
+            {# show cropper modal #}
+            <div class="ws-cropper_modal" data-id="{{ form.children.asset.vars.id }}" style="display:none"
+                data-cropp-index="0">
+                <div class="ws-cropper_container">
+                    <div class="ws-cropper_crop">
+                        <img>
                     </div>
-                    <div class="ws-cropper_detail_wrapper">
-                        <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_title'|trans({}, 'ws_cms') }}:</h4>
-                        <table
-                            class="c-table c-table--fixed u-text-center u-border-right-zero u-border-left-zero u-mb-20">
-                            <thead class="c-table__head">
-                                <tr>
-                                    <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_ratio">
-                                    </th>
-                                    <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_min_w">
-                                    </th>
-                                    <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_min_h">
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
-                                        {{ 'cropper_ratio'|trans({}, 'ws_cms') }}
-                                    </td>
-                                    <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
-                                        {{ 'cropper_width'|trans({}, 'ws_cms') }}
-                                    </td>
-                                    <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
-                                        {{ 'cropper_height'|trans({}, 'ws_cms') }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <h6 class="u-h6 u-font-medium u-mb-10">{{ 'cropper_obs'|trans({}, 'ws_cms') }}</h6>
-                        <p class="ws-cropper_details_obs"></p>
+                    <div class="ws-cropper_aside">
+                        <div class="ws-cropper_preview_wrapper u-mr-30">
+                            <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_preview'|trans({}, 'ws_cms') }}</h4>
+                            <div class="ws-cropper_preview"></div>
+                        </div>
+                        <div class="ws-cropper_detail_wrapper">
+                            <h4 class="u-h4 u-font-medium u-mb-10">{{ 'cropper_title'|trans({}, 'ws_cms') }}:</h4>
+                            <table
+                                class="c-table c-table--fixed u-text-center u-border-right-zero u-border-left-zero u-mb-20">
+                                <thead class="c-table__head">
+                                    <tr>
+                                        <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_ratio">
+                                        </th>
+                                        <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_min_w">
+                                        </th>
+                                        <th class="u-pt-small u-font-medium u-pb-xsmall ws-cropper_details_min_h">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
+                                            {{ 'cropper_ratio'|trans({}, 'ws_cms') }}
+                                        </td>
+                                        <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
+                                            {{ 'cropper_width'|trans({}, 'ws_cms') }}
+                                        </td>
+                                        <td class="u-text-mute u-font-semibold u-text-xsmall u-pb-small u-text-uppercase">
+                                            {{ 'cropper_height'|trans({}, 'ws_cms') }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h6 class="u-h6 u-font-medium u-mb-10">{{ 'cropper_obs'|trans({}, 'ws_cms') }}</h6>
+                            <p class="ws-cropper_details_obs"></p>
+                        </div>
+                    </div>
+                    <div class="ws-cropper_actions">
+                        <button class="c-btn c-btn--cancel c-btn--no-transition ws-cropper_cancel"
+                            data-id="{{ form.children.asset.vars.id }}">
+                            {{ 'cancel'|trans({}, 'ws_cms') }}
+                        </button>
+                        <button class="c-btn c-btn--solid c-btn--no-transition ws-cropper_confirm ws-cropper_next"
+                            data-id="{{ form.children.asset.vars.id }}">
+                            {{ 'next'|trans({}, 'ws_cms') }}
+                        </button>
+                        <button class="c-btn c-btn--solid c-btn--no-transition ws-cropper_confirm ws-cropper_save"
+                            data-id="{{ form.children.asset.vars.id }}">
+                            {{ 'confirm'|trans({}, 'ws_cms') }}
+                        </button>
                     </div>
                 </div>
-                <div class="ws-cropper_actions">
-                    <button class="c-btn c-btn--cancel c-btn--no-transition ws-cropper_cancel"
-                        data-id="{{ form.children.asset.vars.id }}">
-                        {{ 'cancel'|trans({}, 'ws_cms') }}
-                    </button>
-                    <button class="c-btn c-btn--solid c-btn--no-transition ws-cropper_confirm ws-cropper_next"
-                        data-id="{{ form.children.asset.vars.id }}">
-                        {{ 'next'|trans({}, 'ws_cms') }}
-                    </button>
-                    <button class="c-btn c-btn--solid c-btn--no-transition ws-cropper_confirm ws-cropper_save"
-                        data-id="{{ form.children.asset.vars.id }}">
-                        {{ 'confirm'|trans({}, 'ws_cms') }}
-                    </button>
-                </div>
             </div>
-        </div>
 
-        {% if form.vars.ws.display_mode ==
-        constant('WS\\Core\\Library\\Asset\\Form\\AssetImageType::ASSET_IMAGE_DISPLAY_MODE_LIST') %}
+            {% if form.vars.ws.display_mode ==
+            constant('WS\\Core\\Library\\Asset\\Form\\AssetImageType::ASSET_IMAGE_DISPLAY_MODE_LIST') %}
 
-        {# show hidden input field to save crop data #}
-        {{ form_widget(form.children.asset_data) }}
+            {# show hidden input field to save crop data #}
+            {{ form_widget(form.children.asset_data) }}
 
-        {# show widget modal #}
-        <div class="c-img-modal js-image-selector-modal" data-id="{{ form.children.asset.vars.id }}">
-            <div class="o-loader-wrapper js-loader">
-                <div class="o-loader"></div>
-            </div>
-            <div class="c-img-modal__wrapper">
-                <div class="o-loader-wrapper o-loader-wrapper--image-list js-loader">
+            {# show widget modal #}
+            <div class="c-img-modal js-image-selector-modal" data-id="{{ form.children.asset.vars.id }}">
+                <div class="o-loader-wrapper js-loader">
                     <div class="o-loader"></div>
                 </div>
-                <div class="c-img-modal__search js-search-form">
-                    <div class="u-flex u-justify-between u-mb-medium">
-                        <h2 class="u-h2">{{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}</h2>
-                        <div class="u-flex u-justify-end">
-                            <div class="c-field c-field--inline has-icon-right u-hidden-down@tablet u-mr-small">
-                                <span class="c-field__icon">
-                                    {{ source('@WSCore/cms/icons/search.svg') }}
-                                </span>
-                                <label class="u-hidden-visually" for="navbar-search">Seach</label>
-                                <input class="c-input c-input--small js-search-input" autocomplete="off" name="f"
-                                    placeholder="Search" type="text" value="">
+                <div class="c-img-modal__wrapper">
+                    <div class="o-loader-wrapper o-loader-wrapper--image-list js-loader">
+                        <div class="o-loader"></div>
+                    </div>
+                    <div class="c-img-modal__search js-search-form">
+                        <div class="u-flex u-justify-between u-mb-medium">
+                            <h2 class="u-h2">{{ 'assets_image.open_modal'|trans({}, 'ws_cms') }}</h2>
+                            <div class="u-flex u-justify-end">
+                                <div class="c-field c-field--inline has-icon-right u-hidden-down@tablet u-mr-small">
+                                    <span class="c-field__icon">
+                                        {{ source('@WSCore/cms/icons/search.svg') }}
+                                    </span>
+                                    <label class="u-hidden-visually" for="navbar-search">Seach</label>
+                                    <input class="c-input c-input--small js-search-input" autocomplete="off" name="f"
+                                        placeholder="Search" type="text" value="">
+                                </div>
+                                <button type="submit" class="c-btn c-btn--solid c-btn--no-transition js-search-submit">
+                                    <i class="fa fa-search u-mr-xsmall"></i>
+                                    {{ 'search'|trans({}, 'ws_cms') }}
+                                </button>
                             </div>
-                            <button type="submit" class="c-btn c-btn--solid c-btn--no-transition js-search-submit">
-                                <i class="fa fa-search u-mr-xsmall"></i>
-                                {{ 'search'|trans({}, 'ws_cms') }}
-                            </button>
                         </div>
                     </div>
-                </div>
 
-                <div class="c-img-modal__drag">
-                    <div class="dropzone dz-clickable js-img-selector-new" data-id="{{ form.children.asset.vars.id }}">
-                        <div class="dz-message" data-dz-message="">
-                            <i class="dz-icon fa fa-cloud-upload"></i>
-                            <p class="c-img-modal__text">
-                                {{ 'assets_image.drag'|trans({}, 'ws_cms') }}
-                            </p>
+                    <div class="c-img-modal__drag">
+                        <div class="dropzone dz-clickable js-img-selector-new" data-id="{{ form.children.asset.vars.id }}">
+                            <div class="dz-message" data-dz-message="">
+                                <i class="dz-icon fa fa-cloud-upload"></i>
+                                <p class="c-img-modal__text">
+                                    {{ 'assets_image.drag'|trans({}, 'ws_cms') }}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="c-img-modal__alert-wrapper">
-                    <div class="c-img-modal__alert c-alert js-cropper-msg-{{ form.children.asset.vars.id }} u-hidden">
+                    <div class="c-img-modal__alert-wrapper">
+                        <div class="c-img-modal__alert c-alert js-cropper-msg-{{ form.children.asset.vars.id }} u-hidden">
+                        </div>
+                    </div>
+
+                    <div class="c-img-modal__list js-img-selector-images-list" data-id="{{ form.children.asset.vars.id }}"
+                        data-next-page="2">
                     </div>
                 </div>
+            </div>
 
-                <div class="c-img-modal__list js-img-selector-images-list" data-id="{{ form.children.asset.vars.id }}"
-                    data-next-page="2">
+            <figure class="c-img-modal__figure js-image-item #extra-class" data-id="{{ form.children.asset.vars.id }}">
+                <button
+                    class="c-btn c-btn--cta c-btn--small c-btn--no-transition c-btn--delete-image js-list-image-delete"
+                    data-image-id="#image-id" data-path="{{ path('ws_asset_image_soft_delete') }}" type="button">
+                    <i class="fal fa-trash-alt"></i>
+                </button>
+                <div class="c-img-modal__img-actions">
+                    <button class="c-btn c-btn--solid c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"
+                        data-image-id="#image-id" data-image-url="#image-thumb" data-image-original="#image-original"
+                        type="button">
+                        {{ 'assets_image.image_list.use'|trans({}, 'ws_cms') }}
+                    </button>
+                    <button class="c-btn c-btn--cta c-btn--small c-btn--no-transition js-list-image-crop"
+                        data-id="#id" data-image-id="#image-id" data-image-url="#image-original" type="button">
+                        {{ 'assets_image.image_list.crop'|trans({}, 'ws_cms') }}
+                    </button>
                 </div>
-            </div>
-        </div>
-
-        <figure class="c-img-modal__figure js-image-item #extra-class" data-id="{{ form.children.asset.vars.id }}">
-            <button
-                class="c-btn c-btn--cta c-btn--small c-btn--no-transition c-btn--delete-image js-list-image-delete"
-                data-image-id="#image-id" data-path="{{ path('ws_asset_image_soft_delete') }}" type="button">
-                <i class="fal fa-trash-alt"></i>
-            </button>
-            <div class="c-img-modal__img-actions">
-                <button class="c-btn c-btn--solid c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"
-                    data-image-id="#image-id" data-image-url="#image-thumb" data-image-original="#image-original"
-                    type="button">
-                    {{ 'assets_image.image_list.use'|trans({}, 'ws_cms') }}
-                </button>
-                <button class="c-btn c-btn--cta c-btn--small c-btn--no-transition js-list-image-crop"
-                    data-id="#id" data-image-id="#image-id" data-image-url="#image-original" type="button">
-                    {{ 'assets_image.image_list.crop'|trans({}, 'ws_cms') }}
-                </button>
-            </div>
-            <img id="#image-id" alt="#image-alt" class="c-img-modal__img lazy_loaded js-image" data-a-lazy
-                data-src="#image-thumb" data-image="#image-original" />
-        </figure>
-        {% endif %}
+                <img id="#image-id" alt="#image-alt" class="c-img-modal__img lazy_loaded js-image" data-a-lazy
+                    data-src="#image-thumb" data-image="#image-original" />
+            </figure>
+            {% endif %}
 
         {%- endblock -%}
 
