@@ -75,7 +75,8 @@ class AssetImageController extends AbstractController
             $response = [
                 'path' => $this->imageService->getImageUrl($assetImage, 'original'),
                 'id' => $assetImage->getId(),
-                'name' => $assetImage->getFilename()
+                'name' => $assetImage->getFilename(),
+                'mimeType' => $assetImage->getMimeType()
             ];
 
             if ($renditions !== null) {
