@@ -60,7 +60,7 @@
         width: 100%;
         min-height: 3.625rem;
         border: var(--input-border-width) solid var(--input-border-color);
-        border-radius: var(--base-border-radius);
+        border-radius: var(--base-border-radius-s);
         background-color: var(--white);
         color: var(--color-default-text);
         box-shadow: none;
@@ -113,7 +113,7 @@
             .choices__item {
                 border-color: color-mix(in srgb, var(--choices-color, var(--btn-background-color-secondary-hover)), #ffffff 80%);
                 background: color-mix(in srgb, var(--choices-color, var(--btn-background-color-secondary-hover)), #ffffff 90%);
-                border-radius: var(--base-border-radius);
+                border-radius: var(--base-border-radius-s);
                 color: var(--choices-color);
                 font-weight: var(--font-weight-normal);
                 font-size: var(--text-font-size);
@@ -140,7 +140,7 @@
 
         #{ $self }__inner {
             border-color: var(--input-border-color);
-            border-radius: var(--base-border-radius);
+            border-radius: var(--base-border-radius-s);
             color: var(--color-default-text);
 
             &::placeholder {

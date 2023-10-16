@@ -7,17 +7,16 @@
 
 $pagination-height: 2.188rem; // [1]
 $pagination-margin-bottom: 15px;
-$pagination-border-radius: var(--base-border-radius);
+$pagination-border-radius: var(--base-border-radius-s);
 $pagination-background-color: var(--white);
 $pagination-color: #354052;
-
 
 // pagination control
 $pagination-control-height: $pagination-height; // [1]
 $pagination-control-padding: 0 16px;
 $pagination-control-border-width: var(--base-border-width);
 $pagination-control-border-color: var(--grey-300);
-$pagination-control-border-radius: var(--base-border-radius);
+$pagination-control-border-radius: var(--base-border-radius-s);
 $pagination-control-background-color: var(--white);
 $pagination-control-color: #ced0da;
 $pagination-control-font-size: var(--text-font-size);
@@ -26,10 +25,8 @@ $pagination-control-font-weight: var(--font-weight-bold);
 // pagination link
 $pagination-link-height: $pagination-height; // [1]
 $pagination-link-padding: 0 16px;
-
 $pagination-link-border-width: var(--base-border-width);
 $pagination-link-border-color: var(--grey-300);
-
 $pagination-link-background-color: var(--white);
 $pagination-link-color: rgba(#354052, .5);
 $pagination-link-active-color: rgba(#354052, 1);

@@ -1,17 +1,8 @@
-///* ========================================================================
+/// * ========================================================================
 //   #GLOBAL
 //   ======================================================================== */
 
-//
-// Set up global Dashboard's variables.
-//
-// Don't change it here, instead, copy settings from this file into your custom
-// settings' file to override Dashboard's default settings.
-//
-
-//
 // Table of Content:
-//
 // 1. Color System
 // 2. Typography
 // 3. Borders
@@ -19,9 +10,7 @@
 // 5. Z-index System
 // 6. Spacing
 // 7. Breakpints
-//
 
-//
 // 1. Color System
 // ========================================================================== */
 :root {
@@ -102,7 +91,6 @@
     --base-background-color: var(--white);
     --background-color: #f2f2f6;
 
-    //
     // 2. Typography
     // ========================================================================== */
 
@@ -146,20 +134,18 @@
     --link-hover-color: var(--color-default-text);
     --link-hover-text-decoration: none;
 
-    //
     // 3. Borders
     // ========================================================================== */
-    --base-border-radius: .25rem;
+    --base-border-radius-s: 4px;
+    --base-border-radius-m: 8px;
     --base-border-style: solid;
     --base-border-color: var(--grey-400);
     --base-border-width: 1px;
 
-    //
     // 4. Icon Fonts
     // ========================================================================== */
     --base-icon-font: 'Font Awesome 6 Pro';
 
-    //
     // 5. Z-index System
     // ========================================================================== */
     --z-index-100: 100; // over content
@@ -168,7 +154,6 @@
     --z-index-400: 400; // over screen
     --z-index-500: 500; // over everything
 
-    //
     // 6. Spacing
     // ========================================================================== */
 
@@ -197,9 +182,11 @@
     // Layout
     --header-heigh: 47px;
     --footer-heigh: 45px;
+
+    // Box-Shadow
+    --box-shadow-modal: 0 4px 8px rgba(16, 24, 64, .08), 0 4px 8px rgba(16, 24, 64, .08);
 }
 
-//
 // 6. Spacing
 // ========================================================================== */
 $spacer-xsmall: var(--spacer-xsmall);
@@ -208,7 +195,6 @@ $spacer: var(--spacer);
 $spacer-large: var(--spacer-large);
 $spacer-xlarge: var(--spacer-xlarge);
 
-//
 // 7. Breakpoints
 // ========================================================================== */
 
@@ -225,7 +211,6 @@ $breakpoint-tablet: $breakpoint-md;
 $breakpoint-desktop: $breakpoint-lg;
 $breakpoint-wide: $breakpoint-xl;
 
-//
 // 8. Layout
 // ========================================================================== */
 

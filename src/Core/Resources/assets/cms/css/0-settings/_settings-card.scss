@@ -1,24 +1,20 @@
 @use '../0-settings/_settings-global' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 
-///* ========================================================================
+/// * ========================================================================
 //   #CARD
 //   ======================================================================== */
 
 $card-border-width: var(--base-border-width);
 $card-border-color: var(--base-border-color);
-$card-border-radius: var(--base-border-radius);
+$card-border-radius: var(--base-border-radius-s);
 $card-background-color: var(--base-background-color);
-
 $card-header-padding: 1.875rem 1.563rem;
 $card-header-background-color: var(--secondary-background-color);
-
 $card-title-font-size: var(--h5-font-size);
 $card-meta-color: var(--color-mute);
 $card-meta-font-size: var(--text-small-font-size);
-
 $card-icon-font-size: var(--h2-font-size);
 $card-icon-color: var(--white);
 $card-icon-background-color: var(--orange-400);
-
 $card-body-padding: var(--spacer);
