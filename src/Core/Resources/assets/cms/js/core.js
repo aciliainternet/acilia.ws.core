@@ -30,10 +30,12 @@ import sidebarCntrl from './controllers/sidebar';
 import tabsCntrl from './controllers/tabs';
 import accordionCntrl from "./controllers/accordion";
 import dropDragCntrl from "./controllers/dropdrag";
+import deleteInputCntrl from "./controllers/deleteInput";
 
 dropDragCntrl();
 accordionCntrl();
 tabsCntrl();
+deleteInputCntrl();
 sidebarCntrl();
 moduleNotifications();
 componentMarkdown();
