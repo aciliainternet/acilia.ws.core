@@ -1,11 +1,9 @@
 @use '../0-settings/_settings-global' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 @use '../1-tools/tools-mixin-linear-gradient' as *;
-
 /* ==========================================================================
    #FEED
    ========================================================================== */
-
 /**
  * User Activity Feed
  *
@@ -43,7 +41,6 @@
 .c-feed__item {
     position: relative;
     margin-bottom: 25px;
-
     /**
      * The small circle (dot) before every item of the feed
      */
@@ -115,10 +112,9 @@
     margin: var(--spacer-xsmall) 0;
     padding: var(--spacer-xsmall);
     border: var(--base-border-width) solid var(--base-border-color);
-    border-radius: var(--base-border-radius);
+    border-radius: var(--base-border-radius-s);
     background-color: var(secondary-background-color);
 }
-
 
 .c-feed__gallery {
     display: flex;
@@ -130,16 +126,14 @@
     width: 80px;
     height: 80px;
     margin: 0 var(--spacer-xsmall) var(--spacer-xsmall) 0;
-    border-radius: var(--base-border-radius);
+    border-radius: var(--base-border-radius-s);
 }
-
 
 .c-feed__meta {
     display: block;
     color: var(--color-mute);
     font-size: var(--text-font-size);
 }
-
 /* Style variants
    ========================================================================== */
 
@@ -163,9 +157,3 @@
         @include linear-gradient(to bottom, var(--green-300), var(--green-400));
     }
 }
-
-
-
-
-
-

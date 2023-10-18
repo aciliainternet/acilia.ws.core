@@ -1,7 +1,6 @@
 @use '../0-settings/_settings-global' as *;
 @use '../0-settings/_settings-pagination' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
-
 /* ==========================================================================
 #PAGINATION
 ========================================================================== */
@@ -12,8 +11,6 @@
     align-items: center;
     justify-content: center;
 }
-
-
 /**
 * 1. Use flex utilitites with `c-pagination` for proper alignement of its
 *    children.
@@ -28,7 +25,6 @@
     margin: 35px 0 20px;
     text-align: center;
 }
-
 /**
 * 1. Remove wierd space between list items.
 */
@@ -53,7 +49,6 @@
         margin-left: .75rem;
     }
 }
-
 /**
 * 1. Line height of pagination control should equal its height for proper
 *    vertical alignment.
@@ -65,7 +60,7 @@
     height: $pagination-control-height; /* [1] */
     padding: $pagination-control-padding;
     border: $pagination-control-border-width solid $pagination-control-border-color;
-    border-radius: var(--base-border-radius);
+    border-radius: var(--base-border-radius-s);
     background-color: $pagination-control-background-color;
     color: $pagination-control-color;
     box-shadow: 0 7px 64px 0 rgba(0, 0, 0, .07);
@@ -74,7 +69,6 @@
     line-height: $pagination-control-height; /* [1] */
     text-align: center;
     transition: all 275ms ease;
-
     /**
     * 1. You may resize this icon if you used another icon font.
     */
@@ -109,7 +103,7 @@
     height: $pagination-link-height;
     padding: $pagination-link-padding;
     border: $pagination-link-border-width solid $pagination-link-border-color;
-    border-radius: var(--base-border-radius);
+    border-radius: var(--base-border-radius-s);
     background-color: $pagination-link-background-color;
     color: var(--link-color);
     font-size: $pagination-link-font-size;

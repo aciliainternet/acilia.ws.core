@@ -5,35 +5,28 @@
 //   #TABS
 //   ======================================================================== */
 
-
 // Tabs (wrapper)
 $tabs-list-padding: 20px 30px;
 $tabs-list-background-color: var(--white);
 $tabs-list-border-color: var(--grey-400);
-
 $tabs-list-border-width: 1px;
-$tabs-list-border-radius: var(--base-border-radius);
-
+$tabs-list-border-radius: var(--base-border-radius-s);
 
 // Individual tab, tab link
 $tabs-item-margin: 0 30px 0 0;
-
 $tabs-link-padding: 0 0 21px 0; // to override tab header's border-bottom
 $tabs-link-font-size: var(--h6-font-size);
 $tabs-link-color: var(--grey-800);
-
 $tabs-link-hover-color: var(--gunmetal-200);
-
 $tabs-link-active-color: var(--gunmetal-300);
 $tabs-link-active-border-width: 2px;
 $tabs-link-active-border-color: var(--blue-300);
-
 
 // Tab content
 $tabs-pane-background-color: var(--white);
 $tabs-pane-margin: 0;
 $tabs-pane-padding: 20px 30px;
-$tabs-pane-border-radius: var(--base-border-radius);
+$tabs-pane-border-radius: var(--base-border-radius-s);
 $tabs-pane-border-color: var(--grey-400);
 $tabs-pane-border-width: 1px;
 $tabs-pane-color: var(--text-color);
@@ -41,17 +34,3 @@ $tabs-pane-color: var(--text-color);
 // Splitted Tabs
 
 $tabs-splitted-link-gradient: #ffffff, #f4f7fa;
-
-
-
-
-
-
-
-
-
-
-
-
-
-

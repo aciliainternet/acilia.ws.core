@@ -4,6 +4,12 @@
     border-radius: var(--border-radious-m);
     transition: box-shadow .15s ease-in-out;
 
+    &:hover {
+        .c-dropdown {
+            visibility: visible;
+        }
+    }
+
     .c-accordion {
         border: 1px solid transparent;
         background: color-mix(in srgb, var(--color-primary, var(--btn-background-color-secondary-hover)), #ffffff 95%);
@@ -54,5 +60,14 @@
                 padding-bottom: 0;
             }
         }
+    }
+
+    &__dropdown.c-dropdown {
+        position: absolute;
+        top: 12px;
+        right: 48px;
+        z-index: 1;
+        visibility: hidden;
+        transition: visibility .15s ease-in-out;
     }
 }

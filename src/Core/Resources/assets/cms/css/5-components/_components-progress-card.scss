@@ -1,7 +1,6 @@
 @use '../0-settings/_settings-global' as *;
 @use '../0-settings/_settings-progress' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
-
 /* ==========================================================================
    #PROGRESS CARD
    ========================================================================== */
@@ -10,7 +9,7 @@
     margin: 0 0 var(--spacer);
     padding: var(--spacer);
     border: var(--base-border-width) solid var(--base-border-color);
-    border-radius: var(--base-border-radius);
+    border-radius: var(--base-border-radius-s);
     background-color: var(--base-background-color);
 }
 
