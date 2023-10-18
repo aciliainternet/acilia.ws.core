@@ -14,102 +14,81 @@
  */
 
 .c-field {
-  $self: &;
-  position: relative;
-  width: 100%;
+    $self: &;
+    position: relative;
+    width: 100%;
 
-  &.has-addon-left,
-  &.has-addon-right {
-    display: flex;
-    flex-flow: row nowrap;
+    &.has-addon-left,
+    &.has-addon-right {
+        display: flex;
+        flex-flow: row nowrap;
 
-    > .c-input {
-      flex-basis: calc(100% - var(--field-addon-width)); /* [1] */
-    }
-  }
-
-  &.has-addon-left {
-
-    > .c-field__addon {
-      border-right: 0;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
+        > .c-input {
+            flex-basis: calc(100% - var(--field-addon-width)); /* [1] */
+        }
     }
 
-    > .c-input {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-  }
+    &.has-addon-left {
 
-  &.has-addon-right {
+        > .c-field__addon {
+            border-right: 0;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
-    > .c-field__addon {
-      border-left: 0;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    > .c-input {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-  }
-
-  &.has-icon-left,
-  &.has-icon-right {
-
-    > .c-field__icon {
-      position: absolute;
-      top: 50%;
-      color: var(--field-icon-color);
-      font-size: var(--field-icon-font-size);
-      transform: translateY(-50%);
-    }
-  }
-
-  &.has-icon-left {
-
-    > .c-input {
-      padding-left: 40px;
+        > .c-input {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
     }
 
-    > .c-field__icon {
-      left: 15px;
-    }
-  }
+    &.has-addon-right {
 
-  &.has-icon-right {
+        > .c-field__addon {
+            border-left: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
 
-    > .c-input {
-      padding-right: 40px;
-    }
-
-    > .c-field__icon {
-      right: 15px;
-    }
-  }
-
-  &__delete {
-    position: absolute;
-    right: 15px;
-    bottom: 12px;
-    display: none;
-    color: var(--grey-700);
-    font-size: 16px;
-    opacity: .5;
-    cursor: pointer;
-  }
-
-  &.has-content {
-    #{ $self }__icon {
-      display: none;
+        > .c-input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
     }
 
-    #{ $self }__delete {
-      display: block;
+    &.has-icon-left,
+    &.has-icon-right {
+
+        > .c-field__icon {
+            position: absolute;
+            top: 50%;
+            color: var(--field-icon-color);
+            font-size: var(--field-icon-font-size);
+            transform: translateY(-50%);
+        }
     }
-  }
+
+    &.has-icon-left {
+
+        > .c-input {
+            padding-left: 40px;
+        }
+
+        > .c-field__icon {
+            left: 15px;
+        }
+    }
+
+    &.has-icon-right {
+
+        > .c-input {
+            padding-right: 40px;
+        }
+
+        > .c-field__icon {
+            right: 15px;
+        }
+    }
 }
 /**
  * Inline fields don't take up whole width
@@ -118,15 +97,15 @@
  */
 
 .c-field--inline {
-  width: 270px;
+    width: 270px;
 
-  @include respond-to($breakpoint-tablet) {
-    width: 100%;
-  }
+    @include respond-to($breakpoint-tablet) {
+        width: 100%;
+    }
 }
 
 .c-field--inline-medium {
-  width: 220px;
+    width: 220px;
 }
 /**
  * Labels are used with inputs, always use labels with inputs for better
@@ -137,98 +116,98 @@
  */
 
 .c-field__label {
-  display: block;
-  flex-basis: auto;
-  margin: var(--field-label-margin);
-  color: var(--field-label-color);
-  font-weight: var(--field-label-font-weight);
-  font-size: var(--field-label-font-size);
+    display: block;
+    flex-basis: auto;
+    margin: var(--field-label-margin);
+    color: var(--field-label-color);
+    font-weight: var(--field-label-font-weight);
+    font-size: var(--field-label-font-size);
 
-  &--i18n {
-    &::before {
-      content: '\f1ab';
-      position: absolute;
-      right: 0;
-      display: inline-block;
-      color: inherit;
-      font-size: 1rem;
-      font-family: var(--base-icon-font);
+    &--i18n {
+        &::before {
+            content: '\f1ab';
+            position: absolute;
+            right: 0;
+            display: inline-block;
+            color: inherit;
+            font-size: 1rem;
+            font-family: var(--base-icon-font);
+        }
     }
-  }
 
-  &.required {
-    &::after {
-      content: '*';
-      display: inline-block;
-      vertical-align: super;
-      margin-left: 4px;
-      color: inherit;
-      font-size: 12px;
+    &.required {
+        &::after {
+            content: '*';
+            display: inline-block;
+            vertical-align: super;
+            margin-left: 4px;
+            color: inherit;
+            font-size: 12px;
+        }
     }
-  }
 }
 /**
  * Addon is an icon placed in box next to input, used as a visual indicator
  */
 
 .c-field__addon {
-  @include linear-gradient(to bottom, var(--field-addon-gradient));
-  display: inline-flex;
-  flex-basis: var(--field-addon-width);
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  border: var(--field-addon-border-width) solid var(--field-addon-border-color);
-  border-radius: var(--base-border-radius);
-  color: var(--field-addon-color);
-  font-size: var(--field-addon-font-size);
-  text-align: center;
+    @include linear-gradient(to bottom, var(--field-addon-gradient));
+    display: inline-flex;
+    flex-basis: var(--field-addon-width);
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    border: var(--field-addon-border-width) solid var(--field-addon-border-color);
+    border-radius: var(--base-border-radius-s);
+    color: var(--field-addon-color);
+    font-size: var(--field-addon-font-size);
+    text-align: center;
 
-  i {
-    font-size: var(--field-icon-font-size);
-  }
+    i {
+        font-size: var(--field-icon-font-size);
+    }
 }
 /**
  * Field message used as a helper note or feedback.
  */
 
 .c-field__message {
-  display: inline-block;
-  margin: var(--field-message-margin);
-  padding: var(--field-message-padding);
-  color: var(--field-message-color);
-  font-size: var(--field-message-font-size);
-  line-height: 1rem;
+    display: inline-block;
+    margin: var(--field-message-margin);
+    padding: var(--field-message-padding);
+    color: var(--field-message-color);
+    font-size: var(--field-message-font-size);
+    line-height: 1rem;
 
-  > i {
-    margin-right: .313rem;
-  }
+    > i {
+        margin-right: .313rem;
+    }
 }
 
 .c-field {
-  $self: &;
+    $self: &;
 
-  &--xsmall {
-    width: 150px;
-  }
-
-  &--small {
-    width: 200px;
-  }
-
-  &--medium {
-    width: 250px;
-  }
-
-  &--filters {
-    #{ $self }__label {
-      color: var(--grey-700);
+    &--xsmall {
+        width: 150px;
     }
-  }
+
+    &--small {
+        width: 200px;
+    }
+
+    &--medium {
+        width: 250px;
+    }
+
+    &--filters {
+        #{ $self }__label {
+            color: var(--grey-700);
+        }
+    }
 }
 
 // TODO
 
 .l-form__item--image {
-  width: auto;
+    width: auto;
 }
