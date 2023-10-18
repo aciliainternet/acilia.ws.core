@@ -22,7 +22,6 @@ class AssetImageType extends AbstractType
 {
     public const ASSET_IMAGE_DISPLAY_MODE_LIST = 'list';
     public const ASSET_IMAGE_DISPLAY_MODE_CROP = 'crop';
-    public const ASSET_IMAGE_MIME_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
     public const ASSET_IMAGE_MAX_SIZE = '25M';
     public const ASSET_IMAGE_DEFAULT_THUMB_SIZE = '300x300';
 
@@ -121,6 +120,7 @@ class AssetImageType extends AbstractType
         $view->vars = array_replace($view->vars, [
             'ws' => [
                 'entity' => $options['ws']['entity'],
+                'preview' => $options['ws']['preview'] ?? true,
                 'display_mode' => $options['ws']['display-mode'],
                 'thumb_size' => $options['ws']['thumb-size'] ?? self::ASSET_IMAGE_DEFAULT_THUMB_SIZE
             ],
@@ -135,6 +135,7 @@ class AssetImageType extends AbstractType
             'mapped' => false,
             'ws' => [
                 'entity' => null,
+                'preview' => true,
                 'display-mode' => 'list',
                 'thumb-size' => self::ASSET_IMAGE_DEFAULT_THUMB_SIZE
             ]
