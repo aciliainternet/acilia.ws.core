@@ -53,6 +53,7 @@
 
 .o-page__content {
     overflow: visible;
+    height: 100%;
     margin-left: 250px; /* [1] */
 
     @include respond-to($breakpoint-desktop) {
