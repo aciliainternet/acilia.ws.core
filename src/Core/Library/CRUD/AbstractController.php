@@ -302,13 +302,11 @@ abstract class AbstractController extends BaseController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
-                    $this->getService()->edit($entity);
-
                     $this->handleImages($form, $entity);
 
                     $this->handleFiles($form, $entity);
 
-                    //$this->getService()->edit($entity);
+                    $this->getService()->edit($entity);
 
                     $this->addFlash('cms_success', $this->trans('edit_success', [], $this->getTranslatorPrefix()));
 
@@ -328,12 +326,10 @@ abstract class AbstractController extends BaseController
                             'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
                         ])
                     );
-                } catch (\Exception $e) {
-                    var_dump($e->getMessage());exit;
+                } catch (\Exception) {
                     $this->addFlash('cms_error', $this->trans('edit_error', [], $this->getTranslatorPrefix()));
                 }
             } else {
-                var_dump('form error');exit;
                 foreach ($this->getFormErrorMessagesList($form, 1) as $error) {
                     $this->addFlash('cms_error', $error);
                 }
