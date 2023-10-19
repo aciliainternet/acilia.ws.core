@@ -352,10 +352,14 @@ class ImageService
 
     protected function renderMethodThumb(RenditionDefinition $definition, Image $image, ?array $options = null): Image
     {
-        // If Crop data is defined, crop it
-        if (isset($options['cropper']) && is_array($options['cropper']) && count($options['cropper']) > 0) {
-            $key = array_key_first($options['cropper']);
-            if (null !== $options['cropper'][$key]) {
+        // If Crop data and thumb rendition are defined, crop it
+        if (
+            isset($options['cropper']) &&
+            is_array($options['cropper']) &&
+            count($options['cropper']) > 0
+        ) {
+            $key = $options['thumb-rendition'] ??  null;
+            if (null !== $key && isset($options['cropper'][$key])) {
                 list(
                     $cropData['w'],
                     $cropData['h'],

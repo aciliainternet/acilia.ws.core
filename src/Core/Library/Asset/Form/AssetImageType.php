@@ -122,7 +122,8 @@ class AssetImageType extends AbstractType
                 'entity' => $options['ws']['entity'],
                 'preview' => $options['ws']['preview'] ?? true,
                 'display_mode' => $options['ws']['display-mode'],
-                'thumb_size' => $options['ws']['thumb-size'] ?? self::ASSET_IMAGE_DEFAULT_THUMB_SIZE
+                'thumb_size' => $options['ws']['thumb-size'] ?? self::ASSET_IMAGE_DEFAULT_THUMB_SIZE,
+                'thumb_rendition' => $options['ws']['thumb-rendition'] ?? null
             ],
             'type' => 'ws-asset-image',
         ]);
@@ -137,7 +138,8 @@ class AssetImageType extends AbstractType
                 'entity' => null,
                 'preview' => true,
                 'display-mode' => 'list',
-                'thumb-size' => self::ASSET_IMAGE_DEFAULT_THUMB_SIZE
+                'thumb-size' => self::ASSET_IMAGE_DEFAULT_THUMB_SIZE,
+                'thumb-rendition' => null
             ]
         ]);
     }

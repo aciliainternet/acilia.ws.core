@@ -16,8 +16,11 @@ trait AssetTrait
                 /** @var UploadedFile */
                 $imageFile = $form->get($imageField)->get('asset')->getData();
 
+                /** @var array */
+                $formFieldOptions = $form->get($imageField)->getConfig()->getOptions();
                 $options = [
-                    'cropper' => $form->get($imageField)->get('cropper')->getData()
+                    'cropper' => $form->get($imageField)->get('cropper')->getData(),
+                    'thumb-rendition' => $formFieldOptions['ws']['thumb-rendition'] ?? null
                 ];
 
                 // Save asset image
