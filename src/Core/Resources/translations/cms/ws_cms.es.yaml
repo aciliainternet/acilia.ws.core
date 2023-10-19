@@ -57,6 +57,7 @@ cropper_minWidth: Ancho min.
 cropper_minHeight: Alto min.
 cropper_width: ancho
 cropper_height: alto
+cropper_size: Tamaño
 cropper_obs: Obs.
 cropper_widthHeightError: "Esta imagen no contiene el ancho y alto mínimo requerido, %width%px X %height%px"
 assets_image.open_modal: Selecciona una imagen

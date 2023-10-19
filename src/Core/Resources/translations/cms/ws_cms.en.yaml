@@ -57,6 +57,7 @@ cropper_minWidth: Min. width
 cropper_minHeight: Min. height
 cropper_width: width
 cropper_height: height
+cropper_size: Size
 cropper_obs: Obs.
 cropper_widthHeightError: "This image does not have the minimum values for width and height required, %width%px X %height%px"
 assets_image.open_modal: Select an image

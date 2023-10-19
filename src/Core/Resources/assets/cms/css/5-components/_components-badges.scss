@@ -19,6 +19,18 @@
 }
 /* Style variants
    ========================================================================== */
+.c-badge--xl {
+    height: 32px;
+    padding: 12px;
+    font-size: .875rem;
+    line-height: .875rem;
+}
+
+.c-badge--primary {
+    background: color-mix(in srgb, var(--color-primary, var(--btn-background-color-secondary-hover)), #ffffff 95%);
+    color: var(--color-primary);
+}
+
 .c-badge--success,
 .c-badge--published,
 .c-badge[data-badge='Beginner'] {

@@ -51,3 +51,13 @@
 .ws-cropper_aside .ws-cropper_preview_wrapper .ws-cropper_preview {
     margin: 0;
 }
+
+.ws-cropper_details {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+
+    .c-badge {
+        gap: 4px;
+    }
+}
