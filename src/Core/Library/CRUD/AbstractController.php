@@ -326,10 +326,12 @@ abstract class AbstractController extends BaseController
                             'id' => (method_exists($entity, 'getId')) ? $entity->getId() : null
                         ])
                     );
-                } catch (\Exception) {
+                } catch (\Exception $e) {
+                    var_dump($e->getMessage());exit;
                     $this->addFlash('cms_error', $this->trans('edit_error', [], $this->getTranslatorPrefix()));
                 }
             } else {
+                var_dump('form error');exit;
                 foreach ($this->getFormErrorMessagesList($form, 1) as $error) {
                     $this->addFlash('cms_error', $error);
                 }
