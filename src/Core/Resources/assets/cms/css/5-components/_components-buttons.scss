@@ -139,11 +139,21 @@
     min-width: 40px;
     border: 1px solid transparent;
     background-color: var(--color-transparent);
-    color: var(--gunmetal-200);
+    color: var(--color-style);
 
     &:hover {
         background-color: var(--grey-100);
-        color: var(--color-primary);
+    }
+
+    &.is-disabled {
+        border-color: transparent;
+        background-color: var(--color-transparent);
+        cursor: not-allowed;
+
+        &:hover {
+            border-color: transparent;
+            background-color: var(--color-transparent);
+        }
     }
 }
 

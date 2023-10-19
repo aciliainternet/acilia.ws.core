@@ -89,6 +89,26 @@
             right: 15px;
         }
     }
+    &__delete {
+        position: absolute;
+        right: 15px;
+        bottom: 12px;
+        display: none;
+        color: var(--grey-700);
+        font-size: 16px;
+        opacity: .5;
+        cursor: pointer;
+    }
+
+    &.has-content {
+        #{ $self }__icon {
+            display: none;
+        }
+    
+        #{ $self }__delete {
+            display: block;
+        }
+    }
 }
 /**
  * Inline fields don't take up whole width

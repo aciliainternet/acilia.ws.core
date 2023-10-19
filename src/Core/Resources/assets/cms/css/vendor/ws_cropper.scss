@@ -6,14 +6,12 @@
     flex-direction: column;
     gap: 24px;
     width: 100%;
-
-    // height: 600px;
     height: 100%;
 }
 
 .ws-cropper_crop {
     width: 100%;
-    height: 100%;
+    height: 500px;
 }
 
 .ws-cropper_aside {
@@ -50,4 +48,14 @@
 
 .ws-cropper_aside .ws-cropper_preview_wrapper .ws-cropper_preview {
     margin: 0;
+}
+
+.ws-cropper_details {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+
+    .c-badge {
+        gap: 4px;
+    }
 }
