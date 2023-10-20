@@ -1,0 +1,56 @@
+.c-alert-popup {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    background-color: #43434333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "icon"
+            "heading"
+            "text"
+            "btn";
+        gap: 15px;
+        background-color: #ffffff;
+        border-radius: var(--btn-border-radius);
+        width: 90%;
+        max-width: 400px;
+        padding: 25px;
+        font-size: var(--text-font-size);
+        text-align: center;
+    }
+
+    &__icon {
+        grid-area: icon;
+        font-size: 45px;
+    }
+
+    &__heading{
+        grid-area: heading;
+    }
+
+    &__text {
+        grid-area: text;
+        margin-bottom: 15px;
+    }
+
+    &__btn-wrapper {
+        grid-area: btn;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    &__btn {
+        width: 100%;
+    }
+
+}

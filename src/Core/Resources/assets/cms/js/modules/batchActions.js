@@ -1,4 +1,5 @@
 import showAlert from './a_alert';
+import showSngAlert from './a_alert-v2';
 
 function manageActionsSelector(show) {
   const selector = document.querySelector('.js-batchActions');
@@ -18,14 +19,14 @@ function onBatchActionDone(event) {
     case 404:
     case 400:
     case 500:
-      showAlert({
+      showSngAlert({
         title: window.cmsTranslations.error,
         text: response.msg,
         icon: 'error',
       });
       break;
     case 200:
-      showAlert({
+      showSngAlert({
         text: response.msg,
         icon: 'success',
       }, () => {
@@ -47,7 +48,7 @@ function batchAction(url) {
   });
 
   if (ids.length === 0) {
-    showAlert({
+    showSngAlert({
       title: window.cmsTranslations.error,
       text: window.cmsTranslations.ws_cms_batch_actions.no_item_selected,
       icon: 'error',
@@ -75,7 +76,7 @@ function handleAction(event) {
   }
 
   if (url && url.length > 0) {
-    showAlert({
+    showSngAlert({
       icon: 'warning',
       dangerMode: true,
       title,

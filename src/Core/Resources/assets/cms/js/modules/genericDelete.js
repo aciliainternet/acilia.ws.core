@@ -1,4 +1,5 @@
 import showAlert from './a_alert';
+import showSngAlert from './a_alert-v2';
 
 function onRemoveDone(event) {
   const request = event.currentTarget;
@@ -8,14 +9,14 @@ function onRemoveDone(event) {
     case 500:
     case 403:
     case 404:
-      showAlert(response.msg);
+      showSngAlert(response.msg);
       break;
     case 200:
       if (response.id) {
         const selector = `.js-genericDelete_wrapper[data-id="${response.id}"]`;
         document.querySelector(selector).classList.add('js-genericDelete_remove');
       }
-      showAlert({
+      showSngAlert({
         title: response.title,
         text: response.msg,
         icon: 'success',
@@ -40,7 +41,7 @@ function onRemoveDone(event) {
       });
       break;
     case 302:
-      showAlert({
+      showSngAlert({
         title: response.title,
         text: response.msg,
         icon: 'success',
@@ -70,7 +71,7 @@ function sendDeletePost(value) {
 
 function remove(event) {
   const { title, message, id } = event.currentTarget.dataset;
-  showAlert({
+  showSngAlert({
     icon: 'warning',
     dangerMode: true,
     title,
