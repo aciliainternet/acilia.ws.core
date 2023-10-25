@@ -3,15 +3,18 @@
 @use '../0-settings/_settings-inputs' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 
-.ws-img-markdown__new-upload, .ws-file-markdown__new-upload {
+.ws-img-markdown__new-upload,
+.ws-file-markdown__new-upload {
     display: none;
 }
 
 .editor-toolbar {
-    border-top: 1px solid var(--grey-400);
-    border-left: 1px solid var(--grey-400);
-    border-right: 1px solid var(--grey-400);
+    position: sticky;
+    top: calc(var(--header-sticky-heigh) - 1px);
+    z-index: 100;
+    border: 1px solid var(--grey-400);
     background-color: var(--white);
+    opacity: initial;
 
     .svg-inline--fa {
         display: inline-block;
@@ -86,8 +89,8 @@
 .editor-statusbar {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
     gap: 1rem;
+    justify-content: flex-end;
     padding: 8px 0;
 
     span {
@@ -96,6 +99,13 @@
     }
 }
 
+.EasyMDEContainer {
+    z-index: 1;
+}
+
 .EasyMDEContainer .CodeMirror {
-    border: 1px solid var(--grey-400);
+    border-top: 0;
+    border-right: 1px solid var(--grey-400);
+    border-bottom: 1px solid var(--grey-400);
+    border-left: 1px solid var(--grey-400);
 }
