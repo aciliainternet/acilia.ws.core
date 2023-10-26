@@ -12,24 +12,12 @@
         border-color: var(--input-border-color);
         border-radius: var(--btn-border-radius);
         background: var(--white);
-        color: var(--color-mute);
+        color: var(--input-focus-color);
         font-weight: var(--btn-font-weight);
         font-size: var(--btn-font-size);
         line-height: 1.5;
         cursor: pointer;
         transition: all .15s ease-in-out;
-
-        // &--open {
-        //     --radio-color: var(--color-success);
-        // }
-
-        // &--cancelled {
-        //     --radio-color: var(--color-danger);
-        // }
-
-        // &--closed {
-        //     --radio-color: var(--color-primary);
-        // }
 
         &:focus-within {
             color: var(--radio-color);
