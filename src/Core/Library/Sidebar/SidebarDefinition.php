@@ -25,6 +25,7 @@ class SidebarDefinition
             'order' => 999,
             'roles' => [],
             'collapsed_routes' => [],
+            'related_routes' => [],
             'divider' => false
 
         ], $options);
@@ -99,6 +100,11 @@ class SidebarDefinition
         $this->options['collapsed_routes'][] = $collapsedRoute;
 
         return $this;
+    }
+
+    public function getRelatedRoutes(): array
+    {
+        return $this->options['related_routes'];
     }
 
     public function getIcon(): string

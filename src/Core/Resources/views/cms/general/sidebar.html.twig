@@ -17,7 +17,7 @@
                     <ul class="c-sidebar__submenu {{ ws_cms_in_route(menu.collapsedRoutes) == 'active' ? '' : 'collapse' }}">
                         {% for submenu in menu.children %}
                             {% if ws_cms_sidebar_is_granted(submenu.roles) %}
-                                <li>
+                                <li class="c-sidebar__list-item">
                                     <a
                                         class="c-sidebar__link js-submenu-children {{ ws_cms_in_route(submenu.collapsedRoutes, 'is-active', null, submenu.routeOptions) }}"
                                         href="{{ path(submenu.routeName, submenu.routeOptions) }}"
@@ -27,6 +27,30 @@
                                             {{ submenu.label|trans({}, submenu.translationDomain) }}
                                         </span>
                                     </a>
+                                    {% if submenu.relatedRoutes is not empty %}
+                                        <div
+                                            class="c-dropdown dropdown"
+                                            data-toggle="dropdown-export"
+                                            data-component="ws_dropdown">
+                                            <button
+                                                class="c-btn c-btn--ghost c-btn--primary dropdown-toggle"
+                                                type="button"
+                                                title="{{ 'options'|trans({}, 'ws_cms')}}">
+                                                <i class="fa-regular fa-ellipsis-vertical"></i>
+                                            </button>
+                                            {% for related_route in submenu.relatedRoutes %}
+                                                <div
+                                                    class="c-dropdown__menu dropdown-menu dropdown-export"
+                                                    aria-labelledby="Menu">
+                                                    <a  href="{{ path(related_route.route_name, related_route.route_options|default([])) }}"
+                                                        type="button"
+                                                        class="c-dropdown__item dropdown-item">
+                                                        {{ related_route.route_title|trans({}, submenu.translationDomain) }}
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </li>
                             {% endif %}
                         {% endfor %}
