@@ -112,8 +112,8 @@
 
             .choices__item {
                 border-color: color-mix(in srgb, var(--choices-color, var(--btn-background-color-secondary-hover)), #ffffff 80%);
-                background: color-mix(in srgb, var(--choices-color, var(--btn-background-color-secondary-hover)), #ffffff 90%);
-                border-radius: var(--base-border-radius-s);
+                background: var(--white);
+                border-radius: var(--base-border-radius-xl);
                 color: var(--choices-color);
                 font-weight: var(--font-weight-normal);
                 font-size: var(--text-font-size);

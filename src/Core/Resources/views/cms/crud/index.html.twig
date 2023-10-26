@@ -37,63 +37,64 @@
                                 </div>
                             {% endblock %}
 
-                            {{ include(
-                                '@WSCore/cms/crud/blocks/batch.html.twig',
-                                { 'batch_actions': batch_actions, 'route_prefix': route_prefix },
-                                with_context = false
-                            ) }}
+                            <div class="c-btn-group">
+                                {{ include(
+                                    '@WSCore/cms/crud/blocks/batch.html.twig',
+                                    { 'batch_actions': batch_actions, 'route_prefix': route_prefix },
+                                    with_context = false
+                                ) }}
 
-                            <div class="c-field c-field--medium has-icon-right u-mr-10">
-                                <span class="c-field__icon">
-                                    {{ source('@WSCore/cms/icons/search.svg') }}
-                                </span>
-                                <button class="c-field__delete fa-solid fa-circle-xmark" data-remove-input="true" type="button"></button>
-                                <label class="u-hidden-visually" for="navbar-search">
-                                    {{ 'search'|trans({}, 'ws_cms') }}
-                                </label>
-                                <input
-                                        class="c-input c-input--small"
-                                        id="navbar-search"
-                                        type="text"
-                                        placeholder="{{ 'search'|trans({}, 'ws_cms') }}"
-                                        name="f"
-                                        value="{{ app.request.get('f') }}"
-                                        autocomplete="off"
-                                >
-                            </div>
-                            <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
-                                {{ 'search'|trans({}, 'ws_cms') }}
-                            </button>
-
-                            {% if filter_extended_form is not null %}
-                                <button type="button" class="c-btn c-btn--cta c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
-                                    {{ source('@WSCore/cms/icons/filter.svg') }}
-                                    {{ 'filter'|trans({}, 'ws_cms') }}
-                                </button>
-                            {% endif %}
-
-                            {% if view_export %}
-                                <div class="c-dropdown dropdown u-hidden@md--down" data-toggle="dropdown-export" data-component="ws_dropdown">
-                                    <button class="c-btn c-btn--border has-dropdown dropdown-toggle u-pr-40"
-                                            type="button"
-                                            id="ExportDropdownButton"
-                                            aria-haspopup="true" aria-expanded="false">
-                                                {{ source('@WSCore/cms/icons/export.svg') }}
-                                                {{ 'export'|trans({}, 'ws_cms') }}
-                                    </button>
-                                    {% block crud_export_formats %}
-                                        <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
-                                            <a  class="c-dropdown__item dropdown-item"
-                                                href="{{ ws_cms_path("#{route_prefix}_export", app.request.query.all) }}">
-                                                <i class="fal fa-file-csv u-pr-5"></i> {{ 'export.csv'|trans({}, 'ws_cms') }}
-                                            </a>
-                                            {% block crud_export_format %}
-                                            {% endblock %}
-                                        </div>
-                                    {% endblock %}
+                                <div class="c-field c-field--medium has-icon-right">
+                                    <span class="c-field__icon">
+                                        {{ source('@WSCore/cms/icons/search.svg') }}
+                                    </span>
+                                    <button class="c-field__delete fa-solid fa-circle-xmark" data-remove-input="true" type="button"></button>
+                                    <label class="u-hidden-visually" for="navbar-search">
+                                        {{ 'search'|trans({}, 'ws_cms') }}
+                                    </label>
+                                    <input
+                                            class="c-input c-input--small"
+                                            id="navbar-search"
+                                            type="text"
+                                            placeholder="{{ 'search'|trans({}, 'ws_cms') }}"
+                                            name="f"
+                                            value="{{ app.request.get('f') }}"
+                                            autocomplete="off"
+                                    >
                                 </div>
+                                <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
+                                    {{ 'search'|trans({}, 'ws_cms') }}
+                                </button>
 
-                            {% endif %}
+                                {% if filter_extended_form is not null %}
+                                    <button type="button" class="c-btn c-btn--cta c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
+                                        {{ source('@WSCore/cms/icons/filter.svg') }}
+                                        {{ 'filter'|trans({}, 'ws_cms') }}
+                                    </button>
+                                {% endif %}
+                                {% if view_export %}
+                                    <div class="c-dropdown dropdown u-hidden@md--down" data-toggle="dropdown-export" data-component="ws_dropdown">
+                                        <button class="c-btn c-btn--border has-dropdown dropdown-toggle u-pr-40"
+                                                type="button"
+                                                id="ExportDropdownButton"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                    {{ source('@WSCore/cms/icons/export.svg') }}
+                                                    {{ 'export'|trans({}, 'ws_cms') }}
+                                        </button>
+                                        {% block crud_export_formats %}
+                                            <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
+                                                <a  class="c-dropdown__item dropdown-item"
+                                                    href="{{ ws_cms_path("#{route_prefix}_export", app.request.query.all) }}">
+                                                    <i class="fal fa-file-csv u-pr-5"></i> {{ 'export.csv'|trans({}, 'ws_cms') }}
+                                                </a>
+                                                {% block crud_export_format %}
+                                                {% endblock %}
+                                            </div>
+                                        {% endblock %}
+                                    </div>
+
+                                {% endif %}
+                            </div>
                         </div>
 
                         {% block crud_filter_extended %}

@@ -36,12 +36,12 @@
     }
 
     &__body {
-        overflow: hidden;
         height: auto;
         max-height: 3000px;
         padding: 0 24px 24px;
 
         &.is-hidden {
+            overflow: hidden;
             max-height: 0;
             padding-bottom: 0;
         }

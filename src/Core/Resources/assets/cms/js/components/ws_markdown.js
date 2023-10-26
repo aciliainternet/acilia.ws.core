@@ -20,7 +20,8 @@ function clearLocalStorageData(id) {
 
 function getConfig() {
   return {
-    status: ['autosave', 'lines', 'words', 'cursor'],
+    // status: ['autosave', 'lines', 'words', 'cursor'],
+    status: false,
     autosave: {
       enabled: true,
     },

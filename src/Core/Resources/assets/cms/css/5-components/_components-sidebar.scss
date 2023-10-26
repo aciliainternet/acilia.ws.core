@@ -76,6 +76,12 @@
  * Sidebar naviagtion menu
  */
 
+ .c-sidebar__list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+
 .c-sidebar__item {
     position: relative;
     transition: background-color .2s;

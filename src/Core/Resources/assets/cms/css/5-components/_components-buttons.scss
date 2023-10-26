@@ -23,9 +23,11 @@
     gap: 8px;
     align-items: center;
     justify-content: center;
+    min-width: 39px;
 
     // overflow: hidden;
     max-width: 100%;
+    min-height: 39px;
     margin: 0;
     padding: var(--btn-padding);
     border: var(--btn-border-width) solid;
@@ -85,7 +87,7 @@
         border-color: var(--btn-disabled-border-color);
         background: var(--btn-disabled-background-color);
         color: var(--btn-disabled-color);
-        cursor: not-allowed;
+        cursor: default;
 
         i {
             color: var(--btn-disabled-color);
@@ -96,7 +98,7 @@
             border-color: var(--btn-disabled-border-color);
             background: var(--btn-disabled-background-color);
             color: var(--btn-disabled-color);
-            cursor: not-allowed;
+            cursor: default;
         }
     }
 }
@@ -245,4 +247,19 @@
 .c-btn--form {
     min-height: 3.25rem;
     padding: .5rem 1.125rem;
+}
+
+.c-btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.c-btn-actions {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.c-btn--toggle:not(:disabled) {
+    font-weight: var(--font-weight-bold);
 }
