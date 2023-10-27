@@ -78,8 +78,9 @@
 
  .c-sidebar__list-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    padding-right: 8px;
  }
 
 .c-sidebar__item {
@@ -114,7 +115,7 @@
     display: flex;
     align-content: center;
     align-items: center;
-    padding: 10px 0 10px 30px;
+    padding: 16px 0 16px 30px;
     color: #b7c0cd;
     font-size: .875rem;
     transition: background-color .2s;
@@ -276,7 +277,7 @@
     }
 
     &__item {
-        margin: 10px 0;
+        // margin: 10px 0;
 
         &.is-open {
             position: relative;
@@ -321,7 +322,7 @@
         }
 
         #{ $self }__link {
-            margin: 10px 0;
+            // margin: 10px 0;
             color: var(--grey-700);
 
             &.is-active {

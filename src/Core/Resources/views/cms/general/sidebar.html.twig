@@ -17,9 +17,9 @@
                     <ul class="c-sidebar__submenu {{ ws_cms_in_route(menu.collapsedRoutes) == 'active' ? '' : 'collapse' }}">
                         {% for submenu in menu.children %}
                             {% if ws_cms_sidebar_is_granted(submenu.roles) %}
-                                <li class="c-sidebar__list-item">
+                                <li class="c-sidebar__list-item js-submenu-children">
                                     <a
-                                        class="c-sidebar__link js-submenu-children {{ ws_cms_in_route(submenu.collapsedRoutes, 'is-active', null, submenu.routeOptions) }}"
+                                        class="c-sidebar__link {{ ws_cms_in_route(submenu.collapsedRoutes, 'is-active', null, submenu.routeOptions) }}"
                                         href="{{ path(submenu.routeName, submenu.routeOptions) }}"
                                     >
                                         <i class="fal fa-1x {{ submenu.icon }}" aria-hidden="true"></i>
@@ -38,17 +38,17 @@
                                                 title="{{ 'options'|trans({}, 'ws_cms')}}">
                                                 <i class="fa-regular fa-ellipsis-vertical"></i>
                                             </button>
-                                            {% for related_route in submenu.relatedRoutes %}
                                                 <div
                                                     class="c-dropdown__menu dropdown-menu dropdown-export"
                                                     aria-labelledby="Menu">
+                                                {% for related_route in submenu.relatedRoutes %}
                                                     <a  href="{{ path(related_route.route_name, related_route.route_options|default([])) }}"
                                                         type="button"
                                                         class="c-dropdown__item dropdown-item">
                                                         {{ related_route.route_title|trans({}, submenu.translationDomain) }}
                                                     </a>
-                                                </div>
-                                            {% endfor %}
+                                                {% endfor %}
+                                            </div>
                                         </div>
                                     {% endif %}
                                 </li>

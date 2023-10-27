@@ -70,7 +70,7 @@ function getTemplate(options) {
   if (options.dangerMode) {
     dangerMode = 'c-btn--danger';
   }
-  let buttons = `<button class="c-btn c-btn--cta c-alert-popup__btn c-alert-popup__btn--confirm ${dangerMode}" data-alert="confirm">${acceptText}</button>`;
+  let buttons = `<button class="c-btn c-btn--solid c-alert-popup__btn c-alert-popup__btn--confirm ${dangerMode}" data-alert="confirm">${acceptText}</button>`;
   if (options.buttons?.cancel) {
     buttons = `<button class="c-btn c-alert-popup__btn" data-alert="reject">${rejectText}</button>${buttons}`;
   }
