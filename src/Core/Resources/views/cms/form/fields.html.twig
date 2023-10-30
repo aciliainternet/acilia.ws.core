@@ -588,16 +588,18 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
 
                 <div class="c-asset-upload__wrapper">
                     {% if form.children.asset_file.vars.data != null %}
-                    <span class="c-asset-upload__asset" data-id="{{ id }}_link">
-                        {% if form.vars.ws.render is defined %}
-                        {{ ws_cms_crud_filter(
-                        form.vars.ws.render.filter,
-                        form.vars.ws.render.options|default([]),
-                        form.children.asset_file.vars.data)
-                        }}
-                        {% endif %}
-                        <span class="c-asset-upload__text">{{ form.children.asset_file.vars.data.filename }}</span>
-                    </span>
+                        <span class="c-asset-upload__asset" data-id="{{ id }}_link">
+                            <span class="u-hidden">
+                                {% if form.vars.ws.render is defined %}
+                                    {{ ws_cms_crud_filter(
+                                        form.vars.ws.render.filter,
+                                        form.vars.ws.render.options|default([]),
+                                        form.children.asset_file.vars.data)
+                                    }}
+                                {% endif %}
+                            </span>
+                            <span class="c-asset-upload__text">{{ form.children.asset_file.vars.data.filename }}</span>
+                        </span>
                     {% endif %}
                     <div class="c-asset-upload__asset js-form-upload {{ form.children.asset_file.vars.data != null ? 'u-hidden' }}"
                         data-id-asset-component="{{ id }}">
@@ -607,15 +609,21 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                     </div>
                     {% if form.children.asset_file.vars.data != null %}
                     <div class="c-btn-upload-image-container">
-                        <button class="c-btn c-btn--border c-btn--small c-btn--delete js-delete-asset" type="button"
+                        <button
+                            type="button"
+                            class="c-btn c-btn--border c-btn--delete c-tooltip c-tooltip--bottom  js-delete-asset"
+                            aria-label="{{ 'assets_image.delete_modal_on_image'|trans({}, 'ws_cms') }}"
                             data-id-asset-component="{{ id }}">
                             <i class="fal fa-trash-alt"></i>
-                            {{ 'delete'|trans({}, 'ws_cms') }}
+                            {# {{ 'delete'|trans({}, 'ws_cms') }} #}
                         </button>
-                        <button class="c-btn c-btn--solid c-btn--small c-btn--success js-delete-asset" type="button"
+                        <button
+                            type="button"
+                            class="c-btn c-btn--solid c-btn--secondary c-tooltip c-tooltip--bottom  js-delete-asset"
+                            aria-label="{{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}"
                             data-id-asset-component="{{ id }}">
-                            <i class="fa-sharp fa-light fa-pen"></i>
-                            {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}
+                            <i class="fa-regular fa-folder-open"></i>
+                            {# {{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }} #}
                         </button>
                     </div>
                     {% endif %}
@@ -639,17 +647,17 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                     <div class="c-img-upload__actions {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
                         <button
                             type="button"
-                            class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-open-modal"
-                            aria-label="{{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}"
-                            data-id-asset-component="{{ form.children.asset.vars.id }}">
-                            <i class="fa-regular fa-image"></i>
-                        </button>
-                        <button
-                            type="button"
-                            class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-delete-asset-image"
+                            class="c-btn c-btn--cta c-btn--primary c-btn--delete c-tooltip c-tooltip--bottom js-delete-asset-image"
                             aria-label="{{ 'assets_image.delete_modal_on_image'|trans({}, 'ws_cms') }}"
                             data-id-asset-component="{{ id }}">
                             <i class="fal fa-trash-alt"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="c-btn c-btn--solid c-btn--secondary c-tooltip c-tooltip--bottom js-open-modal"
+                            aria-label="{{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}"
+                            data-id-asset-component="{{ form.children.asset.vars.id }}">
+                            <i class="fa-sharp fa-regular fa-folder-image"></i>
                         </button>
                     </div>
                 </div>

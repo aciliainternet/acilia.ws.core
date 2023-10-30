@@ -13,10 +13,12 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-        padding: 10px 16px;
+        padding: var(--input-padding);
         border: 1px solid var(--input-border-color);
         border-radius: var(--input-border-radius);
         color: var(--color-default-text);
+        font-size: var(--input-font-size);
+        line-height: var(--base-line-height);
 
         .c-input {
             padding: 0;
