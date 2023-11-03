@@ -113,7 +113,7 @@ class MetadataConsumerService
 
                     case 'description':
                         if (isset($config['description'])) {
-                            if (strlen($config['description']) < 100) {
+                            if ('' !== $value)  {
                                 $config['description'] .= ' - ' . $value;
                             }
                         } else {
