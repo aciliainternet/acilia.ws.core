@@ -194,7 +194,7 @@ class ImageService
         $thumbRenditionHeight = 300;
         $thumbRenditionSub = ['80x80', '150x150'];
         if (isset($options['renditions'])) {
-            $thumbRendition = \array_filter($options['renditions'], fn (stdClass $rendition): bool => $rendition->name === 'thumb');
+            $thumbRendition = \array_filter($options['renditions'], fn (\stdClass $rendition): bool => $rendition->name === 'thumb');
             if (!empty($thumbRendition)) {
                 $thumbRenditionWidth = $thumbRendition[0]->width;
                 $thumbRenditionHeight = $thumbRendition[0]->height;
