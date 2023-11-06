@@ -190,14 +190,29 @@ class ImageService
             StorageDriverInterface::CONTEXT_PUBLIC
         );
 
+        $thumbRenditionWidth = 300;
+        $thumbRenditionHeight = 300;
+        $thumbRenditionSub = ['80x80', '150x150'];
+        if (isset($options['renditions'])) {
+            $thumbRendition = \array_filter($options['renditions'], fn (stdClass $rendition): bool => $rendition->name === 'thumb');
+            if (!empty($thumbRendition)) {
+                $thumbRenditionWidth = $thumbRendition[0]->width;
+                $thumbRenditionHeight = $thumbRendition[0]->height;
+                $thumbRenditionSub = [];
+            }
+        }
+
         $this->createRendition(
             $assetImage,
-            new RenditionDefinition('', '', 'thumb', 300, 300, RenditionDefinition::METHOD_THUMB, ['80x80', '150x150']),
+            new RenditionDefinition('', '', 'thumb', $thumbRenditionWidth, $thumbRenditionHeight, RenditionDefinition::METHOD_THUMB, $thumbRenditionSub),
             $options
         );
 
         if (isset($options['renditions'])){
             foreach ($options['renditions'] as $rendition) {
+                if ('thumb' === $rendition->name) {
+                    continue;
+                }
                 $this->createRendition(
                     $assetImage,
                     new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP,  [] ),
