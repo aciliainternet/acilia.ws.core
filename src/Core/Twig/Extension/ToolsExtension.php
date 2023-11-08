@@ -2,7 +2,10 @@
 
 namespace WS\Core\Twig\Extension;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 use WS\Core\Entity\Domain;
 use WS\Core\Library\CRUD\AbstractController;
@@ -14,10 +17,11 @@ use WS\Core\Service\SettingService;
 class ToolsExtension extends AbstractExtension
 {
     public function __construct(
-        protected ContextInterface $context,
-        protected AlertService $alertService,
-        protected SettingService $settingService,
-        protected DashboardService $dashboardService
+        private ContextInterface $context,
+        private AlertService $alertService,
+        private SettingService $settingService,
+        private DashboardService $dashboardService,
+        private TranslatorInterface $translator
     ) {
     }
 
@@ -37,6 +41,13 @@ class ToolsExtension extends AbstractExtension
             new TwigFunction('get_batch_action_data', [$this, 'getBatchActionData']),
             new TwigFunction('get_dashboard_widgets', [$this, 'getDashboardWidgets']),
             new TwigFunction('render_dashboard_widget', [$this, 'renderDashboardWidget'], ['is_safe' => ['html']])
+        ];
+    }
+
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('time_diff', [$this, 'getTimeDiff'], ['needs_environment' => true]),
         ];
     }
 
@@ -136,5 +147,38 @@ class ToolsExtension extends AbstractExtension
     public function renderDashboardWidget(string $widget): string
     {
         return $this->dashboardService->render($widget);
+    }
+
+    public function getTimeDiff(Environment $env, \DateTimeInterface $date, string $now = null): string
+    {
+        // Convert both dates to DateTime instances.
+        $date = twig_date_converter($env, $date);
+        $now = twig_date_converter($env, $now);
+
+        // Get the difference between the two DateTime objects.
+        $diff = $date->diff($now);
+
+        $units = [
+            'y' => 'year',
+            'm' => 'month',
+            'd' => 'day',
+            'h' => 'hour',
+            'i' => 'minute',
+            's' => 'second',
+        ];
+
+        // Check for each interval if it appears in the $diff object.
+        foreach ($units as $attribute => $unit) {
+            $count = $diff->$attribute;
+            if (0 !== $count) {
+                return $this->translator->trans(
+                    \sprintf('diff.%s.%s', $diff->invert ? 'in' : 'ago', $unit),
+                    ['%count%' => $count],
+                    'ws_cms'
+                );
+            }
+        }
+
+        return '';
     }
 }

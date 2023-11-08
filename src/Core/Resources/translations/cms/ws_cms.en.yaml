@@ -129,3 +129,18 @@ markdown.autosave: 'Saved: '
 # Drag and drop
 drag.title: Drag and drop an image or browse to choose a file
 drag.help: JPEG, PNG and WEBP only
+
+# Time diff
+diff.ago.year: one year ago|%count% years ago
+diff.ago.month: one month ago|%count% months ago
+diff.ago.day: one day ago|%count% days ago
+diff.ago.hour: one hour ago|%count% hours ago
+diff.ago.minute: one minute ago|%count% minutes ago
+diff.ago.second: one second ago|%count% seconds ago
+diff.empty: now
+diff.in.second: in one second|in %count% seconds
+diff.in.minute: in one minute|in %count% minutes
+diff.in.hour: in one hour|in %count% hours
+diff.in.day: in one day|in %count% days
+diff.in.month: in one month|in %count% months
+diff.in.year: in one year|in %count% years
