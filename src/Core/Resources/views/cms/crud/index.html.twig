@@ -31,7 +31,7 @@
                                     {% if is_granted(view_roles['create']) %}
                                         <a class="c-btn c-btn--solid" href="{{ ws_cms_path("#{route_prefix}_create") }}">
                                             <i class="fa-regular fa-plus"></i>
-                                            {{ 'new'|trans({}, 'ws_cms') }}
+                                            {# {{ 'new'|trans({}, 'ws_cms') }} #}
                                         </a>
                                     {% endif %}
                                 </div>
@@ -62,9 +62,9 @@
                                             autocomplete="off"
                                     >
                                 </div>
-                                <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
+                                {# <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
                                     {{ 'search'|trans({}, 'ws_cms') }}
-                                </button>
+                                </button> #}
 
                                 {% if filter_extended_form is not null %}
                                     <button type="button" class="c-btn c-btn--cta c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
@@ -251,7 +251,7 @@
                                                         data-title="{{ 'title'|trans([], trans_prefix) }}"
                                                         data-message="{{ 'delete_warning'|trans([], trans_prefix) }}"
                                                 >
-                                                    <i class="fal fa-trash-alt"></i>
+                                                    <i class="fa-regular fa-trash"></i>
                                                     {# {{ 'delete'|trans({}, 'ws_cms') }} #}
                                                 </button>
                                             {% endif %}

@@ -45,6 +45,10 @@
         cursor: not-allowed;
     }
 
+    &--xs {
+        padding: var(--btn-padding);
+    }
+
     &--small {
         padding: var(--btn-padding);
     }

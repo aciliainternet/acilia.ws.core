@@ -614,7 +614,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                             class="c-btn c-btn--border c-btn--delete c-tooltip c-tooltip--bottom  js-delete-asset"
                             aria-label="{{ 'assets_image.delete_modal_on_image'|trans({}, 'ws_cms') }}"
                             data-id-asset-component="{{ id }}">
-                            <i class="fal fa-trash-alt"></i>
+                            <i class="fa-regular fa-trash"></i>
                             {# {{ 'delete'|trans({}, 'ws_cms') }} #}
                         </button>
                         <button
@@ -650,7 +650,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                             class="c-btn c-btn--cta c-btn--primary c-btn--delete c-tooltip c-tooltip--bottom js-delete-asset-image"
                             aria-label="{{ 'assets_image.delete_modal_on_image'|trans({}, 'ws_cms') }}"
                             data-id-asset-component="{{ id }}">
-                            <i class="fal fa-trash-alt"></i>
+                            <i class="fa-regular fa-trash"></i>
                         </button>
                         <button
                             type="button"
@@ -818,7 +818,7 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                     <button
                         class="c-btn c-btn--cta c-btn--small c-btn--no-transition c-btn--delete-image js-list-image-delete"
                         data-image-id="#image-id" data-path="{{ path('ws_asset_image_soft_delete') }}" type="button">
-                        <i class="fal fa-trash-alt"></i>
+                        <i class="fa-regular fa-trash"></i>
                     </button>
                     <div class="c-img-modal__img-actions">
                         <button class="c-btn c-btn--solid c-btn--small u-mr-xsmall c-btn--no-transition js-list-image-use"

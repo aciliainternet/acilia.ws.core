@@ -31,23 +31,12 @@
 
 .c-pagination__list {
     display: flex;
+    gap: var(--content-spacing-s);
     font-size: 0; /* [1] */
 }
 
 .c-pagination__item {
     display: inline-block;
-
-    &:not(:last-child) {
-        margin-right: .75rem;
-    }
-
-    &:first-child {
-        margin-right: 1.5rem;
-    }
-
-    &:last-child {
-        margin-left: .75rem;
-    }
 }
 /**
 * 1. Line height of pagination control should equal its height for proper
@@ -55,20 +44,29 @@
 */
 
 .c-pagination__control {
-    display: block;
-    min-width: 32px;
-    height: $pagination-control-height; /* [1] */
-    padding: $pagination-control-padding;
-    border: $pagination-control-border-width solid $pagination-control-border-color;
-    border-radius: var(--base-border-radius-s);
-    background-color: $pagination-control-background-color;
-    color: $pagination-control-color;
-    box-shadow: 0 7px 64px 0 rgba(0, 0, 0, .07);
-    font-weight: $pagination-control-font-weight;
-    font-size: $pagination-control-font-size;
-    line-height: $pagination-control-height; /* [1] */
+    position: relative;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    max-width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: var(--btn-padding);
+    border: var(--btn-border-width) solid;
+    border-color: var(--grey-400);
+    border-radius: var(--btn-border-radius);
+    font-weight: var(--btn-font-weight);
+    font-size: var(--btn-font-size);
+    line-height: 1;
     text-align: center;
-    transition: all 275ms ease;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s ease-in-out;
+    appearance: none;
     /**
     * 1. You may resize this icon if you used another icon font.
     */
@@ -82,12 +80,12 @@
     }
 
     &:hover {
-        background-color: rgba($color: $pagination-control-background-color, $alpha: .7);
-        color: var(--heading-color);
+        border-color: var(--color-primary, var(--btn-border-color-primary));
+        color: var(--color-primary);
         text-decoration: none;
 
         i {
-            color: var(--heading-color);
+            color: var(--color-primary);
         }
     }
 
@@ -98,22 +96,33 @@
 }
 
 .c-pagination__link {
-    display: block;
-    min-width: 32px;
-    height: $pagination-link-height;
-    padding: $pagination-link-padding;
-    border: $pagination-link-border-width solid $pagination-link-border-color;
-    border-radius: var(--base-border-radius-s);
-    background-color: $pagination-link-background-color;
-    color: var(--link-color);
-    font-size: $pagination-link-font-size;
-    line-height: $pagination-link-height;
+    position: relative;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    max-width: 100%;
+    height: 40px;
+    margin: 0;
+    padding: var(--btn-padding);
+    border: var(--btn-border-width) solid;
+    border-color: var(--grey-400);
+    border-radius: var(--btn-border-radius);
+    font-weight: var(--btn-font-weight);
+    font-size: var(--btn-font-size);
+    line-height: 1;
     text-align: center;
-    transition: all 275ms ease;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s ease-in-out;
+    appearance: none;
 
     &:hover {
-        background-color: rgba($color: var(--color-info), $alpha: .3);
-        color: var(--heading-color);
+        border-color: var(--color-primary, var(--btn-border-color-primary));
+        color: var(--color-primary);
         text-decoration: none;
         transition: background-color 275ms ease;
     }
@@ -124,11 +133,12 @@
     }
 
     &.is-active {
-        background-color: var(--color-info);
+        border-color: var(--color-primary);
+        background-color: var(--color-primary);
         color: var(--white);
 
         &:hover {
-            background-color: rgba($color: var(--color-info), $alpha: .9);
+            background: color-mix(in srgb, var(--color-primary, var(--btn-background-color-primary-hover)), #ffffff 25%);
             color: var(--white);
         }
     }

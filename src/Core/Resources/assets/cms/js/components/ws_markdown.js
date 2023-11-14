@@ -29,35 +29,49 @@ function getConfig() {
     nativeSpellcheck: true,
     previewRender: false,
     autoDownloadFontAwesome: false,
-    minHeight: '100px',
-    hideIcons: ['image', 'side-by-side'],
+    minHeight: "100px",
+    hideIcons: ["image", "side-by-side"],
     toolbar: [
-      'bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', 'link', 'preview',
+      "bold",
+      "italic",
+      "heading",
+      "|",
+      "quote",
+      "unordered-list",
+      "ordered-list",
+      "link",
+      "preview",
       {
-        name: 'Insert Image',
+        name: "Insert Image",
         action: function addImage(editor) {
-          const fileInput = document.querySelector('[data-component="ws_markdown_image"]')
+          const fileInput = document.querySelector(
+            '[data-component="ws_markdown_image"]'
+          );
           fileInput.click();
           handleImage().then((image) => {
-            editor.codemirror.replaceSelection(`![${image.name}](${image.path})`);
+            editor.codemirror.replaceSelection(
+              `![${image.name}](${image.path})`
+            );
             fileInput.value = null;
           });
         },
-        className: 'fa fa-image',
-        title: 'Insert Image',
+        className: "fa fa-image",
+        title: "Insert Image",
       },
       {
-        name: 'Insert File',
+        name: "Insert File",
         action: function addFile(editor) {
-          const fileInput =document.querySelector('[data-component="ws_markdown_file"]');
+          const fileInput = document.querySelector(
+            '[data-component="ws_markdown_file"]'
+          );
           fileInput.click();
           handleFile().then((file) => {
             editor.codemirror.replaceSelection(`[${file.name}](${file.path})`);
             fileInput.value = null;
           });
         },
-        className: 'fa fa-file',
-        title: 'Insert File',
+        className: "fa fa-file",
+        title: "Insert File",
       },
     ],
   };
