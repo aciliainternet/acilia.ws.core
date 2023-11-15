@@ -559,7 +559,11 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
         {%- elseif attrvalue is same as(true) -%}
         {{- attrname }}="{{ attrname }}"
         {%- elseif attrvalue is not same as(false) -%}
+        {%- if attrvalue is iterable -%}
+        {{- attrname }}="{{ attrvalue|join(', ') }}"
+        {%- else -%}
         {{- attrname }}="{{ attrvalue }}"
+        {%- endif -%}
         {%- endif -%}
         {%- endfor -%}
         {%- endblock attributes -%}
