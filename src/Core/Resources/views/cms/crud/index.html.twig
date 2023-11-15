@@ -22,7 +22,7 @@
                             role="form"
                             accept-charset="UTF-8"
                     >
-                        <div class="c-toolbar__title">
+                        <div class="c-toolbar__header">
                             {% block crud_create_action %}
                                 <div class="u-flex u-mr-auto">
                                     {% block crud_title %}
@@ -62,12 +62,12 @@
                                             autocomplete="off"
                                     >
                                 </div>
-                                <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
+                                <button type="submit" class="c-btn c-btn--border">
                                     {{ 'search'|trans({}, 'ws_cms') }}
                                 </button>
 
                                 {% if filter_extended_form is not null %}
-                                    <button type="button" class="c-btn c-btn--cta c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
+                                    <button type="button" class="c-btn c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
                                         {{ source('@WSCore/cms/icons/filter.svg') }}
                                         {{ 'filter'|trans({}, 'ws_cms') }}
                                     </button>
