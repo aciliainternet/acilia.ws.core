@@ -159,6 +159,7 @@ $sidebar-content-lg: 350px;
             }
 
             .choices__inner {
+                display: flex;
                 min-height: auto;
                 padding: 0;
                 border-color: transparent;

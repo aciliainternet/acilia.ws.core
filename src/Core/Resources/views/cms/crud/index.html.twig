@@ -22,7 +22,7 @@
                             role="form"
                             accept-charset="UTF-8"
                     >
-                        <div class="c-toolbar__row">
+                        <div class="c-toolbar__title">
                             {% block crud_create_action %}
                                 <div class="u-flex u-mr-auto">
                                     {% block crud_title %}
@@ -62,9 +62,9 @@
                                             autocomplete="off"
                                     >
                                 </div>
-                                {# <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
+                                <button type="submit" class="c-btn c-btn--cta c-btn--border u-hidden@md--down u-mr-5">
                                     {{ 'search'|trans({}, 'ws_cms') }}
-                                </button> #}
+                                </button>
 
                                 {% if filter_extended_form is not null %}
                                     <button type="button" class="c-btn c-btn--cta c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
@@ -98,15 +98,17 @@
                         </div>
 
                         {% block crud_filter_extended %}
-                            <div class="c-toolbar__row u-hidden u-border-top u-pt-20 u-mt-20 js-toggle-filter-row">
-                                {% if filter_extended_form is not null %}
-                                    {% for filter_form_field in filter_extended_form.children %}
-                                        <div class="c-field c-field--medium c-field--filters {% if not loop.last %}u-mr-10 {% endif %}">
-                                            {{ form_label(filter_form_field) }}
-                                            {{ form_widget(filter_form_field, {'attr': {'class': ''}}) }}
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
+                            <div class="c-toolbar__filter u-hidden js-toggle-filter-row">
+                                <div class="l-form-grid l-form-grid--full">
+                                    {% if filter_extended_form is not null %}
+                                        {% for filter_form_field in filter_extended_form.children %}
+                                            <div class="c-field l-form__item l-form__item--xsmall">
+                                                {{ form_label(filter_form_field) }}
+                                                {{ form_widget(filter_form_field, {'attr': {'class': ''}}) }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
                             </div>
                         {% endblock %}
                     </form>

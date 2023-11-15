@@ -100,9 +100,14 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px 16px;
+    align-items: end;
     width: 100%;
     max-width: 860px;
     margin: auto;
+
+    &--full {
+        max-width: 100%;
+    }
 
     > .l-form__item {
         grid-column: span 4;

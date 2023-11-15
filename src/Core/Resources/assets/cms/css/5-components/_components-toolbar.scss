@@ -5,7 +5,6 @@
 @use '../1-tools/_tools-mixin-breakpoint' as *;
 @use '../1-tools/_tools-mixin-rem' as *;
 @use '../1-tools/_tools-mixin-respond-to' as *;
-
 /* ==========================================================================
    #TOOLBAR
    ========================================================================== */
@@ -81,8 +80,6 @@
         font-family: var(--base-icon-font);
     }
 }
-
-
 /**
  * Toolbar (tab-like) Navigation
  */
@@ -121,7 +118,6 @@
         font-weight: var(--font-weight-bold);
     }
 }
-
 /**
  * Toolbar stats
  *
@@ -160,9 +156,26 @@
 
 .c-toolbar {
 
-    &__row {
+    &__title {
         display: flex;
         width: 100%;
+
+        .choices__inner,
+        .c-input,
+        .c-btn {
+            min-height: initial;
+            max-height: 2.438rem;
+            padding: var(--btn-padding);
+            line-height: 1;
+        }
+    }
+
+    &__filter {
+        display: flex;
+        width: 100%;
+        margin-top: var(--content-spacing-m);
+        padding-top: var(--content-spacing-m);
+        border-top: var(--base-border-width) solid var(--base-border-color);
     }
 
     &--column {
@@ -178,15 +191,6 @@
     &--empty {
         border-bottom: 1px solid var(--grey-300);
         border-radius: 4px;
-    }
-
-    .choices__inner,
-    .c-input,
-    .c-btn {
-        min-height: initial;
-        max-height: 2.438rem;
-        padding: var(--btn-padding);
-        line-height: 1;
     }
 
     .c-choice-wrapper--small {
