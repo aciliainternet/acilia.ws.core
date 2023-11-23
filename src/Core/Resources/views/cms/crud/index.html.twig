@@ -44,27 +44,29 @@
                                     with_context = false
                                 ) }}
 
-                                <div class="c-field c-field--medium has-icon-right">
-                                    <span class="c-field__icon">
-                                        {{ source('@WSCore/cms/icons/search.svg') }}
-                                    </span>
-                                    <button class="c-field__delete fa-solid fa-circle-xmark" data-remove-input="true" type="button"></button>
-                                    <label class="u-hidden-visually" for="navbar-search">
+                                {% block crud_search %}
+                                    <div class="c-field c-field--medium has-icon-right">
+                                        <span class="c-field__icon">
+                                            {{ source('@WSCore/cms/icons/search.svg') }}
+                                        </span>
+                                        <button class="c-field__delete fa-solid fa-circle-xmark" data-remove-input="true" type="button"></button>
+                                        <label class="u-hidden-visually" for="navbar-search">
+                                            {{ 'search'|trans({}, 'ws_cms') }}
+                                        </label>
+                                        <input
+                                                class="c-input c-input--small"
+                                                id="navbar-search"
+                                                type="text"
+                                                placeholder="{{ 'search'|trans({}, 'ws_cms') }}"
+                                                name="f"
+                                                value="{{ app.request.get('f') }}"
+                                                autocomplete="off"
+                                        >
+                                    </div>
+                                    <button type="submit" class="c-btn c-btn--border">
                                         {{ 'search'|trans({}, 'ws_cms') }}
-                                    </label>
-                                    <input
-                                            class="c-input c-input--small"
-                                            id="navbar-search"
-                                            type="text"
-                                            placeholder="{{ 'search'|trans({}, 'ws_cms') }}"
-                                            name="f"
-                                            value="{{ app.request.get('f') }}"
-                                            autocomplete="off"
-                                    >
-                                </div>
-                                <button type="submit" class="c-btn c-btn--border">
-                                    {{ 'search'|trans({}, 'ws_cms') }}
-                                </button>
+                                    </button>
+                                {% endblock %}
 
                                 {% if filter_extended_form is not null %}
                                     <button type="button" class="c-btn c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
