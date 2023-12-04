@@ -16,22 +16,27 @@
 } %}
 
 {% block content %}
-    <div class="container" data-page="settings">
-        <div class="c-form">
-            <div class="c-form__content-full">
-                <div class="u-flex u-mr-auto">
-                    <h2 class="c-form__title u-h2 u-mr-10 u-mb-10">{{ 'title'|trans({}, 'ws_cms_setting') }}</h2>
+    <div class="container">
+        <div class="c-form c-form--expanded">
+            <div class="c-form__title">
+                <div class="c-form__title-wrapper">
+                    <h2 class="u-h2">{{ 'title'|trans({}, 'ws_cms_setting') }}</h2>
                 </div>
-                <p class="u-text-small u-mb-30">
-                    {{ 'disclaimer'|trans({}, 'ws_cms_setting') }}
-                </p>
+            </div>
+            <div class="l-form-grid" data-page="settings">
+                <div class="c-field l-form__item">
+                    <p class="c-alert c-alert--s c-alert--cta c-alert--info">
+                        <i class="fa-regular fa-circle-info"></i>
+                        <span>{{ 'disclaimer'|trans({}, 'ws_cms_setting') }}</span>
+                    </p>
+                </div>
                 {% for group in section.groups %}
-                    <div class="l-form__wrapper-row u-mb-30">
-                        <h5 class="u-h5 u-font-bold u-mb-30">
+                    <div class="c-field l-form__item l-form-grid">
+                        <h5 class="u-h5 u-font-bold">
                             {{ group.name|trans({}, group.translationDomain) }}
-                            {% if group.description is not empty %}
+                            {# {% if group.description is not empty %}
                                 <small class="c-field__message u-mt-5">({{ group.description|trans({}, group.translationDomain) }})</small>
-                            {% endif %}
+                            {% endif %} #}
                         </h5>
                         {{ render(controller('WS\\Core\\Controller\\CMS\\SettingController::form', {
                             'section': section.code,
@@ -39,10 +44,10 @@
                         })) }}
                     </div>
                 {% endfor %}
-                <small class="c-field__message u-mt-5"><i class="fa fa-info-circle"></i>{{ 'required'|trans({}, 'ws_cms_setting')|raw }}</small>
-                <div class="c-form__footer">
-                    <button class="c-btn c-btn--solid" data-save-url="{{ path('ws_setting_save', { 'section': section.code }) }}" id="ws-settings-save">{{ 'save'|trans({}, 'ws_cms') }}</button>
-                </div>
+                {# <small class="c-field__message u-mt-5"><i class="fa fa-info-circle"></i>{{ 'required'|trans({}, 'ws_cms_setting')|raw }}</small> #}
+            </div>
+            <div class="c-form__footer">
+                <button class="c-btn c-btn--solid" data-save-url="{{ path('ws_setting_save', { 'section': section.code }) }}" id="ws-settings-save">{{ 'save'|trans({}, 'ws_cms') }}</button>
             </div>
         </div>
     </div>

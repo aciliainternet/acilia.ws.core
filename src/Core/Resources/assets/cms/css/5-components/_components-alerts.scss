@@ -29,6 +29,11 @@
     }
 }
 
+// Size
+.c-alert--s {
+    padding: var(--alert-padding-s);
+}
+
 // Type
 .c-alert--solid {
     padding: var(--alert-padding);
