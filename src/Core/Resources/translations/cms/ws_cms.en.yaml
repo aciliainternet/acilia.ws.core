@@ -28,14 +28,14 @@ fields.id.label: Id
 fields.entity.label: Title
 date_hour_format: "m/d/Y h:i A"
 date_format: "m/d/Y"
-datePicker_date_hour: "d/m/Y H:i:S"
+datePicker_date_hour: "m/d/Y H:i:S"
 datePicker_date: "m/d/Y"
 datePicker_hour: "h:i"
 select_loading: "Loading..."
 select_noResults: "No results found"
 select_noChoices: "No choices to choose from"
 select_itemSelect: ""
-symfony_date_hour_format: "MM/dd/yyyy h:mm a"
+symfony_date_hour_format: "MM/dd/yyyy h:mm"
 symfony_date_format: "MM/dd/yyyy"
 symfony_hour_format: "h:mm a"
 pagination.first: First
