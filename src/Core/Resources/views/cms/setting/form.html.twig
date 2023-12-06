@@ -1,65 +1,70 @@
 {% for setting in settings %}
-    <h6 class="c-field__label" for="setting-{{ setting.code }}">
-        {{ setting.name|trans({}, setting.translationDomain) }}
-        {% if setting.required|default(false) %}
-            *
-        {% endif %}
-    </h6>
+    <div class="c-field l-form__item">
+        <h6 class="c-field__label" for="setting-{{ setting.code }}">
+            {{ setting.name|trans({}, setting.translationDomain) }}
+            {% if setting.required|default(false) %}
+                *
+            {% endif %}
+        </h6>
 
-    <div
-        class="l-form__row {% if setting.required and setting.value is empty %}has-warning{% endif %}"
-        id="ws-setting-{{ setting.code }}"
-    >
-        {% if setting.type == 'boolean' %}
-            <div class="l-form__item l-form__item--large c-field">
-                <div class="c-choice c-choice--checkbox">
-                    <input class="c-choice__input ws-setting-option" type="checkbox" id="{{ setting.code }}" name="{{ setting.code }}"  value="1" {% if setting.value %}checked="checked"{% endif %}>
-                    <label class="c-choice__label" for="{{ setting.code }}">
-                        {% if setting.description is not empty %}
-                            {{ setting.description|trans({}, setting.translationDomain) }}
-                        {% endif %}
-                    </label>
+        <div
+            class="l-form__row {% if setting.required and setting.value is empty %}has-warning{% endif %}"
+            id="ws-setting-{{ setting.code }}"
+        >
+            {% if setting.type == 'boolean' %}
+
+                <div class="l-form__item l-form__item--large c-field">
+                    <div class="c-choice c-choice--checkbox">
+                        <input class="c-choice__input ws-setting-option" type="checkbox" id="{{ setting.code }}" name="{{ setting.code }}"  value="1" {% if setting.value %}checked="checked"{% endif %}>
+                        <label class="c-choice__label" for="{{ setting.code }}">
+                            {% if setting.description is not empty %}
+                                {{ setting.description|trans({}, setting.translationDomain) }}
+                            {% endif %}
+                        </label>
+                    </div>
                 </div>
-            </div>
 
-        {% elseif setting.type == 'multiple' %}
-            <select name="{{ setting.code }}" class="ws-setting-option form-control">
-                {% for value, option in setting.options %}
-                    <option value="{{ value }}" {% if value == setting.value %}selected="selected"{% endif %}>{{ option }}</option>
-                {% endfor %}
-            </select>
-            <span class="help-block m-b-none">
-                {% if setting.description is not empty %}
-                    {{ setting.description|trans({}, setting.translationDomain) }}
-                {% endif %}
-            </span>
+            {% elseif setting.type == 'multiple' %}
 
-        {% elseif setting.type == 'textarea' %}
-            <div class="l-form__item l-form__item--large c-field">
-                <textarea name="{{ setting.code }}"
-                          class="c-input ws-setting-option"
-                          placeholder="{{ setting.placeholder is defined and setting.placeholder is not empty ? setting.placeholder|trans({}, setting.translationDomain) }}"
-                          rows="6">{{ setting.value }}</textarea>
-                <small class="c-field__message u-mt-5">
-                    <i class="fa fa-info-circle"></i>
-                    {% if setting.description is not empty %}{{ setting.description|trans({}, setting.translationDomain) }}{% endif %}
-                </small>
-            </div>
-
-        {% else %}
-            <div class="l-form__item l-form__item--large c-field">
-                <input name="{{ setting.code }}"
-                       type="text" 
-                       class="c-input ws-setting-option"
-                       placeholder="{{ setting.placeholder is defined and setting.placeholder is not empty ? setting.placeholder|trans({}, setting.translationDomain) }}"
-                       value="{{ setting.value }}">
-                <small class="c-field__message u-mt-5">
+                <select name="{{ setting.code }}" class="ws-setting-option form-control">
+                    {% for value, option in setting.options %}
+                        <option value="{{ value }}" {% if value == setting.value %}selected="selected"{% endif %}>{{ option }}</option>
+                    {% endfor %}
+                </select>
+                <span class="help-block m-b-none">
                     {% if setting.description is not empty %}
-                        <i class="fa fa-info-circle"></i>
                         {{ setting.description|trans({}, setting.translationDomain) }}
                     {% endif %}
-                </small>
-            </div>
-        {% endif %}
+                </span>
+
+            {% elseif setting.type == 'textarea' %}
+
+                <div class="l-form__item l-form__item--large c-field">
+                    <textarea name="{{ setting.code }}"
+                            class="c-input ws-setting-option"
+                            placeholder="{{ setting.placeholder is defined and setting.placeholder is not empty ? setting.placeholder|trans({}, setting.translationDomain) }}"
+                            rows="6">{{ setting.value }}</textarea>
+                    <small class="c-field__message u-mt-5">
+                        <i class="fa fa-info-circle"></i>
+                        {% if setting.description is not empty %}{{ setting.description|trans({}, setting.translationDomain) }}{% endif %}
+                    </small>
+                </div>
+
+            {% else %}
+                <div class="l-form__item l-form__item--large c-field">
+                    <input name="{{ setting.code }}"
+                        type="text"
+                        class="c-input ws-setting-option"
+                        placeholder="{{ setting.placeholder is defined and setting.placeholder is not empty ? setting.placeholder|trans({}, setting.translationDomain) }}"
+                        value="{{ setting.value }}">
+                    {# <small class="c-field__message u-mt-5">
+                        {% if setting.description is not empty %}
+                            <i class="fa fa-info-circle"></i>
+                            {{ setting.description|trans({}, setting.translationDomain) }}
+                        {% endif %}
+                    </small> #}
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endfor %}

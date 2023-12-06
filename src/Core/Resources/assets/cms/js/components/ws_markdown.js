@@ -35,10 +35,12 @@ function getConfig() {
       "bold",
       "italic",
       "heading",
-      "|",
       "quote",
+      "code",
+      "|",
       "unordered-list",
       "ordered-list",
+      "|",
       "link",
       "preview",
       {

@@ -27,15 +27,27 @@ trait FieldsTrait
         $sortFields = \array_merge($properties->toArray(), $methods->toArray());
 
         $fields = [];
+        $order = [];
         foreach ($sortFields as $property) {
             $attribute = $property->getAttributes(SortField::class)[0];
             $arguments = $attribute->getArguments();
 
             $fieldName = $attribute->getArguments()['name'] ?? $property->getName();
-            $fields[$fieldName] = isset($arguments['dir']) ? $arguments['dir'] : 'ASC';
+            $fields[] = [
+                'field' => $fieldName,
+                'dir' => isset($arguments['dir']) ? $arguments['dir'] : 'ASC',
+                'order' => $arguments['order'] ?? \PHP_INT_MAX
+            ];
         }
 
-        return $fields;
+        usort($fields, fn (array $a, array $b): int  => $a['order'] <=> $b['order']);
+
+        $sortFields = [];
+        foreach ($fields as $field) {
+            $sortFields[$field['field']] = $field['dir'];
+        }
+
+        return $sortFields;
     }
 
     public function getListFields(): array
@@ -67,9 +79,7 @@ trait FieldsTrait
             $fields[] = $field;
         }
 
-        usort($fields, function ($a, $b) {
-            return $a['order'] <=> $b['order'];
-        });
+        usort($fields, fn (array $a, array $b): int  => $a['order'] <=> $b['order']);
 
         return $fields;
     }
