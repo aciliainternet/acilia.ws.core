@@ -29,6 +29,16 @@ class PreviewService
         return $this->config['enabled'];
     }
 
+    public function getQuery(string $className = null): string
+    {
+        $previewQuery = null;
+        if ($this->isSupported($className)) {
+            $previewQuery = $this->supportedEntities[$className]->getPreviewQuery();
+        }
+
+        return $previewQuery ?? $this->config['query'];
+    }
+
     public function getPath(string $className = null, array $options = []): string
     {
         $previewPath = null;
