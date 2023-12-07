@@ -8,4 +8,14 @@ trait PreviewTrait
     {
         return $this->getEntityClass();
     }
+
+    public function getPreviewQuery(): ?string
+    {
+        return null;
+    }
+
+    public function getPreviewPath(array $options = []): ?string
+    {
+        return null;
+    }
 }

@@ -29,9 +29,24 @@ class PreviewService
         return $this->config['enabled'];
     }
 
-    public function getPath(): string
+    public function getQuery(string $className = null): string
     {
-        return $this->config['path'];
+        $previewQuery = null;
+        if ($this->isSupported($className)) {
+            $previewQuery = $this->supportedEntities[$className]->getPreviewQuery();
+        }
+
+        return $previewQuery ?? $this->config['query'];
+    }
+
+    public function getPath(string $className = null, array $options = []): string
+    {
+        $previewPath = null;
+        if ($this->isSupported($className)) {
+            $previewPath = $this->supportedEntities[$className]->getPreviewPath($options);
+        }
+
+        return $previewPath ?? $this->config['path'];
     }
 
     public function getLocales(): array

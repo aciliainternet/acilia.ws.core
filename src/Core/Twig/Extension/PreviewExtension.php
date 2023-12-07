@@ -48,17 +48,13 @@ class PreviewExtension extends AbstractExtension
 
         $entityClassName = (new \ReflectionClass($entity))->getName();
 
-        $extraQueryString = '';
-        if (!empty($queryString)) {
-            $extraQueryString = '&' . http_build_query($queryString);
-        }
-
         return sprintf(
-            'https://%s/%s?hash=%s%s',
+            'https://%s/%s?%s=%s%s',
             $domain->getHost(),
-            $this->previewService->getPath(),
+            $this->previewService->getPath($entityClassName, $options),
+            $this->previewService->getQuery($entityClassName, $options),
             $this->previewService->hash($entityClassName, $options),
-            $extraQueryString
+            empty($queryString) ? '' : '&' . http_build_query($queryString)
         );
     }
 
