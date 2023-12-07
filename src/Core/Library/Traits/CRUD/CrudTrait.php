@@ -4,6 +4,7 @@ namespace WS\Core\Library\Traits\CRUD;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use WS\Core\Library\DataExport\DataExport;
 
 trait CrudTrait
 {
@@ -63,6 +64,15 @@ trait CrudTrait
     protected function editExtraData(): array
     {
         return [];
+    }
+
+    protected function preExportFetchData(Request $request): void
+    {
+    }
+
+    protected function exportFetchData(?string $search, ?array $filter, string $sort, string $dir): DataExport
+    {
+        return $this->getService()->getDataExport($search, $filter, $sort, $dir);
     }
 
     protected function getFormClass(): string

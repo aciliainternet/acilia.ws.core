@@ -438,6 +438,8 @@ abstract class AbstractController extends BaseController
             throw new NotFoundHttpException();
         }
 
+        $this->preExportFetchData($request);
+
         // Search simple
         $search = strval($request->get('f'));
 
@@ -454,11 +456,11 @@ abstract class AbstractController extends BaseController
         }
 
         // Retrieve data
-        $data = $service->getDataExport(
+        $data = $this->exportFetchData(
             $search,
             $filterExtendedData,
-            strval($request->get('sort')),
-            strval($request->get('dir'))
+            \strval($request->get('sort')),
+            \strval($request->get('dir'))
         );
 
         // Set format
