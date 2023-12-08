@@ -5,6 +5,8 @@
 
     <div class="c-form c-form--full" {% block crud_show_side_formfull_attributes %}{% endblock crud_show_side_formfull_attributes %}>
 
+        {% block crud_show_header %}{% endblock %}
+        
         {% block crud_show_title %}
             <div class="u-flex u-mr-auto">
                 <h2 class="c-form__title u-h2 u-mb-30">{{ 'title'|trans({}, trans_prefix) }}</h2>

@@ -3,13 +3,11 @@
 {% page_configuration {
     'title': 'title'|trans([], trans_prefix),
     'header': 'title'|trans([], trans_prefix),
-    'breadcrumbs': [
-    {
+    'breadcrumbs': [{
         'name': 'title'|trans({}, trans_prefix),
         'main': true
-    }
-]
-    } %}
+    }]
+} %}
 
 {% block content %}
     <div class="row u-mb-large" {% block crud_attributes %}{% endblock %}>
@@ -17,11 +15,11 @@
             <div class="c-table-responsive@desktop">
                 {% block crud_filter %}
                     <form
-                            class="c-toolbar c-toolbar--column c-toolbar--caption u-justify-space-between"
-                            id="user_filter_extended_form"
-                            role="form"
-                            accept-charset="UTF-8"
-                    >
+                        class="c-toolbar c-toolbar--column c-toolbar--caption u-justify-space-between"
+                        id="user_filter_extended_form"
+                        role="form"
+                        accept-charset="UTF-8">
+
                         <div class="c-toolbar__header">
                             {% block crud_create_action %}
                                 <div class="u-flex u-mr-auto">
@@ -31,7 +29,6 @@
                                     {% if is_granted(view_roles['create']) %}
                                         <a class="c-btn c-btn--solid" href="{{ ws_cms_path("#{route_prefix}_create") }}">
                                             <i class="fa-regular fa-plus"></i>
-                                            {# {{ 'new'|trans({}, 'ws_cms') }} #}
                                         </a>
                                     {% endif %}
                                 </div>
@@ -48,20 +45,24 @@
                                     <span class="c-field__icon">
                                         {{ source('@WSCore/cms/icons/search.svg') }}
                                     </span>
-                                    <button class="c-field__delete fa-solid fa-circle-xmark" data-remove-input="true" type="button"></button>
+                                    <button
+                                        class="c-field__delete fa-solid fa-circle-xmark"
+                                        data-remove-input="true"
+                                        type="button">
+                                    </button>
                                     <label class="u-hidden-visually" for="navbar-search">
                                         {{ 'search'|trans({}, 'ws_cms') }}
                                     </label>
                                     <input
-                                            class="c-input c-input--small"
-                                            id="navbar-search"
-                                            type="text"
-                                            placeholder="{{ 'search'|trans({}, 'ws_cms') }}"
-                                            name="f"
-                                            value="{{ app.request.get('f') }}"
-                                            autocomplete="off"
-                                    >
+                                        class="c-input c-input--small"
+                                        id="navbar-search"
+                                        type="text"
+                                        placeholder="{{ 'search'|trans({}, 'ws_cms') }}"
+                                        name="f"
+                                        value="{{ app.request.get('f') }}"
+                                        autocomplete="off">
                                 </div>
+
                                 <button type="submit" class="c-btn c-btn--border">
                                     {{ 'search'|trans({}, 'ws_cms') }}
                                 </button>
@@ -72,27 +73,32 @@
                                         {{ 'filter'|trans({}, 'ws_cms') }}
                                     </button>
                                 {% endif %}
+
                                 {% if view_export %}
-                                    <div class="c-dropdown dropdown u-hidden@md--down" data-toggle="dropdown-export" data-component="ws_dropdown">
-                                        <button class="c-btn c-btn--border has-dropdown dropdown-toggle u-pr-40"
-                                                type="button"
-                                                id="ExportDropdownButton"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                    {{ source('@WSCore/cms/icons/export.svg') }}
-                                                    {{ 'export'|trans({}, 'ws_cms') }}
+                                    <div
+                                        class="c-dropdown dropdown u-hidden@md--down"
+                                        data-toggle="dropdown-export"
+                                        data-component="ws_dropdown">
+                                        <button
+                                            class="c-btn c-btn--border has-dropdown dropdown-toggle u-pr-40"
+                                            type="button"
+                                            id="ExportDropdownButton"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            {{ source('@WSCore/cms/icons/export.svg') }}
+                                            {{ 'export'|trans({}, 'ws_cms') }}
                                         </button>
+
                                         {% block crud_export_formats %}
                                             <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
                                                 <a  class="c-dropdown__item dropdown-item"
                                                     href="{{ ws_cms_path("#{route_prefix}_export", app.request.query.all) }}">
-                                                    <i class="fal fa-file-csv u-pr-5"></i> {{ 'export.csv'|trans({}, 'ws_cms') }}
+                                                    <i class="fal fa-file-csv u-pr-5"></i>
+                                                    {{ 'export.csv'|trans({}, 'ws_cms') }}
                                                 </a>
-                                                {% block crud_export_format %}
-                                                {% endblock %}
+                                                {% block crud_export_format %}{% endblock %}
                                             </div>
                                         {% endblock %}
                                     </div>
-
                                 {% endif %}
                             </div>
                         </div>
@@ -118,7 +124,9 @@
                     <div class="c-form__content-full">
                         <p class="c-alert c-alert--cta c-alert--info">
                             <i class="fa-regular fa-circle-info"></i>
-                            <span>{{ 'no_rows_found'|trans([], trans_prefix)|raw }}</span>
+                            <span>
+                                {{ 'no_rows_found'|trans([], trans_prefix)|raw }}
+                            </span>
                         </p>
                     </div>
                 </div>
