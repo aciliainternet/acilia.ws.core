@@ -35,7 +35,9 @@ class CRUDExtension extends AbstractExtension
         $request = $this->requestStack->getCurrentRequest();
 
         // fetch context params (if any)
+        /** @var array */
         $routeParams = $request->attributes->get('_route_params');
+
         $contextParams = [];
         $routeDefinition = $this->router->getRouteCollection()->get($name);
         if (null !== $routeDefinition) {
@@ -65,7 +67,7 @@ class CRUDExtension extends AbstractExtension
         return '-';
     }
 
-    public function crudFilter(Environment $environment, string $filter, array $options, mixed $value): ?string
+    public function crudFilter(Environment $environment, string $filter, array $options, mixed $value): mixed
     {
         /** @var TwigFilter */
         $twigFilter = $environment->getFilter($filter);

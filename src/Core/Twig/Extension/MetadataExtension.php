@@ -27,7 +27,7 @@ class MetadataExtension extends AbstractExtension
     }
 
 
-    public function renderMetaTags(Environment $environment)
+    public function renderMetaTags(Environment $environment): string
     {
         try {
             return $environment->render('@WSCore/metatags/metas.html.twig', [

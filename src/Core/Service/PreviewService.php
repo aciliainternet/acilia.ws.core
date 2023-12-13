@@ -29,7 +29,7 @@ class PreviewService
         return $this->config['enabled'];
     }
 
-    public function getQuery(string $className = null): string
+    public function getQuery(): string
     {
         return $this->config['query'];
     }
@@ -37,7 +37,7 @@ class PreviewService
     public function getPath(string $className = null, array $options = []): string
     {
         $previewPath = null;
-        if ($this->isSupported($className)) {
+        if (null !== $className && $this->isSupported($className)) {
             $previewPath = $this->supportedEntities[$className]->getPreviewPath($options);
         }
 

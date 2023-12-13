@@ -52,7 +52,7 @@ class PreviewExtension extends AbstractExtension
             'https://%s/%s?%s=%s%s',
             $domain->getHost(),
             $this->previewService->getPath($entityClassName, $options),
-            $this->previewService->getQuery($entityClassName, $options),
+            $this->previewService->getQuery(),
             $this->previewService->hash($entityClassName, $options),
             empty($queryString) ? '' : '&' . http_build_query($queryString)
         );
