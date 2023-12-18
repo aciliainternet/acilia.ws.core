@@ -78,6 +78,10 @@
         width: 100%;
         column-gap: 20px;
     }
+
+    .l-form__item--image:last-of-type {
+        margin-bottom: 20px;
+    }
 }
 
 .l-flex-order {
