@@ -52,9 +52,7 @@
     }
 
     i {
-        // position: relative;
-        // bottom: -1px; /* [2] */
-        // font-size: 16px;
+        font-size: 16px;
     }
 
     &.has-dropdown {
@@ -258,11 +256,5 @@
 }
 
 .c-btn--copy {
-    position: absolute;
-    top: 0;
-    right: 32px;
-    bottom: 0;
-    width: 32px;
-    height: 32px;
-    margin: auto;
+    // min-width: 42px;
 }

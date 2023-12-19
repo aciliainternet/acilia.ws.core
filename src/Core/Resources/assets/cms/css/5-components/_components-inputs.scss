@@ -50,7 +50,7 @@
     }
 
     &--small {
-        padding: var(--btn-padding);
+        padding: 8px;
     }
 
     &--select {
@@ -66,6 +66,13 @@
             font-size: 1.125rem;
             text-align: center;
         }
+    }
+
+    &--url {
+        overflow: hidden;
+        max-width: 250px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
 /**
