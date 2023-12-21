@@ -7,34 +7,23 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 trait MetadataFormTrait
 {
-    protected function addMetadataFields(FormBuilderInterface $builder, bool $required = false)
+    protected function addMetadataFields(FormBuilderInterface $builder, bool $required = false, array $options = [])
     {
         $builder
-            ->add('metadataTitle', TextType::class, [
+            ->add('metadataTitle', TextType::class, array_merge([
                 'label' => 'metadata.metadataTitle.label',
-                'label_attr' => [
-                    'class' => 'c-field__label--i18n',
-                ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
-            ])
-            ->add('metadataDescription', TextType::class, [
+            ], $options))
+            ->add('metadataDescription', TextType::class, array_merge([
                 'label' => 'metadata.metadataDescription.label',
-                'label_attr' => [
-                    'class' => 'c-field__label--i18n',
-                ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
-
-            ])
-            ->add('metadataKeywords', TextType::class, [
+            ], $options))
+            ->add('metadataKeywords', TextType::class, array_merge([
                 'label' => 'metadata.metadataKeywords.label',
-                'label_attr' => [
-                    'class' => 'c-field__label--i18n',
-                ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
-
-            ]);
+            ], $options));
     }
 }
