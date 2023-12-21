@@ -208,14 +208,14 @@ class ImageService
             $options
         );
 
-        if (isset($options['renditions'])) {
+        if (isset($options['renditions'])){
             foreach ($options['renditions'] as $rendition) {
                 if ('thumb' === $rendition->name) {
                     continue;
                 }
                 $this->createRendition(
                     $assetImage,
-                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP, [], 100),
+                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP,  [] ),
                     $options
                 );
             }
@@ -324,8 +324,6 @@ class ImageService
         );
 
         $image = $this->imageManager->make($imageContent);
-        $image->backup();
-
         $image = $this->executeRenderMethod($definition, $image, $options);
 
         $this->storageService->save(
@@ -336,9 +334,7 @@ class ImageService
 
         foreach ($definition->getSubRenditions() as $subRendition) {
             list($subRenditionWidth, $subRenditionHeight) = explode('x', $subRendition, 2);
-
-            $subRenditionImage = $this->imageManager->make($image);
-            $subRenditionImage->backup();
+            $subRenditionImage = clone $image;
 
             // check image width is empty
             if ($subRenditionWidth <= 0) {
@@ -351,14 +347,11 @@ class ImageService
             }
 
             $subRenditionImage->fit((int) $subRenditionWidth, (int) $subRenditionHeight);
-
             $this->storageService->save(
                 $this->getFilePath($assetImage, $definition->getName(), $subRendition),
                 $subRenditionImage->encode(null, $definition->getQuality()),
                 StorageDriverInterface::CONTEXT_PUBLIC
             );
-
-            $subRenditionImage->reset();
         }
     }
 
@@ -446,7 +439,7 @@ class ImageService
             $image->fit($definition->getWidth(), $definition->getHeight());
         }
 
-        $image->interlace(true);
+        $image->interlace(false);
 
         return $image;
     }
@@ -459,7 +452,7 @@ class ImageService
                 case 8:
                     $this->imageManager->make($imageFile->getPathname())
                         ->rotate(90)
-                        ->save($imageFile->getPathname(), 100);
+                        ->save($imageFile->getPathname());
                     break;
                 default:
                     break;
