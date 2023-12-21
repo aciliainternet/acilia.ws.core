@@ -80,6 +80,7 @@
         font-family: var(--base-icon-font);
     }
 }
+
 /**
  * Toolbar (tab-like) Navigation
  */
@@ -118,6 +119,7 @@
         font-weight: var(--font-weight-bold);
     }
 }
+
 /**
  * Toolbar stats
  *
@@ -195,11 +197,15 @@
 
     .c-choice-wrapper--small {
         .choices__inner {
-            min-height: 2.4375rem;
+            min-height: 42px;
         }
     }
 
     .choices[data-type='select-one'] .choices__inner {
         padding: var(--btn-padding);
+    }
+
+    .c-choice-wrapper--small .choices[data-type='select-one'] .choices__inner {
+        padding: 8px;
     }
 }

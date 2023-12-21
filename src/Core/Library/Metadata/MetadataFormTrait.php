@@ -12,18 +12,29 @@ trait MetadataFormTrait
         $builder
             ->add('metadataTitle', TextType::class, [
                 'label' => 'metadata.metadataTitle.label',
+                'label_attr' => [
+                    'class' => 'c-field__label--i18n',
+                ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
             ])
             ->add('metadataDescription', TextType::class, [
                 'label' => 'metadata.metadataDescription.label',
+                'label_attr' => [
+                    'class' => 'c-field__label--i18n',
+                ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
+
             ])
             ->add('metadataKeywords', TextType::class, [
                 'label' => 'metadata.metadataKeywords.label',
+                'label_attr' => [
+                    'class' => 'c-field__label--i18n',
+                ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
+
             ]);
     }
 }

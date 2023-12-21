@@ -62,8 +62,8 @@
         background-color: var(--white);
         color: var(--color-default-text);
         box-shadow: none;
-        font-size: .875rem;
-        line-height: 1.35rem;
+        font-size: var(--input-font-size);
+        line-height: var(--base-line-height);
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -125,11 +125,11 @@
                 }
 
                 &:focus {
-                    background: color-mix(in srgb,var(--color-brand),#fff 50%);
+                    background: color-mix(in srgb, var(--color-brand), #fff 50%);
                 }
 
                 &.is-highlighted {
-                    background: color-mix(in srgb,var(--color-brand),#fff 50%);
+                    background: color-mix(in srgb, var(--color-brand), #fff 50%);
                 }
             }
         }
@@ -182,14 +182,14 @@
     $self: &;
     margin: 0;
 
-    &__input + &__label--batch {
+    &__input+&__label--batch {
 
         &::before {
             margin: 0;
         }
     }
 
-    &__input + &__label {
+    &__input+&__label {
 
         &::before {
             top: initial;
@@ -206,7 +206,7 @@
             font-weight: var(--font-weight-normal);
         }
 
-        #{ $self }__input:checked + #{ $self }__label:checked {
+        #{ $self }__input:checked+#{ $self }__label:checked {
             content: '\f00c';
             border-color: var(--color-secondary);
             background-color: var(--color-secondary);
