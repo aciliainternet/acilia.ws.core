@@ -439,7 +439,7 @@ class ImageService
             $image->fit($definition->getWidth(), $definition->getHeight());
         }
 
-        $image->interlace(true);
+        $image->interlace(false);
 
         return $image;
     }
