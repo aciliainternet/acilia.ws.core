@@ -215,7 +215,7 @@ class ImageService
                 }
                 $this->createRendition(
                     $assetImage,
-                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP,  [], 100 ),
+                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP,  []),
                     $options
                 );
             }
@@ -452,7 +452,7 @@ class ImageService
                 case 8:
                     $this->imageManager->make($imageFile->getPathname())
                         ->rotate(90)
-                        ->save($imageFile->getPathname(), 100);
+                        ->save($imageFile->getPathname());
                     break;
                 default:
                     break;
