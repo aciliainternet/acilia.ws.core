@@ -215,7 +215,7 @@ class ImageService
                 }
                 $this->createRendition(
                     $assetImage,
-                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP,  [],100),
+                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP,  []),
                     $options
                 );
             }
