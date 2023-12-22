@@ -324,6 +324,8 @@ class ImageService
         );
 
         $image = $this->imageManager->make($imageContent);
+        $image->backup();
+
         $image = $this->executeRenderMethod($definition, $image, $options);
 
         $this->storageService->save(
@@ -334,7 +336,9 @@ class ImageService
 
         foreach ($definition->getSubRenditions() as $subRendition) {
             list($subRenditionWidth, $subRenditionHeight) = explode('x', $subRendition, 2);
-            $subRenditionImage = clone $image;
+            $subRenditionImage = $this->imageManager->make($image);
+            $subRenditionImage->backup();
+
 
             // check image width is empty
             if ($subRenditionWidth <= 0) {
@@ -352,6 +356,7 @@ class ImageService
                 $subRenditionImage->encode(null, $definition->getQuality()),
                 StorageDriverInterface::CONTEXT_PUBLIC
             );
+            $subRenditionImage->reset();
         }
     }
 
