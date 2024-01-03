@@ -50,6 +50,7 @@ function setUpLookup(elm, choices) {
   // reduce select items
   if (choices._currentState.choices.length > 100) {
     const slicedChoices = choices._currentState.choices.slice(0, 100);
+    choices.clearStore();
     choices.setChoices(slicedChoices, 'value', 'label', true);
   }
 
