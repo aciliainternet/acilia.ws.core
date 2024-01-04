@@ -1,6 +1,6 @@
 import EasyMDE from "easymde";
 // eslint-disable
-import { convertHtmlToMarkdown } from "./ws_markdown/ws_html_to_markdown";
+import { pasteHTMLAsMarkdown } from "./ws_markdown/ws_paste_events";
 import {
   init as initMarkdownImage,
   handleImage,
@@ -84,24 +84,6 @@ function getConfig() {
   };
 }
 
-function insertMarkdownContent(codemirror, event) {
-  event.preventDefault();
-  const clipboardData = event.clipboardData || window.clipboardData;
-  const pastedData = clipboardData.getData("text/html");
-  const tempHtml = document.createElement("div");
-  tempHtml.innerHTML = pastedData;
-  const bTags = tempHtml.querySelectorAll("b[id]");
-  bTags.forEach((bTag) => {
-    while (bTag.firstChild) {
-      bTag.parentNode.insertBefore(bTag.firstChild, bTag);
-    }
-    bTag.parentNode.removeChild(bTag);
-  });
-  const pastedDataModify = tempHtml.innerHTML;
-  const markdown = convertHtmlToMarkdown(pastedDataModify);
-  codemirror.replaceSelection(markdown);
-}
-
 function createMarkdown(elm, cmsTranslations, config) {
   const mdeConfiguration = config;
   mdeConfiguration.element = elm;
@@ -114,8 +96,8 @@ function createMarkdown(elm, cmsTranslations, config) {
   const mde = new EasyMDE(mdeConfiguration);
 
   mde.codemirror.on("paste", function (codemirror, event) {
-    event.preventDefault();
-    insertMarkdownContent(codemirror, event);
+    const markdown = pasteHTMLAsMarkdown(event);
+    codemirror.replaceSelection(markdown);
   });
 
   return mde;
