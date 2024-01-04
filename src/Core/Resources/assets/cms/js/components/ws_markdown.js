@@ -98,8 +98,7 @@ function createMarkdown(elm, cmsTranslations, config) {
   mde.codemirror.on("paste", function (codemirror, event) {
     event.preventDefault();
     const clipboardData = event.clipboardData || window.clipboardData;
-    const html = clipboardData.getData("text/html");
-    const markdown = convertHtmlToMarkdown(html);
+    const markdown = convertHtmlToMarkdown(clipboardData.getData("text/html"));
     codemirror.replaceSelection(markdown);
   });
 
