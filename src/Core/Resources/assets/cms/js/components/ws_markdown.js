@@ -1,6 +1,6 @@
 import EasyMDE from "easymde";
 // eslint-disable
-import { pasteHTMLAsMarkdown } from "./ws_markdown/ws_paste_events";
+import { convertHtmlToMarkdown } from "./ws_html_to_markdown";
 import {
   init as initMarkdownImage,
   handleImage,
@@ -96,7 +96,10 @@ function createMarkdown(elm, cmsTranslations, config) {
   const mde = new EasyMDE(mdeConfiguration);
 
   mde.codemirror.on("paste", function (codemirror, event) {
-    const markdown = pasteHTMLAsMarkdown(event);
+    event.preventDefault();
+    const clipboardData = event.clipboardData || window.clipboardData;
+    const html = clipboardData.getData("text/html");
+    const markdown = convertHtmlToMarkdown(html);
     codemirror.replaceSelection(markdown);
   });
 

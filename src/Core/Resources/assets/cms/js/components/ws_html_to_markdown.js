@@ -41,5 +41,14 @@ turndownService.addRule("h2", {
 });
 
 export function convertHtmlToMarkdown(html) {
-  return turndownService.turndown(html);
+  const tempHtml = document.createElement("div");
+  tempHtml.innerHTML = html;
+  const bTags = tempHtml.querySelectorAll("b[id]");
+  bTags.forEach((bTag) => {
+    while (bTag.firstChild) {
+      bTag.parentNode.insertBefore(bTag.firstChild, bTag);
+    }
+    bTag.parentNode.removeChild(bTag);
+  });
+  return turndownService.turndown(tempHtml.innerHTML);
 }
