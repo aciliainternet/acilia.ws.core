@@ -30,6 +30,7 @@
     "sweetalert": "2.1.2",
     "tippy.js": "6.2.3",
     "toastr": "2.1.4",
+    "turndown": "^7.1.2",
     "vanilla-lazyload": "15.1.1",
     "vanilla-picker": "2.10.1"
   }
