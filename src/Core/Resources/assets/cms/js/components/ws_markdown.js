@@ -28,7 +28,7 @@ function getConfig() {
   return {
     status: false,
     autosave: {
-      enabled: false,
+      enabled: true,
     },
     spellChecker: false,
     nativeSpellcheck: true,
