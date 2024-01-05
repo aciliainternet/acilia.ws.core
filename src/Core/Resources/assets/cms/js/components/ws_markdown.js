@@ -1,14 +1,20 @@
-// add this line because eslint demands that the package be on dependencies
-// eslint-disable-next-line import/no-extraneous-dependencies
-import EasyMDE from 'easymde';
-import { init as initMarkdownImage, handleImage } from './ws_markdown/ws_markdown_image';
-import { init as initMarkdownFile, handleFile } from './ws_markdown/ws_markdown_file';
+import EasyMDE from "easymde";
+// eslint-disable
+import { convertHtmlToMarkdown } from "./ws_html_to_markdown";
+import {
+  init as initMarkdownImage,
+  handleImage,
+} from "./ws_markdown/ws_markdown_image";
+import {
+  init as initMarkdownFile,
+  handleFile,
+} from "./ws_markdown/ws_markdown_file";
+// eslint-enable
 
 const editors = [];
 
 function clearLocalStorageData(id) {
   const { localStorage, performance } = window;
-
   if (performance.navigation.type !== performance.navigation.TYPE_RELOAD) {
     Object.keys(localStorage).forEach((key) => {
       if (key.includes(id)) {
@@ -20,7 +26,6 @@ function clearLocalStorageData(id) {
 
 function getConfig() {
   return {
-    // status: ['autosave', 'lines', 'words', 'cursor'],
     status: false,
     autosave: {
       enabled: true,
@@ -83,13 +88,21 @@ function createMarkdown(elm, cmsTranslations, config) {
   const mdeConfiguration = config;
   mdeConfiguration.element = elm;
 
-  // before autosave, we clear localstorage
   clearLocalStorageData(elm.id);
-
   mdeConfiguration.autosave.uniqueId = elm.id;
-  mdeConfiguration.autosave.text = cmsTranslations.ws_cms_components.markdown.autosave;
+  mdeConfiguration.autosave.text =
+    cmsTranslations.ws_cms_components.markdown.autosave;
 
-  return new EasyMDE(mdeConfiguration);
+  const mde = new EasyMDE(mdeConfiguration);
+
+  mde.codemirror.on("paste", function (codemirror, event) {
+    event.preventDefault();
+    const clipboardData = event.clipboardData || window.clipboardData;
+    const markdown = convertHtmlToMarkdown(clipboardData.getData("text/html"));
+    codemirror.replaceSelection(markdown);
+  });
+
+  return mde;
 }
 
 export function refreshEditor(id) {
@@ -106,11 +119,14 @@ function init() {
     const { cmsTranslations } = window;
 
     if (cmsTranslations === undefined || cmsTranslations === null) {
-      throw Error('No CMS Translations defined.');
+      throw Error("No CMS Translations defined.");
     }
 
     markDowns.forEach((elm) => {
-      editors.push({ key: elm, instance: createMarkdown(elm, cmsTranslations, getConfig()) });
+      editors.push({
+        key: elm,
+        instance: createMarkdown(elm, cmsTranslations, getConfig()),
+      });
     });
 
     initMarkdownImage();
