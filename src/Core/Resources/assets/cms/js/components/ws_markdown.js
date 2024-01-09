@@ -33,7 +33,6 @@ function getConfig() {
     spellChecker: false,
     nativeSpellcheck: true,
     previewRender: false,
-    previewImagesInEditor: true,
     autoDownloadFontAwesome: false,
     minHeight: "100px",
     hideIcons: ["image", "side-by-side"],
@@ -49,6 +48,16 @@ function getConfig() {
       "|",
       "link",
       "preview",
+      {
+        name: "togglePreviewImages",
+        action: function togglePreviewImages(editor) {
+          editor.options.previewImagesInEditor =
+            !editor.options.previewImagesInEditor;
+          editor.codemirror.refresh();
+        },
+        className: "fa fa-images",
+        title: "Toggle Image Preview",
+      },
       {
         name: "Insert Image",
         action: function addImage(editor) {
@@ -99,7 +108,15 @@ function createMarkdown(elm, cmsTranslations, config) {
   mde.codemirror.on("paste", function (codemirror, event) {
     event.preventDefault();
     const clipboardData = event.clipboardData || window.clipboardData;
-    const markdown = convertHtmlToMarkdown(clipboardData.getData("text/html"));
+    const pastedData = convertHtmlToMarkdown(
+      clipboardData.getData("text/html")
+    );
+    let markdown;
+    if (pastedData) {
+      markdown = convertHtmlToMarkdown(pastedData);
+    } else {
+      markdown = clipboardData.getData("text/plain");
+    }
     codemirror.replaceSelection(markdown);
   });
 
