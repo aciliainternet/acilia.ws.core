@@ -328,12 +328,6 @@ class ImageService
 
         $image = $this->executeRenderMethod($definition, $image, $options);
 
-        $imagick = $image->getCore();
-        $imagick->resizeImage($definition->getWidth(), $definition->getHeight(), \Imagick::FILTER_LANCZOS, 1);
-        $image = $this->imageManager->make($imagick);
-
-        $image->sharpen(10);
-
         $this->storageService->save(
             $this->getFilePath($assetImage, $definition->getName()),
             $image->encode(null, $definition->getQuality()),
@@ -420,6 +414,8 @@ class ImageService
             }
         }
 
+        $image->sharpen(5);
+
         return $image;
     }
 
@@ -452,7 +448,7 @@ class ImageService
             $image->fit($definition->getWidth(), $definition->getHeight());
         }
 
-        $image->interlace(true);
+        $image->interlace(true)->sharpen(5);
 
         return $image;
     }
