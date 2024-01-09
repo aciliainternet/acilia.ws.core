@@ -33,6 +33,7 @@ function getConfig() {
     spellChecker: false,
     nativeSpellcheck: true,
     previewRender: false,
+    previewImagesInEditor: true,
     autoDownloadFontAwesome: false,
     minHeight: "100px",
     hideIcons: ["image", "side-by-side"],
