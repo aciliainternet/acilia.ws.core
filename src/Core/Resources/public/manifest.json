@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
   "core.css": "/bundles/wscore/css/core-VTBST6YK.css",
   "core.js": "/bundles/wscore/js/core-SACIUFZ6.js"
+=======
+  "core.css": "/bundles/wscore/css/core-D2QOHUE7.css",
+  "core.js": "/bundles/wscore/js/core-EWZKPSEE.js"
+>>>>>>> 7457573 (avoid increase EasyMDEContainer when display images)
 }
