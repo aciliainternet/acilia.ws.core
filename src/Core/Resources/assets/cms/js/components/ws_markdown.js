@@ -47,17 +47,6 @@ function getConfig() {
       "ordered-list",
       "|",
       "link",
-      "preview",
-      {
-        name: "togglePreviewImages",
-        action: function togglePreviewImages(editor) {
-          editor.options.previewImagesInEditor =
-            !editor.options.previewImagesInEditor;
-          editor.codemirror.refresh();
-        },
-        className: "fa fa-images",
-        title: "Toggle Image Preview",
-      },
       {
         name: "Insert Image",
         action: function addImage(editor) {
@@ -89,6 +78,18 @@ function getConfig() {
         },
         className: "fa fa-file",
         title: "Insert File",
+      },
+      "|",
+      "preview",
+      {
+        name: "togglePreviewImages",
+        action: function togglePreviewImages(editor) {
+          editor.options.previewImagesInEditor =
+            !editor.options.previewImagesInEditor;
+          editor.codemirror.refresh();
+        },
+        className: "fa fa-images",
+        title: "Toggle Image Preview",
       },
     ],
   };
