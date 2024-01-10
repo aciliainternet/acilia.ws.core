@@ -47,7 +47,6 @@ function getConfig() {
       "ordered-list",
       "|",
       "link",
-      "preview",
       {
         name: "Insert Image",
         action: function addImage(editor) {
@@ -80,6 +79,18 @@ function getConfig() {
         className: "fa fa-file",
         title: "Insert File",
       },
+      "|",
+      "preview",
+      {
+        name: "togglePreviewImages",
+        action: function togglePreviewImages(editor) {
+          editor.options.previewImagesInEditor =
+            !editor.options.previewImagesInEditor;
+          editor.codemirror.refresh();
+        },
+        className: "fa fa-images",
+        title: "Toggle Image Preview",
+      },
     ],
   };
 }
@@ -98,7 +109,15 @@ function createMarkdown(elm, cmsTranslations, config) {
   mde.codemirror.on("paste", function (codemirror, event) {
     event.preventDefault();
     const clipboardData = event.clipboardData || window.clipboardData;
-    const markdown = convertHtmlToMarkdown(clipboardData.getData("text/html"));
+    const pastedData = convertHtmlToMarkdown(
+      clipboardData.getData("text/html")
+    );
+    let markdown;
+    if (pastedData) {
+      markdown = convertHtmlToMarkdown(pastedData);
+    } else {
+      markdown = clipboardData.getData("text/plain");
+    }
     codemirror.replaceSelection(markdown);
   });
 
