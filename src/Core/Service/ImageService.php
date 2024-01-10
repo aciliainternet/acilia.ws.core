@@ -86,14 +86,14 @@ class ImageService
             if ($aspectRatio === null) {
                 $ratios['_'] = [
                     'label' => '_',
-                    'fraction' => null
+                    'fraction' => null,
                 ];
             } else {
                 $key = (string) str_replace(':', 'x', $aspectRatio);
                 list($width, $height) = explode(':', $aspectRatio, 2);
                 $ratios[$key] = [
                     'label' => $aspectRatio,
-                    'fraction' => round(\intval($width) / \intval($height), 4, PHP_ROUND_HALF_UP)
+                    'fraction' => round(\intval($width) / \intval($height), 4, PHP_ROUND_HALF_UP),
                 ];
             }
         }
@@ -194,7 +194,7 @@ class ImageService
         $thumbRenditionHeight = 300;
         $thumbRenditionSub = ['80x80', '150x150'];
         if (isset($options['renditions'])) {
-            $thumbRendition = \array_filter($options['renditions'], fn (\stdClass $rendition): bool => $rendition->name === 'thumb');
+            $thumbRendition = \array_filter($options['renditions'], fn(\stdClass $rendition): bool => $rendition->name === 'thumb');
             if (!empty($thumbRendition)) {
                 $thumbRenditionWidth = $thumbRendition[0]->width;
                 $thumbRenditionHeight = $thumbRendition[0]->height;
@@ -208,14 +208,14 @@ class ImageService
             $options
         );
 
-        if (isset($options['renditions'])){
+        if (isset($options['renditions'])) {
             foreach ($options['renditions'] as $rendition) {
                 if ('thumb' === $rendition->name) {
                     continue;
                 }
                 $this->createRendition(
                     $assetImage,
-                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP,  []),
+                    new RenditionDefinition('', '', $rendition->name, $rendition->width, $rendition->height, RenditionDefinition::METHOD_CROP, []),
                     $options
                 );
             }
@@ -336,9 +336,9 @@ class ImageService
 
         foreach ($definition->getSubRenditions() as $subRendition) {
             list($subRenditionWidth, $subRenditionHeight) = explode('x', $subRendition, 2);
+
             $subRenditionImage = $this->imageManager->make($image);
             $subRenditionImage->backup();
-
 
             // check image width is empty
             if ($subRenditionWidth <= 0) {
@@ -351,11 +351,13 @@ class ImageService
             }
 
             $subRenditionImage->fit((int) $subRenditionWidth, (int) $subRenditionHeight);
+
             $this->storageService->save(
                 $this->getFilePath($assetImage, $definition->getName(), $subRendition),
                 $subRenditionImage->encode(null, $definition->getQuality()),
                 StorageDriverInterface::CONTEXT_PUBLIC
             );
+
             $subRenditionImage->reset();
         }
     }
@@ -378,7 +380,7 @@ class ImageService
             is_array($options['cropper']) &&
             count($options['cropper']) > 0
         ) {
-            $key = $options['thumb-rendition'] ??  null;
+            $key = $options['thumb-rendition'] ?? null;
             if (null !== $key && isset($options['cropper'][$key])) {
                 list(
                     $cropData['w'],
@@ -412,6 +414,8 @@ class ImageService
             }
         }
 
+        $image->sharpen(5);
+
         return $image;
     }
 
@@ -444,7 +448,7 @@ class ImageService
             $image->fit($definition->getWidth(), $definition->getHeight());
         }
 
-        $image->interlace(true);
+        $image->interlace(true)->sharpen(5);
 
         return $image;
     }
