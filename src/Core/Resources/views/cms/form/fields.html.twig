@@ -645,19 +645,27 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                         </figure>
                     {% endif %}
                     <div class="c-img-upload__actions {{ form.children.asset_image.vars.data == null ? 'u-hidden' }}">
+                        {% if form.children.asset_image.vars.data != null %}
+                            <a
+                                class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom"
+                                aria-label="{{ 'assets_image.donwload_on_image'|trans({}, 'ws_cms') }}"
+                                href="{{asset_get_image(form.children.asset_image.vars.data, 'original') }}" download>
+                                <i class="fa-regular fa-down-to-bracket"></i>
+                            </a>
+                        {% endif %}
+                        <button
+                            type="button"
+                            class="c-btn c-btn--cta c-btn--primary c-tooltip c-tooltip--bottom js-open-modal"
+                            aria-label="{{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}"
+                            data-id-asset-component="{{ form.children.asset.vars.id }}">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
                         <button
                             type="button"
                             class="c-btn c-btn--cta c-btn--primary c-btn--delete c-tooltip c-tooltip--bottom js-delete-asset-image"
                             aria-label="{{ 'assets_image.delete_modal_on_image'|trans({}, 'ws_cms') }}"
                             data-id-asset-component="{{ id }}">
                             <i class="fa-regular fa-trash"></i>
-                        </button>
-                        <button
-                            type="button"
-                            class="c-btn c-btn--solid c-btn--secondary c-tooltip c-tooltip--bottom js-open-modal"
-                            aria-label="{{ 'assets_image.change_modal_on_image'|trans({}, 'ws_cms') }}"
-                            data-id-asset-component="{{ form.children.asset.vars.id }}">
-                            <i class="fa-sharp fa-regular fa-folder-image"></i>
                         </button>
                     </div>
                 </div>

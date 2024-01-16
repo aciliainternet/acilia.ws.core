@@ -3,6 +3,16 @@
 @use '../1-tools/_tools-mixin-rem' as *;
 @use '../1-tools/_tools-mixin-position' as *;
 
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .c-img-upload {
     $self: &;
     display: grid;
@@ -60,12 +70,12 @@
 
     &__img {
         display: block;
-        width: 100%;
+        object-fit: contain;
+        width: auto;
+        max-width: 300px;
         height: auto;
-        margin-bottom: 16px;
         max-height: 300px;
         aspect-ratio: 3/2;
-        object-fit: contain;
     }
 
     &__actions {
@@ -82,6 +92,10 @@
         display: flex;
         gap: 16px;
         justify-content: flex-end;
+    }
+
+    &__loader {
+        animation: spin 2s linear infinite;
     }
 }
 

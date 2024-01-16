@@ -168,6 +168,24 @@ function showCropper(elm, cropperIndex) {
       `${cropperSelector} .ws-cropper_details_min_h`
     ).innerText = cropperConfig.minimums.height;
 
+    const inputData = document.querySelector("#" + elm.id);
+    const cutObject = inputData.getAttribute("data-renditions");
+    const cutJSON = JSON.parse(cutObject);
+
+    for (const key in cutJSON) {
+      if (cutJSON.hasOwnProperty(key)) {
+        const subObject = cutJSON[key];
+        if (
+          cropperConfig.minimums.width === subObject.width &&
+          cropperConfig.minimums.height === subObject.height
+        ) {
+          document.querySelector(
+            `${cropperSelector} .ws-cropper_details_cut`
+          ).innerText = subObject.name;
+        }
+      }
+    }
+
     if (croppersConfig.length > cropperIndex + 1) {
       document.querySelector(
         `${cropperSelector} .ws-cropper_save`

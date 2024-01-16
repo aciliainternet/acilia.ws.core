@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="container">
-        <div class="row">
+        <div class="c-dashboard row">
             {% for widget in get_dashboard_widgets() %}
                 {{ render_dashboard_widget(widget) }}
             {% endfor %}

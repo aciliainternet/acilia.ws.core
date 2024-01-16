@@ -62,10 +62,7 @@ html {
 }
 
 .row {
-    display: box;
-    display: flexbox;
     display: flex;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
@@ -76,8 +73,8 @@ html {
     margin-left: 0;
 }
 
-.no-gutters > .col,
-.no-gutters > [class*='col-'] {
+.no-gutters>.col,
+.no-gutters>[class*='col-'] {
     padding-right: 0;
     padding-left: 0;
 }

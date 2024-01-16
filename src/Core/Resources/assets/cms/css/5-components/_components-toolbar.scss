@@ -197,15 +197,15 @@
 
     .c-choice-wrapper--small {
         .choices__inner {
-            min-height: 42px;
+            min-height: 39px;
         }
     }
 
     .choices[data-type='select-one'] .choices__inner {
-        padding: var(--btn-padding);
+        padding: var(--input-padding);
     }
 
     .c-choice-wrapper--small .choices[data-type='select-one'] .choices__inner {
-        padding: 8px;
+        padding: var(--btn-padding);
     }
 }

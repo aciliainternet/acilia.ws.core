@@ -45,6 +45,7 @@ class AssetImageType extends AbstractType
 
         $aspectRatiosFractions = $this->imageService->getAspectRatiosForComponent($entityClass, $entityField);
         $minimums = $this->imageService->getMinimumsForComponent($entityClass, $entityField);
+        $renditions = $this->imageService->getRenditions($entityClass, $entityField);
 
         $builder->add('asset', FileType::class, [
             'constraints' => new File([
@@ -64,7 +65,14 @@ class AssetImageType extends AbstractType
                 'data-ratios' => json_encode($aspectRatiosFractions),
                 'data-minimums' => json_encode($minimums),
                 'data-display-mode' => $options['ws']['display-mode'],
-                'data-is-visible' => 'false'
+                'data-is-visible' => 'false',
+                'data-renditions' => json_encode(array_map(function ($rendition): array {
+                    return [
+                        'name' => $rendition->getName(),
+                        'width' => $rendition->getWidth(),
+                        'height' => $rendition->getHeight(),
+                    ];
+                }, $renditions))
             ],
         ]);
 
