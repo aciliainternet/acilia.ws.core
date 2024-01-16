@@ -69,6 +69,7 @@ assets_image.drag: Click here or drag to add a new image
 assets_image.image_list.use: Use
 assets_image.image_list.crop: Crop
 assets_images_noResults: There is no more images to show
+assets_image.donwload_on_image: Download
 
 # Languages
 language.es: Spanish
