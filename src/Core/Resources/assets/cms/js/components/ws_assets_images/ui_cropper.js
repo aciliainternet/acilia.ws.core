@@ -179,9 +179,43 @@ function showCropper(elm, cropperIndex) {
           cropperConfig.minimums.width === subObject.width &&
           cropperConfig.minimums.height === subObject.height
         ) {
-          document.querySelector(
+          let iconClass = "";
+          let textLabel = "";
+          switch (subObject.name) {
+            case "hero_s":
+              iconClass = "fa-lg fa-regular fa-mobile";
+              textLabel = "mobile";
+              break;
+            case "hero_m":
+              iconClass = "fa-lg fa-regular fa-tablet";
+              textLabel = "tablet";
+              break;
+            case "hero_l":
+              iconClass = "fa-lg fa-regular fa-display";
+              textLabel = "desktop";
+              break;
+            case "hero_xl":
+              iconClass = "fa-lg fa-regular fa-display";
+              textLabel = "desktop large";
+              break;
+            case "card":
+              iconClass = "fa-lg fa-regular fa-image";
+              textLabel = "card";
+              break;
+            default:
+              iconClass = "fa-lg fa-regular fa-image";
+              textLabel = subObject.name;
+          }
+          const icon = document.createElement("i");
+          icon.className = iconClass;
+
+          const detailsContainer = document.querySelector(
             `${cropperSelector} .ws-cropper_details_cut`
-          ).innerText = subObject.name;
+          );
+          detailsContainer.innerHTML = "";
+
+          detailsContainer.appendChild(icon);
+          detailsContainer.append(` ${textLabel}`);
         }
       }
     }

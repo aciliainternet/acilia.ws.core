@@ -736,15 +736,17 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                         </div>
                     {% else %}
                         <div class="ws-cropper_details">
-                            <div class="c-badge c-badge--primary c-badge--xl">
-                                {{ 'cropper_ratio'|trans({}, 'ws_cms') }}
-                                <span class=" ws-cropper_details_ratio"></span>
+                            <div class="c-badge c-badge--primary c-badge--xl ws-cropper_details_cut">
                             </div>
                             <div class="c-badge c-badge--primary c-badge--xl">
                                 {{ 'cropper_size'|trans({}, 'ws_cms') }}
                                 <span>
                                     <span class="ws-cropper_details_min_w"></span>x<span class="ws-cropper_details_min_h"></span>
                                 </span>
+                            </div>
+                            <div class="c-badge c-badge--primary c-badge--xl">
+                                {{ 'cropper_ratio'|trans({}, 'ws_cms') }}
+                                <span class=" ws-cropper_details_ratio"></span>
                             </div>
                             <p class="ws-cropper_details_obs"></p>
                         </div>
