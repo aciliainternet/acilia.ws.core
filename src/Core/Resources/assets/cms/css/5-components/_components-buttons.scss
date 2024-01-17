@@ -76,8 +76,8 @@
         }
     }
 
-    &.is-disabled,
-    &:disabled { /* [4] */
+    &:disabled {
+        /* [4] */
         border-color: var(--btn-disabled-border-color);
         background: var(--btn-disabled-background-color);
         color: var(--btn-disabled-color);
@@ -93,6 +93,11 @@
             background: var(--btn-disabled-background-color);
             color: var(--btn-disabled-color);
         }
+    }
+
+    &.is-disabled {
+        cursor: not-allowed;
+        pointer-events: none;
     }
 }
 
