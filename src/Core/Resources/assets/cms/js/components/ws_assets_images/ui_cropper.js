@@ -114,17 +114,21 @@ function setPreview(elementId, src) {
 function checkCropSize(event) {
   try {
     const parent = event.currentTarget.closest(".ws-cropper_modal");
-    // get the current index
     const index = parseInt(parent.dataset.croppIndex, 10) - 1;
     const { minimums } = getCropperInstance(parent.dataset.id).config[index];
     const { width, height } = event.detail;
 
-    if (width < minimums.width || height < minimums.height) {
-      getCropperInstance(parent.dataset.id).cropper.setData({
-        width: Math.max(minimums.width, width),
-        height: Math.max(minimums.height, height),
-      });
+    // Comprueba si las dimensiones actuales ya cumplen con las dimensiones mínimas
+    if (width >= minimums.width || height >= minimums.height) {
+      // Si las dimensiones actuales son suficientes, no se hace nada
+      return;
     }
+
+    // Si las dimensiones son menores que las mínimas, ajusta el recorte
+    getCropperInstance(parent.dataset.id).cropper.setData({
+      width: Math.max(minimums.width, width),
+      height: Math.max(minimums.height, height),
+    });
   } catch (error) {
     // this catch is to catch the error
     // 'InternalError: "too much recursion"' from the cropper library
