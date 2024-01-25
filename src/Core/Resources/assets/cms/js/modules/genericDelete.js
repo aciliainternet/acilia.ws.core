@@ -1,4 +1,3 @@
-import showAlert from './a_alert';
 import showSngAlert from './a_alert-v2';
 
 function onRemoveDone(event) {
@@ -9,7 +8,11 @@ function onRemoveDone(event) {
     case 500:
     case 403:
     case 404:
-      showSngAlert(response.msg);
+      showSngAlert({
+        title: response.title ?? 'Error',
+        text: response.msg,
+        icon: 'error',
+      });
       break;
     case 200:
       if (response.id) {

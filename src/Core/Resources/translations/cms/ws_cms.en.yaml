@@ -14,6 +14,7 @@ delete: Delete
 delete_failed: An error occured deleting the element, please try again.
 delete_confirm: Yes, delete
 delete_title_success: Deleted Successfully
+delete_title_error: Delete Error
 save: Save
 save.edit: Save and Stay
 save.back: Save and Back

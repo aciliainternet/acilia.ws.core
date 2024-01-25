@@ -386,6 +386,7 @@ abstract class AbstractController extends BaseController
             ], Response::HTTP_OK);
         } catch (\Exception) {
             return $this->json([
+                'title' => $this->trans('delete_title_error', [], 'ws_cms'),
                 'msg' => $this->trans('delete_failed', [], 'ws_cms')
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }

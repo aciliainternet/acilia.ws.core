@@ -14,6 +14,7 @@ delete: Eliminar
 delete_failed: Ha ocurrido un error al eliminar, intente nuevamente
 delete_confirm: Sí, borrar
 delete_title_success: Borrado exitoso
+delete_title_error: Error al borrar
 save: Guardar
 save.edit: Guardar y Continuar Editando
 save.back: Guardar y Volver
