@@ -46,7 +46,7 @@ function init() {
       const options = {
         locale: cmsSettings.locale,
       };
-      const { format, defaultHour } = elm.dataset;
+      const { format, defaultHour, mobileSupport } = elm.dataset;
       if (format && Object.prototype.hasOwnProperty.call(datePickerCMSConfig.format, format)) {
         // if the format from the input exist in the configuration json for the component, we assig it
         options.dateFormat = datePickerCMSConfig.format[format];
@@ -60,6 +60,9 @@ function init() {
       }
       if (defaultHour) {
         options.defaultHour = defaultHour;
+      }
+      if (mobileSupport === 'disabled') {
+        options.disableMobile = true;
       }
       aDatePicker(elm, options);
       addEraseButton(elm);
