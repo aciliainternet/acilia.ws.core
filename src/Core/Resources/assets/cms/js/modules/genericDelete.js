@@ -72,7 +72,7 @@ function sendDeletePost(value) {
   }
 }
 
-function remove(event) {
+export function remove(event) {
   const { title, message, id } = event.currentTarget.dataset;
   showSngAlert({
     icon: 'warning',
