@@ -36,7 +36,7 @@ select_loading: "Loading..."
 select_noResults: "No results found"
 select_noChoices: "No choices to choose from"
 select_itemSelect: ""
-symfony_date_hour_format: "MM/dd/yyyy h:mm"
+symfony_date_hour_format: "MM/dd/yyyy HH:mm"
 symfony_date_format: "MM/dd/yyyy"
 symfony_hour_format: "h:mm a"
 pagination.first: First
