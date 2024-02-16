@@ -114,7 +114,7 @@ function createMarkdown(elm, cmsTranslations, config) {
     );
     let markdown;
     if (pastedData) {
-      markdown = convertHtmlToMarkdown(pastedData);
+      markdown = pastedData;
     } else {
       markdown = clipboardData.getData("text/plain");
     }
