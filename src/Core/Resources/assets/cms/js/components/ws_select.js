@@ -82,6 +82,7 @@ function init() {
     if (!elm.dataset.wsDisable) {
       config.searchEnabled = elm.dataset.search ? elm.dataset.search : false;
       config.searchResultLimit = elm.dataset.searchLimit ? elm.dataset.searchLimit : 9999;
+      config.shouldSort = !elm.dataset.disableSort;
       const choices = aSelect(elm, config);
 
       if (elm.dataset.search && elm.dataset.lookup) {
