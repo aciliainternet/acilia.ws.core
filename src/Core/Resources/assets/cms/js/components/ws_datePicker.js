@@ -33,15 +33,8 @@ function addEraseButton(elm) {
   });
 }
 
-function init() {
-  const { cmsSettings } = window;
-  if (cmsSettings === undefined || cmsSettings === null) {
-    throw Error('No CMS Settings defined.');
-  }
-
-  const datePickerCMSConfig = cmsSettings.ws_cms_components.datepicker;
-
-  document.querySelectorAll('[data-component="ws_datepicker"]').forEach((elm) => {
+function iterateInit(parentNode, cmsSettings, datePickerCMSConfig) {
+  parentNode.querySelectorAll('[data-component="ws_datepicker"]').forEach((elm) => {
     if (!elm.dataset.wsDisable) {
       const options = {
         locale: cmsSettings.locale,
@@ -68,6 +61,25 @@ function init() {
       addEraseButton(elm);
     }
   });
+}
+
+function init(parent = '') {
+  const { cmsSettings } = window;
+  if (cmsSettings === undefined || cmsSettings === null) {
+    throw Error('No CMS Settings defined.');
+  }
+
+  const datePickerCMSConfig = cmsSettings.ws_cms_components.datepicker;
+  if (parent !== '') {
+    const parentNode = document.querySelectorAll(`.${parent}`);
+    parentNode.forEach((elm) => {
+      iterateInit(elm, cmsSettings, datePickerCMSConfig);
+      elm.classList.remove(parent);
+    });
+
+  } else {
+    iterateInit(document, cmsSettings, datePickerCMSConfig);
+  }
 }
 
 export default init;
