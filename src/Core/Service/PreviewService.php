@@ -60,7 +60,7 @@ class PreviewService
 
         $data = \strval(json_encode($data));
         $data = \strval(gzdeflate($data));
-        $data = Encryption::encrypt($data, Encryption::SECRET, Encryption::ALGORITHM);
+        $data = Encryption::encrypt($data);
         $data = rawurlencode($data);
 
         return $data;
@@ -69,7 +69,7 @@ class PreviewService
     public function unHash(string $hash): array
     {
         $data = rawurldecode($hash);
-        $data = Encryption::decrypt($data, Encryption::SECRET, Encryption::ALGORITHM);
+        $data = Encryption::decrypt($data);
         $data = \strval(gzinflate($data));
         $data = (array)json_decode($data, true);
 

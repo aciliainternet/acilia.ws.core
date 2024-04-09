@@ -4,26 +4,30 @@ namespace WS\Core\Library\Preview;
 
 class Encryption
 {
-    public const ALGORITHM = 'blowfish';
+    public const CIPHERING = 'AES-128-CBC';
     public const SECRET = '3bf1e30f73c17405883d4e6bf6781f7095fc1c62';
 
-    public static function encrypt(string $plainData, string $secret, string $algorithm): string
+    public static function encrypt(string $plainData, string $secret = self::SECRET, string $algorithm = self::CIPHERING): string
     {
-        return \base64_encode($plainData);
+        $ivLen = openssl_cipher_iv_length($algorithm);
 
-        /*$iv = rand(11111111, 99999999);
-        $encryptedData = openssl_encrypt($plainData, $algorithm, $secret, 0, (string) $iv);
+        $iv = openssl_random_pseudo_bytes($ivLen);
 
-        return base64_encode(sprintf('%s.%s', $iv, $encryptedData));*/
+        $ciphertextRaw = openssl_encrypt($plainData, $algorithm, $secret, $options = OPENSSL_RAW_DATA, $iv);
+        $hmac = hash_hmac('sha256', $ciphertextRaw, $secret, $binary = true);
+        
+        return base64_encode($iv . $hmac . $ciphertextRaw);
     }
 
-    public static function decrypt(string $encryptedData, string $secret, string $algorithm): string
+    public static function decrypt(string $encryptedData, string $secret = self::SECRET, string $algorithm = self::CIPHERING): string
     {
-        return \base64_decode($encryptedData);
+        $c = base64_decode($encryptedData);
+        $ivLen = openssl_cipher_iv_length($algorithm);
 
-        /*list($iv, $encryptedData) = explode('.', base64_decode($encryptedData), 2);
+        $iv = substr($c, 0, $ivLen);
+        $hmac = substr($c, $ivLen, $sha2len=32);
+        $ciphertextRaw = substr($c, $ivLen + $sha2len);
 
-        $decrypt = openssl_decrypt($encryptedData, $algorithm, $secret, 0, $iv);
-        return $decrypt !== false ? $decrypt : '';*/
+        return openssl_decrypt($ciphertextRaw, $algorithm, $secret, $options = OPENSSL_RAW_DATA, $iv);
     }
 }
