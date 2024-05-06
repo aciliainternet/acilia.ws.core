@@ -235,6 +235,7 @@
 
 .c-field__select {
     position: relative;
+
     &::after {
         content: '';
         position: absolute;
