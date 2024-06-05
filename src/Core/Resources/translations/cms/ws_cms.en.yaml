@@ -108,7 +108,9 @@ publishing.publishUntil.placeholder: Publish Until
 
 # Metadata
 metadata.metadataTitle.label: Metadata Title
+metadata.metadataTitle.help: 0 out of 60 characters recommended
 metadata.metadataDescription.label: Metadata Description
+metadata.metadataDescription.help: 0 out of 160 characters recommended
 metadata.metadataKeywords.label: Metadata Keywords
 
 # Batch actions
