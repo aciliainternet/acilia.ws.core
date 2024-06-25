@@ -1,18 +1,23 @@
 // data-tabsection and data-tablink should have the same name, this data allow you create more than one tab control in the same page
 
-function changeTab(event) {
-  const tab = event.currentTarget;
+function changeTab(event: Event) {
+  const tab = event.currentTarget as HTMLLIElement;
   if (tab.classList.contains('is-active')) {
     return false;
   }
 
-  const section = document.getElementById(tab.dataset.tab);
+  const tabDataset = tab.dataset.tab;
+  if (!tabDataset) {
+    return false;
+  }
 
-  tab.parentElement.querySelector('.is-active').classList.remove('is-active');
+  const section = document.getElementById(tabDataset);
+
+  tab.parentElement?.querySelector('.is-active')?.classList.remove('is-active');
   tab.classList.add('is-active');
 
-  document.querySelector(`[data-tablink=${tab.dataset.tabsection}].is-active`).classList.remove('is-active');
-  section.classList.add('is-active');
+  document.querySelector(`[data-tablink=${tab.dataset.tabsection}].is-active`)?.classList.remove('is-active');
+  section?.classList.add('is-active');
 
   return true;
 }

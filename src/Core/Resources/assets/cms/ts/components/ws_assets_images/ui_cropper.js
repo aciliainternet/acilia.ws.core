@@ -177,7 +177,7 @@ function showCropper(elm, cropperIndex) {
     const cutJSON = JSON.parse(cutObject);
 
     for (const key in cutJSON) {
-      if (cutJSON.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(cutJSON, key)) {
         const subObject = cutJSON[key];
         if (
           cropperConfig.minimums.width === subObject.width &&

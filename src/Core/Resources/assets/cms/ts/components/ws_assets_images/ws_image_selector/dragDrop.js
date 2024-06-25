@@ -38,4 +38,5 @@ function init() {
   });
 }
 
+// eslint-disable-next-line no-undef
 module.exports = init();

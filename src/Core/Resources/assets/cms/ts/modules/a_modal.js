@@ -51,6 +51,7 @@ class AModal {
       minWidth: '280px',
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
     if (options.updateURL !== undefined) {
@@ -204,4 +205,5 @@ class AModal {
   }
 }
 
+// eslint-disable-next-line no-undef
 module.exports = AModal;

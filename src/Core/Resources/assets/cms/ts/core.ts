@@ -1,5 +1,5 @@
-// Polyfills... because EDGE 15.
-import 'core-js/features/dom-collections/for-each';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
 
 // modules
 import './modules/genericDelete';
