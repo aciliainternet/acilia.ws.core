@@ -29,7 +29,7 @@ trait PublishingFormTrait
                 'label' => 'publishing.publishStatus.label',
                 'choices' => $publishingOptions,
                 'attr' => [
-                    'data-component' => 'ws_select',
+                    'data-controller' => 'ws-select',
                 ],
             ])
         ;
