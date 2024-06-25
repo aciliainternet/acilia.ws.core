@@ -1,6 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-nocheck
 
+// stimulus
+import './stimulus_bootstrap.ts';
+
 // modules
 import './modules/genericDelete';
 import './modules/batchActions';
@@ -8,7 +11,7 @@ import './modules/filter';
 import { init as moduleNotifications } from './modules/a_notifications';
 
 // components
-import componentSlug from './components/ws_slug';
+//import componentSlug from './components/ws_slug';
 import componentSelect from './components/ws_select';
 import componentMarkdown from './components/ws_markdown';
 import componentDatePicker from './components/ws_datePicker';
@@ -41,7 +44,7 @@ moduleNotifications();
 componentMarkdown();
 componentDatePicker();
 componentInputMultiple();
-componentSlug();
+//componentSlug();
 componentSelect();
 componentWidgetListModal();
 componentAssetsImage();
