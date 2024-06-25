@@ -2,10 +2,12 @@
 
 namespace WS\Core\Twig\Tag\MetaTags;
 
+use Twig\Attribute\YieldReady;
 use Twig\Node\Node;
 use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
 
+#[YieldReady]
 class MetaTagsNode extends Node
 {
     public function __construct(string $name, AbstractExpression $value, int $lineno = 0, string $tag = null)
