@@ -2,7 +2,7 @@ import Choices, { Choices as ChoicesNamespace } from 'choices.js';
 
 export type Item = ChoicesNamespace.Item;
 
-interface CurrentState {
+type CurrentState = {
   items: ChoicesNamespace.Item[];
   choices: ChoicesNamespace.Item[];
 }

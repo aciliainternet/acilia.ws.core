@@ -9,7 +9,7 @@ const fetchLookupDelay = 500;
 let fetchLookupTimeout: number | null = null;
 const fetchLookupCache: { [index: string]: Item[] } = {};
 
-interface WSSelectConfig {
+type WSSelectConfig = {
   loadingText: string;
   noResultsText: string;
   noChoicesText: string;
@@ -31,10 +31,10 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     selectTranslations = cmsTranslations.ws_cms_components.select;
 
     const config: WSSelectConfig = {
-      loadingText: selectTranslations.loading,
-      noResultsText: selectTranslations.no_results,
-      noChoicesText: selectTranslations.no_choices,
-      itemSelectText: selectTranslations.item_select,
+      loadingText: selectTranslations?.loading ?? 'loading',
+      noResultsText: selectTranslations?.no_results ?? 'no results',
+      noChoicesText: selectTranslations?.no_choices ?? 'no choices',
+      itemSelectText: selectTranslations?.item_select ?? 'item select',
       removeItems: true,
       removeItemButton: true,
       resetScrollPosition: false,

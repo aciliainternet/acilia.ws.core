@@ -1,7 +1,7 @@
 import { CMSTranslations } from '../interfaces/translations';
 
 declare global {
-  interface Window {
+  type Window = {
     cmsTranslations: CMSTranslations;
   }
 }

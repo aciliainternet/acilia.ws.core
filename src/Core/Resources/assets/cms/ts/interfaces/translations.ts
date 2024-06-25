@@ -1,4 +1,4 @@
-export interface SelectTranslations {
+export type SelectTranslations = {
   loading: string;
   no_results: string;
   no_choices: string;
