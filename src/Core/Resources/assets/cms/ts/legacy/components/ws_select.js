@@ -46,9 +46,9 @@ async function lookup(choices, apiUrl) {
   }
 }
 
-function setUpLookup(elm, choices) {
+function setUpLookup(elm, choices, canLimit = true) {
   // reduce select items
-  if (choices._currentState.choices.length > 100) {
+  if (choices._currentState.choices.length > 100 && canLimit) {
     const slicedChoices = choices._currentState.choices.slice(0, 100);
     choices.clearStore();
     choices.setChoices(slicedChoices, 'value', 'label', true);
@@ -86,7 +86,8 @@ function init() {
       const choices = aSelect(elm, config);
 
       if (elm.dataset.search && elm.dataset.lookup) {
-        setUpLookup(elm, choices);
+        const canLimit = elm.dataset.dontLimit ? false : true;
+        setUpLookup(elm, choices, canLimit);
       }
     }
   });
