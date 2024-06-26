@@ -45,7 +45,7 @@ componentMarkdown();
 componentDatePicker();
 componentInputMultiple();
 //componentSlug();
-componentSelect();
+//componentSelect();
 componentWidgetListModal();
 componentAssetsImage();
 componentAssets();
