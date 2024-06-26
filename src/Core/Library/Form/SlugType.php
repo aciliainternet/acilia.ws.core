@@ -12,7 +12,7 @@ class SlugType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
-            'ws_attr' => ['data-component' => 'ws_slug']
+            'ws_attr' => ['data-controller' => 'ws-slug']
         ]);
     }
 

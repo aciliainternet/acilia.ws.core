@@ -1,4 +1,3 @@
-import showAlert from './a_alert';
 import showSngAlert from './a_alert-v2';
 
 function manageActionsSelector(show) {

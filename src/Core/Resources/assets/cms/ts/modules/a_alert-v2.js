@@ -7,8 +7,8 @@ function showSngAlert(options = null, callback = null) {
 }
 
 function setAlert(options) {
-  return new Promise((resolve, reject) => {
-    const template =  getTemplate(options);
+  return new Promise(resolve => {
+    const template = getTemplate(options);
     const wrapperTemplate = document.createElement('div');
     wrapperTemplate.innerHTML = template;
     wrapperTemplate.setAttribute('data-sngularalert', 'true');
@@ -24,7 +24,7 @@ function setAlert(options) {
       if (options.buttons?.confirm?.value) {
         resolve(options.buttons.confirm.value);
       } else {
-        resolve("ok");
+        resolve('ok');
       }
     };
 
@@ -37,12 +37,18 @@ function setAlert(options) {
       // reject("ko");
     };
     if (document.querySelector('[data-alert="confirm"]')) {
-      document.querySelector('[data-alert="confirm"]').addEventListener("click", confirmAction);
+      document
+        .querySelector('[data-alert="confirm"]')
+        .addEventListener('click', confirmAction);
     }
     if (document.querySelector('[data-alert="confirm"]')) {
-      document.querySelector('[data-alert="confirm"]').addEventListener("click", confirmAction);
+      document
+        .querySelector('[data-alert="confirm"]')
+        .addEventListener('click', confirmAction);
     }
-    document.querySelector('[data-sngularalert]').addEventListener("click", rejectAction);
+    document
+      .querySelector('[data-sngularalert]')
+      .addEventListener('click', rejectAction);
   });
 }
 
@@ -62,10 +68,19 @@ function getTemplate(options) {
       icon = '<i class="fa-light fa-circle-check"></i>';
       break;
     default:
-      icon = success;
+      icon = '<i class="fa-sharp fa-light fa-circle-info"></i>';
+      break;
   }
-  const acceptText = options.buttons && options.buttons.confirm ? options.buttons.confirm.text : 'Aceptar';
-  const rejectText = options.buttons && options.buttons.cancel ? options.buttons.cancel : 'Cancelar';
+
+  const acceptText =
+    options.buttons && options.buttons.confirm
+      ? options.buttons.confirm.text
+      : 'Aceptar';
+  const rejectText =
+    options.buttons && options.buttons.cancel
+      ? options.buttons.cancel
+      : 'Cancelar';
+
   let dangerMode = '';
   if (options.dangerMode) {
     dangerMode = 'c-btn--danger';

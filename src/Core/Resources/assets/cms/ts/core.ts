@@ -1,5 +1,8 @@
-// Polyfills... because EDGE 15.
-import 'core-js/features/dom-collections/for-each';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-nocheck
+
+// stimulus
+import './stimulus_bootstrap.ts';
 
 // modules
 import './modules/genericDelete';
@@ -8,8 +11,8 @@ import './modules/filter';
 import { init as moduleNotifications } from './modules/a_notifications';
 
 // components
-import componentSlug from './components/ws_slug';
-import componentSelect from './components/ws_select';
+//import componentSlug from './components/ws_slug';
+//import componentSelect from './components/ws_select';
 import componentMarkdown from './components/ws_markdown';
 import componentDatePicker from './components/ws_datePicker';
 import componentInputMultiple from './components/ws_input_multiple';
@@ -42,7 +45,7 @@ moduleNotifications();
 componentMarkdown();
 componentDatePicker();
 componentInputMultiple();
-componentSlug();
+//componentSlug();
 componentSelect();
 componentWidgetListModal();
 componentAssetsImage();

@@ -93,7 +93,7 @@
 {%- block choice_widget_collapsed -%}
 {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or
 attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merge({ 'class' : 'c-select ' ~
-    attr.class|default('') }) %} <select {{ block('widget_attributes') }} data-component="ws_select" {% if multiple %}
+    attr.class|default('') }) %} <select {{ block('widget_attributes') }} data-controller="ws-select" {% if multiple %}
     multiple="multiple" {% endif %}>
     {%- if attr.placeholder|default('') is not empty -%}
     <option value="" {% if required and value is empty %} selected="selected" {% endif %}>{{ attr.placeholder != '' ?

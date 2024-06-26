@@ -1,6 +1,7 @@
 /* eslint-disable quotes */
 import * as dotenv from 'dotenv';
 import { build } from 'esbuild';
+import esbuildPluginTsc from 'esbuild-plugin-tsc';
 import manifestPlugin from 'esbuild-plugin-manifest';
 import { sassPlugin } from 'esbuild-sass-plugin';
 import { cleanPlugin } from 'esbuild-clean-plugin';
@@ -11,12 +12,15 @@ dotenv.config();
 function generateManifest(entry) {
   const manifestKeysMap = {
     'core.scss': 'core.css',
-    'core.js': 'core.js',
+    'core.ts': 'core.js',
   };
 
   const manifestEntry = entry;
   return Object.keys(manifestEntry).reduce((acc, key) => {
-    manifestEntry[key] = manifestEntry[key].replace('src/Core/Resources/public/', '/bundles/wscore/');
+    manifestEntry[key] = manifestEntry[key].replace(
+      'src/Core/Resources/public/',
+      '/bundles/wscore/'
+    );
     return { ...acc, [manifestKeysMap[key]]: manifestEntry[key] };
   }, {});
 }
@@ -25,7 +29,7 @@ const isWatch = process.argv.includes('--watch');
 const isDev = isWatch || process.env.APP_ENV === 'dev';
 const entryPoints = [
   'src/Core/Resources/assets/cms/css/core.scss',
-  'src/Core/Resources/assets/cms/js/core.js',
+  'src/Core/Resources/assets/cms/ts/core.ts',
 ];
 
 build({
@@ -60,8 +64,13 @@ build({
       setup(bld) {
         // Mark all paths starting with "../fonts/" as external
         bld.onResolve(
-          { filter: /^\.\.\/fonts\// },
-          (args) => ({ path: args.path, external: true }),
+          {
+            filter: /^\.\.\/fonts\//
+          },
+          (args) => ({
+            path: args.path,
+            external: true
+          }),
         );
       },
     },
@@ -82,6 +91,9 @@ build({
       ],
       target: './src/Core/Resources/public/fonts',
       copyWithFolder: false,
+    }),
+    esbuildPluginTsc({
+      force: true,
     }),
   ],
 });

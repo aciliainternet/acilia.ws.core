@@ -17,7 +17,7 @@ function addEraseButton(elm) {
 
   elm.insertAdjacentElement('afterend', button);
 
-  getADatePickerInstance(elm).config.onChange.push((selectedDates, dateStr) => {
+  getADatePickerInstance(elm).config.onChange.push((selectedDates) => {
     if (selectedDates.length > 0) {
       button.classList.remove('hidden');
     } else {
