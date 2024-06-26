@@ -2,8 +2,7 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
-use Symfony\Component\DependencyInjection\ServiceLocator;
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 use WS\Core\Library\Alert\AlertGathererInterface;
 use WS\Core\Library\Alert\GatherAlertsEvent;
 
@@ -12,8 +11,8 @@ class AlertService
     protected ?array $alerts = null;
 
     public function __construct(
-        #[TaggedLocator(AlertGathererInterface::class)]
-        private ServiceLocator $gatherers
+        #[TaggedIterator(AlertGathererInterface::class)]
+        private iterable $gatherers
     ) {
     }
 

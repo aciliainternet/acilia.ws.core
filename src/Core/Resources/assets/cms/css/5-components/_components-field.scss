@@ -232,3 +232,21 @@
 .l-form__item--image {
     width: auto;
 }
+
+.c-field__select {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 11.5px;
+        width: 0;
+        height: 0;
+        margin-top: -2.5px;
+        border-width: 5px;
+        border-color: #333333 transparent transparent;
+        border-style: solid;
+        pointer-events: none;
+    }
+}
