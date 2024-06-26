@@ -14,6 +14,7 @@ trait MetadataFormTrait
             ->add('metadataTitle', TextareaType::class, array_merge([
                 'label' => 'metadata.metadataTitle.label',
                 'help' => 'metadata.metadataTitle.help',
+                'help_html' => true,
                 'attr' => [
                     'class' => 'js-char-count',
                     'maxlength' => 60,
@@ -24,6 +25,7 @@ trait MetadataFormTrait
             ->add('metadataDescription', TextareaType::class, array_merge([
                 'label' => 'metadata.metadataDescription.label',
                 'help' => 'metadata.metadataDescription.help',
+                'help_html' => true,
                 'attr' => [
                     'class' => 'js-char-count',
                     'maxlength' => 160,

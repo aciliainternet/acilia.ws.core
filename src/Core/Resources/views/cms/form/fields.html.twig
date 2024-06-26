@@ -408,9 +408,9 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
                     {%- endif -%}
                 {%- else -%}
                     {%- if help_html is same as(false) -%}
-                        {{ help|trans({}, translation_domain) }}
+                        {{- help|trans(help_translation_parameters, translation_domain) -}}
                     {%- else -%}
-                        {{ help|trans }}
+                        {{- help|trans(help_translation_parameters, translation_domain)|raw -}}
                     {%- endif -%}
                 {%- endif -%}
             </small>
