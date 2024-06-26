@@ -10,7 +10,7 @@ Table of Contents
 FormTypes
 ---------------
 
-* SlugType chnage data-componet for data-controller
+* SlugType change data-componet for data-controller
     *Before*
 
    ```php
@@ -27,7 +27,7 @@ FormTypes
     ],
    ```
 
-* SelectType chnage data-componet for data-controller
+* SelectType change data-componet for data-controller
     *Before*
 
    ```php
@@ -43,3 +43,22 @@ FormTypes
         'data-controller' => 'ws-select',
     ],
    ```
+
+* DatePickerType and DateTimePickerType change data-componet for data-controller
+    *Before*
+
+   ```php
+   'attr' => [
+        'data-component' => 'ws_datepicker',
+    ],
+   ```
+
+   *After*
+
+   ```php
+   'attr' => [
+        'data-controller' => 'ws-datepicker',
+    ],
+   ```
+
+'data-controller' => 'ws-datepicker',

@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { CMSTranslations } from '../interfaces/translations';
+import { CMSSettings } from '../interfaces/settings';
 
 declare global {
-  type Window = {
+  interface Window {
     cmsTranslations: CMSTranslations;
+    cmsSettings: CMSSettings;
   }
 }

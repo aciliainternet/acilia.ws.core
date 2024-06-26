@@ -1,6 +1,5 @@
 import '../typings/global.d';
 import { Controller } from '@hotwired/stimulus';
-/* eslint-disable no-underscore-dangle */
 import aSelect, { ChoicesExtended, Item } from '../modules/a_select';
 import { SelectTranslations } from '../interfaces/translations';
 
@@ -42,7 +41,7 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
 
     if (!this.element.dataset.wsDisable) {
       config.searchEnabled = this.element.dataset.search
-        ? this.element.dataset.search === 'true'
+        ? (this.element.dataset.search === 'true' || this.element.dataset.search === 'data-search')
         : false;
 
       config.searchResultLimit = this.element.dataset.searchLimit

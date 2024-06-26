@@ -10,7 +10,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DatePickerType extends AbstractType
 {
     public const DATE_PICKER_ATTR = [
-        'data-component' => 'ws_datepicker',
+        'data-controller' => 'ws-datepicker',
         'data-format' => 'date'
     ];
 

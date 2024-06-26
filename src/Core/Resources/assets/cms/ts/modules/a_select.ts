@@ -11,7 +11,7 @@ type CurrentState = {
  * Extending the Choices type due to bad typings
  * provided by the package.
  */
-export interface ChoicesExtended extends Choices {
+export type ChoicesExtended = Choices & {
   _currentState: CurrentState;
   choices: ChoicesNamespace.Item[];
   input: HTMLSelectElement | HTMLInputElement;
