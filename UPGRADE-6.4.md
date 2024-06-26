@@ -61,4 +61,19 @@ FormTypes
     ],
    ```
 
-'data-controller' => 'ws-datepicker',
+* InputMultipleType change data-componet for data-controller
+    *Before*
+
+   ```php
+   'attr' => [
+        'data-component' => 'ws_input-multiple',
+    ],
+   ```
+
+   *After*
+
+   ```php
+   'attr' => [
+        'data-controller' => 'ws-input-multiple',
+    ],
+   ```
