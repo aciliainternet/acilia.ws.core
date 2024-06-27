@@ -10,7 +10,10 @@
             {# {{ 'preview'|trans({}, 'ws_cms')}} #}
         </a>
     {% else %}
-        <div class="c-dropdown dropdown u-hidden@md--down" data-toggle="dropdown-export" data-component="ws_dropdown">
+        <div
+            class="c-dropdown dropdown u-hidden@md--down"
+            data-controller="ws-dropdown"
+            data-action="click->ws-dropdown#toggleDropdown">
             <button
                 class="c-btn c-btn--border has-dropdown dropdown-toggle"
                 type="button"
@@ -18,12 +21,18 @@
                 <i class="fa-regular fa-eye"></i>
                 {# {{ 'preview'|trans({}, 'ws_cms')}} #}
             </button>
-            <div class="c-dropdown__menu dropdown-menu dropdown-export" aria-labelledby="ExportDropdownButton">
-            {% for preview_locale in ws_preview_locales() %}
-                <a class="c-dropdown__item dropdown-item" href="{{ ws_preview_path(entity, { 'id': entity.id, '_locale': preview_locale}) }}" target="_blank">
+            <div
+                class="c-dropdown__menu dropdown-menu"
+                data-ws-dropdown-target="toggle"
+                aria-labelledby="ExportDropdownButton">
+                {% for preview_locale in ws_preview_locales() %}
+                <a
+                    class="c-dropdown__item dropdown-item"
+                    href="{{ ws_preview_path(entity, { 'id': entity.id, '_locale': preview_locale}) }}"
+                    target="_blank">
                     {{ "preview.#{preview_locale}.label"|trans([], trans_prefix) }}
                 </a>
-            {% endfor %}
+                {% endfor %}
             </div>
         </div>
     {% endif %}

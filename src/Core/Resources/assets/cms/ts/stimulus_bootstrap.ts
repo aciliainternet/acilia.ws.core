@@ -5,7 +5,8 @@ import WSDatePicker from './controllers/ws-date-picker_controller';
 import WSInputMultiple from './controllers/ws-input-multiple_controller';
 import WSColorPicker from './controllers/ws-color-picker_controller';
 import WSRangeSlider from './controllers/ws-range-slider_controller';
-
+import WSTooltip from './controllers/ws-tooltip_controller';
+import WSDropdown from './controllers/ws-dropdown_controller';
 
 const stimulus = Application.start();
 stimulus.register('ws-slug', WSSlug);
@@ -14,3 +15,5 @@ stimulus.register('ws-datepicker', WSDatePicker);
 stimulus.register('ws-input-multiple', WSInputMultiple);
 stimulus.register('ws-color-picker', WSColorPicker);
 stimulus.register('ws-range-slider', WSRangeSlider);
+stimulus.register('ws-tooltip', WSTooltip);
+stimulus.register('ws-dropdown', WSDropdown);

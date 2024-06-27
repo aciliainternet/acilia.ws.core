@@ -30,8 +30,8 @@
                                     {% if submenu.relatedRoutes is not empty %}
                                         <div
                                             class="c-dropdown dropdown"
-                                            data-toggle="dropdown-export"
-                                            data-component="ws_dropdown">
+                                            data-controller="ws-dropdown"
+                                            data-action="click->ws-dropdown#toggleDropdown">
                                             <button
                                                 class="c-btn c-btn--ghost c-btn--primary dropdown-toggle"
                                                 type="button"
@@ -39,7 +39,8 @@
                                                 <i class="fa-regular fa-ellipsis-vertical"></i>
                                             </button>
                                                 <div
-                                                    class="c-dropdown__menu dropdown-menu dropdown-export"
+                                                    class="c-dropdown__menu dropdown-menu"
+                                                    data-ws-dropdown-target="toggle"
                                                     aria-labelledby="Menu">
                                                 {% for related_route in submenu.relatedRoutes %}
                                                     <a  href="{{ path(related_route.route_name, related_route.route_options|default([])) }}"
@@ -60,8 +61,7 @@
                 <li>
                     <a
                         class="c-sidebar__link {{ ws_cms_in_route(menu.collapsedRoutes, 'is-active') }}"
-                        href="{{ path(menu.routeName, menu.routeOptions) }}"
-                    >
+                        href="{{ path(menu.routeName, menu.routeOptions) }}">
                         <i class="fal fa-1x {{ menu.icon }}" aria-hidden="true"></i>
                         <span class="c-sidebar__text">
                             {{ menu.label|trans({}, menu.translationDomain)|raw  }}
