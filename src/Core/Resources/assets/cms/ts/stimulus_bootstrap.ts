@@ -7,6 +7,8 @@ import WSColorPicker from './controllers/ws-color-picker_controller';
 import WSRangeSlider from './controllers/ws-range-slider_controller';
 import WSTooltip from './controllers/ws-tooltip_controller';
 import WSDropdown from './controllers/ws-dropdown_controller';
+import WSTableCollapse from './controllers/ws-table-collapse_controller';
+import WSToggleChoice from './controllers/ws-toggle-choice_controller';
 
 const stimulus = Application.start();
 stimulus.register('ws-slug', WSSlug);
@@ -17,3 +19,5 @@ stimulus.register('ws-color-picker', WSColorPicker);
 stimulus.register('ws-range-slider', WSRangeSlider);
 stimulus.register('ws-tooltip', WSTooltip);
 stimulus.register('ws-dropdown', WSDropdown);
+stimulus.register('ws-table-collapse', WSTableCollapse);
+stimulus.register('ws-toggle-choice', WSToggleChoice);

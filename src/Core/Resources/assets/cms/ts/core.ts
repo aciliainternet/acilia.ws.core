@@ -23,8 +23,8 @@ import componentAssets from './components/ws_assets';
 //import componentRangeSlider from './components/ws_rangeSlider';
 //import componentTooltip from './components/ws_tooltip';
 //import componentDropdown from './components/ws_dropdown';
-import componentTableCollapse from './components/ws_table_collapse';
-import componentToggleChoice from './components/ws_toggle_choice';
+//import componentTableCollapse from './components/ws_table_collapse';
+//import componentToggleChoice from './components/ws_toggle_choice';
 import componentCharCount from './components/ws_char_count';
 
 // controllers
@@ -54,8 +54,8 @@ componentAssets();
 //componentRangeSlider();
 //componentTooltip();
 //componentDropdown();
-componentTableCollapse();
-componentToggleChoice();
+//componentTableCollapse();
+//componentToggleChoice();
 componentCharCount();
 
 if (document.querySelector('[data-page="settings"]')) {

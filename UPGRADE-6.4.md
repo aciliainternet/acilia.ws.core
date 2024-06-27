@@ -77,3 +77,29 @@ FormTypes
         'data-controller' => 'ws-input-multiple',
     ],
    ```
+
+* Dropdowns change data-componet for data-controller
+    *Before*
+
+   ```html
+    data-component="ws_dropdown"
+   ```
+
+   *After*
+
+   ```html
+    'data-controller' => 'ws-dropdown',
+   ```
+
+* Table collaps change data-componet for data-controller
+    *Before*
+
+    ```html
+    data-component="ws_table_collapse"
+    ```
+
+   *After*
+
+    ```html
+    'data-controller' => 'ws-table-collapse',
+   ```
