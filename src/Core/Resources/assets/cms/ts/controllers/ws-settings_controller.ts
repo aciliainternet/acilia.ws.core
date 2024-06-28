@@ -41,14 +41,14 @@ export default class extends Controller {
 
       if (response.ok) {
         this.element.dispatchEvent(
-          new CustomEvent('notifications:showSuccess', {
+          new CustomEvent('ws-notifications:showSuccess', {
             bubbles: true,
             detail: { msg: responseData.msg },
           })
         );
       } else {
         this.element.dispatchEvent(
-          new CustomEvent('notifications:showError', {
+          new CustomEvent('ws-notifications:showError', {
             bubbles: true,
             detail: { msg: responseData.msg },
           })
@@ -56,7 +56,7 @@ export default class extends Controller {
       }
     } catch (e) {
       this.element.dispatchEvent(
-        new CustomEvent('notifications:showError', {
+        new CustomEvent('ws-notifications:showError', {
           bubbles: true,
           detail: { msg: window.cmsTranslations.error },
         })

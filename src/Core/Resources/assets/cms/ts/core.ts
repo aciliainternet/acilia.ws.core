@@ -8,7 +8,7 @@ import './stimulus_bootstrap.ts';
 import './modules/genericDelete';
 import './modules/batchActions';
 import './modules/filter';
-import { init as moduleNotifications } from './modules/a_notifications';
+//import { init as moduleNotifications } from './modules/a_notifications';
 
 // components
 //import componentSlug from './components/ws_slug';
@@ -41,7 +41,7 @@ accordionCntrl();
 tabsCntrl();
 deleteInputCntrl();
 sidebarCntrl();
-moduleNotifications();
+//moduleNotifications();
 componentMarkdown();
 //componentDatePicker();
 //componentInputMultiple();

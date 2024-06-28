@@ -11,6 +11,7 @@ import WSTableCollapse from './controllers/ws-table-collapse_controller';
 import WSToggleChoice from './controllers/ws-toggle-choice_controller';
 import WSCharacterCount from './controllers/ws-character-count_controller';
 import WSSettings from './controllers/ws-settings_controller';
+import WSNotifications from './controllers/ws-notifications_controller';
 
 const stimulus = Application.start();
 stimulus.register('ws-slug', WSSlug);
@@ -25,3 +26,4 @@ stimulus.register('ws-table-collapse', WSTableCollapse);
 stimulus.register('ws-toggle-choice', WSToggleChoice);
 stimulus.register('ws-character-count', WSCharacterCount);
 stimulus.register('ws-settings', WSSettings);
+stimulus.register('ws-notifications', WSNotifications);

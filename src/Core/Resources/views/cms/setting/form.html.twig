@@ -2,13 +2,11 @@
     <div class="c-field l-form__item">
         <h6 class="c-field__label" for="setting-{{ setting.code }}">
             {{ setting.name|trans({}, setting.translationDomain) }}
-            {% if setting.required|default(false) %}
-                *
-            {% endif %}
+            {{ setting.required|default(false) ?? '*' }}
         </h6>
 
         <div
-            class="l-form__row {% if setting.required and setting.value is empty %}has-warning{% endif %}"
+            class="l-form__row {{ setting.required and setting.value is empty ?? 'has-warning' }}"
             id="ws-setting-{{ setting.code }}">
             {% if setting.type == 'boolean' %}
                 <div class="l-form__item l-form__item--large c-field">
@@ -19,7 +17,7 @@
                             id="{{ setting.code }}"
                             name="{{ setting.code }}"
                             value="1"
-                            data-settings-target="option"
+                            data-ws-settings-target="option"
                             {% if setting.value %}checked="checked"{% endif %}>
                         <label class="c-choice__label" for="{{ setting.code }}">
                             {% if setting.description is not empty %}
@@ -30,7 +28,7 @@
                 </div>
 
             {% elseif setting.type == 'multiple' %}
-                <select name="{{ setting.code }}" class="form-control" data-settings-target="option">
+                <select name="{{ setting.code }}" class="form-control" data-ws-settings-target="option">
                     {% for value, option in setting.options %}
                         <option value="{{ value }}" {% if value == setting.value %}selected="selected"{% endif %}>{{ option }}</option>
                     {% endfor %}
@@ -46,7 +44,7 @@
                     <textarea
                         name="{{ setting.code }}"
                         class="c-input"
-                        data-settings-target="option"
+                        data-ws-settings-target="option"
                         placeholder="{{ setting.placeholder is defined and setting.placeholder is not empty ? setting.placeholder|trans({}, setting.translationDomain) }}"
                         rows="6">{{ setting.value }}</textarea>
                     <small class="c-field__message u-mt-5">
@@ -60,7 +58,7 @@
                         name="{{ setting.code }}"
                         type="text"
                         class="c-input"
-                        data-settings-target="option"
+                        data-ws-settings-target="option"
                         placeholder="{{ setting.placeholder is defined and setting.placeholder is not empty ? setting.placeholder|trans({}, setting.translationDomain) }}"
                         value="{{ setting.value }}">
                     {# <small class="c-field__message u-mt-5">
