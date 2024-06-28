@@ -16,19 +16,28 @@ trait MetadataFormTrait
                 'help' => 'metadata.metadataTitle.help',
                 'help_html' => true,
                 'attr' => [
-                    'class' => 'js-char-count',
-                    'maxlength' => 60,
+                    'data-character-count-target' => 'field',
+                    'data-action' => 'keyup->character-count#change',
+                ],
+                'row_attr' => [
+                    'data-controller' => 'character-count',
+                    'data-character-count-max-value' => 60
                 ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
             ], $options))
+
             ->add('metadataDescription', TextareaType::class, array_merge([
                 'label' => 'metadata.metadataDescription.label',
                 'help' => 'metadata.metadataDescription.help',
                 'help_html' => true,
                 'attr' => [
-                    'class' => 'js-char-count',
-                    'maxlength' => 160,
+                    'data-character-count-target' => 'field',
+                    'data-action' => 'keyup->character-count#change',
+                ],
+                'row_attr' => [
+                    'data-controller' => 'character-count',
+                    'data-character-count-max-value' => 160
                 ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
