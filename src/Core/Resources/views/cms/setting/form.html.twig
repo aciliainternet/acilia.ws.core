@@ -2,11 +2,11 @@
     <div class="c-field l-form__item">
         <h6 class="c-field__label" for="setting-{{ setting.code }}">
             {{ setting.name|trans({}, setting.translationDomain) }}
-            {{ setting.required|default(false) ?? '*' }}
+            {{ setting.required|default(false) ? '*' : '' }}
         </h6>
 
         <div
-            class="l-form__row {{ setting.required and setting.value is empty ?? 'has-warning' }}"
+            class="l-form__row {{ setting.required and setting.value is empty ? 'has-warning' : '' }}"
             id="ws-setting-{{ setting.code }}">
             {% if setting.type == 'boolean' %}
                 <div class="l-form__item l-form__item--large c-field">

@@ -50,20 +50,20 @@ export default class extends Controller {
     this.showError = this.showError.bind(this);
 
     this.element.addEventListener(
-      'notifications:showSuccess',
+      'ws-notifications:showSuccess',
       this.showSuccess
     );
 
-    this.element.addEventListener('notification:showError', this.showError);
+    this.element.addEventListener('ws-notification:showError', this.showError);
   }
 
   disconnect() {
     this.element.removeEventListener(
-      'notifications:showSuccess',
+      'ws-notifications:showSuccess',
       this.showSuccess
     );
 
-    this.element.removeEventListener('notification:showError', this.showError);
+    this.element.removeEventListener('ws-notification:showError', this.showError);
   }
 
   checkNotifications() {
