@@ -9,6 +9,7 @@ import WSTooltip from './controllers/ws-tooltip_controller';
 import WSDropdown from './controllers/ws-dropdown_controller';
 import WSTableCollapse from './controllers/ws-table-collapse_controller';
 import WSToggleChoice from './controllers/ws-toggle-choice_controller';
+import WSCharacterCount from './controllers/ws-character-count_controller';
 
 const stimulus = Application.start();
 stimulus.register('ws-slug', WSSlug);
@@ -21,3 +22,4 @@ stimulus.register('ws-tooltip', WSTooltip);
 stimulus.register('ws-dropdown', WSDropdown);
 stimulus.register('ws-table-collapse', WSTableCollapse);
 stimulus.register('ws-toggle-choice', WSToggleChoice);
+stimulus.register('ws-character-count', WSCharacterCount);
