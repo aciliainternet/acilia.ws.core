@@ -24,4 +24,4 @@ stimulus.register('ws-dropdown', WSDropdown);
 stimulus.register('ws-table-collapse', WSTableCollapse);
 stimulus.register('ws-toggle-choice', WSToggleChoice);
 stimulus.register('ws-character-count', WSCharacterCount);
-stimulus.register('settings', WSSettings);
+stimulus.register('ws-settings', WSSettings);

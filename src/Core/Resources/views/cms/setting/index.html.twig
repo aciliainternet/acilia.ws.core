@@ -18,8 +18,8 @@
 {% block content %}
     <div
         class="container"
-        data-controller="settings"
-        data-settings-save-url-value="{{ path('ws_setting_save', { 'section': section.code }) }}">
+        data-controller="ws-settings"
+        data-ws-settings-save-url-value="{{ path('ws_setting_save', { 'section': section.code }) }}">
         <div class="c-form c-form--expanded">
             <div class="c-form__title">
                 <div class="c-form__title-wrapper">
@@ -52,7 +52,7 @@
             <div class="c-form__footer">
                 <button
                     class="c-btn c-btn--solid"
-                    data-action="click->settings#saveSettings">
+                    data-action="click->ws-settings#saveSettings">
                     {{ 'save'|trans({}, 'ws_cms') }}
                 </button>
             </div>
