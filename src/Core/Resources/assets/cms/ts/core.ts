@@ -28,7 +28,7 @@ import componentAssets from './components/ws_assets';
 //import componentCharCount from './components/ws_char_count';
 
 // controllers
-import settingsCntrl from './controllers/settings';
+//import settingsCntrl from './controllers/settings';
 import translationCntrl from './controllers/translation';
 import sidebarCntrl from './controllers/sidebar';
 import tabsCntrl from './controllers/tabs';
@@ -58,9 +58,9 @@ componentAssets();
 //componentToggleChoice();
 //componentCharCount();
 
-if (document.querySelector('[data-page="settings"]')) {
-  settingsCntrl();
-}
+//if (document.querySelector('[data-page="settings"]')) {
+//  settingsCntrl();
+//}
 
 if (document.querySelector('[data-page="translation"]')) {
   translationCntrl();
