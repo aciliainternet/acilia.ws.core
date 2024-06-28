@@ -58,11 +58,7 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.element.removeEventListener(
-      'ws-notifications:showSuccess',
-      this.showSuccess
-    );
-
+    this.element.removeEventListener('ws-notifications:showSuccess', this.showSuccess);
     this.element.removeEventListener('ws-notification:showError', this.showError);
   }
 
