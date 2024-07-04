@@ -109,9 +109,7 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     choices: ChoicesExtended
   ) {
     // reduce select items
-    if (
-      choices._currentState.choices && choices._currentState.choices.length > 100
-    ) {
+    if (choices._currentState.choices && choices._currentState.choices.length > 100) {
       const slicedChoices = choices._currentState.choices.slice(0, 100);
       choices.setChoices(slicedChoices, 'value', 'label', true);
     }
