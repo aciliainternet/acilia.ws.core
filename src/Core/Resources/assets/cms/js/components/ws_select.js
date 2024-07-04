@@ -48,7 +48,7 @@ async function lookup(choices, apiUrl) {
 
 function setUpLookup(elm, choices, canLimit = true) {
   // reduce select items
-  if (choices._currentState.choices.length > 100 && canLimit) {
+  if (choices._currentState.choices && choices._currentState.choices.length > 100 && canLimit) {
     const slicedChoices = choices._currentState.choices.slice(0, 100);
     choices.clearStore();
     choices.setChoices(slicedChoices, 'value', 'label', true);
