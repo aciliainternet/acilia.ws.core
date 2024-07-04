@@ -29,7 +29,7 @@ import componentAssets from './components/ws_assets';
 
 // controllers
 //import settingsCntrl from './controllers/settings';
-import translationCntrl from './controllers/translation';
+//import translationCntrl from './controllers/translation';
 import sidebarCntrl from './controllers/sidebar';
 import tabsCntrl from './controllers/tabs';
 import accordionCntrl from "./controllers/accordion";
@@ -62,6 +62,6 @@ componentAssets();
 //  settingsCntrl();
 //}
 
-if (document.querySelector('[data-page="translation"]')) {
-  translationCntrl();
-}
+//if (document.querySelector('[data-page="translation"]')) {
+//  translationCntrl();
+//}

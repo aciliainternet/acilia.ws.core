@@ -1,4 +1,6 @@
 import { Application } from '@hotwired/stimulus';
+
+import ModuleTranslationSidebar from './controllers/module-translation-sidebar_controller';
 import WSSlug from './controllers/ws-slug_controller';
 import WSSelect from './controllers/ws-select_controller';
 import WSDatePicker from './controllers/ws-date-picker_controller';
@@ -11,9 +13,11 @@ import WSTableCollapse from './controllers/ws-table-collapse_controller';
 import WSToggleChoice from './controllers/ws-toggle-choice_controller';
 import WSCharacterCount from './controllers/ws-character-count_controller';
 import WSSettings from './controllers/ws-settings_controller';
+import WSTranslation from './controllers/ws-translation_controller';
 import WSNotifications from './controllers/ws-notifications_controller';
 
 const stimulus = Application.start();
+stimulus.register('module-translation-sidebar', ModuleTranslationSidebar);
 stimulus.register('ws-slug', WSSlug);
 stimulus.register('ws-select', WSSelect);
 stimulus.register('ws-datepicker', WSDatePicker);
@@ -26,4 +30,5 @@ stimulus.register('ws-table-collapse', WSTableCollapse);
 stimulus.register('ws-toggle-choice', WSToggleChoice);
 stimulus.register('ws-character-count', WSCharacterCount);
 stimulus.register('ws-settings', WSSettings);
+stimulus.register('ws-translation', WSTranslation);
 stimulus.register('ws-notifications', WSNotifications);

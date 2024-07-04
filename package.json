@@ -28,6 +28,7 @@
     "vanilla-picker": "2.10.1"
   },
   "devDependencies": {
+    "@types/smoothscroll-polyfill": "^0.3.4",
     "@types/toastr": "^2.1.43",
     "@typescript-eslint/eslint-plugin": "7.13.1",
     "@typescript-eslint/parser": "7.13.1",
