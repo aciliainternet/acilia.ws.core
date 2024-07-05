@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-//import { visit } from '@hotwired/turbo';
 import { Controller } from '@hotwired/stimulus';
 import showAlert from '../modules/a_alert';
 
@@ -90,8 +89,7 @@ export default class extends Controller {
 
           if (responseData.href) {
             setTimeout(() => {
-              //visit(responseData.href);
-              window.location = response.href;
+              window.location.href = responseData.href;
             }, 2000);
           }
         }
