@@ -42,7 +42,7 @@ export default class extends Controller {
             },
           },
         },
-        (value) => {
+        (value: string) => {
           this.batchAction(value);
         }
       );

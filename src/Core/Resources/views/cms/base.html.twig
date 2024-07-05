@@ -15,7 +15,6 @@
     <style>a{color: #475364;}</style>
     <link type="text/css" href="{{ asset('core.css', 'core') }}" rel="stylesheet" />
     {% block stylesheets %}{% endblock %}
-    <script type="text/javascript" src="{{ asset('core.js', 'core') }}"></script>
 </head>
 <body class="o-page {{ bodyClass|default('') }}" data-controller="ws-notifications ws-sidebar ws-tabs ws-toggle-filter ws-batch-action">
     {% block body %}{% endblock %}
@@ -93,6 +92,7 @@
         };
     </script>
 
+    <script type="text/javascript" src="{{ asset('core.js', 'core') }}"></script>
     <!-- Custom JavaScript -->
     {% block javascript %}{% endblock %}
 </body>

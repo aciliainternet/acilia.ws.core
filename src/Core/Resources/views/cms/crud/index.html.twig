@@ -208,7 +208,13 @@
                         {% block crud_table_body %}
                             <tbody>
                             {% for entity in data %}
-                                <tr class="c-table__row js-genericDelete_wrapper" data-id="{{ entity.id }}">
+                                <tr
+                                    class="c-table__row"
+                                    data-controller="ws-generic-delete"
+                                    data-ws-generic-delete-id-value="{{ entity.id }}"
+                                    data-ws-generic-delete-url-value="{{ path("#{route_prefix}_delete", { 'id': entity.id }) }}"
+                                    data-ws-generic-delete-title-value="{{ 'title'|trans([], trans_prefix) }}"
+                                    data-ws-generic-delete-message-value="{{ 'delete_warning'|trans([], trans_prefix) }}">
                                     {% if batch_actions is not empty %}
                                         <td class="c-table__cell">
                                             <div class="c-choice c-choice--checkbox">
@@ -233,8 +239,7 @@
                                                 {% if is_granted(view_roles['edit']) %}
                                                     <a
                                                         class="c-table__link"
-                                                        href="{{ ws_cms_path("#{route_prefix}_edit", { 'id': entity.id }) }}"
-                                                    >
+                                                        href="{{ ws_cms_path("#{route_prefix}_edit", { 'id': entity.id }) }}">
                                                 {% endif %}
                                                     {% if field.isDate|default(false) %}
                                                         {{ ws_cms_crud_list_is_date(attribute(entity, field.name)) }}
@@ -262,12 +267,8 @@
 
                                             {% if is_granted(view_roles['delete']) %}
                                                 <button
-                                                        class="c-btn c-btn--border c-btn--delete js-genericDelete"
-                                                        data-id="{{ entity.id }}"
-                                                        data-url="{{ ws_cms_path("#{route_prefix}_delete", { 'id': entity.id }) }}"
-                                                        data-title="{{ 'title'|trans([], trans_prefix) }}"
-                                                        data-message="{{ 'delete_warning'|trans([], trans_prefix) }}"
-                                                >
+                                                    class="c-btn c-btn--secondary c-btn--delete"
+                                                    data-action="click->ws-generic-delete#remove">
                                                     <i class="fa-regular fa-trash"></i>
                                                     {# {{ 'delete'|trans({}, 'ws_cms') }} #}
                                                 </button>

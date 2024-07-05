@@ -5,7 +5,7 @@
 import './stimulus_bootstrap.ts';
 
 // modules
-import './modules/genericDelete';
+//import './modules/genericDelete';
 //import './modules/batchActions';
 //import './modules/filter';
 //import { init as moduleNotifications } from './modules/a_notifications';
@@ -38,15 +38,15 @@ import deleteInputCntrl from "./controllers/deleteInput";
 
 dropDragCntrl();
 accordionCntrl();
-//tabsCntrl();
 deleteInputCntrl();
+//tabsCntrl();
 //sidebarCntrl();
 //moduleNotifications();
-componentMarkdown();
 //componentDatePicker();
 //componentInputMultiple();
 //componentSlug();
 //componentSelect();
+componentMarkdown();
 componentWidgetListModal();
 componentAssetsImage();
 componentAssets();
