@@ -20,6 +20,7 @@ import WSToggleFilter from './controllers/ws-toggle-filter_controller';
 import WSBatchAction from './controllers/ws-batch-action_controller';
 import WSGenericDelete from './controllers/ws-generic-delete_controller';
 import WSNotifications from './controllers/ws-notifications_controller';
+import WSTurboVisit from './controllers/ws-turbo-visit_controller';
 
 const stimulus = Application.start();
 stimulus.register('module-translation-sidebar', ModuleTranslationSidebar);
@@ -42,3 +43,4 @@ stimulus.register('ws-toggle-filter', WSToggleFilter);
 stimulus.register('ws-batch-action', WSBatchAction);
 stimulus.register('ws-generic-delete', WSGenericDelete);
 stimulus.register('ws-notifications', WSNotifications);
+stimulus.register('ws-turbo-visit', WSTurboVisit);

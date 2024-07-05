@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource/ibm-plex-sans": "4.5.0",
     "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo": "^7.3.0",
     "choices.js": "9.0.1",
     "cropperjs": "1.5.6",
     "dotenv": "8.2.0",
