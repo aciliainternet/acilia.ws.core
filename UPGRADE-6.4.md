@@ -121,3 +121,31 @@ FormTypes
             ]
         ])
     ```
+
+* Tabs usage
+
+
+    *Before*
+
+    ```html
+    <li class="l-content__tab-item is-active" data-tab="main" data-tabsection="tab-content">
+        tab1
+    </li>
+
+    <div class="l-content__tab-content" id="main" data-tablink="tab-content">
+        content tab1
+    </div>
+    ```
+
+   *After*
+
+    ```html
+    <li class="l-content__tab-item is-active" data-action="click->ws-tabs#onTabClick" data-ws-tabs-target="tab">
+        tab1
+    </li>
+
+    <div class="l-content__tab-content" id="main" data-ws-tabs-target="tabPanel">
+        content tab1
+    </div>
+   ```
+
