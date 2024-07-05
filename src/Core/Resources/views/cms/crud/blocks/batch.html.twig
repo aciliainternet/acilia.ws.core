@@ -1,6 +1,12 @@
 {% if batch_actions is not empty %}
-    <div class="c-field c-field--xsmall c-choice-wrapper c-choice-wrapper--small u-mr-10 js-batchActions u-hidden">
-        <select name="t" class="u-mr-10 js-batchAction" data-controller="ws-select>
+    <div
+        class="c-field c-field--xsmall c-choice-wrapper c-choice-wrapper--small u-mr-10 u-hidden"
+        data-ws-batch-actions-target="actions">
+        <select
+            name="t"
+            class="u-mr-10"
+            data-controller="ws-select"
+            data-action="change->ws-batch-actions#handleAction">
             <option value="">
                 {{ 'actions'|trans({}, 'ws_cms') }}
             </option>
@@ -9,8 +15,7 @@
 
                 <option
                     value="{{ ws_cms_path("#{route_prefix}_#{actionData.route}") }}"
-                    data-title="{{ actionData.title|trans({}, 'ws_cms') }}"
-                >
+                    data-title="{{ actionData.title|trans({}, 'ws_cms') }}">
                     {{ actionData.label|trans({}, 'ws_cms') }}
                 </option>
             {% endfor %}

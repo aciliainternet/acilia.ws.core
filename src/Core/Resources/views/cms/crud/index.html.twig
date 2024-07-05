@@ -158,11 +158,12 @@
                                     <th class="c-table__cell c-table__cell--head c-table__cell--batch no-sort">
                                         <div class="c-choice c-choice--checkbox">
                                             <input
-                                                    type="checkbox"
-                                                    id="checkbox-batch"
-                                                    name="checkboxes"
-                                                    class="c-choice__input js-batchAll"
-                                            >
+                                                type="checkbox"
+                                                id="checkbox-batch"
+                                                name="checkboxes"
+                                                class="c-choice__input"
+                                                data-ws-batch-action-target="allInput"
+                                                data-action="click->ws-batch-action#handleAll">
                                             <label class="c-choice__label c-choice__label--batch" for="checkbox-batch"></label>
                                         </div>
                                     </th>
@@ -178,10 +179,8 @@
                                     {% endif %}
 
                                     <th
-                                            class="c-table__cell c-table__cell--head"
-                                            {{ field.width is defined ? "width=#{field.width}" }}
-                                    >
-
+                                        class="c-table__cell c-table__cell--head"
+                                        {{ field.width is defined ? "width=#{field.width}" }}>
                                         {% if field.sortable|default(false) %}
                                             {% set sortableParams = {
                                                 "sort":field.name,
@@ -190,9 +189,8 @@
 
                                             <div class="c-table__sorting {{ sortClass }}">
                                                 <a
-                                                        class="c-table__sorting-link d-block"
-                                                        href={{"?#{params|merge(sortableParams)|url_encode}"}}
-                                                >
+                                                    class="c-table__sorting-link d-block"
+                                                    href={{"?#{params|merge(sortableParams)|url_encode}"}}>
                                                     {{ "fields.#{field.name}.label"|trans([], trans_prefix) }}
                                                     <i class="fa fa-sort u-pl-5"></i>
                                                 </a>
@@ -215,11 +213,12 @@
                                         <td class="c-table__cell">
                                             <div class="c-choice c-choice--checkbox">
                                                 <input
-                                                        class="c-choice__input js-batchItem"
-                                                        id="checkbox-item-{{ entity.id }}"
-                                                        name="checkboxes"
-                                                        type="checkbox"
-                                                >
+                                                    class="c-choice__input"
+                                                    id="checkbox-item-{{ entity.id }}"
+                                                    name="checkboxes"
+                                                    type="checkbox"
+                                                    data-ws-batch-actions-target="itemInput"
+                                                    data-action="change->ws-batch-actions#handleItem">
                                                 <label
                                                         class="c-choice__label c-choice__label--batch"
                                                         for="checkbox-item-{{ entity.id }}"
