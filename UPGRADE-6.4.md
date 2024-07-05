@@ -124,7 +124,6 @@ FormTypes
 
 * Tabs usage
 
-
     *Before*
 
     ```html
