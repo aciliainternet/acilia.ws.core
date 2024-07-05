@@ -82,25 +82,29 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     widgetConfig: Partial<ChoicesNamespace.Options>
   ) {
     const choicesInput = new Choices(inputMultiple, widgetConfig);
-    const inputElement = (
+    const inputElementBase = (
       choicesInput as Choices & { input: { element: HTMLElement } }
-    ).input.element;
-
-    choicesInput.passedElement.element.addEventListener(
-      'addItem',
-      () => this.handlePlaceholder(choicesInput, inputElement),
-      false
     );
 
-    choicesInput.passedElement.element.addEventListener(
-      'removeItem',
-      () =>
-        this.handlePlaceholder(
-          choicesInput,
-          inputElement,
-          widgetConfig.placeholderValue || ''
-        ),
-      false
-    );
+    if (inputElementBase.input) {
+     const inputElement = inputElementBase.input.element;
+
+     choicesInput.passedElement.element.addEventListener(
+       'addItem',
+       () => this.handlePlaceholder(choicesInput, inputElement),
+       false
+     );
+
+     choicesInput.passedElement.element.addEventListener(
+       'removeItem',
+       () =>
+         this.handlePlaceholder(
+           choicesInput,
+           inputElement,
+           widgetConfig.placeholderValue || ''
+         ),
+       false
+     );
+    }
   }
 }

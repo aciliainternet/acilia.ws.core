@@ -18,7 +18,7 @@ type WSSelectConfig = {
   resetScrollPosition: boolean;
   searchEnabled?: boolean;
   searchResultLimit?: number;
-}
+};
 
 export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
   connect() {
@@ -41,7 +41,8 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
 
     if (!this.element.dataset.wsDisable) {
       config.searchEnabled = this.element.dataset.search
-        ? (this.element.dataset.search === 'true' || this.element.dataset.search === 'data-search')
+        ? this.element.dataset.search === 'true' ||
+          this.element.dataset.search === 'data-search'
         : false;
 
       config.searchResultLimit = this.element.dataset.searchLimit
@@ -58,10 +59,10 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
 
   populateChoices(choices: ChoicesExtended, items: Item[]) {
     const toRemove = choices._currentState.items
-      .filter((item) => item.active)
-      .map((item) => item.id);
+      .filter(item => item.active)
+      .map(item => item.id);
 
-    const toKeep = items.filter((item) => !toRemove.includes(item.id));
+    const toKeep = items.filter(item => !toRemove.includes(item.id));
 
     choices.setChoices(toKeep, 'value', 'label', true);
   }
@@ -108,22 +109,24 @@ export default class extends Controller<HTMLInputElement | HTMLSelectElement> {
     elm: HTMLInputElement | HTMLSelectElement,
     choices: ChoicesExtended
   ) {
-    // reduce select items
-    if (choices._currentState.choices && choices._currentState.choices.length > 100) {
-      const slicedChoices = choices._currentState.choices.slice(0, 100);
-      choices.setChoices(slicedChoices, 'value', 'label', true);
+    if (choices._currentState.choices) {
+        // reduce select items
+       if (choices._currentState.choices.length > 100) {
+         const slicedChoices = choices._currentState.choices.slice(0, 100);
+         choices.setChoices(slicedChoices, 'value', 'label', true);
+       }
+
+       // trigger API lookup when the user stops typing
+       elm.addEventListener('search', () => {
+         if (fetchLookupTimeout !== null) {
+           window.clearTimeout(fetchLookupTimeout);
+         }
+
+         fetchLookupTimeout = window.setTimeout(
+           () => this.lookup(choices, elm.dataset.lookup || ''),
+           fetchLookupDelay
+         );
+       });
     }
-
-    // trigger API lookup when the user stops typing
-    elm.addEventListener('search', () => {
-      if (fetchLookupTimeout !== null) {
-        window.clearTimeout(fetchLookupTimeout);
-      }
-
-      fetchLookupTimeout = window.setTimeout(
-        () => this.lookup(choices, elm.dataset.lookup || ''),
-        fetchLookupDelay
-      );
-    });
   }
 }
