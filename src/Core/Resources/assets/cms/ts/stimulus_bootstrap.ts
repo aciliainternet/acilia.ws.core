@@ -15,6 +15,7 @@ import WSCharacterCount from './controllers/ws-character-count_controller';
 import WSSettings from './controllers/ws-settings_controller';
 import WSTranslation from './controllers/ws-translation_controller';
 import WSSidebar from './controllers/ws-sidebar_controller';
+import WSTabs from './controllers/ws-tabs_controller';
 import WSNotifications from './controllers/ws-notifications_controller';
 
 const stimulus = Application.start();
@@ -33,4 +34,5 @@ stimulus.register('ws-character-count', WSCharacterCount);
 stimulus.register('ws-settings', WSSettings);
 stimulus.register('ws-translation', WSTranslation);
 stimulus.register('ws-sidebar', WSSidebar);
+stimulus.register('ws-tabs', WSTabs);
 stimulus.register('ws-notifications', WSNotifications);
