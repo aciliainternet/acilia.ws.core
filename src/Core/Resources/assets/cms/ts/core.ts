@@ -7,7 +7,7 @@ import './stimulus_bootstrap.ts';
 // modules
 import './modules/genericDelete';
 import './modules/batchActions';
-import './modules/filter';
+//import './modules/filter';
 //import { init as moduleNotifications } from './modules/a_notifications';
 
 // components

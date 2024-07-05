@@ -16,6 +16,7 @@ import WSSettings from './controllers/ws-settings_controller';
 import WSTranslation from './controllers/ws-translation_controller';
 import WSSidebar from './controllers/ws-sidebar_controller';
 import WSTabs from './controllers/ws-tabs_controller';
+import WSToggleFilter from './controllers/ws-toggle-filter_controller';
 import WSNotifications from './controllers/ws-notifications_controller';
 
 const stimulus = Application.start();
@@ -35,4 +36,5 @@ stimulus.register('ws-settings', WSSettings);
 stimulus.register('ws-translation', WSTranslation);
 stimulus.register('ws-sidebar', WSSidebar);
 stimulus.register('ws-tabs', WSTabs);
+stimulus.register('ws-toggle-filter', WSToggleFilter);
 stimulus.register('ws-notifications', WSNotifications);

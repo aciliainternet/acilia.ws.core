@@ -16,7 +16,7 @@
     <link type="text/css" href="{{ asset('core.css', 'core') }}" rel="stylesheet" />
     {% block stylesheets %}{% endblock %}
 </head>
-<body class="o-page {{ bodyClass is defined ? bodyClass }}" data-controller="ws-notifications ws-sidebar ws-tabs">
+<body class="o-page {{ bodyClass is defined ? bodyClass }}" data-controller="ws-notifications ws-sidebar ws-tabs ws-toggle-filter">
     {% block body %}{% endblock %}
 
     {% for flashMessage in app.session.flashbag.get('cms_success') %}

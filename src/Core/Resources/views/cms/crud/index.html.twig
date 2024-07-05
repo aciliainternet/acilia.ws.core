@@ -70,7 +70,10 @@
                                 </button>
 
                                 {% if filter_extended_form is not null %}
-                                    <button type="button" class="c-btn c-btn--border u-hidden@md--down js-toggle-filter u-mr-5">
+                                    <button
+                                        type="button"
+                                        class="c-btn c-btn--border u-hidden@md--down u-mr-5"
+                                        data-action="click->ws-toggle-filter#toggleFilter">
                                         {{ source('@WSCore/cms/icons/filter.svg') }}
                                         {{ 'filter'|trans({}, 'ws_cms') }}
                                     </button>
@@ -109,7 +112,7 @@
                         </div>
 
                         {% block crud_filter_extended %}
-                            <div class="c-toolbar__filter u-hidden js-toggle-filter-row">
+                            <div class="c-toolbar__filter u-hidden" data-ws-toggle-filter-target="filterRow">
                                 <div class="l-form-grid l-form-grid--full">
                                     {% if filter_extended_form is not null %}
                                         {% for filter_form_field in filter_extended_form.children %}
