@@ -3,12 +3,7 @@
 {% page_configuration {
     'title': 'title'|trans({}, 'ws_cms_translation'),
     'header': 'title'|trans({}, 'ws_cms_translation'),
-    'breadcrumbs': [
-        {
-            'name': 'title'|trans({}, 'ws_cms_translation'),
-            'main': true
-        }
-    ]
+    'breadcrumbs': [{'name': 'title'|trans({}, 'ws_cms_translation'), 'main': true}]
 } %}
 
 {% block content %}
@@ -37,16 +32,13 @@
                                 {% for attribute in node.attributes %}
                                     <div class="l-form__row">
                                         <div class="l-form__item l-form__item--large c-field">
-                                            <label
-                                                class="c-field__label"
-                                                for="{{ attribute.id }}"
-                                            >
+                                            <label class="c-field__label" for="{{ attribute.id }}">
                                                 {{ "#{node.source}#{node.name}.#{attribute.name}"|trans({}, node.type, domain.locale)|raw }}
                                             </label>
                                             <textarea
                                                     rows="1"
                                                     class="c-input c-input--textarea-small"
-                                                    data-translation-target="attribute"
+                                                    data-ws-translation-target="attribute"
                                                     name="{{ attribute.id }}"
                                                     placeholder=""
                                                     title="{{ "#{node.source}#{node.name}.#{attribute.name}"|trans({}, node.type, domain.locale) }}">
@@ -94,7 +86,7 @@
                     <div class="c-form__footer">
                         <button
                             class="c-btn c-btn--solid"
-                            data-translation-target="save" 
+                            data-ws-translation-target="save"
                             data-save-url="{{ path('ws_translation_save') }}"
                             id="ws-translation-save">
                             {{ 'save'|trans({}, 'ws_cms') }}

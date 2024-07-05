@@ -2,12 +2,13 @@
     {% for menu in ws_cms_sidebar_get() %}
         {% if menu.roles is empty or ws_cms_sidebar_is_granted(menu.roles) %}
             {% if menu.container %}
-                <li class="c-sidebar__item has-submenu {{ ws_cms_in_route(menu.collapsedRoutes, 'is-open') }}">
+                <li
+                    class="c-sidebar__item has-submenu {{ ws_cms_in_route(menu.collapsedRoutes, 'is-open') }}"
+                    data-action="click->ws-sidebar#menuAction">
                     <a
                         class="c-sidebar__link"
                         href="#"
-                        aria-expanded="false"
-                    >
+                        aria-expanded="false">
                         <i class="fal fa-1x {{ menu.icon }}" aria-hidden="true"></i>
                         <span class="c-sidebar__text">
                             {{ menu.label|trans({}, menu.translationDomain)|raw  }}

@@ -79,9 +79,8 @@ class TranslationService
 
         $conn = $this->em->getConnection();
         $stmt = $conn->prepare($sql);
-        $result = $stmt->executeQuery([
-            'domain' => $domain->getId()
-        ]);
+        $stmt->bindValue('domain', $domain->getId(), ParameterType::INTEGER);
+        $result = $stmt->executeQuery();
 
         $result = $result->fetchAllAssociative();
         foreach ($result as $row) {

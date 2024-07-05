@@ -30,7 +30,7 @@ import componentAssets from './components/ws_assets';
 // controllers
 //import settingsCntrl from './controllers/settings';
 //import translationCntrl from './controllers/translation';
-import sidebarCntrl from './controllers/sidebar';
+//import sidebarCntrl from './controllers/sidebar';
 import tabsCntrl from './controllers/tabs';
 import accordionCntrl from "./controllers/accordion";
 import dropDragCntrl from "./controllers/dropdrag";
@@ -40,7 +40,7 @@ dropDragCntrl();
 accordionCntrl();
 tabsCntrl();
 deleteInputCntrl();
-sidebarCntrl();
+//sidebarCntrl();
 //moduleNotifications();
 componentMarkdown();
 //componentDatePicker();
