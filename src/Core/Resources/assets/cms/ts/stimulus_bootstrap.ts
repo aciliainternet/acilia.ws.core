@@ -32,5 +32,5 @@ stimulus.register('ws-toggle-choice', WSToggleChoice);
 stimulus.register('ws-character-count', WSCharacterCount);
 stimulus.register('ws-settings', WSSettings);
 stimulus.register('ws-translation', WSTranslation);
-stimulus.register('sidebar', WSSidebar);
+stimulus.register('ws-sidebar', WSSidebar);
 stimulus.register('ws-notifications', WSNotifications);
