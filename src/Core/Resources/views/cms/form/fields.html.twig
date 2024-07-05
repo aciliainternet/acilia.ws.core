@@ -889,18 +889,24 @@ attr.size <= 1) -%} {% set required=false %} {%- endif -%} {% set attr=attr|merg
         {%- block ws_toggle_choice -%}
         {%- set attr = attr|merge({'class': 'js-toggle c-toggle ' ~ (attr.class is defined ? attr.class : '')}) -%}
 
-        <div {% with {attr: attr|default({})} %}{{ block('attributes') }}{% endwith %}
-            data-component="ws_toggle_choice">
+        <div {% with { attr: attr|default({})} %}{{ block('attributes') }}{% endwith %} data-controller="ws-toggle-choice">
             {% for choice in choices %}
-            <div class="c-toggle__btn js-toggle-btn {{ choice is selectedchoice(value) ? 'is-active' }}">
+            <div
+                class="c-toggle__btn {{ choice is selectedchoice(value) ? 'is-active' }}"
+                data-action="click->ws-toggle-choice#handleToggle"
+                data-ws-toggle-choice-target="button">
                 <label class="c-toggle__label" for={{ "#{id}#{loop.index}" }}>
-                    <input id="{{ "#{id}#{loop.index}" }}" class="c-toggle__input js-toggle-input"
-                        name="{{ full_name }}" type="radio" value="{{ choice.value }}" {{ choice is
-                        selectedchoice(value) ? 'checked' }}>
+                    <input
+                        id="{{ "#{id}#{loop.index}" }}"
+                        class="c-toggle__input"
+                        data-ws-toggle-choice-target="input"
+                        name="{{ full_name }}"
+                        type="radio"
+                        value="{{ choice.value }}" {{ choice isselectedchoice(value) ? 'checked' }}>
                     {% if choice_translation_domain is same as(false) %}
-                    {{ choice.label }}
+                        {{ choice.label }}
                     {% else %}
-                    {{ choice.label|trans({}, choice_translation_domain) }}
+                        {{ choice.label|trans({}, choice_translation_domain) }}
                     {% endif %}
                 </label>
             </div>
