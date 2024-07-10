@@ -63,7 +63,7 @@ export default class extends Controller {
   }
 
   async sendDeletePost(value: string) {
-    if (!value) {
+    if (value === false) {
       return;
     }
 
