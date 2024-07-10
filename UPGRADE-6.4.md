@@ -148,33 +148,45 @@ FormTypes
     </div>
    ```
 
-* Button Delete
+* Button Delete ws-generic-delete
 
-*Before*
+   *Before*
 
-```html
-{% block crud_table_body_row_actions %}
-    <td class="c-table__cell">
-        {% block crud_table_body_row_action %}{% endblock %}
-        {% if is_granted(view_roles['delete']) %}
-            <button class="c-btn c-btn--secondary c-btn--delete js-genericDelete" data-id="{{ entity.id }}" data-url="{{ ws_cms_path("#{route_prefix}_delete_client_group_product", { 'uuid': group.uuid, 'product': entity.id }) }}" data-title="{{ 'title'|trans([], trans_prefix) }}" data-message="{{ 'delete_warning'|trans([], trans_prefix) }}">
+   ```html
+   {% block crud_table_body_row_actions %}
+       <td class="c-table__cell">
+           {% block crud_table_body_row_action %}{% endblock %}
+           {% if is_granted(view_roles['delete']) %}
+               <button class="c-btn c-btn--secondary c-btn--delete js-genericDelete" data-id="{{ entity.id }}" data-url="{{ ws_cms_path("#{route_prefix}_delete_client_group_product", { 'uuid': group.uuid, 'product': entity.id }) }}" data-title="{{ 'title'|trans([], trans_prefix) }}" data-message="{{ 'delete_warning'|trans([], trans_prefix) }}">
 
-                <i class="fal fa-trash-alt"></i>
-            </button>
-        {% endif %}
-    </td>
-{% endblock %}
-```
+                   <i class="fal fa-trash-alt"></i>
+               </button>
+           {% endif %}
+       </td>
+   {% endblock %}
+   ```
 
- *After*
+    *After*
 
- ```html
- ### Add new block with new attributes
- {% block crud_table_header_row_data %}
-    data-controller="ws-generic-delete"
-    data-ws-generic-delete-id-value="{{ entity.id }}"
-    data-ws-generic-delete-url-value="{{ ws_cms_path("#{route_prefix}_delete_client_group_product", { 'uuid': group.uuid, 'product': entity.id }) }}"
-    data-ws-generic-delete-title-value="{{ 'title'|trans([], trans_prefix) }}"
-    data-ws-generic-delete-message-value="{{ 'delete_warning'|trans([], trans_prefix) }}"
-{% endblock crud_table_header_row_data %}
- ```
+    ```html
+    ### Add new block with new attributes
+    {% block crud_table_header_row_data %}
+        data-controller="ws-generic-delete"
+        data-ws-generic-delete-id-value="{{ entity.id }}"
+        data-ws-generic-delete-url-value="{{ ws_cms_path("#{route_prefix}_delete_client_group_product", { 'uuid': group.uuid, 'product': entity.id }) }}"
+        data-ws-generic-delete-title-value="{{ 'title'|trans([], trans_prefix) }}"
+        data-ws-generic-delete-message-value="{{ 'delete_warning'|trans([], trans_prefix) }}"
+    {% endblock crud_table_header_row_data %}
+     ```
+
+
+    ```html
+    ### add Button
+    {% if is_granted(view_roles['delete']) %}
+       <button
+           class="c-btn c-btn--secondary c-btn--delete"
+           data-action="click->ws-generic-delete#remove">
+           <i class="fal fa-trash-alt"></i>
+       </button>
+   {% endif %}
+    ```
