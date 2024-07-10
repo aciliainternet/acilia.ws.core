@@ -210,11 +210,14 @@
                             {% for entity in data %}
                                 <tr
                                     class="c-table__row"
-                                    data-controller="ws-generic-delete"
-                                    data-ws-generic-delete-id-value="{{ entity.id }}"
-                                    data-ws-generic-delete-url-value="{{ path("#{route_prefix}_delete", { 'id': entity.id }) }}"
-                                    data-ws-generic-delete-title-value="{{ 'title'|trans([], trans_prefix) }}"
-                                    data-ws-generic-delete-message-value="{{ 'delete_warning'|trans([], trans_prefix) }}">
+                                    {% block crud_table_header_row_data %}
+                                        data-controller="ws-generic-delete"
+                                        data-ws-generic-delete-id-value="{{ entity.id }}"
+                                        data-ws-generic-delete-url-value="{{ path("#{route_prefix}_delete", { 'id': entity.id }) }}"
+                                        data-ws-generic-delete-title-value="{{ 'title'|trans([], trans_prefix) }}"
+                                        data-ws-generic-delete-message-value="{{ 'delete_warning'|trans([], trans_prefix) }}"
+                                    {% endblock crud_table_header_row_data %}
+                                >
                                     {% if batch_actions is not empty %}
                                         <td class="c-table__cell">
                                             <div class="c-choice c-choice--checkbox">
