@@ -34,11 +34,11 @@ import componentAssets from './components/ws_assets';
 //import tabsCntrl from './controllers/tabs';
 import accordionCntrl from "./controllers/accordion";
 import dropDragCntrl from "./controllers/dropdrag";
-import deleteInputCntrl from "./controllers/deleteInput";
+//import deleteInputCntrl from "./controllers/deleteInput";
 
 dropDragCntrl();
 accordionCntrl();
-deleteInputCntrl();
+//deleteInputCntrl();
 //tabsCntrl();
 //sidebarCntrl();
 //moduleNotifications();

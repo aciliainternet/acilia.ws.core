@@ -19,6 +19,7 @@ import WSTabs from './controllers/ws-tabs_controller';
 import WSToggleFilter from './controllers/ws-toggle-filter_controller';
 import WSBatchAction from './controllers/ws-batch-action_controller';
 import WSGenericDelete from './controllers/ws-generic-delete_controller';
+import WSInputReset from './controllers/ws-input-reset_controller';
 import WSNotifications from './controllers/ws-notifications_controller';
 
 const stimulus = Application.start();
@@ -41,4 +42,5 @@ stimulus.register('ws-tabs', WSTabs);
 stimulus.register('ws-toggle-filter', WSToggleFilter);
 stimulus.register('ws-batch-action', WSBatchAction);
 stimulus.register('ws-generic-delete', WSGenericDelete);
+stimulus.register('ws-input-reset', WSInputReset);
 stimulus.register('ws-notifications', WSNotifications);
