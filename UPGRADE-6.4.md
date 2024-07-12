@@ -146,25 +146,24 @@ FormTypes
     <div class="l-content__tab-content" id="main" data-ws-tabs-target="tabPanel">
         content tab1
     </div>
-   ```
+    ```
 
 * Button Delete ws-generic-delete
 
    *Before*
 
-   ```html
-   {% block crud_table_body_row_actions %}
-       <td class="c-table__cell">
-           {% block crud_table_body_row_action %}{% endblock %}
-           {% if is_granted(view_roles['delete']) %}
-               <button class="c-btn c-btn--secondary c-btn--delete js-genericDelete" data-id="{{ entity.id }}" data-url="{{ ws_cms_path("#{route_prefix}_delete_client_group_product", { 'uuid': group.uuid, 'product': entity.id }) }}" data-title="{{ 'title'|trans([], trans_prefix) }}" data-message="{{ 'delete_warning'|trans([], trans_prefix) }}">
-
-                   <i class="fal fa-trash-alt"></i>
-               </button>
-           {% endif %}
-       </td>
-   {% endblock %}
-   ```
+    ```html
+    {% block crud_table_body_row_actions %}
+         <td class="c-table__cell">
+            {% block crud_table_body_row_action %}{% endblock %}
+            {% if is_granted(view_roles['delete']) %}
+                <button class="c-btn c-btn--secondary c-btn--delete js-genericDelete" data-id="{{ entity.id }}" data-url="{{ ws_cms_path("#{route_prefix}_delete_client_group_product", { 'uuid': group.uuid, 'product': entity.id }) }}" data-title="{{ 'title'|trans([], trans_prefix) }}" data-message="{{ 'delete_warning'|trans([], trans_prefix) }}">
+                    <i class="fal fa-trash-alt"></i>
+                </button>
+            {% endif %}
+        </td>
+    {% endblock %}
+    ```
 
     *After*
 
@@ -179,7 +178,6 @@ FormTypes
     {% endblock crud_table_header_row_data %}
      ```
 
-
     ```html
     ### add Button
     {% if is_granted(view_roles['delete']) %}
@@ -188,5 +186,18 @@ FormTypes
            data-action="click->ws-generic-delete#remove">
            <i class="fal fa-trash-alt"></i>
        </button>
-   {% endif %}
+    {% endif %}
+    ```
+
+* Input reset change data-componet for data-controller
+    *Before*
+
+    ```html
+    data-remove-input="true"
+    ```
+
+   *After*
+
+    ```html
+    data-controller="ws-input-reset"
     ```
