@@ -110,14 +110,14 @@ FormTypes
         ->add('name', null, [
             'attr' => [
                 'placeholder' => 'form.name.placeholder',
-                'data-character-count-target' => 'field',
-                'data-action' => 'keyup->character-count#change',
+                'data-ws-character-count-target' => 'field',
+                'data-action' => 'keyup->ws-character-count#change',
             ],
             'help' => '<span class="js-count">0</span> out of <span class="js-maxCount">60</span> characters recommended',
             'help_html' => true,
             'row_attr' => [
-                'data-controller' => 'character-count',
-                'data-character-count-max-value' => 60
+                'data-controller' => 'ws-character-count',
+                'data-ws-character-count-max-value' => 60
             ]
         ])
     ```

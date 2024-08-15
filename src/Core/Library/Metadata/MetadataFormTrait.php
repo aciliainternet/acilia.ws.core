@@ -16,12 +16,12 @@ trait MetadataFormTrait
                 'help' => 'metadata.metadataTitle.help',
                 'help_html' => true,
                 'attr' => [
-                    'data-character-count-target' => 'field',
-                    'data-action' => 'keyup->character-count#change',
+                    'data-ws-character-count-target' => 'field',
+                    'data-action' => 'keyup->ws-character-count#change',
                 ],
                 'row_attr' => [
-                    'data-controller' => 'character-count',
-                    'data-character-count-max-value' => 60
+                    'data-controller' => 'ws-character-count',
+                    'data-ws-character-count-max-value' => 60
                 ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
@@ -32,12 +32,12 @@ trait MetadataFormTrait
                 'help' => 'metadata.metadataDescription.help',
                 'help_html' => true,
                 'attr' => [
-                    'data-character-count-target' => 'field',
-                    'data-action' => 'keyup->character-count#change',
+                    'data-ws-character-count-target' => 'field',
+                    'data-action' => 'keyup->ws-character-count#change',
                 ],
                 'row_attr' => [
-                    'data-controller' => 'character-count',
-                    'data-character-count-max-value' => 160
+                    'data-controller' => 'ws-character-count',
+                    'data-ws-character-count-max-value' => 160
                 ],
                 'required' => $required,
                 'translation_domain' => 'ws_cms',
