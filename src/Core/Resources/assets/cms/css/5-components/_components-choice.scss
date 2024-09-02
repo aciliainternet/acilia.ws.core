@@ -52,7 +52,7 @@
  * 2. Align the customized input with label.
  */
 
-.c-choice__input { /* [1] */
+.c-choice__input:not(.c-choice--localization) { /* [1] */
     position: absolute;
     overflow: hidden;
     clip: rect(0 0 0 0);
