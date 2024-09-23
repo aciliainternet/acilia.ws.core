@@ -2,6 +2,7 @@
 
 namespace WS\Core\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use WS\Core\Entity\Administrator;
 use WS\Core\Library\CRUD\AbstractRepository;
 
@@ -13,4 +14,11 @@ use WS\Core\Library\CRUD\AbstractRepository;
  */
 class AdministratorRepository extends AbstractRepository
 {
+    protected function processFilterExtended(QueryBuilder $qb, ?array $filter): void
+    {
+        if (isset($filter['active'])) {
+            $qb->andWhere('t.active = :active')
+            ->setParameter('active', $filter['active']);
+        }
+    }
 }
