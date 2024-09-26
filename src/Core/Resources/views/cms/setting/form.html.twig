@@ -26,7 +26,7 @@
 
             {% elseif setting.type == 'multiple' %}
 
-                <select name="{{ setting.code }}" class="ws-setting-option form-control">
+                <select name="{{ setting.code }}" class="ws-setting-option form-control c-input c-input--select">
                     {% for value, option in setting.options %}
                         <option value="{{ value }}" {% if value == setting.value %}selected="selected"{% endif %}>{{ option }}</option>
                     {% endfor %}
