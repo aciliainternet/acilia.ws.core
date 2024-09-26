@@ -28,7 +28,7 @@
                 </div>
 
             {% elseif setting.type == 'multiple' %}
-                <select name="{{ setting.code }}" class="form-control" data-ws-settings-target="option">
+                <select name="{{ setting.code }}" class="form-control c-input c-input--select" data-ws-settings-target="option">
                     {% for value, option in setting.options %}
                         <option value="{{ value }}" {% if value == setting.value %}selected="selected"{% endif %}>{{ option }}</option>
                     {% endfor %}
