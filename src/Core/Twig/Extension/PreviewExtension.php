@@ -50,7 +50,7 @@ class PreviewExtension extends AbstractExtension
 
         return sprintf(
             'https://%s/%s?%s=%s%s',
-            $domain->getHost(),
+            $this->previewService->getHost() ?? $domain->getHost(),
             $this->previewService->getPath($entityClassName, $options),
             $this->previewService->getQuery(),
             $this->previewService->hash($entityClassName, $options),
