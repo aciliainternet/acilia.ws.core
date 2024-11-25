@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { Controller } from '@hotwired/stimulus';
-import showAlert from '../modules/a_alert';
+import showSngAlert from '../modules/a_alert';
 
 interface DeleteResponseJson {
   id: number;
@@ -30,7 +29,7 @@ export default class extends Controller {
       this.element.classList.add('js-genericDelete_remove');
     }
 
-    showAlert(
+    showSngAlert(
       {
         title: responseData.title,
         text: responseData.msg,
@@ -62,11 +61,7 @@ export default class extends Controller {
     );
   }
 
-  async sendDeletePost(value: string) {
-    if (value === false) {
-      return;
-    }
-
+  async sendDeletePost() {
     try {
       const response = await fetch(this.urlValue, {
         method: 'POST',
@@ -81,7 +76,7 @@ export default class extends Controller {
 
       if (response.ok) {
         if (response.status === 302) {
-          showAlert({
+          showSngAlert({
             title: responseData.title,
             text: responseData.msg,
             icon: 'success',
@@ -98,36 +93,38 @@ export default class extends Controller {
           this.onRemoveDone(responseData);
         }
       } else {
-        showAlert(responseData.msg);
+        showSngAlert({
+          title: '',
+          text: responseData.msg,
+          icon: 'error',
+        });
       }
     } catch (e) {
-      showAlert(window.cmsTranslations.error);
+      showSngAlert({
+        title: '',
+        text: window.cmsTranslations.error,
+        icon: 'error',
+      });
     }
   }
 
   remove() {
-    showAlert(
+    showSngAlert(
       {
         icon: 'warning',
         dangerMode: true,
         title: this.titleValue,
         text: this.messageValue,
         buttons: {
-          cancel: {
-            text: window.cmsTranslations.cancel,
-            closeModal: true,
-            visible: true,
-            value: false,
-          },
+          cancel: window.cmsTranslations.cancel,
           confirm: {
             text: window.cmsTranslations.delete.confirm,
-            value: this.idValue,
-            closeModal: false,
+            value: this.idValue.toString(),
           },
         },
       },
-      (value) => {
-        this.sendDeletePost(value);
+      () => {
+        this.sendDeletePost();
       }
     );
   }

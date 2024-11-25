@@ -1,12 +1,19 @@
 {% if batch_actions is not empty %}
+    {% set actionDataTitles = [] %}
+    {% for action in batch_actions %}
+        {% set actionData = get_batch_action_data(action) %}
+        {% set actionDataTitles = actionDataTitles|merge([actionData.title|trans({}, 'ws_cms')]) %}
+    {% endfor %}
+
     <div
         class="c-field c-field--xsmall c-choice-wrapper c-choice-wrapper--small u-mr-10 u-hidden"
-        data-ws-batch-actions-target="actions">
+        data-ws-batch-action-titles="{{ actionDataTitles|json_encode }}"
+        data-ws-batch-action-target="actions">
         <select
             name="t"
             class="u-mr-10"
             data-controller="ws-select"
-            data-action="change->ws-batch-actions#handleAction">
+            data-action="change->ws-batch-action#handleAction">
             <option value="">
                 {{ 'actions'|trans({}, 'ws_cms') }}
             </option>

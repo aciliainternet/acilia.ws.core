@@ -10,6 +10,8 @@ export default class extends Controller {
 
   declare actionsTarget: HTMLSelectElement;
 
+  declare urlValue: string;
+
   handleAction(event: Event) {
     const selectInput = event.currentTarget as HTMLSelectElement;
     let url: string | null = null;
@@ -17,10 +19,13 @@ export default class extends Controller {
 
     if (selectInput.options[selectInput.selectedIndex]) {
       url = selectInput.options[selectInput.selectedIndex].value;
-      ({ title } = selectInput.options[selectInput.selectedIndex].dataset);
+      const selectInputTitles = document.querySelector('[data-ws-batch-action-titles]') as HTMLElement;
+      const selectedInputTitle = selectInputTitles.dataset.wsBatchActionTitles;
+      title = selectedInputTitle ? JSON.parse(selectedInputTitle)[selectInput.selectedIndex] : '';
     }
 
     if (url && url.length > 0) {
+      this.urlValue = url;
       showAlert(
         {
           icon: 'warning',
@@ -28,22 +33,15 @@ export default class extends Controller {
           title,
           text: window.cmsTranslations.ws_cms_batch_actions.confirm_message,
           buttons: {
-            cancel: {
-              text: window.cmsTranslations.cancel,
-              value: null,
-              closeModal: true,
-              visible: true,
-            },
+            cancel: window.cmsTranslations.cancel,
             confirm: {
-              text: window.cmsTranslations.ws_cms_batch_actions
-                .confirm_button_label,
+              text: window.cmsTranslations.ws_cms_batch_actions.confirm_button_label,
               value: url,
-              closeModal: false,
             },
           },
         },
-        (value: string) => {
-          this.batchAction(value);
+        () => {
+          this.batchAction();
         }
       );
     }
@@ -116,7 +114,7 @@ export default class extends Controller {
     }
   }
 
-  async batchAction(url: string) {
+  async batchAction() {
     const ids: string[] = [];
     document
       .querySelectorAll('input[type=checkbox]:checked')
@@ -133,9 +131,9 @@ export default class extends Controller {
         text: window.cmsTranslations.ws_cms_batch_actions.no_item_selected,
         icon: 'error',
       });
-    } else if (url !== null) {
+    } else if (this.urlValue !== null) {
       try {
-        const response = await fetch(url, {
+        const response = await fetch(this.urlValue, {
           method: 'POST',
           headers: {
             'X-Requested-With': 'XMLHttpRequest',

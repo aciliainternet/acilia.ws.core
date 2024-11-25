@@ -183,8 +183,8 @@
                                         {{ field.width is defined ? "width=#{field.width}" }}>
                                         {% if field.sortable|default(false) %}
                                             {% set sortableParams = {
-                                                "sort":field.name,
-                                                "dir":newDir
+                                                "sort": field.name,
+                                                "dir": newDir
                                             } %}
 
                                             <div class="c-table__sorting {{ sortClass }}">
@@ -210,6 +210,7 @@
                             {% for entity in data %}
                                 <tr
                                     class="c-table__row"
+                                    data-id="{{ entity.id }}"
                                     {% block crud_table_header_row_data %}
                                         data-controller="ws-generic-delete"
                                         data-ws-generic-delete-id-value="{{ entity.id }}"
@@ -226,12 +227,11 @@
                                                     id="checkbox-item-{{ entity.id }}"
                                                     name="checkboxes"
                                                     type="checkbox"
-                                                    data-ws-batch-actions-target="itemInput"
-                                                    data-action="change->ws-batch-actions#handleItem">
+                                                    data-ws-batch-action-target="itemInput"
+                                                    data-action="change->ws-batch-action#handleItem">
                                                 <label
-                                                        class="c-choice__label c-choice__label--batch"
-                                                        for="checkbox-item-{{ entity.id }}"
-                                                >
+                                                    class="c-choice__label c-choice__label--batch"
+                                                    for="checkbox-item-{{ entity.id }}">
                                                 </label>
                                             </div>
                                         </td>
