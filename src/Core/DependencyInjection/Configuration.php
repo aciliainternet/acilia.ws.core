@@ -52,6 +52,9 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->defaultValue(['en'])
                         ->end()
+                        ->scalarNode('host')
+                        ->defaultNull()
+                        ->end()
                     ->end()
                 ->end() // preview
             ->end();

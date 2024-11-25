@@ -49,6 +49,11 @@ class PreviewService
         return $this->config['locales'];
     }
 
+    public function getHost(): ?string
+    {
+        return $this->config['host'];
+    }
+    
     public function hash(string $type, array $options = []): string
     {
         $expire = (string) (time() + $this->config['ttl']);
