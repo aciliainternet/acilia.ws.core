@@ -2,6 +2,7 @@
 
 namespace WS\Core\EventListener;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -14,6 +15,8 @@ use WS\Core\Service\SettingService;
 class ContextListener
 {
     public function __construct(
+        #[Autowire('%kernel.environment%')]
+        private string $env,
         private ContextInterface $context,
         private DomainInterface $domainService,
         private SettingService $settingService
@@ -38,7 +41,7 @@ class ContextListener
         $path = $event->getRequest()->getPathInfo();
         if (strpos($path, '/cms') === 0) {
             $this->context->setContext(ContextInterface::CMS);
-        } elseif (strpos($path, '/_wdt') === 0 || strpos($path, '/_profiler') === 0) {
+        } elseif ($this->env === 'dev' && (strpos($path, '/_wdt') === 0 || strpos($path, '/_profiler') === 0)) {
             $this->context->setContext(ContextInterface::SYMFONY);
         } else {
             $this->context->setContext(ContextInterface::SITE);
