@@ -16,7 +16,7 @@ class SiteConfigurationTokenParser extends AbstractTokenParser
         $stream->expect(Token::BLOCK_END_TYPE);
         $name = 'site_configuration';
 
-        return new SiteConfigurationNode($name, $value, $token->getLine(), $this->getTag());
+        return new SiteConfigurationNode($name, $value, $token->getLine());
     }
 
     public function getTag(): string

@@ -10,9 +10,9 @@ use Twig\Node\Node;
 #[YieldReady]
 class SiteConfigurationNode extends Node
 {
-    public function __construct(string $name, AbstractExpression $value, int $lineno = 0, string $tag = null)
+    public function __construct(string $name, AbstractExpression $value, int $lineno = 0)
     {
-        parent::__construct(['value' => $value], ['name' => $name], $lineno, $tag);
+        parent::__construct(['value' => $value], ['name' => $name], $lineno);
     }
 
     public function compile(Compiler $compiler): void

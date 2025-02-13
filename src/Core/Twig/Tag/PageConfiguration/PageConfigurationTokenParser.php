@@ -16,7 +16,7 @@ class PageConfigurationTokenParser extends AbstractTokenParser
         $stream->expect(Token::BLOCK_END_TYPE);
         $name = 'page_configuration';
 
-        return new PageConfigurationNode($name, $value, $token->getLine(), $this->getTag());
+        return new PageConfigurationNode($name, $value, $token->getLine());
     }
 
     public function getTag(): string

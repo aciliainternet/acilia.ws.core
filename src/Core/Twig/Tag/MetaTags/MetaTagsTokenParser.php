@@ -16,7 +16,7 @@ class MetaTagsTokenParser extends AbstractTokenParser
         $value = $parser->getExpressionParser()->parseExpression();
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new MetaTagsNode('metatags_configuration', $value, $token->getLine(), $this->getTag());
+        return new MetaTagsNode('metatags_configuration', $value, $token->getLine());
     }
 
     public function getTag(): string
