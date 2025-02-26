@@ -6,7 +6,6 @@
         ex: list/page-5?q=myFilter (5 = page and query = myFilter)
 #}
 
-{% apply spaceless %}
 <div class="c-pagination-wrapper">
     {% if nbPages > 1 %}
         {% set nearbyPagesLimit = 4 %}
@@ -69,6 +68,4 @@
             }}
         </div>
     {% endif %}
-
 </div>
-{% endapply %}
