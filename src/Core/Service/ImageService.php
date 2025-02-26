@@ -143,7 +143,7 @@ class ImageService
         object $entity,
         string $imageField,
         UploadedFile $imageFile,
-        array $options = null,
+        ?array $options = null,
         ?string $entityClass = null
     ): AssetImage {
         $this->processImageMetadata($imageFile);
@@ -173,7 +173,7 @@ class ImageService
         return $assetImage;
     }
 
-    public function handleStandalone(UploadedFile $imageFile, array $options = null): AssetImage
+    public function handleStandalone(UploadedFile $imageFile, ?array $options = null): AssetImage
     {
         $this->processImageMetadata($imageFile);
 
@@ -228,7 +228,7 @@ class ImageService
         object $entity,
         string $imageField,
         int $assetId,
-        array $options = null,
+        ?array $options = null,
         ?string $entityClass = null
     ): ?AssetImage {
         $sourceAssetImage = $this->assetImageService->get($assetId);
@@ -315,7 +315,7 @@ class ImageService
     protected function createRendition(
         AssetImage $assetImage,
         RenditionDefinition $definition,
-        array $options = null
+        ?array $options = null
     ): void {
         $imageContent = $this->storageService->get(
             $this->getFilePath($assetImage, 'original'),
@@ -362,7 +362,7 @@ class ImageService
         }
     }
 
-    protected function executeRenderMethod(RenditionDefinition $definition, Image $image, array $options = null): Image
+    protected function executeRenderMethod(RenditionDefinition $definition, Image $image, ?array $options = null): Image
     {
         if (isset($this->renderMethods[$definition->getMethod()])) {
             /** @var Image */

@@ -67,7 +67,7 @@ class LayoutExtension extends AbstractExtension
     public function checkIfInRoute(
         array $routePrefix,
         string $class = 'active',
-        bool $condition = null,
+        ?bool $condition = null,
         array $routeParameters = []
     ): string {
         if ($this->requestStack->getMainRequest() instanceof Request) {

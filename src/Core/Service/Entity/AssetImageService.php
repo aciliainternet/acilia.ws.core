@@ -58,7 +58,7 @@ class AssetImageService implements FactoryCollectorInterface
     public function createFromUploadedFile(
         UploadedFile $imageFile,
         ?object $entity = null,
-        string $imageField = null,
+        ?string $imageField = null,
         array $storageMetadata = []
     ): AssetImage {
         $assetImage = (new AssetImage())

@@ -34,7 +34,7 @@ class PreviewService
         return $this->config['query'];
     }
 
-    public function getPath(string $className = null, array $options = []): string
+    public function getPath(?string $className = null, array $options = []): string
     {
         $previewPath = null;
         if (null !== $className && $this->isSupported($className)) {
@@ -53,7 +53,7 @@ class PreviewService
     {
         return $this->config['host'];
     }
-    
+
     public function hash(string $type, array $options = []): string
     {
         $expire = (string) (time() + $this->config['ttl']);

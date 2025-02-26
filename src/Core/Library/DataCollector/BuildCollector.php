@@ -24,7 +24,7 @@ class BuildCollector extends DataCollector
         $this->components[] = $component;
     }
 
-    public function collect(Request $request, Response $response, \Throwable $exception = null): void
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $build = 'dev';
         if ($this->parameterBag->get('build') != '') {

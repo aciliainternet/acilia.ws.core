@@ -149,7 +149,7 @@ class ToolsExtension extends AbstractExtension
         return $this->dashboardService->render($widget);
     }
 
-    public function getTimeDiff(Environment $env, \DateTimeInterface $date, string $now = null): string
+    public function getTimeDiff(Environment $env, \DateTimeInterface $date, ?string $now = null): string
     {
         // Convert both dates to DateTime instances.
         $date = twig_date_converter($env, $date);

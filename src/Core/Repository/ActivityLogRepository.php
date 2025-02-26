@@ -42,7 +42,7 @@ class ActivityLogRepository extends ServiceEntityRepository
         }
     }
 
-    public function getAll(?Domain $domain, array $filters, int $limit = null, int $offset = null): array
+    public function getAll(?Domain $domain, array $filters, ?int $limit = null, ?int $offset = null): array
     {
         $alias = 't';
         $qb = $this->createQueryBuilder($alias);
