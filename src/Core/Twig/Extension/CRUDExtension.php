@@ -76,7 +76,7 @@ class CRUDExtension extends AbstractExtension
                 /** @var ?string */
                 $filteredValue = call_user_func_array($twigFilter->getCallable(), [$value, $options]);
 
-                $safeContext = $twigFilter->getSafe(new \Twig\Node\Node());
+                $safeContext = $twigFilter->getSafe(new \Twig\Node\EmptyNode());
                 if (!is_array($safeContext) || !in_array('html', $safeContext)) {
                     /** @var TwigFilter */
                     $escapeFilter = $environment->getFilter('escape');
