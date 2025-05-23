@@ -9,10 +9,10 @@ class SiteConfigurationTokenParser extends AbstractTokenParser
 {
     public function parse(Token $token): SiteConfigurationNode
     {
-        $parser = $this->parser;
-        $parser->getStream()->expect(Token::BLOCK_END_TYPE);
+        $value = $this->parser->parseExpression();
+        $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
 
-        return new SiteConfigurationNode('site_configuration', $parser->parseExpression(), $token->getLine());
+        return new SiteConfigurationNode('site_configuration', $value, $token->getLine());
     }
 
     public function getTag(): string
