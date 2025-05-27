@@ -2,13 +2,12 @@
 
 namespace WS\Core\Twig\Tag\MetaTags;
 
-use Twig\Node\Node;
 use Twig\TokenParser\AbstractTokenParser;
 use Twig\Token;
 
 class MetaTagsTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token): Node
+    public function parse(Token $token): MetaTagsNode
     {
         $value = $this->parser->parseExpression();
         $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
