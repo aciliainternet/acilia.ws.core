@@ -3,6 +3,7 @@
 namespace WS\Core\Service;
 
 use Intervention\Image\Constraint;
+use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Psr\Log\LoggerInterface;
@@ -24,7 +25,8 @@ class ImageService
         protected AssetImageService $assetImageService,
         protected StorageService $storageService
     ) {
-        $this->imageManager = new ImageManager('imagick');
+        $this->imageManager = new ImageManager(new ImagickDriver());
+
 
         $this->registerRenderMethod(RenditionDefinition::METHOD_CROP, \Closure::fromCallable([$this, 'renderMethodCrop']));
         $this->registerRenderMethod(RenditionDefinition::METHOD_THUMB, \Closure::fromCallable([$this, 'renderMethodThumb']));
