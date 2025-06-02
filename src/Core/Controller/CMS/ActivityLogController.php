@@ -25,12 +25,14 @@ class ActivityLogController extends AbstractController
             throw $this->createAccessDeniedException($this->translator->trans('not_allowed', [], 'ws_cms'));
         }
 
-        $page = intval($request->get('page', 1));
+        /** @var int $page */
+        $page = $request->get('page', 1);
         if ($page < 1) {
             $page = 1;
         }
 
-        $limit = intval($request->get('limit', 20));
+        /** @var int $limit */
+        $limit = $request->get('limit', 20);
         if (!$limit) {
             $limit = 20;
         }

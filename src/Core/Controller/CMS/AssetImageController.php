@@ -35,19 +35,28 @@ class AssetImageController extends AbstractController
     #[IsGranted('ROLE_CMS', message: 'not_allowed')]
     public function list(Request $request): JsonResponse
     {
-        $filter = strval($request->get('f'));
+        /** @var string $filter */
+        $filter = $request->get('f');
 
-        $page = intval($request->get('page', 1));
+        /** @var int $page */
+        $page = $request->get('page', 1);
         if ($page < 1) {
             $page = 1;
         }
 
-        $limit = intval($request->get('limit', $this->getLimit()));
+        /** @var int $limit */
+        $limit = $request->get('limit', $this->getLimit());
         if (!$limit) {
             $limit = $this->getLimit();
         }
 
-        $data = $this->getService()->getAll($filter, $page, $limit, strval($request->get('sort')), strval($request->get('dir')));
+        /** @var string $sort */
+        $sort = $request->get('sort');
+
+        /** @var string $dir */
+        $dir = $request->get('dir');
+
+        $data = $this->getService()->getAll($filter, $page, $limit, $sort, $dir);
 
         $response = [];
         foreach ($data as $image) {
@@ -69,7 +78,12 @@ class AssetImageController extends AbstractController
         if ($request->files->has('asset')) {
             /** @var UploadedFile */
             $imageFile = $request->files->get('asset');
-            $renditions = json_decode($request->get('renditions', null));
+
+            /** @var string $renditionsData */
+            $renditionsData = $request->get('renditions', null);
+
+            /** @var \stdClass[] $renditions */
+            $renditions = json_decode($renditionsData);
             $assetImage = $this->imageService->handleStandalone($imageFile, ['cropper' => [], 'renditions' => $renditions ]);
 
             $response = [
@@ -81,6 +95,7 @@ class AssetImageController extends AbstractController
 
             if ($renditions !== null) {
                 $response['renditions'] = [];
+
                 foreach ($renditions as $r) {
                     $response['renditions'][$r->name] = $this->imageService->getImageUrl($assetImage, $r->name);
                 }

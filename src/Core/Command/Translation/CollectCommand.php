@@ -38,13 +38,13 @@ class CollectCommand extends Command
     #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // Gather Local App translations
-        $appTranslationsPath = sprintf(
-            '%s/translations',
-            \strval($this->parameterBag->get('kernel.project_dir'))
-        );
-        $this->gatherTranslations($appTranslationsPath, '');
+        /** @var string $projectDir */
+        $projectDir = $this->parameterBag->get('kernel.project_dir');
 
+        // Gather Local App translations
+        $appTranslationsPath = sprintf('%s/translations', $projectDir);
+        $this->gatherTranslations($appTranslationsPath, '');
+        
         // Gather Bundled translations
         foreach ($this->translationService->getSources() as $directory => $source) {
             $this->gatherTranslations($directory, $source);

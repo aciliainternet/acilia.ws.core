@@ -55,6 +55,7 @@ class AssetImage
     #[ORM\Column(name: 'image_created_by', type: 'string', length: 128, nullable: true)]
     private ?string $createdBy = null;
 
+    #[\Override]
     public function __toString(): string
     {
         return \strval($this->id);

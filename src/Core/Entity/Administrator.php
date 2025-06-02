@@ -112,6 +112,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    #[\Override]
     public function getRoles(): array
     {
         return ['ROLE_CMS', $this->profile];

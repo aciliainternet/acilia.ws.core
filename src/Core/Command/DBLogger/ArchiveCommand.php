@@ -45,6 +45,7 @@ class ArchiveCommand extends Command
     {
         try {
             $days = $input->getOption('days');
+            /** @var string $purge */
             $purge = $input->getOption('purge');
 
             if (!is_numeric($days)) {

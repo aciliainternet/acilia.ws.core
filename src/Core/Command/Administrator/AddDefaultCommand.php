@@ -32,7 +32,7 @@ class AddDefaultCommand extends Command
 
         $generatedPassword = \substr(\str_shuffle(\str_repeat(
             $x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            ceil(24 / strlen($x))
+            intval(ceil(24 / strlen($x)))
         )), 1, 24);
 
         try {
