@@ -24,7 +24,7 @@ class ImageService
         protected AssetImageService $assetImageService,
         protected StorageService $storageService
     ) {
-        $this->imageManager = new ImageManager(['driver' => 'imagick']);
+        $this->imageManager = new ImageManager('imagick');
 
         $this->registerRenderMethod(RenditionDefinition::METHOD_CROP, \Closure::fromCallable([$this, 'renderMethodCrop']));
         $this->registerRenderMethod(RenditionDefinition::METHOD_THUMB, \Closure::fromCallable([$this, 'renderMethodThumb']));
