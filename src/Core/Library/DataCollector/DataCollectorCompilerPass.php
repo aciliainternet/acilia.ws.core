@@ -10,6 +10,7 @@ class DataCollectorCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(BuildCollector::class)) {

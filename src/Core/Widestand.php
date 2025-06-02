@@ -8,5 +8,5 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 class Widestand
 {
     public const NAME = 'Core';
-    public const VERSION = '1.2023-01-01';
+    public const VERSION = '1.2025-06-01';
 }

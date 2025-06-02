@@ -3,7 +3,7 @@
 namespace WS\Core\Service;
 
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use WS\Core\Library\Metadata\MetadataProviderInterface;
 
 class MetadataProviderService
@@ -11,7 +11,7 @@ class MetadataProviderService
     private array $supported = [];
 
     public function __construct(
-        #[TaggedLocator(MetadataProviderInterface::class)]
+        #[AutowireLocator(MetadataProviderInterface::class)]
         private ServiceLocator $providers,
     ) {
         foreach ($this->providers->getProvidedServices() as $providerId => $providerClass) {

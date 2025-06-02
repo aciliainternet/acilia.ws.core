@@ -25,6 +25,7 @@ class ToolsExtension extends AbstractExtension
     ) {
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [
@@ -44,6 +45,7 @@ class ToolsExtension extends AbstractExtension
         ];
     }
 
+    #[\Override]
     public function getFilters(): array
     {
         return [

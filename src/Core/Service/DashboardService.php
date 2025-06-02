@@ -2,7 +2,7 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Twig\Environment;
 use WS\Core\Library\Dashboard\DashboardWidgetInterface;
@@ -10,7 +10,7 @@ use WS\Core\Library\Dashboard\DashboardWidgetInterface;
 class DashboardService
 {
     public function __construct(
-        #[TaggedLocator(DashboardWidgetInterface::class, defaultIndexMethod: 'getId', defaultPriorityMethod: 'getPriority')]
+        #[AutowireLocator(DashboardWidgetInterface::class, defaultIndexMethod: 'getId', defaultPriorityMethod: 'getPriority')]
         private ServiceLocator $widgets,
         private Environment $twig
     ) {

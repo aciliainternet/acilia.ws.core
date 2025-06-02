@@ -7,6 +7,7 @@ use Twig\TokenParser\AbstractTokenParser;
 
 class SiteConfigurationTokenParser extends AbstractTokenParser
 {
+    #[\Override]
     public function parse(Token $token): SiteConfigurationNode
     {
         $value = $this->parser->parseExpression();
@@ -15,6 +16,7 @@ class SiteConfigurationTokenParser extends AbstractTokenParser
         return new SiteConfigurationNode('site_configuration', $value, $token->getLine());
     }
 
+    #[\Override]
     public function getTag(): string
     {
         return 'site_configuration';

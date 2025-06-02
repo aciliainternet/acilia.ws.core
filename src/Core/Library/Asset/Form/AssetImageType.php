@@ -33,6 +33,7 @@ class AssetImageType extends AbstractType
     }
 
     /** @param array<string, array<string, ?object>> $options */
+    #[\Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if ($options['ws']['entity'] === null) {
@@ -123,6 +124,7 @@ class AssetImageType extends AbstractType
     }
 
     /** @param array<string, array<string, ?object>> $options */
+    #[\Override]
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
@@ -137,6 +139,7 @@ class AssetImageType extends AbstractType
         ]);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

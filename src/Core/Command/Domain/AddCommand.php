@@ -22,6 +22,7 @@ class AddCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->addArgument('host', InputArgument::REQUIRED, 'The hostname of the domain')
@@ -32,6 +33,7 @@ class AddCommand extends Command
         ;
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);

@@ -7,6 +7,7 @@ use Twig\Token;
 
 class MetaTagsTokenParser extends AbstractTokenParser
 {
+    #[\Override]
     public function parse(Token $token): MetaTagsNode
     {
         $value = $this->parser->parseExpression();
@@ -15,6 +16,7 @@ class MetaTagsTokenParser extends AbstractTokenParser
         return new MetaTagsNode('metatags_configuration', $value, $token->getLine());
     }
 
+    #[\Override]
     public function getTag(): string
     {
         return 'metatags_configuration';

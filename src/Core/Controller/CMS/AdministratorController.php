@@ -19,11 +19,13 @@ class AdministratorController extends AbstractController
         $this->service = $service;
     }
 
+    #[\Override]
     protected function getRouteNamePrefix(): string
     {
         return 'ws_administrator';
     }
 
+    #[\Override]
     protected function getTranslatorPrefix(): string
     {
         return 'ws_cms_administrator';
@@ -62,6 +64,7 @@ class AdministratorController extends AbstractController
         return $this->render('@WSCore/cms/administrator/profile.html.twig', ['form' => $form]);
     }
 
+    #[\Override]
     protected function editEntityForm(object $entity): FormInterface
     {
         return $this->createForm(

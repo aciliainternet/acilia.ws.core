@@ -182,6 +182,7 @@ class AssetImageService implements FactoryCollectorInterface
         }
     }
 
+    #[\Override]
     public function getAvailableByIds(array $ids): array
     {
         $result = [];
@@ -200,6 +201,7 @@ class AssetImageService implements FactoryCollectorInterface
         }
     }
 
+    #[\Override]
     public function getFactoryCollectorSupported(): array
     {
         return [AssetImage::class];

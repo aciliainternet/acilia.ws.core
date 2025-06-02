@@ -6,7 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use WS\Core\Entity\Administrator;
 use WS\Core\Library\ActivityLog\ActivityLogCompilerPass;
 use WS\Core\Library\ActivityLog\ActivityLogInterface;
@@ -37,6 +37,7 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
     use RoleLoaderTrait;
     use RoleAdderTrait;
 
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -104,6 +105,7 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         $previewService->setArgument(0, $config['preview']);
     }
 
+    #[\Override]
     public function prepend(ContainerBuilder $container): void
     {
         foreach ($container->getExtensions() as $name => $extension) {

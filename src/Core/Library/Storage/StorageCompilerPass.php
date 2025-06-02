@@ -13,6 +13,7 @@ class StorageCompilerPass implements CompilerPassInterface
 
     public const TAG = 'storage_service';
 
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(StorageService::class)) {

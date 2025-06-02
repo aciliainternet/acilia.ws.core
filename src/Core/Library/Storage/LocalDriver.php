@@ -12,11 +12,13 @@ class LocalDriver implements StorageDriverInterface
     {
     }
 
+    #[\Override]
     public function getName(): string
     {
         return 'local';
     }
 
+    #[\Override]
     public function setConfiguration(): void
     {
         $contextPrivate = sprintf('%s/storage', $this->params->get('kernel.project_dir'));
@@ -41,11 +43,13 @@ class LocalDriver implements StorageDriverInterface
         ];
     }
 
+    #[\Override]
     public function getStorageMetadata(): array
     {
         return [];
     }
 
+    #[\Override]
     public function save(string $filePath, string $content, string $context): void
     {
         $finalFile = sprintf('%s/%s', $this->storageContext[$context], $filePath);
@@ -57,6 +61,7 @@ class LocalDriver implements StorageDriverInterface
         file_put_contents($finalFile, $content);
     }
 
+    #[\Override]
     public function get(string $filePath, string $context, array $options): string
     {
         $finalFile = sprintf('%s/%s', $this->storageContext[$context], $filePath);
@@ -72,11 +77,13 @@ class LocalDriver implements StorageDriverInterface
         return $finalFileContent;
     }
 
+    #[\Override]
     public function exists(string $filePath, string $context, array $options): bool
     {
         return \file_exists(sprintf('%s/%s', $this->storageContext[$context], $filePath));
     }
 
+    #[\Override]
     public function getPublicUrl(string $filePath, array $options): string
     {
         return sprintf('%s/%s', $this->storageContext[self::CONTEXT_URL], $filePath);

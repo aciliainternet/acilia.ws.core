@@ -17,6 +17,7 @@ class CRUDCompilerPass implements CompilerPassInterface
 
     public const TAG = 'ws.crud_controller';
 
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         // Get Translation Service Definition

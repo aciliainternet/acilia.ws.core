@@ -20,12 +20,14 @@ class DynamicResizeCommand extends Command
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->addArgument('image', InputArgument::REQUIRED, 'The image wanted')
         ;
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $imageFile = $input->getArgument('image');

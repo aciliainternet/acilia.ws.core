@@ -15,6 +15,7 @@ class AdministratorExtension extends AbstractExtension
     ) {
     }
 
+    #[\Override]
     public function getFilters(): array
     {
         return [

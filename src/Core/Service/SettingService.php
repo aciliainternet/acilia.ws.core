@@ -88,6 +88,7 @@ class SettingService implements AlertGathererInterface
         return [];
     }
 
+    #[\Override]
     public function gatherAlerts(GatherAlertsEvent $event): void
     {
         $definedSettings = count(is_array($this->settingValues) ? $this->settingValues : []);

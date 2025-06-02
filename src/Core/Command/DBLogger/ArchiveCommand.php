@@ -15,13 +15,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class ArchiveCommand extends Command
 {
-    private const ARCHIVE_DAYS = 30;
+    private const int ARCHIVE_DAYS = 30;
 
     public function __construct(private EntityManagerInterface $em)
     {
         parent::__construct();
     }
 
+    #[\Override]
     protected function configure(): void
     {
         $this->addOption(
@@ -39,6 +40,7 @@ class ArchiveCommand extends Command
             );
     }
 
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {

@@ -15,6 +15,7 @@ use WS\Core\Library\Storage\StorageCompilerPass;
 
 class WSCoreBundle extends Bundle
 {
+    #[\Override]
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);

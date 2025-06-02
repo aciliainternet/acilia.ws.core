@@ -14,6 +14,7 @@ use WS\Core\Library\CRUD\AbstractRepository;
  */
 class AdministratorRepository extends AbstractRepository
 {
+    #[\Override]
     protected function processFilterExtended(QueryBuilder $qb, ?array $filter): void
     {
         if (isset($filter['active'])) {

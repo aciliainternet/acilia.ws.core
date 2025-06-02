@@ -13,6 +13,7 @@ class PreviewCompilerPass implements CompilerPassInterface
 
     public const TAG = 'ws.preview';
 
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(PreviewService::class)) {

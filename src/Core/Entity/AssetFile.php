@@ -47,6 +47,7 @@ class AssetFile
     #[ORM\Column(name: 'file_created_by', type: 'string', length: 128, nullable: true)]
     private string $createdBy;
 
+    #[\Override]
     public function __toString(): string
     {
         return \strval($this->id);

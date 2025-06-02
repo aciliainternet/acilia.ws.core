@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormView;
 
 class ToggleChoiceType extends AbstractType
 {
+    #[\Override]
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
@@ -16,6 +17,7 @@ class ToggleChoiceType extends AbstractType
         ]);
     }
 
+    #[\Override]
     public function getParent(): ?string
     {
         return ChoiceType::class;

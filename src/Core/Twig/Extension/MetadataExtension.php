@@ -14,11 +14,13 @@ class MetadataExtension extends AbstractExtension
     {
     }
 
+    #[\Override]
     public function getTokenParsers(): array
     {
         return [new MetaTagsTokenParser()];
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [

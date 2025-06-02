@@ -71,11 +71,13 @@ class AssetFileService implements FactoryCollectorInterface
         return $assetFile;
     }
 
+    #[\Override]
     public function getFactoryCollectorSupported(): array
     {
         return [AssetFile::class];
     }
 
+    #[\Override]
     public function getAvailableByIds(array $ids): array
     {
         $result = [];

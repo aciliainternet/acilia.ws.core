@@ -24,6 +24,7 @@ class BuildCollector extends DataCollector
         $this->components[] = $component;
     }
 
+    #[\Override]
     public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $build = 'dev';
@@ -43,11 +44,13 @@ class BuildCollector extends DataCollector
         ];
     }
 
+    #[\Override]
     public function reset(): void
     {
         $this->data = [];
     }
 
+    #[\Override]
     public function getName(): string
     {
         return 'ws.build_collector';

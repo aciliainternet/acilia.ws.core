@@ -18,6 +18,7 @@ final class DomainService implements DomainInterface
     ) {
     }
 
+    #[\Override]
     public function getDomains(): array
     {
         if ($this->domains === null) {
@@ -33,6 +34,7 @@ final class DomainService implements DomainInterface
         return $this->domains;
     }
 
+    #[\Override]
     public function create(Domain $domain): Domain
     {
         try {
@@ -49,6 +51,7 @@ final class DomainService implements DomainInterface
         }
     }
 
+    #[\Override]
     public function get(int $id): ?Domain
     {
         $domains = $this->getDomains();
@@ -60,6 +63,7 @@ final class DomainService implements DomainInterface
         return $this->repository->find($id);
     }
 
+    #[\Override]
     public function getByHost(string $host): array
     {
         $domains = $this->getDomains();
@@ -74,6 +78,7 @@ final class DomainService implements DomainInterface
     /**
      * @return Domain[]
      */
+    #[\Override]
     public function getCanonicals(): array
     {
         $canonicals = [];
@@ -97,6 +102,7 @@ final class DomainService implements DomainInterface
     /**
      * @return Domain[]
      */
+    #[\Override]
     public function getAliases(): array
     {
         $aliases = [];

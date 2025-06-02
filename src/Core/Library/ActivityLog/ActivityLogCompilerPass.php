@@ -13,6 +13,7 @@ class ActivityLogCompilerPass implements CompilerPassInterface
 
     public const TAG = 'ws.activity_log';
 
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(ActivityLogService::class)) {

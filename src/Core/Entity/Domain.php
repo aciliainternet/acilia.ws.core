@@ -41,7 +41,7 @@ class Domain
     #[ORM\Column(name: 'domain_default', type: 'smallint', nullable: false)]
     private int $default = 0;
 
-
+    #[\Override]
     public function __toString(): string
     {
         return $this->host;

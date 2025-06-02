@@ -12,6 +12,7 @@ class InputMultipleType extends AbstractType
         'data-controller' => 'ws-input-multiple',
     ];
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -21,6 +22,7 @@ class InputMultipleType extends AbstractType
         ]);
     }
 
+    #[\Override]
     public function getParent(): ?string
     {
         return TextType::class;

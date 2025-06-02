@@ -9,11 +9,13 @@ class CsvExportProvider implements DataExportProviderInterface
 {
     public const EXPORT_FORMAT = 'csv';
 
+    #[\Override]
     public static function getFormat(): string
     {
         return self::EXPORT_FORMAT;
     }
 
+    #[\Override]
     public function export(DataExport $data): string
     {
         $pointer = fopen('php://temp', 'r+');
@@ -36,6 +38,7 @@ class CsvExportProvider implements DataExportProviderInterface
         return (false === $data) ? '' : $data;
     }
 
+    #[\Override]
     public function headers(): array
     {
         return [

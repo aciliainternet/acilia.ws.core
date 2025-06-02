@@ -15,6 +15,7 @@ class MetaTagsNode extends Node
         parent::__construct(['value' => $value], ['name' => $name], $lineno);
     }
 
+    #[\Override]
     public function compile(Compiler $compiler): void
     {
         $compiler

@@ -21,6 +21,7 @@ class PageConfigurationExtension extends AbstractExtension
         $this->breadcrumbs = [];
     }
 
+    #[\Override]
     public function getTokenParsers(): array
     {
         return [
@@ -28,6 +29,7 @@ class PageConfigurationExtension extends AbstractExtension
         ];
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [

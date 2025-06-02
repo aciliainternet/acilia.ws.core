@@ -2,7 +2,7 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use WS\Core\Library\Sidebar\SidebarDefinition;
 use WS\Core\Library\Sidebar\SidebarDefinitionInterface;
@@ -13,7 +13,7 @@ class SidebarService
     private ?array $assets = null;
 
     public function __construct(
-        #[TaggedLocator(SidebarDefinitionInterface::class, defaultPriorityMethod: 'getPriority')]
+        #[AutowireLocator(SidebarDefinitionInterface::class, defaultPriorityMethod: 'getPriority')]
         private ServiceLocator $services,
     ) {
     }

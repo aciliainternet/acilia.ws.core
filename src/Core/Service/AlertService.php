@@ -2,7 +2,7 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use WS\Core\Library\Alert\AlertGathererInterface;
 use WS\Core\Library\Alert\GatherAlertsEvent;
 
@@ -11,7 +11,7 @@ class AlertService
     protected ?array $alerts = null;
 
     public function __construct(
-        #[TaggedIterator(AlertGathererInterface::class)]
+        #[AutowireIterator(AlertGathererInterface::class)]
         private iterable $gatherers
     ) {
     }

@@ -14,6 +14,7 @@ class ActivityLogExtension extends AbstractExtension
     {
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [
@@ -21,6 +22,7 @@ class ActivityLogExtension extends AbstractExtension
         ];
     }
 
+    #[\Override]
     public function getFilters(): array
     {
         return [
@@ -29,6 +31,7 @@ class ActivityLogExtension extends AbstractExtension
         ];
     }
 
+    #[\Override]
     public function getTests(): array
     {
         return [

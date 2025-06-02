@@ -2,7 +2,7 @@
 
 namespace WS\Core\Service;
 
-use Symfony\Component\DependencyInjection\Attribute\TaggedLocator;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use WS\Core\Library\DataExport\DataExport;
 use WS\Core\Library\DataExport\DataExportProviderInterface;
@@ -10,7 +10,7 @@ use WS\Core\Library\DataExport\DataExportProviderInterface;
 class DataExportService
 {
     public function __construct(
-        #[TaggedLocator(DataExportProviderInterface::class, defaultIndexMethod: 'getFormat')]
+        #[AutowireLocator(DataExportProviderInterface::class, defaultIndexMethod: 'getFormat')]
         private ServiceLocator $exporters,
     ) {
     }

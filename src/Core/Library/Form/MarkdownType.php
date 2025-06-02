@@ -18,6 +18,7 @@ class MarkdownType extends AbstractType
         ]);
     }
 
+    #[\Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -27,6 +28,7 @@ class MarkdownType extends AbstractType
         ]);
     }
 
+    #[\Override]
     public function getParent(): ?string
     {
         return TextareaType::class;

@@ -10,6 +10,7 @@ class SiteConfigurationExtension extends AbstractExtension
 {
     private array $urls = [];
 
+    #[\Override]
     public function getTokenParsers(): array
     {
         return [
@@ -17,6 +18,7 @@ class SiteConfigurationExtension extends AbstractExtension
         ];
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [

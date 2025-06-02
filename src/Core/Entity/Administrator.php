@@ -89,6 +89,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    #[\Override]
     public function getUserIdentifier(): string
     {
         return $this->email;
@@ -116,6 +117,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
         return ['ROLE_CMS', $this->profile];
     }
 
+    #[\Override]
     public function getSalt(): ?string
     {
         return $this->salt;
@@ -128,6 +130,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    #[\Override]
     public function getPassword(): ?string
     {
         return $this->password;
@@ -164,6 +167,7 @@ class Administrator implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    #[\Override]
     public function eraseCredentials(): void
     {
     }

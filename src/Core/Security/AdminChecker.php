@@ -14,6 +14,7 @@ class AdminChecker implements UserCheckerInterface
     {
     }
 
+    #[\Override]
     public function checkPreAuth(UserInterface $administrator): void
     {
         if (!$administrator instanceof Administrator) {
@@ -25,7 +26,8 @@ class AdminChecker implements UserCheckerInterface
             throw new BadCredentialsException($this->translator->trans('login.disabled_admin', [], 'ws_cms'));
         }
     }
-
+    
+    #[\Override]
     public function checkPostAuth(UserInterface $user): void
     {
     }

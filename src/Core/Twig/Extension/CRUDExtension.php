@@ -20,6 +20,7 @@ class CRUDExtension extends AbstractExtension
     ) {
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [

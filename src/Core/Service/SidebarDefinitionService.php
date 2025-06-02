@@ -11,11 +11,13 @@ class SidebarDefinitionService implements SidebarDefinitionInterface
     {
     }
 
+    #[\Override]
     public static function getPriority(): int
     {
         return \PHP_INT_MAX;
     }
 
+    #[\Override]
     public function getSidebarAssets(): array
     {
         // Set Default Logo
@@ -24,6 +26,7 @@ class SidebarDefinitionService implements SidebarDefinitionInterface
         ];
     }
 
+    #[\Override]
     public function getSidebarDefinition(): array
     {
         // dashboard menu

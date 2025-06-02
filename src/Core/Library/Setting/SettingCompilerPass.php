@@ -13,6 +13,7 @@ class SettingCompilerPass implements CompilerPassInterface
 
     public const TAG = 'ws.setting_definition';
 
+    #[\Override]
     public function process(ContainerBuilder $container): void
     {
         if (!$container->has(SettingService::class)) {

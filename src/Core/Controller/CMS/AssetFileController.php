@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use WS\Core\Library\Storage\StorageDriverInterface;
 use WS\Core\Service\FileService;
@@ -35,6 +36,6 @@ class AssetFileController extends AbstractController
             ]);
         }
 
-        return new JsonResponse(['msg' => 'No asset found'], 500);
+        return new JsonResponse(['msg' => 'No asset found'], Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 }
