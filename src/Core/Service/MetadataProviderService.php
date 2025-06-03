@@ -15,7 +15,11 @@ class MetadataProviderService
         private ServiceLocator $providers,
     ) {
         foreach ($this->providers->getProvidedServices() as $providerId => $providerClass) {
-            foreach ($this->providers->get($providerId)->getMetadataSupportFor() as $service) {
+
+            /** @var MetadataProviderInterface $metadataProviderService */
+            $metadataProviderService = $this->providers->get($providerId);
+
+            foreach ($metadataProviderService->getMetadataSupportFor() as $service) {
                 $this->supported[$service] = $this->providers->get($providerId);
             }
         }

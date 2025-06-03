@@ -28,7 +28,7 @@ class FileService
 
         $this->storageService->save(
             $this->getFilePath($assetFile),
-            file_get_contents($fileFile->getPathname()),
+            file_get_contents($fileFile->getPathname()) ?: '',
             $options['context'] ?? StorageDriverInterface::CONTEXT_PRIVATE
         );
 

@@ -125,7 +125,10 @@ class SidebarService
         if ($this->sidebar === null) {
             $this->sidebar = [];
             foreach ($this->services->getProvidedServices() as $service) {
-                foreach ($this->services->get($service)->getSidebarDefinition() as $definition) {
+                /** @var SidebarDefinitionInterface $sidebarDefinitionService */
+                $sidebarDefinitionService = $this->services->get($service);
+
+                foreach ($sidebarDefinitionService->getSidebarDefinition() as $definition) {
                     if ($definition instanceof SidebarDefinition) {
                         $this->sidebar[$definition->getCode()] = $definition;
                     }
@@ -139,7 +142,10 @@ class SidebarService
         if ($this->assets === null) {
             $this->assets = [];
             foreach ($this->services->getProvidedServices() as $service) {
-                foreach ($this->services->get($service)->getSidebarAssets() as $asset) {
+                /** @var SidebarDefinitionInterface $sidebarDefinitionService */
+                $sidebarDefinitionService = $this->services->get($service);
+
+                foreach ($sidebarDefinitionService->getSidebarAssets() as $asset) {
                     $this->assets[$asset['key']] = $asset['value'];
                 }
             }

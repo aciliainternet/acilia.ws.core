@@ -11,11 +11,11 @@ class Encryption
     {
         $ivLen = openssl_cipher_iv_length($algorithm);
 
-        $iv = openssl_random_pseudo_bytes($ivLen);
+        $iv = openssl_random_pseudo_bytes($ivLen ?: 10);
 
         $ciphertextRaw = openssl_encrypt($plainData, $algorithm, $secret, $options = OPENSSL_RAW_DATA, $iv);
-        $hmac = hash_hmac('sha256', $ciphertextRaw, $secret, $binary = true);
-        
+        $hmac = hash_hmac('sha256', $ciphertextRaw ?: '', $secret, true);
+
         return base64_encode($iv . $hmac . $ciphertextRaw);
     }
 
@@ -24,10 +24,10 @@ class Encryption
         $c = base64_decode($encryptedData);
         $ivLen = openssl_cipher_iv_length($algorithm);
 
-        $iv = substr($c, 0, $ivLen);
-        $hmac = substr($c, $ivLen, $sha2len=32);
+        $iv = substr($c, 0, $ivLen ?: 10);
+        $hmac = substr($c, $ivLen ?: 10, $sha2len=32);
         $ciphertextRaw = substr($c, $ivLen + $sha2len);
 
-        return openssl_decrypt($ciphertextRaw, $algorithm, $secret, $options = OPENSSL_RAW_DATA, $iv);
+        return openssl_decrypt($ciphertextRaw, $algorithm, $secret, $options = OPENSSL_RAW_DATA, $iv) ?: '';
     }
 }

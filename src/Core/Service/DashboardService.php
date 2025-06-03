@@ -24,8 +24,11 @@ class DashboardService
     public function render(string $id): string
     {
         try {
-            $template = $this->widgets->get($id)->getTemplate();
-            $data = $this->widgets->get($id)->getData();
+            /** @var DashboardWidgetInterface $dashboardWidgeService */
+            $dashboardWidgeService = $this->widgets->get($id);
+
+            $template = $dashboardWidgeService->getTemplate();
+            $data = $dashboardWidgeService->getData();
 
             return $this->twig->render($template, $data);
         } catch (\Exception) {

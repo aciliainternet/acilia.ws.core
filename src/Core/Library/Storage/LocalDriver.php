@@ -21,18 +21,24 @@ class LocalDriver implements StorageDriverInterface
     #[\Override]
     public function setConfiguration(): void
     {
-        $contextPrivate = sprintf('%s/storage', $this->params->get('kernel.project_dir'));
-        $contextPublic = sprintf('%s/public/storage', $this->params->get('kernel.project_dir'));
+        /** @var string $projectDir */
+        $projectDir = $this->params->get('kernel.project_dir');
+
+        $contextPrivate = sprintf('%s/storage', $projectDir);
+        $contextPublic = sprintf('%s/public/storage', $projectDir);
         $contextUrl = '/storage';
         if ($this->params->has('storage.configuration')) {
-            if (isset($this->params->get('storage.configuration')['context.private'])) {
-                $contextPrivate = $this->params->get('storage.configuration')['context.private'];
+            /** @var array $storageConfiguration */
+            $storageConfiguration = $this->params->get('storage.configuration');
+
+            if (isset($storageConfiguration['context.private'])) {
+                $contextPrivate = $storageConfiguration['context.private'];
             }
-            if (isset($this->params->get('storage.configuration')['context.public'])) {
-                $contextPublic = $this->params->get('storage.configuration')['context.public'];
+            if (isset($storageConfiguration['context.public'])) {
+                $contextPublic = $storageConfiguration['context.public'];
             }
-            if (isset($this->params->get('storage.configuration')['context.url'])) {
-                $contextUrl = $this->params->get('storage.configuration')['context.url'];
+            if (isset($storageConfiguration['context.url'])) {
+                $contextUrl = $storageConfiguration['context.url'];
             }
         }
 

@@ -31,6 +31,7 @@ class MetadataConsumerService
 
     public function register(object|array $data, int $order): void
     {
+        /** @var array $preparedData */
         $preparedData = $data;
 
         if (\is_object($data)) {

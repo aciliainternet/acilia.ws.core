@@ -26,7 +26,7 @@ final class ContextService implements ContextInterface
     {
         $this->domain = $domain;
 
-        \Locale::setDefault(\strval(\str_replace('_', '-', $domain)));
+        \Locale::setDefault(\strval(\str_replace('_', '-', $domain->getCulture())));
     }
 
     #[\Override]

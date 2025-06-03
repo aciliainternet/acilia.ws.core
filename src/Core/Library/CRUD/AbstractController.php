@@ -85,7 +85,8 @@ abstract class AbstractController extends BaseController
 
     protected function getErrorMessage(FormError $error): string
     {
-        $label = $error->getOrigin()->getConfig()->getOption('label');
+        /** @var string $label */
+        $label = $error->getOrigin()?->getConfig()->getOption('label');
         $message = $error->getMessage();
 
         return sprintf('%s: "%s"', $this->trans($label, [], $this->getTranslatorPrefix()), $message);
@@ -117,18 +118,18 @@ abstract class AbstractController extends BaseController
 
         $this->preIndexFetchData($request);
 
-        $page = intval($request->get('page', 1));
+        $value = $request->get('page', 1);
+        $page = is_int($value) || is_string($value) ? intval($value) : 1;
         if ($page < 1) {
             $page = 1;
         }
 
-        $limit = intval($request->get('limit', $this->getLimit()));
-        if (!$limit) {
-            $limit = $this->getLimit();
-        }
+        $value = $request->get('limit');
+        $limit = is_int($value) || is_string($value) ? intval($value) : $this->getLimit();
 
         // Search simple
-        $search = strval($request->get('f'));
+        $value = $request->get('f');
+        $search = is_string($value) ? strval($value) : null;
 
         // Filter extended
         $filterExtended = $this->getFilterExtendedForm();
@@ -144,14 +145,20 @@ abstract class AbstractController extends BaseController
             $filterExtendedView = $filterExtended->createView();
         }
 
+        $value = $request->get('sort');
+        $sort = is_string($value) ? strval($value) : '';
+
+        $value = $request->get('dir');
+        $dir = is_string($value) ? strval($value) : '';
+
         // Retrieve data
         $data = $this->indexFetchData(
             $search,
             $filterExtendedData,
             $page,
             $limit,
-            strval($request->get('sort')),
-            strval($request->get('dir'))
+            $sort,
+            $dir
         );
 
         // Calculate pagination

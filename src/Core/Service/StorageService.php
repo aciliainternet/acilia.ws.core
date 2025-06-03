@@ -13,7 +13,10 @@ class StorageService
 
     public function __construct(protected ParameterBagInterface $parameterBag)
     {
-        $this->driverName = $parameterBag->get('storage.driver');
+        /** @var string $driverName */
+        $driverName = $parameterBag->get('storage.driver');
+
+        $this->driverName = $driverName;
     }
 
     public function getDriver(string $driverName): StorageDriverInterface

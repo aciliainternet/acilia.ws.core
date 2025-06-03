@@ -21,7 +21,10 @@ class DataExportService
             throw new \Exception(sprintf('Export format "%s" is not allowed', $format));
         }
 
-        return $this->exporters->get($format)->export($data);
+        /** @var DataExportProviderInterface $dataExportProvierService */
+        $dataExportProvierService = $this->exporters->get($format);
+
+        return $dataExportProvierService->export($data);
     }
 
     public function headers(string $format): array
@@ -30,6 +33,9 @@ class DataExportService
             throw new \Exception(sprintf('Export format "%s" is not allowed', $format));
         }
 
-        return $this->exporters->get($format)->headers();
+        /** @var DataExportProviderInterface $dataExportProvierService */
+        $dataExportProvierService = $this->exporters->get($format);
+
+        return $dataExportProvierService->headers();
     }
 }
