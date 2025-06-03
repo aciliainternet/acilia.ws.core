@@ -2,10 +2,10 @@
 
 namespace WS\Core\Service;
 
-use Intervention\Image\Constraint;
 use Intervention\Image\Drivers\Imagick\Driver as ImagickDriver;
-use Intervention\Image\Image;
+use Intervention\Image\Encoders\AutoEncoder;
 use Intervention\Image\ImageManager;
+use Intervention\Image\Interfaces\ImageInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WS\Core\Entity\AssetImage;
@@ -26,7 +26,6 @@ class ImageService
         protected StorageService $storageService
     ) {
         $this->imageManager = new ImageManager(new ImagickDriver());
-
 
         $this->registerRenderMethod(RenditionDefinition::METHOD_CROP, \Closure::fromCallable([$this, 'renderMethodCrop']));
         $this->registerRenderMethod(RenditionDefinition::METHOD_THUMB, \Closure::fromCallable([$this, 'renderMethodThumb']));
@@ -159,7 +158,7 @@ class ImageService
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
-            file_get_contents($imageFile->getPathname()),
+            file_get_contents($imageFile->getPathname()) ?: '',
             StorageDriverInterface::CONTEXT_PUBLIC
         );
 
@@ -188,7 +187,7 @@ class ImageService
 
         $this->storageService->save(
             $this->getFilePath($assetImage, 'original'),
-            file_get_contents($imageFile->getPathname()),
+            file_get_contents($imageFile->getPathname()) ?: '',
             StorageDriverInterface::CONTEXT_PUBLIC
         );
 
@@ -240,7 +239,7 @@ class ImageService
         $sourceAssetImageContent = $this->storageService->get(
             $this->getFilePath($sourceAssetImage, 'original'),
             StorageDriverInterface::CONTEXT_PUBLIC,
-            $sourceAssetImage->getStorageMetadata()
+            $sourceAssetImage->getStorageMetadata() ?? []
         );
 
         $assetImage = $this->assetImageService->createFromAsset($entity, $imageField, $sourceAssetImage);
@@ -278,16 +277,27 @@ class ImageService
 
     public function getImageUrl(AssetImage $image, string $rendition, ?string $subRendition = null): string
     {
-        return $this->storageService->getPublicUrl($this->getFilePath($image, $rendition, $subRendition), $image->getStorageMetadata());
+        return $this->storageService->getPublicUrl(
+            $this->getFilePath($image, $rendition, $subRendition),
+            $image->getStorageMetadata() ?? []
+        );
     }
 
-    public function dynamicResize(string $requestedFile, string $originalFile, int $width, int $height): Image
+    public function dynamicResize(string $requestedFile, string $originalFile, int $width, int $height): ImageInterface
     {
-        $originalContent = $this->storageService->get(sprintf('images/%s', $originalFile), StorageDriverInterface::CONTEXT_PUBLIC);
-        $originalImage = $this->imageManager->make($originalContent);
-        $originalImage->fit($width, $height);
+        $originalImage = $this->imageManager->read($this->storageService->get(
+            sprintf('images/%s', $originalFile),
+            StorageDriverInterface::CONTEXT_PUBLIC
+        ));
 
-        $this->storageService->save(sprintf('images/%s', $requestedFile), $originalImage->encode(null, 90), StorageDriverInterface::CONTEXT_PUBLIC);
+        $originalImage->cover($width, $height);
+        $encoded = $originalImage->encode(new AutoEncoder(quality: 90));
+
+        $this->storageService->save(
+            sprintf('images/%s', $requestedFile),
+            $encoded,
+            StorageDriverInterface::CONTEXT_PUBLIC
+        );
 
         return $originalImage;
     }
@@ -319,100 +329,100 @@ class ImageService
         RenditionDefinition $definition,
         ?array $options = null
     ): void {
-        $imageContent = $this->storageService->get(
+        // read image from storage
+        $image = $this->imageManager->read($this->storageService->get(
             $this->getFilePath($assetImage, 'original'),
             StorageDriverInterface::CONTEXT_PUBLIC,
-            $assetImage->getStorageMetadata()
-        );
+            $assetImage->getStorageMetadata() ?? []
+        ));
 
-        $image = $this->imageManager->make($imageContent);
-        $image->backup();
+        // keep original backup
+        $originalImage = clone $image;
 
-        $image = $this->executeRenderMethod($definition, $image, $options);
+        $processedImage = $this->executeRenderMethod($definition, $image, $options);
+
+        // encode image with preset quality
+        $encoded = $processedImage->encode(new AutoEncoder(quality: $definition->getQuality()));
 
         $this->storageService->save(
             $this->getFilePath($assetImage, $definition->getName()),
-            $image->encode(null, $definition->getQuality()),
+            $encoded,
             StorageDriverInterface::CONTEXT_PUBLIC
         );
 
+
+        // Subrenditions (e.g., 300x200, 600x400, etc.)
         foreach ($definition->getSubRenditions() as $subRendition) {
-            list($subRenditionWidth, $subRenditionHeight) = explode('x', $subRendition, 2);
+            [$subWidth, $subHeight] = explode('x', $subRendition, 2);
+            $subWidth = \intval($subWidth);
+            $subHeight = intval($subHeight);
 
-            $subRenditionImage = $this->imageManager->make($image);
-            $subRenditionImage->backup();
+            $subImage = clone $originalImage;
 
-            // check image width is empty
-            if ($subRenditionWidth <= 0) {
-                $subRenditionWidth = floor(($subRenditionHeight / $image->getHeight()) * $image->getWidth());
+            if ($subWidth <= 0) {
+                $subWidth = \intval(floor(($subHeight / $subImage->height()) * $subImage->width()));
             }
 
-            // check image height is empty
-            if ($subRenditionHeight <= 0) {
-                $subRenditionHeight = floor(($subRenditionWidth / $image->getWidth()) * $image->getHeight());
+            if ($subHeight <= 0) {
+                $subHeight = \intval(floor(($subWidth / $subImage->width()) * $subImage->height()));
             }
 
-            $subRenditionImage->fit((int) $subRenditionWidth, (int) $subRenditionHeight);
+            // adjust image with fit (crop proportional centered)
+            $subImage = $subImage->cover($subWidth, $subHeight);
+
+            // encode image with preset quality
+            $encodedSub = $subImage->encode(new AutoEncoder(quality: $definition->getQuality()));
 
             $this->storageService->save(
                 $this->getFilePath($assetImage, $definition->getName(), $subRendition),
-                $subRenditionImage->encode(null, $definition->getQuality()),
+                $encodedSub,
                 StorageDriverInterface::CONTEXT_PUBLIC
             );
-
-            $subRenditionImage->reset();
         }
     }
 
-    protected function executeRenderMethod(RenditionDefinition $definition, Image $image, ?array $options = null): Image
+    protected function executeRenderMethod(RenditionDefinition $definition, ImageInterface $image, ?array $options = null): ImageInterface
     {
         if (isset($this->renderMethods[$definition->getMethod()])) {
-            /** @var Image */
-            return call_user_func_array($this->renderMethods[$definition->getMethod()], [$definition, $image, $options]);
+            /** @var ImageInterface $imageRender */
+            $imageRender = call_user_func_array($this->renderMethods[$definition->getMethod()], [$definition, $image, $options]);
+            return $imageRender;
         }
 
         throw new \Exception(sprintf('Render Method "%s" not registered.', $definition->getMethod()));
     }
 
-    protected function renderMethodThumb(RenditionDefinition $definition, Image $image, ?array $options = null): Image
+    protected function renderMethodThumb(RenditionDefinition $definition, ImageInterface $image, ?array $options = null): ImageInterface
     {
-        // If Crop data and thumb rendition are defined, crop it
-        if (
-            isset($options['cropper']) &&
-            is_array($options['cropper']) &&
-            count($options['cropper']) > 0
-        ) {
+        if (isset($options['cropper']) && is_array($options['cropper']) && count($options['cropper']) > 0) {
             $key = $options['thumb-rendition'] ?? null;
+
             if (null !== $key && isset($options['cropper'][$key])) {
-                list(
-                    $cropData['w'],
-                    $cropData['h'],
-                    $cropData['x'],
-                    $cropData['y']
-                ) = explode(';', $options['cropper'][$key]);
+                [$w, $h, $x, $y] = explode(';', $options['cropper'][$key]);
+
                 $image->crop(
-                    (int) round((float) $cropData['w']),
-                    (int) round((float) $cropData['h']),
-                    (int) round((float) $cropData['x']),
-                    (int) round((float) $cropData['y'])
+                    \intval(round((float) $w)),
+                    \intval(round((float) $h)),
+                    \intval(round((float) $x)),
+                    \intval(round((float) $y))
                 );
             }
         }
 
+        $width = $definition->getWidth();
+        $height = $definition->getHeight();
+
         // Image is not 1:1 or Thumb is not 1:1
-        if (($image->getWidth() != $image->getHeight()) || ($definition->getWidth() != $definition->getHeight())) {
-            $image->resize($definition->getWidth(), $definition->getHeight(), function (Constraint $constraint) {
-                $constraint->aspectRatio();
-            });
+        if ($image->width() !== $image->height() || $width !== $height) {
+            $image->scaleDown($width, $height);
 
-            if ($definition->getWidth() !== null && $definition->getHeight() !== null) {
-                $image->resizeCanvas($definition->getWidth(), $definition->getHeight(), 'center', false, 'rgba(247, 247, 247, 1)');
+            if ($width !== null && $height !== null) {
+                $image->resizeCanvas($width, $height, 'rgba(247,247,247,1)');
             }
-
-            // Image and Thumb are 1:1
         } else {
-            if ($definition->getWidth() !== null && $definition->getHeight() !== null) {
-                $image->fit($definition->getWidth(), $definition->getHeight());
+            // Image and Thumb are 1:1
+            if ($width !== null && $height !== null) {
+                $image->cover($width, $height);
             }
         }
 
@@ -421,36 +431,33 @@ class ImageService
         return $image;
     }
 
-    protected function renderMethodCrop(RenditionDefinition $definition, Image $image, ?array $options = null): Image
+    protected function renderMethodCrop(RenditionDefinition $definition, ImageInterface $image, ?array $options = null): ImageInterface
     {
         $aspectRatio = $definition->getAspectRatio();
         if (null === $aspectRatio) {
             throw new \RuntimeException('Aspect ratio for crop not defined');
         }
 
-        // If Crop data is defined, crop it
         $key = str_replace(':', 'x', $aspectRatio);
-        if (isset($options['cropper']) && isset($options['cropper'][$key])) {
-            list(
-                $cropData['w'],
-                $cropData['h'],
-                $cropData['x'],
-                $cropData['y']
-            ) = explode(';', $options['cropper'][$key]);
+        if (isset($options['cropper'][$key])) {
+            [$w, $h, $x, $y] = explode(';', $options['cropper'][$key]);
 
-            $image->crop(
-                (int) round((float) $cropData['w']),
-                (int) round((float) $cropData['h']),
-                (int) round((float) $cropData['x']),
-                (int) round((float) $cropData['y'])
+            $image = $image->crop(
+                \intval(round((float) $w)),
+                \intval(round((float) $h)),
+                \intval(round((float) $x)),
+                \intval(round((float) $y))
             );
         }
 
-        if ($definition->getWidth() !== null && $definition->getHeight() !== null) {
-            $image->fit($definition->getWidth(), $definition->getHeight());
+        $width = $definition->getWidth();
+        $height = $definition->getHeight();
+
+        if ($width !== null && $height !== null) {
+            $image->cover($width, $height);
         }
 
-        $image->interlace(true)->sharpen(5);
+        $image->sharpen(5);
 
         return $image;
     }
@@ -461,7 +468,7 @@ class ImageService
         if (is_array($exifMetadata) && isset($exifMetadata['Orientation'])) {
             switch ($exifMetadata['Orientation']) {
                 case 8:
-                    $this->imageManager->make($imageFile->getPathname())
+                    $this->imageManager->read($imageFile->getPathname())
                         ->rotate(90)
                         ->save($imageFile->getPathname());
                     break;
