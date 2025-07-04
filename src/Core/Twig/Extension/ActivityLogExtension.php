@@ -2,48 +2,24 @@
 
 namespace WS\Core\Twig\Extension;
 
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
-use Twig\TwigTest;
+use Twig\Attribute\AsTwigFilter;
+use Twig\Attribute\AsTwigFunction;
+use Twig\Attribute\AsTwigTest;
 use WS\Core\Service\ActivityLogService;
 
-class ActivityLogExtension extends AbstractExtension
+class ActivityLogExtension
 {
     public function __construct(private ActivityLogService $activityLogService)
     {
     }
 
-    #[\Override]
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('ws_activity_log_enabled', [$this, 'isEnabled']),
-        ];
-    }
-
-    #[\Override]
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('ws_activity_log_model', [$this, 'printModel']),
-            new TwigFilter('ws_activity_log_action', [$this, 'printActionClass'])
-        ];
-    }
-
-    #[\Override]
-    public function getTests(): array
-    {
-        return [
-            new TwigTest('ws_activity_log_selected', [$this, 'selected']),
-        ];
-    }
-
+    #[AsTwigFunction(name: 'ws_activity_log_enabled')]
     public function isEnabled(): bool
     {
         return $this->activityLogService->isEnabled();
     }
 
+    #[AsTwigFilter(name: 'ws_activity_log_model')]
     public function printModel(string $modelName): string
     {
         $classPath = explode('\\', $modelName);
@@ -51,6 +27,7 @@ class ActivityLogExtension extends AbstractExtension
         return $classPath[count($classPath) - 1];
     }
 
+    #[AsTwigFilter(name: 'ws_activity_log_action')]
     public function printActionClass(string $action): string
     {
         switch ($action) {
@@ -63,6 +40,7 @@ class ActivityLogExtension extends AbstractExtension
         }
     }
 
+    #[AsTwigTest(name: 'ws_activity_log_selected')]
     public function selected(mixed $value, array $filter, string $key): bool
     {
         if (isset($filter[$key]) && $filter[$key] === $value) {

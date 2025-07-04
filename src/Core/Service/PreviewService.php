@@ -56,6 +56,11 @@ class PreviewService
         return $this->config['host'];
     }
 
+    public function getScheme(): string
+    {
+        return $this->config['scheme'];
+    }
+
     public function hash(array $options = []): string
     {
         $expire = (string) (time() + $this->config['ttl']);

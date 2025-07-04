@@ -39,7 +39,8 @@ class PreviewExtension
         }
 
         return sprintf(
-            'https://%s%s?%s=%s%s',
+            '%s://%s%s?%s=%s%s',
+            $this->previewService->getScheme(),
             str_replace(['http://', 'https://'], '', $this->previewService->getHost() ?? $domain->getHost()),
             $this->previewService->getPath($entity, $options),
             $this->previewService->getQuery(),
