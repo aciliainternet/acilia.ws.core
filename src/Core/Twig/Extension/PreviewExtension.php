@@ -2,12 +2,11 @@
 
 namespace WS\Core\Twig\Extension;
 
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
+use Twig\Attribute\AsTwigFunction;
 use WS\Core\Service\ContextInterface;
 use WS\Core\Service\PreviewService;
 
-class PreviewExtension extends AbstractExtension
+class PreviewExtension
 {
     public function __construct(
         private ContextInterface $context,
@@ -15,22 +14,13 @@ class PreviewExtension extends AbstractExtension
     ){
     }
 
-    #[\Override]
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('ws_preview_enabled', [$this, 'isPreviewEnabled']),
-            new TwigFunction('ws_preview_supported', [$this, 'isPreviewSupported']),
-            new TwigFunction('ws_preview_path', [$this, 'getPreviewPath']),
-            new TwigFunction('ws_preview_locales', [$this, 'getPreviewLocales']),
-        ];
-    }
-
+    #[AsTwigFunction(name: 'ws_preview_enabled')]
     public function isPreviewEnabled(): bool
     {
         return $this->previewService->isEnabled();
     }
 
+    #[AsTwigFunction(name: 'ws_preview_supported')]
     public function isPreviewSupported(object $entity): bool
     {
         try {
@@ -40,6 +30,7 @@ class PreviewExtension extends AbstractExtension
         }
     }
 
+    #[AsTwigFunction(name: 'ws_preview_path')]
     public function getPreviewPath(object $entity, array $options = [], array $queryString = []): string
     {
         $domain = $this->context->getDomain();
@@ -47,18 +38,17 @@ class PreviewExtension extends AbstractExtension
             throw new \RuntimeException();
         }
 
-        $entityClassName = (new \ReflectionClass($entity))->getName();
-
         return sprintf(
-            'https://%s/%s?%s=%s%s',
+            'https://%s%s?%s=%s%s',
             str_replace(['http://', 'https://'], '', $this->previewService->getHost() ?? $domain->getHost()),
-            $this->previewService->getPath($entityClassName, $options),
+            $this->previewService->getPath($entity, $options),
             $this->previewService->getQuery(),
-            $this->previewService->hash($entityClassName, $options),
+            $this->previewService->hash($options),
             empty($queryString) ? '' : '&' . http_build_query($queryString)
         );
     }
 
+    #[AsTwigFunction(name: 'ws_preview_locales')]
     public function getPreviewLocales(): array
     {
         return $this->previewService->getLocales();

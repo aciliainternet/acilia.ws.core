@@ -6,5 +6,5 @@ interface PreviewInterface
 {
     public function getPreviewClassName(): string;
 
-    public function getPreviewPath(array $options = []): ?string;
+    public function getPreviewPath(object $entity, array $options = []): ?string;
 }

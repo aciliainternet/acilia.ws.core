@@ -34,11 +34,13 @@ class PreviewService
         return $this->config['query'];
     }
 
-    public function getPath(?string $className = null, array $options = []): string
+    public function getPath(object $entity, array $options = []): string
     {
+        $entityClassName = (new \ReflectionClass($entity))->getName();
+
         $previewPath = null;
-        if (null !== $className && $this->isSupported($className)) {
-            $previewPath = $this->supportedEntities[$className]->getPreviewPath($options);
+        if ($this->isSupported($entityClassName)) {
+            $previewPath = $this->supportedEntities[$entityClassName]->getPreviewPath($entity, $options);
         }
 
         return $previewPath ?? $this->config['path'];
@@ -54,11 +56,10 @@ class PreviewService
         return $this->config['host'];
     }
 
-    public function hash(string $type, array $options = []): string
+    public function hash(array $options = []): string
     {
         $expire = (string) (time() + $this->config['ttl']);
         $data = [
-            'type' => $type,
             'options' => $options,
             'expire' => $expire,
         ];
@@ -71,16 +72,17 @@ class PreviewService
         return $data;
     }
 
-    public function unHash(string $hash): array
+    public function unHash(string $hash): void
     {
-        $data = rawurldecode($hash);
-        $data = Encryption::decrypt($data);
-        $data = \strval(gzinflate($data));
-        $data = (array)json_decode($data, true);
+        try {
+            $data = rawurldecode($hash);
+            $data = Encryption::decrypt($data);
+            $data = \strval(gzinflate($data));
+            $data = (array)json_decode($data, true);
 
-        $this->checkPreview($data);
-
-        return $data;
+            $this->checkPreview($data);
+        } catch (\Exception) {
+        }
     }
 
     public function isPreview(): bool
