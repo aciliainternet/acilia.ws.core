@@ -34,6 +34,6 @@ class PreviewListener
 
         /** @var string $preview; */
         $preview = $request->query->get($this->previewService->getQuery(), '');
-        $this->previewService->unHash($preview.'1');
+        $this->previewService->unHash($preview);
     }
 }
