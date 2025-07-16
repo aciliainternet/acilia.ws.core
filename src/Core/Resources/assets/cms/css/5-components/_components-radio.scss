@@ -67,4 +67,8 @@
             outline-offset: 2px;
         }
     }
+
+    &__item-label {
+        padding: var(--input-padding);
+    }
 }
