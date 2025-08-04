@@ -3,7 +3,7 @@
         <a
             class="c-btn c-btn--border"
             title="{{ 'preview'|trans({}, 'ws_cms')}}"
-            href="{{ ws_preview_path(entity, { 'id': entity.id}) }}"
+            href="{{ ws_preview_path(entity, { 'id': entity.id, '_locale': app.locale }) }}"
             target="_blank"
         >
             <i class="fa-regular fa-eye"></i>
