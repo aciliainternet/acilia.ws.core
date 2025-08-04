@@ -2,6 +2,7 @@
 
 namespace WS\Core\Security;
 
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -26,9 +27,9 @@ class AdminChecker implements UserCheckerInterface
             throw new BadCredentialsException($this->translator->trans('login.disabled_admin', [], 'ws_cms'));
         }
     }
-    
+
     #[\Override]
-    public function checkPostAuth(UserInterface $user): void
+    public function checkPostAuth(UserInterface $user, ?TokenInterface $token = null ): void
     {
     }
 }
