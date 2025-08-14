@@ -37,7 +37,7 @@
 
     &__body {
         height: auto;
-        max-height: 3000px;
+        max-height: fit-content;
         padding: 0 24px 24px 0;
 
         &.is-hidden {
