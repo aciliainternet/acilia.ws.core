@@ -20,6 +20,12 @@ class PreviewExtension
         return $this->previewService->isEnabled();
     }
 
+    #[AsTwigFunction(name: 'ws_is_preview')]
+    public function isPreview(): bool
+    {
+        return $this->previewService->isPreview();
+    }
+
     #[AsTwigFunction(name: 'ws_preview_supported')]
     public function isPreviewSupported(object $entity): bool
     {
