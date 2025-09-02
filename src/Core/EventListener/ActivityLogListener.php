@@ -54,6 +54,9 @@ class ActivityLogListener
             // get entity service
             $entityService = $this->activityLogService->getService($entityName);
 
+            // get activity log id
+            $activityLogId = $this->activityLogService->getId($entityName);
+
             // set date of the change
             $activityLogDate = new \DateTime();
 
@@ -81,6 +84,7 @@ class ActivityLogListener
 
             // save the editorial activity log
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
+                'activity_log_id' => $activityLogId,
                 'activity_log_action' => ActivityLogInterface::UPDATE,
                 'activity_log_model' => $this->activityLogService->getClassName($entityName),
                 'activity_log_model_id' => $this->activityLogService->getEntityId($entityName, $entity),
@@ -111,12 +115,16 @@ class ActivityLogListener
             return;
         }
 
+        // get activity log id
+        $activityLogId = $this->activityLogService->getId($entityName);
+
         try {
             // set date of the insert
             $activityLogDate = new \DateTime();
 
             // save the editorial activity log
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
+                'activity_log_id' => $activityLogId,
                 'activity_log_action' => ActivityLogInterface::CREATE,
                 'activity_log_model' => $this->activityLogService->getClassName($entityName),
                 'activity_log_model_id' => $this->activityLogService->getEntityId($entityName, $entity),
@@ -147,12 +155,16 @@ class ActivityLogListener
             return;
         }
 
+        // get activity log id
+        $activityLogId = $this->activityLogService->getId($entityName);
+
         try {
             // set date of the remove
             $activityLogDate = new \DateTime();
 
             // save the editorial activity log
             $args->getObjectManager()->getConnection()->insert('ws_activity_log', [
+                'activity_log_id' => $activityLogId,
                 'activity_log_action' => ActivityLogInterface::DELETE,
                 'activity_log_model' => $this->activityLogService->getClassName($entityName),
                 'activity_log_model_id' => $this->activityLogService->getEntityId($entityName, $entity),

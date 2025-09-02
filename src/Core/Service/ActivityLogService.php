@@ -24,6 +24,11 @@ class ActivityLogService
         }
     }
 
+    public function getId(string $className): ?int
+    {
+        return $this->supportedEntities[$className]->getActivityLogId();
+    }
+
     public function getEntityId(string $className, object $entity): string
     {
         return $this->supportedEntities[$className]->getActivityLogEntityId($entity);

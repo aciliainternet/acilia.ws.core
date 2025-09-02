@@ -6,6 +6,11 @@ use WS\Core\Library\CRUD\AbstractService;
 
 trait ActivityLogTrait
 {
+    public function getActivityLogId(): ?int
+    {
+        return null;
+    }
+
     public function getActivityLogEntityId(object $entity): int
     {
         return $entity->getId();

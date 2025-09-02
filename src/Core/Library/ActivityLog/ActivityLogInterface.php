@@ -8,6 +8,8 @@ interface ActivityLogInterface
     public const CREATE = 'create';
     public const DELETE = 'delete';
 
+    public function getActivityLogId(): ?int;
+    
     public function getActivityLogEntityId(object $entity): int;
 
     public function getActivityLogClassName(string $class): string;
