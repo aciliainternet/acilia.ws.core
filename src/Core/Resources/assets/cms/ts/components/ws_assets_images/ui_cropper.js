@@ -13,7 +13,7 @@ const messageCropperPrefix = ".js-cropper-msg";
 let modal = null;
 let cancelEvent = null;
 
-function getComponentConfig(elmId, ratio) {
+function getComponentConfig(elmId, ratio, cropArea) {
   return {
     preview: document.querySelector(`[data-id="${elmId}"] .ws-cropper_preview`),
     aspectRatio: ratio,
@@ -26,6 +26,7 @@ function getComponentConfig(elmId, ratio) {
     zoomOnTouch: false,
     zoomOnWheel: false,
     wheelZoomRatio: false,
+    autoCropArea: cropArea
   };
 }
 
@@ -142,7 +143,7 @@ function showCropper(elm, cropperIndex) {
     const cropperConfig = croppersConfig[cropperIndex];
     const imageSelector = `.ws-cropper_modal[data-id="${elm.id}"] img${cropperIgnoreClasses}`;
     const cropperSelector = `.ws-cropper_modal[data-id="${elm.id}"]`;
-    const config = getComponentConfig(elm.id, cropperConfig.ratioValue);
+    const config = getComponentConfig(elm.id, cropperConfig.ratioValue, cropperConfig.autoCropArea);
 
     document
       .querySelector(`${cropperSelector} .ws-cropper_crop`)

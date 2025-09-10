@@ -49,23 +49,24 @@ class AssetImageType extends AbstractType
         $renditions = $this->imageService->getRenditions($entityClass, $entityField);
 
         $builder->add('asset', FileType::class, [
-            'constraints' => new File([
-                'mimeTypes' => array_merge(
+            'constraints' => new File(
+                mimeTypes: array_merge(
                     (new MimeTypes())->getMimeTypes('jpeg'),
                     (new MimeTypes())->getMimeTypes('jpg'),
                     (new MimeTypes())->getMimeTypes('png'),
                     (new MimeTypes())->getMimeTypes('gif'),
                     (new MimeTypes())->getMimeTypes('webp'),
                 ),
-                'mimeTypesMessage' => 'ws.cms.image.invalid_type',
-                'maxSize' => self::ASSET_IMAGE_MAX_SIZE,
-                'maxSizeMessage' => 'ws.cms.image.max_size'
-            ]),
+                mimeTypesMessage: 'ws.cms.image.invalid_type',
+                maxSize: self::ASSET_IMAGE_MAX_SIZE,
+                maxSizeMessage: 'ws.cms.image.max_size'
+            ),
             'attr' => [
                 'data-component' => 'ws_cropper',
                 'data-ratios' => json_encode($aspectRatiosFractions),
                 'data-minimums' => json_encode($minimums),
                 'data-display-mode' => $options['ws']['display-mode'],
+                'data-cropper-area' => $options['ws']['cropper-area'] ?? .8,
                 'data-is-visible' => 'false',
                 'data-renditions' => json_encode(array_map(function ($rendition): array {
                     return [
@@ -133,7 +134,8 @@ class AssetImageType extends AbstractType
                 'preview' => $options['ws']['preview'] ?? true,
                 'display_mode' => $options['ws']['display-mode'],
                 'thumb_size' => $options['ws']['thumb-size'] ?? self::ASSET_IMAGE_DEFAULT_THUMB_SIZE,
-                'thumb_rendition' => $options['ws']['thumb-rendition'] ?? null
+                'thumb_rendition' => $options['ws']['thumb-rendition'] ?? null,
+                'cropper_area' => $options['ws']['cropper-area'] ?? null
             ],
             'type' => 'ws-asset-image',
         ]);
@@ -150,7 +152,8 @@ class AssetImageType extends AbstractType
                 'preview' => true,
                 'display-mode' => 'list',
                 'thumb-size' => self::ASSET_IMAGE_DEFAULT_THUMB_SIZE,
-                'thumb-rendition' => null
+                'thumb-rendition' => null,
+                'cropper-area' => null,
             ]
         ]);
     }
