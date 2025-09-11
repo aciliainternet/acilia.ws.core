@@ -14,12 +14,14 @@ function createCropperConfig(element) {
   const croppersConfig = [];
   const ratios = JSON.parse(element.dataset.ratios);
   const minimums = JSON.parse(element.dataset.minimums);
+  const cropperArea = parseFloat(element.dataset.cropperArea ?? .8);
 
   Object.keys(ratios).forEach((ratioKey) => {
     croppersConfig.push({
       ratio: ratios[ratioKey].label,
       ratioValue: ratios[ratioKey].fraction,
       minimums: minimums[ratioKey],
+      autoCropArea: cropperArea
     });
   });
 
