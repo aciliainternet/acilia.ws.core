@@ -96,7 +96,9 @@ class MetadataConsumerService
                 switch ($key) {
                     case 'title':
                         if (isset($config['title'])) {
-                            $config['title'] .= ' | ' . $value;
+                            if ('' !== $value) {
+                                $config['title'] .= ' | ' . $value;
+                            }
                         } else {
                             $config['title'] = $value;
                         }
