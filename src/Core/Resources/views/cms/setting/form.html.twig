@@ -61,12 +61,12 @@
                         data-ws-settings-target="option"
                         placeholder="{{ setting.placeholder is defined and setting.placeholder is not empty ? setting.placeholder|trans({}, setting.translationDomain) }}"
                         value="{{ setting.value }}">
-                    {# <small class="c-field__message u-mt-5">
-                        {% if setting.description is not empty %}
+                     {% if setting.description is not empty %}
+                        <small class="c-field__message u-mt-5">
                             <i class="fa fa-info-circle"></i>
                             {{ setting.description|trans({}, setting.translationDomain) }}
-                        {% endif %}
-                    </small> #}
+                        </small>
+                    {% endif %}
                 </div>
             {% endif %}
         </div>
