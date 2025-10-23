@@ -60,4 +60,9 @@ class StorageService
     {
         return $this->getDriver($this->driverName)->getPublicUrl($filePath, $options);
     }
+
+    public function sanitizeFilename(string $filename, string $extension): string
+    {
+        return $this->getDriver($this->driverName)->sanitizeFilename($filename, $extension);
+    }
 }

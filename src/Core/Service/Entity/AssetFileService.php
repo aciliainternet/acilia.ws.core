@@ -32,12 +32,15 @@ class AssetFileService implements FactoryCollectorInterface
 
     public function createFromUploadedFile(
         UploadedFile $fileFile,
+        string $sanitizedFilename,
         ?object $entity = null,
         ?string $fileField = null,
         array $storageMetadata = []
     ): AssetFile {
+        $storageMetadata['original_filename'] = $fileFile->getClientOriginalName();
+
         $assetFile = (new AssetFile())
-            ->setFilename($this->sanitizeFilename($fileFile))
+            ->setFilename($sanitizedFilename)
             ->setMimeType((string) $fileFile->getMimeType())
             ->setStorageMetadata($storageMetadata);
 
@@ -94,14 +97,5 @@ class AssetFileService implements FactoryCollectorInterface
 
             return [];
         }
-    }
-
-    protected function sanitizeFilename(UploadedFile $fileFile): string
-    {
-        $filename = explode('.', (string) $fileFile->getClientOriginalName());
-        $assetName = (string) preg_replace('/[^\w\-\.]/', '', $filename[0]);
-        $filename = sprintf('%s.%s', $assetName, $fileFile->getClientOriginalExtension());
-
-        return trim($filename);
     }
 }

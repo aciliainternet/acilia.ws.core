@@ -151,6 +151,7 @@ class ImageService
 
         $assetImage = $this->assetImageService->createFromUploadedFile(
             $imageFile,
+            $this->storageService->sanitizeFilename($imageFile->getClientOriginalName(), $imageFile->getClientOriginalExtension()),
             $entity,
             $imageField,
             $this->storageService->getStorageMetadata()
@@ -180,6 +181,7 @@ class ImageService
 
         $assetImage = $this->assetImageService->createFromUploadedFile(
             $imageFile,
+            $this->storageService->sanitizeFilename($imageFile->getClientOriginalName(), $imageFile->getClientOriginalExtension()),
             null,
             null,
             $this->storageService->getStorageMetadata()

@@ -94,4 +94,14 @@ class LocalDriver implements StorageDriverInterface
     {
         return sprintf('%s/%s', $this->storageContext[self::CONTEXT_URL], $filePath);
     }
+
+    #[\Override]
+    public function sanitizeFilename(string $filename, string $extension): string
+    {
+        $filename = explode('.', $filename);
+        $storageName = (string) preg_replace('/[^\w\-\.]/', '', $filename[0]);
+        $sanitizedFilename = sprintf('%s.%s', $storageName, $extension);
+
+        return trim($sanitizedFilename);
+    }
 }

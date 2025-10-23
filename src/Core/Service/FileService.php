@@ -21,6 +21,7 @@ class FileService
     {
         $assetFile = $this->assetFileService->createFromUploadedFile(
             $fileFile,
+            $this->storageService->sanitizeFilename($fileFile->getClientOriginalName(), $fileFile->getClientOriginalExtension()),
             $entity,
             $fileField,
             $this->storageService->getStorageMetadata()
@@ -44,6 +45,7 @@ class FileService
 
         $assetFile = $this->assetFileService->createFromUploadedFile(
             $fileFile,
+            $this->storageService->sanitizeFilename($fileFile->getClientOriginalName(), $fileFile->getClientOriginalExtension()),
             null,
             null,
             $this->storageService->getStorageMetadata()
