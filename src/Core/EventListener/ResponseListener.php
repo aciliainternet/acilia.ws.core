@@ -21,16 +21,22 @@ class ResponseListener
 
         // CMS customs
         if ($this->context->isCMS()) {
-            $event->getResponse()->setCache([
-                'private' => true
-            ]);
-            $event->getResponse()->headers->addCacheControlDirective('no-store');
+            if ($this->config['cache_control_directive']) {
+                $event->getResponse()->setCache([
+                    'private' => true
+                ]);
+                $event->getResponse()->headers->addCacheControlDirective('no-store');
+            }
         }
 
-        // Generic tweaks
-        $event->getResponse()->headers->set('X-Powered-By', 'WideStand by Sngular');
+        if ($this->config['powered_by']) {
+            // PoweredBy headers
+            $event->getResponse()->headers->set('X-Powered-By', 'WideStand by Sngular');
+        }
 
-        // Security headers
-        $event->getResponse()->headers->set('X-Content-Type-Options', 'nosniff');
+        if ($this->config['content_type_options']) {
+            // Security headers
+            $event->getResponse()->headers->set('X-Content-Type-Options', 'nosniff');
+        }
     }
 }

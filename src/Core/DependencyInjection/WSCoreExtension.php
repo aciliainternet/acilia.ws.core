@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use WS\Core\Entity\Administrator;
+use WS\Core\EventListener\ResponseListener;
 use WS\Core\Library\ActivityLog\ActivityLogCompilerPass;
 use WS\Core\Library\ActivityLog\ActivityLogInterface;
 use WS\Core\Library\Asset\ImageCompilerPass;
@@ -103,6 +104,10 @@ class WSCoreExtension extends Extension implements PrependExtensionInterface
         // Configure Preview
         $previewService = $container->getDefinition(PreviewService::class);
         $previewService->setArgument(0, $config['preview']);
+
+        // Configure Response Listener
+        $previewService = $container->getDefinition(ResponseListener::class);
+        $previewService->setArgument(0, $config['headers']);
     }
 
     #[\Override]
