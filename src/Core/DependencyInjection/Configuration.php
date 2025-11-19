@@ -31,6 +31,22 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end() // translation
 
+                ->arrayNode('headers')
+                    ->info('Disables or Enables WS header responses.')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('powered_by')
+                        ->defaultTrue()
+                        ->end()
+                        ->booleanNode('content_type_options')
+                        ->defaultTrue()
+                        ->end()
+                        ->booleanNode('cache_control_directive')
+                        ->defaultTrue()
+                        ->end()
+                    ->end()
+                ->end() // headers
+
                 ->arrayNode('preview')
                     ->info('Disables or Enables the frontend preview service.')
                     ->addDefaultsIfNotSet()
