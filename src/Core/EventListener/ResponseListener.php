@@ -9,8 +9,10 @@ use WS\Core\Service\ContextInterface;
 #[AsEventListener(event: ResponseEvent::class, method: 'onResponse', priority: -512)]
 class ResponseListener
 {
-    public function __construct(private ContextInterface $context)
-    {
+    public function __construct(
+        private array $config,
+        private ContextInterface $context
+    ) {
     }
 
     public function onResponse(ResponseEvent $event): void
