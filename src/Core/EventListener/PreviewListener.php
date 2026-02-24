@@ -32,8 +32,10 @@ class PreviewListener
 
         $request = $event->getRequest();
 
-        /** @var string $preview; */
-        $preview = $request->query->get($this->previewService->getQuery(), '');
-        $this->previewService->unHash($preview);
+        /** @var ?string $preview; */
+        $preview = $request->query->get($this->previewService->getQuery(), false);
+        if ($preview) {
+            $this->previewService->unHash($preview);
+        }
     }
 }
