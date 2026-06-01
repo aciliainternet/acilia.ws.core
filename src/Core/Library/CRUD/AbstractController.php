@@ -118,17 +118,17 @@ abstract class AbstractController extends BaseController
 
         $this->preIndexFetchData($request);
 
-        $value = $request->get('page', 1);
+        $value = $request->query->get('page', 1);
         $page = is_int($value) || is_string($value) ? intval($value) : 1;
         if ($page < 1) {
             $page = 1;
         }
 
-        $value = $request->get('limit');
+        $value = $request->query->get('limit');
         $limit = is_int($value) || is_string($value) ? intval($value) : $this->getLimit();
 
         // Search simple
-        $value = $request->get('f');
+        $value = $request->query->get('f');
         $search = is_string($value) ? strval($value) : null;
 
         // Filter extended
@@ -145,10 +145,10 @@ abstract class AbstractController extends BaseController
             $filterExtendedView = $filterExtended->createView();
         }
 
-        $value = $request->get('sort');
+        $value = $request->query->get('sort');
         $sort = is_string($value) ? strval($value) : '';
 
-        $value = $request->get('dir');
+        $value = $request->query->get('dir');
         $dir = is_string($value) ? strval($value) : '';
 
         // Retrieve data
@@ -164,7 +164,7 @@ abstract class AbstractController extends BaseController
         // Calculate pagination
         $paginationData = [
             'currentPage' => $page,
-            'url' => $request->get('_route'),
+            'url' => $request->attributes->get('_route'),
             'nbPages' => ceil($data['total'] / $limit),
             'currentCount' => count($data['data']),
             'totalCount' => $data['total'],

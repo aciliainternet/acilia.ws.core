@@ -12,7 +12,7 @@ use WS\Core\Service\DomainInterface;
 use WS\Core\Service\SettingService;
 
 #[AsEventListener(event: RequestEvent::class, method: 'setupDomain', priority: 127)]
-class ContextListener
+readonly class ContextListener
 {
     public function __construct(
         #[Autowire('%kernel.environment%')]

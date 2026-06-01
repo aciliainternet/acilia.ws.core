@@ -7,6 +7,6 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 #[AutoconfigureTag('ws.component')]
 class Widestand
 {
-    public const NAME = 'Core';
-    public const VERSION = '1.2025-06-01';
+    public const string NAME = 'Core';
+    public const string VERSION = '1.2025-06-01';
 }

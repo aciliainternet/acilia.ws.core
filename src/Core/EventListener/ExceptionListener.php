@@ -11,7 +11,7 @@ use Twig\Environment;
 use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: ExceptionEvent::class, method: 'onException', priority: 124)]
-class ExceptionListener
+readonly class ExceptionListener
 {
     public function __construct(
         private ContextInterface $context,
