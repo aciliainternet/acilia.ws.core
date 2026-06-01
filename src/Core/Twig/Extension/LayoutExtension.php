@@ -74,7 +74,7 @@ class LayoutExtension extends AbstractExtension
         if ($this->requestStack->getMainRequest() instanceof Request) {
             foreach ($routePrefix as $route) {
                 /** @var string */
-                $routeName = $this->requestStack->getMainRequest()->get('_route');
+                $routeName = $this->requestStack->getMainRequest()->attributes->get('_route');
                 if (strpos(strval($routeName), $route) === 0) {
                     if ($condition === false) {
                         return '';
@@ -82,7 +82,7 @@ class LayoutExtension extends AbstractExtension
 
                     if (!empty($routeParameters)) {
                         $routeParams = array_merge(
-                            (array) $this->requestStack->getMainRequest()->get('_route_params'),
+                            (array) $this->requestStack->getMainRequest()->attributes->get('_route_params'),
                             (array) $this->requestStack->getMainRequest()->query->all()
                         );
 

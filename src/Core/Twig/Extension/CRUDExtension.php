@@ -32,11 +32,11 @@ class CRUDExtension extends AbstractExtension
 
     public function getPath(string $name, array $parameters = [], bool $relative = false): string
     {
-        /** @var Request */
+        /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
 
         // fetch context params (if any)
-        /** @var array */
+        /** @var array $routeParams*/
         $routeParams = $request->attributes->get('_route_params');
 
         $contextParams = [];
