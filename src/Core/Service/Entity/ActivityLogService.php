@@ -23,7 +23,7 @@ class ActivityLogService
 
     public function getAll(array $filters, int $page, int $limit): array
     {
-        /** @var ActivityLog[] */
+        /** @var ActivityLog[] $entities */
         $entities = $this->repository->getAll($this->context->getDomain(), $filters, $limit, ($page - 1) * $limit);
 
         $total = $this->repository->getAllCount($this->context->getDomain(), $filters);

@@ -25,7 +25,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         ?Domain $domain,
         ?string $search,
         ?array $filter,
-        ?array $filtetrFields,
+        ?array $filterFields,
         ?array $orderBy = null,
         ?int $limit = null,
         ?int $offset = null
@@ -33,7 +33,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $qb = $this->getAllQueryBuilder();
         $alias = $qb->getRootAliases()[0];
 
-        $this->setFilter($alias, $qb, $search, $filtetrFields);
+        $this->setFilter($alias, $qb, $search, $filterFields);
 
         $this->setOrder($alias, $qb, $orderBy);
 
@@ -110,7 +110,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
         return $this->createQueryBuilder($alias);
     }
 
-    protected function setFilter(string $alias, QueryBuilder $qb, ?string $search, ?array $filtetrFields): void
+    protected function setFilter(string $alias, QueryBuilder $qb, ?string $search, ?array $filterFields): void
     {
         if (null === $search || '' === $search) {
             return;
@@ -119,8 +119,8 @@ abstract class AbstractRepository extends ServiceEntityRepository
         $filterConditions = [];
         $filterParameters = [];
 
-        if ($filtetrFields !== null) {
-            foreach ($filtetrFields as $field) {
+        if ($filterFields !== null) {
+            foreach ($filterFields as $field) {
                 $filterConditions[] = sprintf('%s LIKE :%s_filter', sprintf('%s.%s', $alias, $field), $field);
                 $filterParameters[sprintf('%s_filter', $field)] = sprintf('%%%s%%', $search);
             }

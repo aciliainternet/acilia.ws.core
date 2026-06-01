@@ -11,7 +11,7 @@ class StorageCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public const TAG = 'storage_service';
+    public const string TAG = 'storage_service';
 
     #[\Override]
     public function process(ContainerBuilder $container): void

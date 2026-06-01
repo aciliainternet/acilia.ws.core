@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InputMultipleType extends AbstractType
 {
-    public const INPUT_MULTIPLE_TYPE_ATTR = [
+    public const array INPUT_MULTIPLE_TYPE_ATTR = [
         'data-controller' => 'ws-input-multiple',
     ];
 

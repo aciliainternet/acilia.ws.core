@@ -11,7 +11,7 @@ class SettingCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public const TAG = 'ws.setting_definition';
+    public const string TAG = 'ws.setting_definition';
 
     #[\Override]
     public function process(ContainerBuilder $container): void

@@ -15,7 +15,7 @@ class CRUDCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public const TAG = 'ws.crud_controller';
+    public const string TAG = 'ws.crud_controller';
 
     #[\Override]
     public function process(ContainerBuilder $container): void
