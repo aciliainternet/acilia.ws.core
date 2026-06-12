@@ -75,9 +75,7 @@ class ActivityLogRepository extends ServiceEntityRepository
         try {
             /** @var int */
             return $qb->getQuery()->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return 0;
-        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException|NoResultException) {
             return 0;
         }
     }

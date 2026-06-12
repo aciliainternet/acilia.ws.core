@@ -10,7 +10,7 @@ use Twig\Loader\FilesystemLoader;
 use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: RequestEvent::class, method: 'setupTemplate', priority: 126)]
-class TemplateListener
+readonly class TemplateListener
 {
     public function __construct(
         private Environment $twigEnvironment,
@@ -21,7 +21,7 @@ class TemplateListener
 
     protected function getTwigLoader(): FilesystemLoader
     {
-        /** @var FilesystemLoader */
+        /** @var FilesystemLoader $loader */
         $loader = $this->twigEnvironment->getLoader();
 
         return $loader;

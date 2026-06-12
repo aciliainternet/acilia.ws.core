@@ -22,7 +22,7 @@ abstract class AbstractService implements DBLoggerInterface
         protected EntityManagerInterface $em,
         protected ContextInterface $context
     ) {
-        /** @var AbstractRepository */
+        /** @var AbstractRepository $repository */
         $repository = $this->em->getRepository($this->getEntityClass());
         $this->repository = $repository;
     }
@@ -39,9 +39,7 @@ abstract class AbstractService implements DBLoggerInterface
                 return null;
             }
 
-            $ref = new \ReflectionClass($this->getEntityClass());
-
-            return $ref->newInstance();
+            return (new \ReflectionClass($this->getEntityClass()))->newInstance();
         } catch (\ReflectionException) {
             return null;
         }

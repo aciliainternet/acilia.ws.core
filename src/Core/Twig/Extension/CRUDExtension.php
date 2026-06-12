@@ -4,39 +4,31 @@ namespace WS\Core\Twig\Extension;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Attribute\AsTwigFunction;
 use Twig\Environment;
-use Twig\Extension\AbstractExtension;
+use Twig\Node\EmptyNode;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
-class CRUDExtension extends AbstractExtension
+class CRUDExtension
 {
     public function __construct(
-        private RequestStack $requestStack,
-        private RouterInterface $router,
-        private TranslatorInterface $translator
+        private readonly RequestStack $requestStack,
+        private readonly RouterInterface $router,
+        private readonly TranslatorInterface $translator,
     ) {
     }
 
-    #[\Override]
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('ws_cms_path', [$this, 'getPath']),
-            new TwigFunction('ws_cms_crud_list_is_date', [$this, 'listIsDate']),
-            new TwigFunction('ws_cms_crud_filter', [$this, 'crudFilter'], ['is_safe' => ['html'], 'needs_environment' => true]),
-        ];
-    }
-
+    #[AsTwigFunction(name: 'ws_cms_path')]
     public function getPath(string $name, array $parameters = [], bool $relative = false): string
     {
-        /** @var Request */
+        /** @var Request $request */
         $request = $this->requestStack->getCurrentRequest();
 
         // fetch context params (if any)
-        /** @var array */
+        /** @var array $routeParams*/
         $routeParams = $request->attributes->get('_route_params');
 
         $contextParams = [];
@@ -55,10 +47,11 @@ class CRUDExtension extends AbstractExtension
         return $this->router->generate(
             $name,
             $parameters,
-            $relative ? RouterInterface::RELATIVE_PATH : RouterInterface::ABSOLUTE_PATH
+            $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH
         );
     }
 
+    #[AsTwigFunction(name: 'ws_cms_crud_list_is_date')]
     public function listIsDate(?\DateTimeInterface $dateTime): string
     {
         if ($dateTime instanceof \DateTimeInterface) {
@@ -68,21 +61,22 @@ class CRUDExtension extends AbstractExtension
         return '-';
     }
 
+    #[AsTwigFunction(name: 'ws_cms_crud_filter', needsEnvironment: true, isSafe: ['html'])]
     public function crudFilter(Environment $environment, string $filter, array $options, mixed $value): mixed
     {
-        /** @var TwigFilter */
+        /** @var TwigFilter $twigFilter */
         $twigFilter = $environment->getFilter($filter);
         if ($twigFilter instanceof TwigFilter) {
             if (\is_callable($twigFilter->getCallable())) {
-                /** @var ?string */
+                /** @var ?string $filteredValue */
                 $filteredValue = call_user_func_array($twigFilter->getCallable(), [$value, $options]);
 
-                $safeContext = $twigFilter->getSafe(new \Twig\Node\EmptyNode());
+                $safeContext = $twigFilter->getSafe(new EmptyNode());
                 if (!is_array($safeContext) || !in_array('html', $safeContext)) {
-                    /** @var TwigFilter */
+                    /** @var TwigFilter $escapeFilter */
                     $escapeFilter = $environment->getFilter('escape');
                     if (\is_callable($escapeFilter->getCallable())) {
-                        /** @var ?string */
+                        /** @var ?string $filteredValue */
                         $filteredValue = call_user_func($escapeFilter->getCallable(), $environment, $filteredValue);
                     }
                 }

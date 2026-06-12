@@ -6,10 +6,10 @@ use WS\Core\Entity\Domain;
 
 interface ContextInterface
 {
-    public const CMS = 'cms';
-    public const SITE = 'site';
-    public const SYMFONY = 'symfony';
-    public const SESSION_DOMAIN = 'ws_domain_id';
+    public const string CMS = 'cms';
+    public const string SITE = 'site';
+    public const string SYMFONY = 'symfony';
+    public const string SESSION_DOMAIN = 'ws_domain_id';
 
     public function setContext(string $context): self;
 

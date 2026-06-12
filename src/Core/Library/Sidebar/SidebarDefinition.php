@@ -4,8 +4,8 @@ namespace WS\Core\Library\Sidebar;
 
 class SidebarDefinition
 {
-    public const SIDEBAR_CONTAINER = true;
-    public const SIDEBAR_CONTENT = false;
+    public const bool SIDEBAR_CONTAINER = true;
+    public const bool SIDEBAR_CONTENT = false;
 
     protected array $container;
     protected array $children;

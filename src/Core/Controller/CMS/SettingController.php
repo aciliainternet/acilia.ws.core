@@ -28,8 +28,7 @@ class SettingController extends AbstractController
         }
 
         if (!$this->isGranted($section->getRole())) {
-            $exception = $this->createAccessDeniedException($this->translator->trans('not_allowed', [], 'ws_cms'));
-            throw $exception;
+            throw $this->createAccessDeniedException($this->translator->trans('not_allowed', [], 'ws_cms'));
         }
 
         return $this->render('@WSCore/cms/setting/index.html.twig', [
@@ -56,11 +55,10 @@ class SettingController extends AbstractController
         }
 
         if (!$this->isGranted($section->getRole())) {
-            $exception = $this->createAccessDeniedException($this->translator->trans('not_allowed', [], 'ws_cms'));
-            throw $exception;
+            throw $this->createAccessDeniedException($this->translator->trans('not_allowed', [], 'ws_cms'));
         }
 
-        /** @var array<string, string> */
+        /** @var array<string, string> $options */
         $options = json_decode((string) $request->getContent(), true);
         foreach ($options as $settingCode => $settingValue) {
             $this->service->save($section, $settingCode, $settingValue);

@@ -6,10 +6,10 @@ use WS\Core\Library\Setting\Definition\Section;
 
 interface SettingDefinitionInterface
 {
-    public const SETTING_TEXT = 'text';
-    public const SETTING_BOOLEAN = 'boolean';
-    public const SETTING_TEXTAREA = 'textarea';
-    public const SETTING_MULTIPLE = 'multiple';
+    public const string SETTING_TEXT = 'text';
+    public const string SETTING_BOOLEAN = 'boolean';
+    public const string SETTING_TEXTAREA = 'textarea';
+    public const string SETTING_MULTIPLE = 'multiple';
 
     /**
      * @return Section[]

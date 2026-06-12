@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: RequestEvent::class, method: 'setupAssetPackage', priority: 125)]
-class AssetPackageListener
+readonly class AssetPackageListener
 {
     public function __construct(
         private ParameterBagInterface $params,

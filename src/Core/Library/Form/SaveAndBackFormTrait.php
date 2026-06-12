@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 trait SaveAndBackFormTrait
 {
-    protected function addSaveAndBackField(FormBuilderInterface $builder)
+    protected function addSaveAndBackField(FormBuilderInterface $builder): void
     {
         $builder
             ->add('saveAndBack', SubmitType::class, [
