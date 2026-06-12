@@ -3,24 +3,16 @@
 namespace WS\Core\Twig\Extension;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
+use Twig\Attribute\AsTwigFilter;
 use WS\Core\Library\Publishing\PublishingEntityInterface;
 
-class PublishingExtension extends AbstractExtension
+class PublishingExtension
 {
     public function __construct(protected TranslatorInterface $translator)
     {
     }
 
-    #[\Override]
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter(PublishingEntityInterface::FILTER_STATUS, [$this, 'getStatus'], ['is_safe' => ['html']])
-        ];
-    }
-
+    #[AsTwigFilter(name: PublishingEntityInterface::FILTER_STATUS, isSafe: ['html'])]
     public function getStatus(?string $status, array $options): string
     {
         if ($status) {
