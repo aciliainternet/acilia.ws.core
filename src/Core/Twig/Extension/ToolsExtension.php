@@ -3,8 +3,11 @@
 namespace WS\Core\Twig\Extension;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Attribute\AsTwigFilter;
+use Twig\Attribute\AsTwigFunction;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
+use Twig\Extension\CoreExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use WS\Core\Entity\Domain;
@@ -14,55 +17,30 @@ use WS\Core\Service\ContextInterface;
 use WS\Core\Service\DashboardService;
 use WS\Core\Service\SettingService;
 
-class ToolsExtension extends AbstractExtension
+class ToolsExtension
 {
     public function __construct(
-        private ContextInterface $context,
-        private AlertService $alertService,
-        private SettingService $settingService,
-        private DashboardService $dashboardService,
-        private TranslatorInterface $translator
+        private readonly ContextInterface $context,
+        private readonly AlertService $alertService,
+        private readonly SettingService $settingService,
+        private readonly DashboardService $dashboardService,
+        private readonly TranslatorInterface $translator
     ) {
     }
 
-    #[\Override]
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('get_current_domain', [$this, 'getCurrentDomain']),
-            new TwigFunction('get_locale_domain', [$this, 'getLocaleDomain']),
-            new TwigFunction('has_locale_domain', [$this, 'hasLocaleDomain']),
-            new TwigFunction('get_domains', [$this, 'getDomains']),
-            new TwigFunction('has_alerts', [$this, 'hasAlerts']),
-            new TwigFunction('get_alerts', [$this, 'getAlerts']),
-            new TwigFunction('get_setting', [$this, 'getSetting']),
-            new TwigFunction('get_setting_sections', [$this, 'getSettingSections']),
-            new TwigFunction('get_form_theme', [$this, 'getFormTheme']),
-            new TwigFunction('get_filter_query', [$this, 'getFilterQuery']),
-            new TwigFunction('get_batch_action_data', [$this, 'getBatchActionData']),
-            new TwigFunction('get_dashboard_widgets', [$this, 'getDashboardWidgets']),
-            new TwigFunction('render_dashboard_widget', [$this, 'renderDashboardWidget'], ['is_safe' => ['html']])
-        ];
-    }
-
-    #[\Override]
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('time_diff', [$this, 'getTimeDiff'], ['needs_environment' => true]),
-        ];
-    }
-
+    #[AsTwigFunction(name: 'get_current_domain')]
     public function getCurrentDomain(): ?Domain
     {
         return $this->context->getDomain();
     }
 
+    #[AsTwigFunction(name: 'get_domains')]
     public function getDomains(): array
     {
         return $this->context->getDomains();
     }
 
+    #[AsTwigFunction(name: 'get_locale_domain')]
     public function getLocaleDomain(string $locale): ?Domain
     {
         foreach ($this->context->getDomains() as $domain) {
@@ -74,6 +52,7 @@ class ToolsExtension extends AbstractExtension
         return null;
     }
 
+    #[AsTwigFunction(name: 'has_locale_domain')]
     public function hasLocaleDomain(string $locale): bool
     {
         foreach ($this->context->getDomains() as $domain) {
@@ -85,27 +64,32 @@ class ToolsExtension extends AbstractExtension
         return false;
     }
 
+    #[AsTwigFunction(name: 'has_alerts')]
     public function hasAlerts(): bool
     {
         $alerts = $this->alertService->getAlerts();
         return count($alerts) > 0;
     }
 
+    #[AsTwigFunction(name: 'get_alerts')]
     public function getAlerts(): array
     {
         return $this->alertService->getAlerts();
     }
 
+    #[AsTwigFunction(name: 'get_setting')]
     public function getSetting(string $setting): ?string
     {
         return $this->settingService->get($setting);
     }
 
+    #[AsTwigFunction(name: 'get_setting_sections')]
     public function getSettingSections(): array
     {
         return $this->settingService->getSections();
     }
 
+    #[AsTwigFunction(name: 'get_form_theme')]
     public function getFormTheme(): string
     {
         if ($this->context->isCMS()) {
@@ -115,6 +99,7 @@ class ToolsExtension extends AbstractExtension
         return 'form_div_layout.html.twig';
     }
 
+    #[AsTwigFunction(name: 'get_filter_query')]
     public function getFilterQuery(array $queryParams, array $filters): string
     {
         $filterPath = '';
@@ -127,35 +112,38 @@ class ToolsExtension extends AbstractExtension
         return $filterPath;
     }
 
+    #[AsTwigFunction(name: 'get_batch_action_data')]
     public function getBatchActionData(string $action): ?array
     {
-        switch ($action) {
-            case AbstractController::DELETE_BATCH_ACTION:
-                return [
-                    'label' => 'delete',
-                    'route' => 'batch_delete',
-                    'title' => 'batch_action.remove_alert_title'
-                ];
-            default:
-                return null;
-        }
+        return match ($action) {
+            AbstractController::DELETE_BATCH_ACTION => [
+                'label' => 'delete',
+                'route' => 'batch_delete',
+                'title' => 'batch_action.remove_alert_title'
+            ],
+            default => null,
+        };
     }
 
+    #[AsTwigFunction(name: 'get_dashboard_widgets')]
     public function getDashboardWidgets(): array
     {
         return $this->dashboardService->getWidgets();
     }
 
+    #[AsTwigFunction(name: 'render_dashboard_widget', isSafe: ['html'])]
     public function renderDashboardWidget(string $widget): string
     {
         return $this->dashboardService->render($widget);
     }
 
+    #[AsTwigFilter(name: 'time_diff', needsEnvironment: true)]
     public function getTimeDiff(Environment $env, \DateTimeInterface $date, ?string $now = null): string
     {
         // Convert both dates to DateTime instances.
-        $date = twig_date_converter($env, $date);
-        $now = twig_date_converter($env, $now);
+        $date = $env->getExtension(CoreExtension::class)->convertDate($date);
+        $now =  $env->getExtension(CoreExtension::class)->convertDate($now);
+
 
         // Get the difference between the two DateTime objects.
         $diff = $date->diff($now);
