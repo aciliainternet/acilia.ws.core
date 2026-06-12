@@ -7,36 +7,27 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
+use Twig\Attribute\AsTwigFunction;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use WS\Core\Service\SidebarService;
 
-class LayoutExtension extends AbstractExtension
+class LayoutExtension
 {
     public function __construct(
-        private RequestStack $requestStack,
-        private SidebarService $sidebarService,
-        private ?AuthorizationCheckerInterface $securityChecker = null
+        private readonly RequestStack $requestStack,
+        private readonly SidebarService $sidebarService,
+        private readonly ?AuthorizationCheckerInterface $securityChecker = null
     ) {
     }
 
-    #[\Override]
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('ws_cms_sidebar_get', [$this, 'getSidebar']),
-            new TwigFunction('ws_cms_sidebar_is_granted', [$this, 'sidebarIsGranted']),
-            new TwigFunction('ws_cms_sidebar_has_asset', [$this, 'sidebarHasAsset']),
-            new TwigFunction('ws_cms_sidebar_get_asset', [$this, 'sidebarGetAsset']),
-            new TwigFunction('ws_cms_in_route', [$this, 'checkIfInRoute'], ['is_safe' => ['html']]),
-        ];
-    }
-
+    #[AsTwigFunction(name: 'ws_cms_sidebar_get')]
     public function getSidebar(): array
     {
         return $this->sidebarService->getSidebar();
     }
 
+    #[AsTwigFunction(name: 'ws_cms_sidebar_is_granted')]
     public function sidebarIsGranted(array $roles): bool
     {
         if (null === $this->securityChecker) {
@@ -44,27 +35,30 @@ class LayoutExtension extends AbstractExtension
         }
 
         try {
-            array_walk($roles, function (&$value) {
+            array_walk($roles, function (&$value): void {
                 $value = sprintf('is_granted(\'%s\')', $value);
             });
 
             return $this->securityChecker->isGranted(new Expression(implode(' or ', $roles)));
-        } catch (AuthenticationCredentialsNotFoundException $e) {
+        } catch (AuthenticationCredentialsNotFoundException) {
             return false;
         }
     }
 
+    #[AsTwigFunction(name: 'ws_cms_sidebar_has_asset')]
     public function sidebarHasAsset(string $key): bool
     {
         return null !== $this->sidebarService->getAsset($key);
     }
 
+    #[AsTwigFunction(name: 'ws_cms_sidebar_get_asset')]
     public function sidebarGetAsset(string $key): ?string
     {
         /** @var ?string */
         return $this->sidebarService->getAsset($key);
     }
 
+    #[AsTwigFunction(name: 'ws_cms_in_route', isSafe: ['html'])]
     public function checkIfInRoute(
         array $routePrefix,
         string $class = 'active',
@@ -73,9 +67,9 @@ class LayoutExtension extends AbstractExtension
     ): string {
         if ($this->requestStack->getMainRequest() instanceof Request) {
             foreach ($routePrefix as $route) {
-                /** @var string */
+                /** @var string $routeName */
                 $routeName = $this->requestStack->getMainRequest()->attributes->get('_route');
-                if (strpos(strval($routeName), $route) === 0) {
+                if (str_starts_with(strval($routeName), (string) $route)) {
                     if ($condition === false) {
                         return '';
                     }
