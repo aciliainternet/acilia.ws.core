@@ -31,7 +31,7 @@ class DomainRepository extends ServiceEntityRepository
         $qb->leftJoin(sprintf('%s.parent', $alias), 'parent');
 
         // order by default domain
-        $qb->orderBy(sprintf('%s.default', $alias), 'DESC');
+        $qb->orderBy(sprintf('%s.default', $alias), \SortDirection::Descending);
 
         /** @var array */
         return $qb->getQuery()->execute();

@@ -35,7 +35,7 @@ trait FieldsTrait
             $fieldName = $attribute->getArguments()['name'] ?? $property->getName();
             $fields[] = [
                 'field' => $fieldName,
-                'dir' => isset($arguments['dir']) ? $arguments['dir'] : 'ASC',
+                'dir' => isset($arguments['dir']) ? $arguments['dir'] : \SortDirection::Ascending,
                 'order' => $arguments['order'] ?? \PHP_INT_MAX
             ];
         }
