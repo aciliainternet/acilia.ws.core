@@ -14,7 +14,7 @@ class SidebarService
 
     public function __construct(
         #[AutowireLocator(SidebarDefinitionInterface::class, defaultPriorityMethod: 'getPriority')]
-        private ServiceLocator $services,
+        private readonly ServiceLocator $services,
     ) {
     }
 
@@ -117,7 +117,7 @@ class SidebarService
         // load sidebar assets
         $this->loadSidebarAssets();
 
-        return isset($this->assets[$key]) ? $this->assets[$key] : null;
+        return $this->assets[$key] ?? null;
     }
 
     private function loadSidebarDefinitions(): void

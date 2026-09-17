@@ -11,8 +11,6 @@ class Section
         protected string $name,
         protected array $options = []
     ) {
-        $this->code = $code;
-        $this->name = $name;
         $this->groups = [];
         $this->options = array_merge([
             'description' => '',

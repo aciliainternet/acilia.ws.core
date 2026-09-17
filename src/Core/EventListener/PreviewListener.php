@@ -8,7 +8,7 @@ use WS\Core\Service\ContextInterface;
 use WS\Core\Service\PreviewService;
 
 #[AsEventListener(event: RequestEvent::class, method: 'onRequest')]
-class PreviewListener
+readonly class PreviewListener
 {
     public function __construct(
         protected PreviewService $previewService,

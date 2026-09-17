@@ -22,7 +22,7 @@ abstract class AbstractService implements DBLoggerInterface
         protected EntityManagerInterface $em,
         protected ContextInterface $context
     ) {
-        /** @var AbstractRepository */
+        /** @var AbstractRepository $repository */
         $repository = $this->em->getRepository($this->getEntityClass());
         $this->repository = $repository;
     }
@@ -39,9 +39,7 @@ abstract class AbstractService implements DBLoggerInterface
                 return null;
             }
 
-            $ref = new \ReflectionClass($this->getEntityClass());
-
-            return $ref->newInstance();
+            return (new \ReflectionClass($this->getEntityClass()))->newInstance();
         } catch (\ReflectionException) {
             return null;
         }
@@ -65,13 +63,13 @@ abstract class AbstractService implements DBLoggerInterface
             if (!in_array($sort, $sortFields)) {
                 throw new \Exception('Sort by this field is not allowed');
             }
-            $orderBy = [(string) $sort => $dir ? strtoupper($dir) : 'ASC'];
+            $orderBy = [(string) $sort => $dir ? strtoupper($dir) : \SortDirection::Ascending];
         } else {
-            $orderBy = ['id' => 'DESC'];
+            $orderBy = ['id' => \SortDirection::Descending];
             if (!empty($this->getSortFields())) {
                 $sortFields = array_slice($this->getSortFields(), 0, 1);
                 if (key($sortFields) === 0) {
-                    $orderBy = [$this->getSortFields()[0] => 'DESC'];
+                    $orderBy = [$this->getSortFields()[0] => \SortDirection::Descending];
                 } else {
                     $orderBy = [key($sortFields) => $sortFields[key($sortFields)]];
                 }

@@ -6,7 +6,7 @@ use Doctrine\ORM\QueryBuilder;
 
 trait PublishingRepositoryTrait
 {
-    protected function setPublishingRestriction(string $alias, QueryBuilder $qb)
+    protected function setPublishingRestriction(string $alias, QueryBuilder $qb): void
     {
         $qb
             ->andWhere(sprintf('%s.publishStatus = :status', $alias))
@@ -16,7 +16,7 @@ trait PublishingRepositoryTrait
             ->setParameter('status', PublishingEntityInterface::STATUS_PUBLISHED);
     }
 
-    protected function filterPublishingStatus(string $alias, QueryBuilder $qb, ?array $filterExtendedData)
+    protected function filterPublishingStatus(string $alias, QueryBuilder $qb, ?array $filterExtendedData): void
     {
         if (is_array($filterExtendedData) && isset($filterExtendedData['publishStatus'])) {
             $qb

@@ -26,13 +26,13 @@ class ActivityLogController extends AbstractController
         }
 
         /** @var int $page */
-        $page = $request->get('page', 1);
+        $page = $request->query->get('page', 1);
         if ($page < 1) {
             $page = 1;
         }
 
         /** @var int $limit */
-        $limit = $request->get('limit', 20);
+        $limit = $request->query->get('limit', 20);
         if (!$limit) {
             $limit = 20;
         }
@@ -59,7 +59,7 @@ class ActivityLogController extends AbstractController
 
         $paginationData = [
             'currentPage' => $page,
-            'url' => $request->get('_route'),
+            'url' => $request->attributes->get('_route'),
             'nbPages' => ceil($data['total'] / $limit),
             'currentCount' => count($data['data']),
             'totalCount' => $data['total'],

@@ -42,7 +42,7 @@ class TranslationController extends AbstractController
                 Response::HTTP_BAD_REQUEST
             );
         }
-        /** @var array */
+        /** @var array $translations */
         $translations = json_decode((string) $request->getContent(), true);
 
         try {
@@ -51,7 +51,7 @@ class TranslationController extends AbstractController
                 ['msg' => $this->translator->trans('save_success', [], 'ws_cms_translation')],
                 Response::HTTP_OK
             );
-        } catch (\Exception $e) {
+        } catch (\Exception) {
         }
 
         return $this->json(

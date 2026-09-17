@@ -11,7 +11,7 @@ class FactoryCollectorCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public const TAG = 'ws.factory_collector';
+    public const string TAG = 'ws.factory_collector';
 
     #[\Override]
     public function process(ContainerBuilder $container): void

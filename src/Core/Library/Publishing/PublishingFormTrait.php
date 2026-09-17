@@ -8,13 +8,13 @@ use WS\Core\Library\Form\DateTimePickerType;
 
 trait PublishingFormTrait
 {
-    protected function addPublishingFields(FormBuilderInterface $builder, bool $required = false)
+    protected function addPublishingFields(FormBuilderInterface $builder, bool $required = false): void
     {
         $this->addPublishingFieldStatus($builder, $required);
         $this->addPublishingFieldDates($builder);
     }
 
-    protected function addPublishingFieldStatus(FormBuilderInterface $builder, bool $required = false)
+    protected function addPublishingFieldStatus(FormBuilderInterface $builder, bool $required = false): void
     {
         $publishingOptions = [
             'publishing.publishStatus.draft.label' => PublishingEntityInterface::STATUS_DRAFT,
@@ -35,7 +35,7 @@ trait PublishingFormTrait
         ;
     }
 
-    protected function addPublishingFieldDates(FormBuilderInterface $builder)
+    protected function addPublishingFieldDates(FormBuilderInterface $builder): void
     {
         $builder
             ->add('publishSince', DateTimePickerType::class, [

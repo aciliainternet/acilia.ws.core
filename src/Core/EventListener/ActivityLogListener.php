@@ -23,7 +23,7 @@ use WS\Core\Service\ContextInterface;
 #[AsDoctrineListener(event: Events::preUpdate)]
 #[AsDoctrineListener(event: Events::postPersist)]
 #[AsDoctrineListener(event: Events::preRemove)]
-class ActivityLogListener
+readonly class ActivityLogListener
 {
     public function __construct(
         private LoggerInterface $logger,

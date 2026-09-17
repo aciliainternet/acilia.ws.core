@@ -38,9 +38,9 @@ class AssetImageService implements FactoryCollectorInterface
             if (!in_array($sort, $this->getSortFields())) {
                 throw new \Exception('Sort by this field is not allowed');
             }
-            $orderBy = [(string) $sort => $dir ? strtoupper($dir) : 'ASC'];
+            $orderBy = [(string) $sort => $dir ? strtoupper($dir) : \SortDirection::Ascending];
         } else {
-            $orderBy = ['id' => 'DESC'];
+            $orderBy = ['id' => \SortDirection::Descending];
         }
 
         // list only visible asset images

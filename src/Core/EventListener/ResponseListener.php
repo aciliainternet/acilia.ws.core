@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: ResponseEvent::class, method: 'onResponse', priority: -512)]
-class ResponseListener
+readonly class ResponseListener
 {
     public function __construct(
         private array $config,

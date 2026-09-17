@@ -11,7 +11,7 @@ class PreviewCompilerPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public const TAG = 'ws.preview';
+    public const string TAG = 'ws.preview';
 
     #[\Override]
     public function process(ContainerBuilder $container): void

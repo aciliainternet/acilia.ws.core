@@ -72,14 +72,14 @@ class ArchiveCommand extends Command
             $output->write('Archiving logs... ');
             $stmt = $connection->prepare('INSERT INTO ws_log_archive SELECT * FROM ws_log WHERE log_datetime < ?');
             $stmt->bindValue(1, $now->format('Y-m-d'));
-            $stmt->execute();
+            $stmt->executeQuery();
             $output->writeln('OK');
 
             // Delete logs
             $output->write('Deleting logs... ');
             $stmt = $connection->prepare('DELETE FROM ws_log WHERE log_datetime < ?');
             $stmt->bindValue(1, $now->format('Y-m-d'));
-            $stmt->execute();
+            $stmt->executeQuery();
             $output->writeln('OK');
 
             if (is_numeric($purge)) {
@@ -91,7 +91,7 @@ class ArchiveCommand extends Command
                 $output->write('Purge Archived logs... ');
                 $stmt = $connection->prepare('DELETE FROM ws_log_archive WHERE log_datetime < ?');
                 $stmt->bindValue(1, $now->format('Y-m-d'));
-                $stmt->execute();
+                $stmt->executeQuery();
                 $output->writeln('OK');
             }
 

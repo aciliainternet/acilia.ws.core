@@ -10,9 +10,9 @@ use WS\Core\Repository\DomainRepository;
 #[ORM\UniqueConstraint(columns: ['domain_host', 'domain_locale'])]
 class Domain
 {
-    public const CANONICAL = 'canonical';
-    public const ALIAS = 'alias';
-    public const REDIRECT = 'redirect';
+    public const string CANONICAL = 'canonical';
+    public const string ALIAS = 'alias';
+    public const string REDIRECT = 'redirect';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

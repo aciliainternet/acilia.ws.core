@@ -21,10 +21,10 @@ class DataExportService
             throw new \Exception(sprintf('Export format "%s" is not allowed', $format));
         }
 
-        /** @var DataExportProviderInterface $dataExportProvierService */
-        $dataExportProvierService = $this->exporters->get($format);
+        /** @var DataExportProviderInterface $dataExportProviderService */
+        $dataExportProviderService = $this->exporters->get($format);
 
-        return $dataExportProvierService->export($data);
+        return $dataExportProviderService->export($data);
     }
 
     public function headers(string $format): array

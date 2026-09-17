@@ -2,6 +2,7 @@
 
 namespace WS\Core\Command\Image;
 
+use Intervention\Image\Encoders\AutoEncoder;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -46,10 +47,10 @@ class DynamicResizeCommand extends Command
 
             try {
                 $newImage = $this->imageService->dynamicResize($requestedFile, $originalFile, intval($matches[4]), intval($matches[5]));
-                header(sprintf('Content-Type: %s', $newImage->mime()));
+                header(sprintf('Content-Type: %s', $newImage->origin()->mediaType()));
                 header('x-rendered-by: ws-dynamic-resize');
-                echo $newImage->encode(null, 75);
-            } catch (\Exception $e) {
+                echo $newImage->encode(new AutoEncoder(quality: 75));
+            } catch (\Exception) {
                 header('HTTP/1.1 404 Not Found');
                 echo 'Unable to render image.';
             }

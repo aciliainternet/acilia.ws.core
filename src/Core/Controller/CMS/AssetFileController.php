@@ -22,7 +22,7 @@ class AssetFileController extends AbstractController
     public function save(Request $request): JsonResponse
     {
         if ($request->files->has('asset')) {
-            /** @var UploadedFile */
+            /** @var UploadedFile $file */
             $file = $request->files->get('asset');
 
             $assetFile = $this->service->handleStandalone($file, [

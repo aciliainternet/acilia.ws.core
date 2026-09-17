@@ -16,7 +16,7 @@ class ActivityLog implements DomainDependantInterface
     use DomainDependantTrait;
 
     #[ORM\Id]
-    #[ORM\Column(type: 'integer', name: 'activity_log_id')]
+    #[ORM\Column(name: 'activity_log_id', type: 'integer')]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id;
 
@@ -26,19 +26,19 @@ class ActivityLog implements DomainDependantInterface
 
     #[Assert\Length(max: 128)]
     #[Assert\NotBlank]
-    #[ORM\Column(type: 'string', length: 128, name: 'activity_log_model', nullable: false)]
+    #[ORM\Column(name: 'activity_log_model', type: 'string', length: 128, nullable: false)]
     private string $model;
 
     #[Assert\NotBlank]
-    #[ORM\Column(type: 'integer', name: 'activity_log_model_id', nullable: false)]
+    #[ORM\Column(name: 'activity_log_model_id', type: 'integer', nullable: false)]
     private int $modelId;
 
     #[Assert\Length(max: 128)]
     #[Assert\NotBlank]
-    #[ORM\Column(type: 'string', length: 128, name: 'activity_log_action', nullable: false)]
+    #[ORM\Column(name: 'activity_log_action', type: 'string', length: 128, nullable: false)]
     private string $action;
 
-    #[ORM\Column(type: 'json', name: 'activity_log_changes', nullable: true)]
+    #[ORM\Column(name: 'activity_log_changes', type: 'json', nullable: true)]
     private array $changes;
 
     private ?array $parsedChanges = null;

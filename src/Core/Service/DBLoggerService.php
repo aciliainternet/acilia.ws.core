@@ -5,14 +5,13 @@ namespace WS\Core\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Level;
-use Monolog\Logger;
 use Monolog\LogRecord;
 
 class DBLoggerService extends AbstractProcessingHandler
 {
     public function __construct(
         protected EntityManagerInterface $em,
-        int | string | Level $level = Logger::DEBUG,
+        int | string | Level $level = Level::Debug,
         bool $bubble = true
     ) {
         parent::__construct($level, $bubble);

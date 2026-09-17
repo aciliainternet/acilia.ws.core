@@ -52,7 +52,7 @@ class ActivityLogRepository extends ServiceEntityRepository
 
         $this->setFilters($filters, $qb);
 
-        $qb->orderBy(sprintf('%s.id', $alias), 'DESC');
+        $qb->orderBy(sprintf('%s.id', $alias), \SortDirection::Descending);
 
         if (isset($limit) && isset($offset)) {
             $qb->setFirstResult($offset);
@@ -75,9 +75,7 @@ class ActivityLogRepository extends ServiceEntityRepository
         try {
             /** @var int */
             return $qb->getQuery()->getSingleScalarResult();
-        } catch (NonUniqueResultException $e) {
-            return 0;
-        } catch (NoResultException $e) {
+        } catch (NonUniqueResultException|NoResultException) {
             return 0;
         }
     }

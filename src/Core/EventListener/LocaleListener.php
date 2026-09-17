@@ -8,9 +8,9 @@ use WS\Core\Entity\Domain;
 use WS\Core\Service\ContextInterface;
 
 #[AsEventListener(event: RequestEvent::class, method: 'setupLocale', priority: 99)]
-class LocaleListener
+readonly class LocaleListener
 {
-    public const SESSION_CMS_LOCALE = 'ws_cms_locale';
+    public const string SESSION_CMS_LOCALE = 'ws_cms_locale';
 
     public function __construct(private ContextInterface $context)
     {

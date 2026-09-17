@@ -35,7 +35,7 @@ class AdministratorController extends AbstractController
     #[IsGranted('ROLE_WS_CORE_PROFILE', message: 'not_allowed')]
     public function profile(Request $request): Response
     {
-        /** @var object */
+        /** @var object $administrator */
         $administrator = $this->getUser();
 
         $form = $this->createForm(
