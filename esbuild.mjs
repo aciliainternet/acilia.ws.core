@@ -1,10 +1,10 @@
 /* eslint-disable quotes */
+import fs from 'node:fs';
 import * as dotenv from 'dotenv';
-import { build } from 'esbuild';
+import { build, context } from 'esbuild';
 import esbuildPluginTsc from 'esbuild-plugin-tsc';
 import manifestPlugin from 'esbuild-plugin-manifest';
 import { sassPlugin } from 'esbuild-sass-plugin';
-import { cleanPlugin } from 'esbuild-clean-plugin';
 import copy from 'esbuild-copy-files-plugin';
 
 dotenv.config();
@@ -32,7 +32,12 @@ const entryPoints = [
   'src/Core/Resources/assets/cms/ts/core.ts',
 ];
 
-build({
+const outdir = 'src/Core/Resources/public';
+if (fs.existsSync(outdir)) {
+  fs.rmSync(outdir, { recursive: true, force: true });
+}
+
+const buildOptions = {
   entryPoints,
   metafile: true,
   bundle: true,
@@ -41,10 +46,9 @@ build({
   format: 'iife',
   treeShaking: true,
   logLevel: 'info',
-  watch: isWatch,
   target: ['es2018'],
   outbase: 'src/Core/Resources/assets/cms',
-  outdir: 'src/Core/Resources/public',
+  outdir,
   loader: {
     '.eot': 'file',
     '.ttf': 'file',
@@ -56,9 +60,6 @@ build({
   },
   assetNames: '[dir]/[name]',
   plugins: [
-    cleanPlugin({
-      initialCleanPatterns: ['**/*'],
-    }),
     {
       name: 'resolveFonts',
       setup(bld) {
@@ -96,4 +97,11 @@ build({
       force: true,
     }),
   ],
-});
+};
+
+if (isWatch) {
+  const ctx = await context(buildOptions);
+  await ctx.watch();
+} else {
+  await build(buildOptions);
+}
