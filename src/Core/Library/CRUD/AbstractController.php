@@ -449,7 +449,7 @@ abstract class AbstractController extends BaseController
         $this->preExportFetchData($request);
 
         // Search simple
-        $search = strval($request->get('f'));
+        $search = strval($request->query->get('f'));
 
         // Filter extended
         $filterExtended = $this->getFilterExtendedForm();
@@ -467,12 +467,12 @@ abstract class AbstractController extends BaseController
         $data = $this->exportFetchData(
             $search,
             $filterExtendedData,
-            \strval($request->get('sort')),
-            \strval($request->get('dir'))
+            \strval($request->query->get('sort')),
+            \strval($request->query->get('dir'))
         );
 
         // Set format
-        $format = strtolower(strval($request->get('format', CsvExportProvider::EXPORT_FORMAT)));
+        $format = strtolower(strval($request->query->get('format', CsvExportProvider::EXPORT_FORMAT)));
 
         $content = $this->dataExportService->export($data, $format);
         $headers = $this->dataExportService->headers($format);
